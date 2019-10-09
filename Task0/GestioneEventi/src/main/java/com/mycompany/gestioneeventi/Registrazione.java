@@ -3,7 +3,9 @@ package com.mycompany.gestioneeventi;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
@@ -17,8 +19,9 @@ public class Registrazione extends Pane {
     protected final TextField textField3;
     protected final TextField textField4;
     protected final Button button;
-    protected final CheckBox checkBox;
-    protected final CheckBox checkBox0;
+    protected final RadioButton r1;
+    protected final RadioButton r2;
+    protected final ToggleGroup tg;
 
     public Registrazione() {
 
@@ -30,8 +33,11 @@ public class Registrazione extends Pane {
         textField3 = new TextField();
         textField4 = new TextField();
         button = new Button();
-        checkBox = new CheckBox();
-        checkBox0 = new CheckBox();
+        tg = new ToggleGroup();
+        r1 = new RadioButton("Organizzatore"); 
+        r2 = new RadioButton("Parteciante"); 
+        r1.setToggleGroup(tg); 
+        r2.setToggleGroup(tg);
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -85,19 +91,19 @@ public class Registrazione extends Pane {
         button.setPrefWidth(149.0);
         button.setText("REGISTRATI");
 
-        checkBox.setLayoutX(226.0);
-        checkBox.setLayoutY(328.0);
-        checkBox.setMnemonicParsing(false);
-        checkBox.setPrefHeight(17.0);
-        checkBox.setPrefWidth(123.0);
-        checkBox.setText("Partecipante");
+        r1.setLayoutX(226.0);
+        r1.setLayoutY(328.0);
+        r1.setMnemonicParsing(false);
+        r1.setPrefHeight(17.0);
+        r1.setPrefWidth(123.0);
+        
 
-        checkBox0.setLayoutX(226.0);
-        checkBox0.setLayoutY(356.0);
-        checkBox0.setMnemonicParsing(false);
-        checkBox0.setPrefHeight(17.0);
-        checkBox0.setPrefWidth(138.0);
-        checkBox0.setText("Organizzatore");
+        r2.setLayoutX(226.0);
+        r2.setLayoutY(356.0);
+        r2.setMnemonicParsing(false);
+        r2.setPrefHeight(17.0);
+        r2.setPrefWidth(138.0);
+        
 
         getChildren().add(textField);
         getChildren().add(label);
@@ -107,8 +113,11 @@ public class Registrazione extends Pane {
         getChildren().add(textField3);
         getChildren().add(textField4);
         getChildren().add(button);
-        getChildren().add(checkBox);
-        getChildren().add(checkBox0);
+        
+        
+        getChildren().add(r1); 
+        getChildren().add(r2); 
+        
 
     }
 }

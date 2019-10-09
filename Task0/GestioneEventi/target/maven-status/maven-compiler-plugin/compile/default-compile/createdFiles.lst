@@ -1,6 +1,5 @@
 SceneBase.class
 com\mycompany\gestioneeventi\Registrazione.class
-com\mycompany\gestioneeventi\LoginPage$1.class
 com\mycompany\gestioneeventi\MainApp.class
 com\mycompany\gestioneeventi\Partecipante.class
 com\mycompany\gestioneeventi\Organizzatore.class

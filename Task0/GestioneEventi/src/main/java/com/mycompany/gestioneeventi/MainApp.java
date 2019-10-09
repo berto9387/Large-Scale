@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     Stage window;
-    Scene scene1, scene2
+    Scene scene1, scene2;
     
     @Override
     public void start(Stage stage) throws Exception {

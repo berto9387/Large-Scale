@@ -44,7 +44,7 @@ public class LoginPage extends AnchorPane
         
         Registrazione reg = new Registrazione();
         Group root = new Group(reg);
-        scene1 = new Scene(root, 280, 500);
+        scene1 = new Scene(root, 600, 500);
         
 
         setId("AnchorPane");
