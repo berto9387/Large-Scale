@@ -12,8 +12,12 @@ import java.util.*;
  * @author tony_
  */
 public class Partecipante extends User{
+    public Partecipante(){
     
-    public Partecipante(String nome, String cognome, Date data_nascita, String email,String username){
-        super(nome, cognome, data_nascita, email, username);
+    }
+    public Partecipante(String nome, String cognome, Date data_nascita, String email,String username, String telefono,String password){
+        
+        super(nome, cognome, data_nascita, email, username, telefono,password);
+        
     }
 }

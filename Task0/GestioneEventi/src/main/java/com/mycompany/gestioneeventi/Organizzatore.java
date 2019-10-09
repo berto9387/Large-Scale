@@ -14,7 +14,7 @@ import java.util.Date;
 public class Organizzatore extends User{
     
     
-    public Organizzatore(String nome, String cognome, Date data_nascita, String email,String username){
-        super(nome, cognome, data_nascita, email, username);
+    public Organizzatore(String nome, String cognome, Date data_nascita, String email,String username,String telefono,String password){
+        super(nome, cognome, data_nascita, email, username, telefono,password);
     }
 }

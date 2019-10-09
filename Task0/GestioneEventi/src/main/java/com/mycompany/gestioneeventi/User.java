@@ -18,12 +18,17 @@ public class User {
     String email;
     String password;
     String username;
+    String telefono;
+    protected User(){
     
-    protected User(String nome,String cognome,Date data_nascita,String email, String username){
+    }
+    protected User(String nome,String cognome,Date data_nascita,String email, String username, String telefono,String password){
         this.nome = nome;
         this.cognome = cognome;
         this.data_nascita = data_nascita;
         this.email = email;
-        this.username = username; 
+        this.username = username;
+        this.telefono = telefono;
+        this.password = password;
     }
 }

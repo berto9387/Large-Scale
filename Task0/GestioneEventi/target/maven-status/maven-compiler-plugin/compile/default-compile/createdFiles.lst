@@ -1,7 +1,9 @@
 SceneBase.class
 com\mycompany\gestioneeventi\Registrazione.class
+com\mycompany\gestioneeventi\InserimentoDb.class
 com\mycompany\gestioneeventi\MainApp.class
 com\mycompany\gestioneeventi\Partecipante.class
+com\mycompany\gestioneeventi\DAO.class
 com\mycompany\gestioneeventi\Organizzatore.class
 com\mycompany\gestioneeventi\LoginPage.class
 com\mycompany\gestioneeventi\User.class

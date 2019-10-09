@@ -1,5 +1,9 @@
 package com.mycompany.gestioneeventi;
 
+
+import java.sql.Date;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -22,9 +26,12 @@ public class Registrazione extends Pane {
     protected final RadioButton r1;
     protected final RadioButton r2;
     protected final ToggleGroup tg;
+    private final InserimentoDb insert;
 
     public Registrazione() {
-
+        this.insert = new InserimentoDb();
+        
+        
         textField = new TextField();
         label = new Label();
         textField0 = new TextField();
@@ -90,6 +97,17 @@ public class Registrazione extends Pane {
         button.setPrefHeight(17.0);
         button.setPrefWidth(149.0);
         button.setText("REGISTRATI");
+        button.setOnAction((ActionEvent e) -> {
+            String Nome=textField0.getText();
+            String Cognome=textField1.getText();
+            String sData=textField.getText();
+            Date Data=Date.valueOf(sData);
+            String Email=textField2.getText();
+            String Phone="3333333333";
+            String Password=textField4.getText();
+            String Username=textField3.getText();
+            insert.createContactPerson(Nome, Cognome, Data, Email,Username, Phone,Password);
+        });
 
         r1.setLayoutX(226.0);
         r1.setLayoutY(328.0);
