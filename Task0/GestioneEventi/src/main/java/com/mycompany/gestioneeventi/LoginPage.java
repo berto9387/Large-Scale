@@ -28,7 +28,7 @@ public class LoginPage extends GeneralGrafic
     protected final Hyperlink hyperlink;
     protected final TextField textField;
     protected final TextField textField0;
-    
+    protected final ManagerDb mdb;
    
    
 
@@ -41,7 +41,7 @@ public class LoginPage extends GeneralGrafic
         hyperlink = new Hyperlink();
         textField = new TextField();
         textField0 = new TextField();
-        
+        mdb = new ManagerDb();
         
         Registrazione reg = new Registrazione();
 
@@ -62,7 +62,22 @@ public class LoginPage extends GeneralGrafic
         button.setLayoutY(207.0);
         button.setMnemonicParsing(false);
         button.setText("Login partecipante");
-
+        button.setOnAction((ActionEvent ev)->{
+             String email = textField.getText();
+            String password = textField.getText();
+            utente=mdb.loginPartecipante(email, password);});
+            if(utente==null)
+            {
+                Label errore = new Label();
+                errore.setText("Email o password sbagliati riprova");
+                errore.setStyle("-fx-text-fill: red;");
+                errore.setLayoutX(126.0);
+                errore.setLayoutY(289.0);
+                label.setPrefHeight(17.0);
+                label.setPrefWidth(267.0);
+                getChildren().add(label);
+            }
+        
         label0.setAlignment(javafx.geometry.Pos.CENTER);
         label0.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
         label0.setLayoutX(115.0);
@@ -78,7 +93,23 @@ public class LoginPage extends GeneralGrafic
         button0.setLayoutY(207.0);
         button0.setMnemonicParsing(false);
         button0.setText("Login organizzatore");
-
+        button0.setOnAction((ActionEvent ev)->{
+            String email = textField.getText();
+            String password = textField.getText();
+            mdb.loginOrganizzatore(email, password);
+                    if(utente==null)
+            {
+                Label errore = new Label();
+                errore.setText("Email o password sbagliati riprova");
+                errore.setStyle("-fx-text-fill: red;");
+                errore.setLayoutX(126.0);
+                errore.setLayoutY(289.0);
+                label.setPrefHeight(17.0);
+                label.setPrefWidth(267.0);
+                getChildren().add(label);
+            }});
+        
+        
         hyperlink.setLayoutX(107.0);
         hyperlink.setLayoutY(269.0);
         hyperlink.setPrefHeight(26.0);

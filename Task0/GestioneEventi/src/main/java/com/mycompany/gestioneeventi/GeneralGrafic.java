@@ -17,6 +17,7 @@ public class GeneralGrafic extends AnchorPane{
     protected static Scene mainScene;
     protected static Group mainGroup;
     protected static Stage mainStage;
+    protected static User utente;
     public static void setParameters(Scene scene,Group group,Stage stage)
     {
         mainScene=scene;

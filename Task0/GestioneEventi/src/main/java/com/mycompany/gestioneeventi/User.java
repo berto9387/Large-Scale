@@ -12,6 +12,7 @@ import java.util.Date;
  * @author tony_
  */
 public class User {
+    boolean organizzatore;
     String nome;
     String cognome;
     Date data_nascita;
@@ -22,7 +23,7 @@ public class User {
     protected User(){
     
     }
-    protected User(String nome,String cognome,Date data_nascita,String email, String username, String telefono,String password){
+    protected User(String nome,String cognome,Date data_nascita,String email, String username, String telefono,String password,boolean organizzatore){
         this.nome = nome;
         this.cognome = cognome;
         this.data_nascita = data_nascita;
@@ -30,5 +31,6 @@ public class User {
         this.username = username;
         this.telefono = telefono;
         this.password = password;
+        this.organizzatore=organizzatore;
     }
 }

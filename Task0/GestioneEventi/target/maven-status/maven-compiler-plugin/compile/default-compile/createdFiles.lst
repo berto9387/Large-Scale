@@ -1,10 +1,8 @@
 com\mycompany\gestioneeventi\Registrazione.class
-com\mycompany\gestioneeventi\MainApp.class
-com\mycompany\gestioneeventi\Partecipante.class
-com\mycompany\gestioneeventi\DAO.class
 com\mycompany\gestioneeventi\GeneralGrafic.class
+com\mycompany\gestioneeventi\MainApp.class
 com\mycompany\gestioneeventi\ManagerDb.class
-com\mycompany\gestioneeventi\Organizzatore.class
+com\mycompany\gestioneeventi\DAO.class
 com\mycompany\gestioneeventi\LoginPage.class
 com\mycompany\gestioneeventi\User.class
 com\mycompany\gestioneeventi\GraficLoader.class

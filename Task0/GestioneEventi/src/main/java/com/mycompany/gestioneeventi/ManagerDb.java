@@ -6,9 +6,12 @@
 package com.mycompany.gestioneeventi;
 
 import java.sql.*;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.*;
 
 public class ManagerDb implements DAO {
+    
     private int controllaEsistenza(String Email,int Ruolo){
         String sql;
         int esito=0;
@@ -33,7 +36,7 @@ public class ManagerDb implements DAO {
         }
       return esito;
     }
-   public int inserisciOrganizzatore(String nome, String cognome, Date data_nascita, String email,String username, String telefono,String password) {
+   public int inserisciOrganizzatore(String nome, String cognome, java.sql.Date data_nascita, String email,String username, String telefono,String password) {
       if(controllaEsistenza(email, 0)==0){
           return 0;
       } 
@@ -52,7 +55,7 @@ public class ManagerDb implements DAO {
       return 1;
       
    }
-   public int inserisciPartecipante(String nome, String cognome, Date data_nascita, String email,String username, String telefono,String password) {
+   public int inserisciPartecipante(String nome, String cognome, java.sql.Date data_nascita, String email,String username, String telefono,String password) {
        if(controllaEsistenza(email, 1)==0){
           return 0;
       }
@@ -69,9 +72,52 @@ public class ManagerDb implements DAO {
           ex.printStackTrace();
       }
       return 1;
+     
+
       
    }
    
-
+      public User loginPartecipante(String email,String password)
+      {
+          User utente=null;
+          try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps= con.prepareStatement("SELECT * FROM partecipante WHERE email=? AND password =? "))
+          {
+              ps.setString(1, email);
+              ps.setString(2,password);
+              ResultSet rs = ps.executeQuery();
+              if(rs.next())
+              {
+                  java.util.Date data_nascita=rs.getDate("data_nascita");
+                  utente= new User(rs.getString("nome"),rs.getString("cognome"),data_nascita,
+                          rs.getString("email"),rs.getString("username"),rs.getString("phone"),rs.getString("password"),false);
+              }
+          } 
+          catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+          return utente;
+      }
+      public User loginOrganizzatore(String email,String password)
+      {
+          User utente=null;
+          try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps= con.prepareStatement("SELECT * FROM organizzatore WHERE email=? AND password =? "))
+          {
+              ps.setString(1, email);
+              ps.setString(2,password);
+              ResultSet rs = ps.executeQuery();
+              if(rs.next())
+              {
+                  java.util.Date data_nascita=rs.getDate("data_nascita");
+                  utente= new User(rs.getString("nome"),rs.getString("cognome"),data_nascita,
+                          rs.getString("email"),rs.getString("username"),rs.getString("phone"),rs.getString("password"),true);
+              }
+          } 
+          catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+          return utente;
+      }
   
 }
