@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS task_0.Partecipante;
 
 CREATE TABLE IF NOT EXISTS task_0.Organizzatore
 (
-id_Organizatore INTEGER,
+id_Organizatore INTEGER AUTO_INCREMENT,
 nome VARCHAR(255),
 cognome VARCHAR(255),
 data_nascita DATE,
@@ -44,7 +44,7 @@ PRIMARY KEY (id_Organizatore)
 
 CREATE TABLE IF NOT EXISTS task_0.Evento
 (
-id INTEGER,
+id INTEGER AUTO_INCREMENT,
 nome VARCHAR(255),
 luogo VARCHAR(255),
 data DATE,
@@ -64,7 +64,7 @@ PRIMARY KEY (id)
 
 CREATE TABLE IF NOT EXISTS task_0.Partecipante
 (
-id_Partecipante INTEGER,
+id_Partecipante INTEGER AUTO_INCREMENT,
 nome VARCHAR(255),
 cognome VARCHAR(255),
 data_nascita DATE,
@@ -81,7 +81,7 @@ PRIMARY KEY (id_Partecipante)
 
 CREATE TABLE IF NOT EXISTS task_0.Partecipa
 (
-id INTEGER,
+id INTEGER AUTO_INCREMENT,
 Utente INTEGER,
 evento INTEGER,
 PRIMARY KEY (id)
