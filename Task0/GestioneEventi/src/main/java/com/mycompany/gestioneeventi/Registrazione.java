@@ -30,15 +30,10 @@ public class Registrazione extends Pane {
     protected final RadioButton r2;
     protected final ToggleGroup tg;
     private final ManagerDb insert;
-    private Group groupRoot;
     
-    public void inserisciGroup(Group groupRoot)
-    {
-        this.groupRoot=groupRoot;
-    }
     
     public Registrazione() {
-        LoginPage login = new LoginPage();
+        
         this.insert = new ManagerDb();
         textField = new TextField();
         label = new Label();
@@ -129,7 +124,6 @@ public class Registrazione extends Pane {
             if(errore==0){
                 //gestire duplicazione email 
             }else{
-                GraficLoader.Loader(this, login,groupRoot );
             }
         });
 
