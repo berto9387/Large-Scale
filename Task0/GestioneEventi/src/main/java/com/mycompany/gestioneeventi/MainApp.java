@@ -10,15 +10,11 @@ import javafx.stage.Stage;
 
 
 public class MainApp extends Application {
-
-    Stage window;
-    Scene scene1, scene2;
     
     @Override
     public void start(Stage stage) throws Exception {
-        //Prent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
         
-        window = stage;
+        
         
         LoginPage login = new LoginPage();
         Group root = new Group(login);

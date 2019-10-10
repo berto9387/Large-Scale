@@ -34,8 +34,6 @@ public class LoginPage extends GeneralGrafic
 
     public LoginPage() {
         
-        //window = scene;
-        
         label = new Label();
         button = new Button();
         label0 = new Label();
@@ -47,8 +45,7 @@ public class LoginPage extends GeneralGrafic
         
         Registrazione reg = new Registrazione();
 
-        //Group root = new Group(reg);
-        //scene1 = new Scene(root, 600, 500);
+        
         
 
         setId("AnchorPane");

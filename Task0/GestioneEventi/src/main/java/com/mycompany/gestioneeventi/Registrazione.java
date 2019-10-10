@@ -35,6 +35,7 @@ public class Registrazione extends GeneralGrafic {
     
     public Registrazione() {
         
+        //LoginPage login = new LoginPage();
         this.insert = new ManagerDb();
         textField = new TextField();
         label = new Label();
@@ -126,7 +127,7 @@ public class Registrazione extends GeneralGrafic {
                 //gestire duplicazione email 
             }else{
 
-               // GraficLoader.Loader(this,login,mainGroup );
+               GraficLoader.Loader(this,new LoginPage(),mainGroup );
 
             }
         });
