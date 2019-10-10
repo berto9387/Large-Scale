@@ -51,6 +51,7 @@ public class LoginPage extends AnchorPane
         
         
         Registrazione reg = new Registrazione();
+        reg.inserisciGroup(groupRoot);
         //Group root = new Group(reg);
         //scene1 = new Scene(root, 600, 500);
         
