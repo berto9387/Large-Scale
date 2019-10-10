@@ -124,11 +124,16 @@ public class Registrazione extends GeneralGrafic {
                errore=insert.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
             }
             if(errore==0){
-                //gestire duplicazione email 
+                Label label = new Label();
+                label.setText("Email esistente,effettuare il login");
+                label.setStyle("-fx-text-fill: red;");
+                label.setLayoutX(226.0);
+                label.setLayoutY(373.0);
+                label.setPrefHeight(17.0);
+                label.setPrefWidth(267.0);
+                getChildren().add(label);
             }else{
-
                GraficLoader.Loader(this,new LoginPage(),mainGroup );
-
             }
         });
 
