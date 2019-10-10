@@ -20,8 +20,8 @@ import javafx.stage.*;
  *
  * @author tony_
  */
-public class LoginPage extends AnchorPane
-{    protected final Label label;
+public class LoginPage extends GeneralGrafic
+{   protected final Label label;
     protected final Button button;
     protected final Label label0;
     protected final Button button0;
@@ -29,13 +29,8 @@ public class LoginPage extends AnchorPane
     protected final TextField textField;
     protected final TextField textField0;
     
-    private Group groupRoot;
    
-    
-    public void inserisciGroup(Group groupRoot)
-    {
-        this.groupRoot=groupRoot;
-    }
+   
 
     public LoginPage() {
         
@@ -51,6 +46,7 @@ public class LoginPage extends AnchorPane
         
         
         Registrazione reg = new Registrazione();
+
         //Group root = new Group(reg);
         //scene1 = new Scene(root, 600, 500);
         
@@ -91,7 +87,7 @@ public class LoginPage extends AnchorPane
         hyperlink.setPrefHeight(26.0);
         hyperlink.setPrefWidth(108.0);
         hyperlink.setText("Non sei registrato?");
-        hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, reg,groupRoot );});
+        hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, reg,mainGroup );});
         
         textField.setAlignment(javafx.geometry.Pos.CENTER);
         textField.setLayoutX(85.0);

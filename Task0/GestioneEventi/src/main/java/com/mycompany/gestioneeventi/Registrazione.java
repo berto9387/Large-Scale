@@ -16,7 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class Registrazione extends Pane {
+public class Registrazione extends GeneralGrafic {
 
     protected final TextField textField;
     protected final Label label;
@@ -30,6 +30,7 @@ public class Registrazione extends Pane {
     protected final RadioButton r2;
     protected final ToggleGroup tg;
     private final ManagerDb insert;
+
     
     
     public Registrazione() {
@@ -124,6 +125,9 @@ public class Registrazione extends Pane {
             if(errore==0){
                 //gestire duplicazione email 
             }else{
+
+               // GraficLoader.Loader(this,login,mainGroup );
+
             }
         });
 
