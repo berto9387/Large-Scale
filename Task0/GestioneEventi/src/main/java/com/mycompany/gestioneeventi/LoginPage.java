@@ -28,13 +28,9 @@ public class LoginPage extends GeneralGrafic
     protected final Hyperlink hyperlink;
     protected final TextField textField;
     protected final TextField textField0;
-<<<<<<< Updated upstream
+
     protected final ManagerDb mdb;
-=======
-    
-    
-    
->>>>>>> Stashed changes
+
    
    
 
@@ -71,7 +67,7 @@ public class LoginPage extends GeneralGrafic
         button.setOnAction((ActionEvent ev)->{
              String email = textField.getText();
             String password = textField.getText();
-            utente=mdb.loginPartecipante(email, password);});
+            utente=mdb.loginPartecipante(email, password);
             if(utente==null)
             {
                 Label errore = new Label();
@@ -82,7 +78,7 @@ public class LoginPage extends GeneralGrafic
                 label.setPrefHeight(17.0);
                 label.setPrefWidth(267.0);
                 getChildren().add(label);
-            }
+            }});
         
         label0.setAlignment(javafx.geometry.Pos.CENTER);
         label0.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
@@ -103,7 +99,7 @@ public class LoginPage extends GeneralGrafic
             String email = textField.getText();
             String password = textField.getText();
             mdb.loginOrganizzatore(email, password);
-                    if(utente==null)
+            if(utente==null)
             {
                 Label errore = new Label();
                 errore.setText("Email o password sbagliati riprova");
