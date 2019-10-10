@@ -78,7 +78,8 @@ public class LoginPage extends GeneralGrafic
                 label.setPrefHeight(17.0);
                 label.setPrefWidth(267.0);
                 getChildren().add(label);
-            }});
+            }
+        });
         
         label0.setAlignment(javafx.geometry.Pos.CENTER);
         label0.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
@@ -109,7 +110,11 @@ public class LoginPage extends GeneralGrafic
                 label.setPrefHeight(17.0);
                 label.setPrefWidth(267.0);
                 getChildren().add(label);
-            }});
+            }else{
+                 GraficLoader.Loader(this,new CreazioneEvento(),mainGroup );
+            
+            }
+        });
         
         
         hyperlink.setLayoutX(107.0);
