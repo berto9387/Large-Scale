@@ -77,7 +77,7 @@ public class LoginPage extends GeneralGrafic
                 errore.setLayoutY(289.0);
                 label.setPrefHeight(17.0);
                 label.setPrefWidth(267.0);
-                getChildren().add(label);
+                getChildren().add(errore);
             }
         });
         
@@ -109,7 +109,7 @@ public class LoginPage extends GeneralGrafic
                 errore.setLayoutY(289.0);
                 label.setPrefHeight(17.0);
                 label.setPrefWidth(267.0);
-                getChildren().add(label);
+                getChildren().add(errore);
             }else{
                  GraficLoader.Loader(this,new CreazioneEvento(),mainGroup );
             
