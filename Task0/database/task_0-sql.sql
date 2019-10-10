@@ -94,3 +94,6 @@ ALTER TABLE task_0.Partecipante ADD INDEX email_idx (email);
 ALTER TABLE task_0.Partecipa ADD FOREIGN KEY Utente_idxfk (Utente) REFERENCES task_0.Partecipante (id_Partecipante);
 
 ALTER TABLE task_0.Partecipa ADD FOREIGN KEY evento_idxfk (evento) REFERENCES task_0.Evento (id);
+
+ALTER TABLE task_0.partecipante ADD UNIQUE INDEX email_UNIQUE0 (`email` ASC);
+ALTER TABLE task_0.organizzatore ADD UNIQUE INDEX email_UNIQUE1 (`email` ASC);
