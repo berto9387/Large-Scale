@@ -9,9 +9,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class Registrazione extends Pane {
 
@@ -26,12 +28,10 @@ public class Registrazione extends Pane {
     protected final RadioButton r1;
     protected final RadioButton r2;
     protected final ToggleGroup tg;
-    private final InserimentoDb insert;
-
+    private final ManagerDb insert;
+    
     public Registrazione() {
-        this.insert = new InserimentoDb();
-        
-        
+        this.insert = new ManagerDb();
         textField = new TextField();
         label = new Label();
         textField0 = new TextField();
@@ -39,12 +39,14 @@ public class Registrazione extends Pane {
         textField2 = new TextField();
         textField3 = new TextField();
         textField4 = new TextField();
+        
         button = new Button();
         tg = new ToggleGroup();
         r1 = new RadioButton("Organizzatore"); 
-        r2 = new RadioButton("Parteciante"); 
+        r2 = new RadioButton("Partecipante"); 
         r1.setToggleGroup(tg); 
         r2.setToggleGroup(tg);
+        r2.setSelected(true);
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -98,6 +100,7 @@ public class Registrazione extends Pane {
         button.setPrefWidth(149.0);
         button.setText("REGISTRATI");
         button.setOnAction((ActionEvent e) -> {
+            int errore;
             String Nome=textField0.getText();
             String Cognome=textField1.getText();
             String sData=textField.getText();
@@ -106,7 +109,18 @@ public class Registrazione extends Pane {
             String Phone="3333333333";
             String Password=textField4.getText();
             String Username=textField3.getText();
-            insert.createContactPerson(Nome, Cognome, Data, Email,Username, Phone,Password);
+            RadioButton selectedRadioButton = (RadioButton) tg.getSelectedToggle();
+            String Ruolo = selectedRadioButton.getText();
+            String Confronta="Partecipante";
+            System.err.println(Ruolo.equals(Confronta));
+            if(Ruolo.equals(Confronta)){                
+                errore=insert.inserisciPartecipante(Nome, Cognome, Data, Email,Username, Phone,Password);
+            }else{
+               errore=insert.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
+            }
+            if(errore==0){
+                //gestire duplicazione email 
+            }
         });
 
         r1.setLayoutX(226.0);
@@ -121,6 +135,8 @@ public class Registrazione extends Pane {
         r2.setMnemonicParsing(false);
         r2.setPrefHeight(17.0);
         r2.setPrefWidth(138.0);
+        
+        
         
 
         getChildren().add(textField);
