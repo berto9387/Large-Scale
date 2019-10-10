@@ -28,7 +28,13 @@ public class LoginPage extends GeneralGrafic
     protected final Hyperlink hyperlink;
     protected final TextField textField;
     protected final TextField textField0;
+<<<<<<< Updated upstream
     protected final ManagerDb mdb;
+=======
+    
+    
+    
+>>>>>>> Stashed changes
    
    
 

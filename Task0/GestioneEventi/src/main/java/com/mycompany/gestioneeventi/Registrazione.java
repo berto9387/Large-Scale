@@ -34,8 +34,6 @@ public class Registrazione extends GeneralGrafic {
     
     
     public Registrazione() {
-        
-        //LoginPage login = new LoginPage();
         this.insert = new ManagerDb();
         textField = new TextField();
         label = new Label();
