@@ -10,7 +10,7 @@ import java.sql.*;
 
 public class InserimentoDb implements DAO {
    public int createContactPerson(String nome, String cognome, Date data_nascita, String email,String username, String telefono,String password) {
-      String sql = "insert into organizzatore (id_Organizatore,nome,cognome,data_nascita,email,password,username,phone)"+ "values (1,'"+nome+"','"+cognome+"','"+data_nascita+"','"+email+"','"+password+"','"+username+"','"+telefono+"')";
+      String sql = "insert into organizzatore (nome,cognome,data_nascita,email,password,username,phone)"+ "values ('"+nome+"','"+cognome+"','"+data_nascita+"','"+email+"','"+password+"','"+username+"','"+telefono+"')";
       
       try {
          Class.forName(DRIVER);
