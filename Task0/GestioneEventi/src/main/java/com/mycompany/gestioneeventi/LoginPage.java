@@ -13,7 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.*;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
+import javafx.stage.*;
+//import javafx.stage.Stage;
 
 /**
  *
@@ -27,12 +28,18 @@ public class LoginPage extends AnchorPane
     protected final Hyperlink hyperlink;
     protected final TextField textField;
     protected final TextField textField0;
-    Stage window;
-    Scene scene1;
+    
+    private Group groupRoot;
+   
+    
+    public void inserisciGroup(Group groupRoot)
+    {
+        this.groupRoot=groupRoot;
+    }
 
-    public LoginPage(Stage stage) {
+    public LoginPage() {
         
-        window = stage;
+        //window = scene;
         
         label = new Label();
         button = new Button();
@@ -42,9 +49,10 @@ public class LoginPage extends AnchorPane
         textField = new TextField();
         textField0 = new TextField();
         
+        
         Registrazione reg = new Registrazione();
-        Group root = new Group(reg);
-        scene1 = new Scene(root, 600, 500);
+        //Group root = new Group(reg);
+        //scene1 = new Scene(root, 600, 500);
         
 
         setId("AnchorPane");
@@ -83,7 +91,7 @@ public class LoginPage extends AnchorPane
         hyperlink.setPrefHeight(26.0);
         hyperlink.setPrefWidth(108.0);
         hyperlink.setText("Non sei registrato?");
-        hyperlink.setOnAction((ActionEvent ev) -> window.setScene(scene1));
+        hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, reg,groupRoot );});
         
         textField.setAlignment(javafx.geometry.Pos.CENTER);
         textField.setLayoutX(85.0);
@@ -105,7 +113,7 @@ public class LoginPage extends AnchorPane
 
     }
 
-    private void apriRegistrazione(Stage stage) {
+  /*  private void apriRegistrazione(Stage stage) {
         Registrazione registrazione = new Registrazione();
         Group root = new Group(registrazione); 
         
@@ -117,5 +125,5 @@ public class LoginPage extends AnchorPane
         stage.show();
     }
     
-
+    */
 }

@@ -20,11 +20,11 @@ public class MainApp extends Application {
         
         window = stage;
         
-        LoginPage login = new LoginPage(window);
+        LoginPage login = new LoginPage();
         Group root = new Group(login); 
         
-        
-        Scene scene = new Scene(root);
+        login.inserisciGroup(root);
+        Scene scene = new Scene(root,600,500);
         scene.getStylesheets().add("/styles/Styles.css");
         
         stage.setTitle("GestioneEventi");
