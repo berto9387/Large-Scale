@@ -29,7 +29,7 @@ public class LoginPage extends GeneralGrafic
     protected final TextField textField;
     protected final TextField textField0;
 
-    protected final ManagerDb mdb;
+    private final ManagerDb mdb;
 
    
    
@@ -66,8 +66,9 @@ public class LoginPage extends GeneralGrafic
         button.setText("Login partecipante");
         button.setOnAction((ActionEvent ev)->{
              String email = textField.getText();
-            String password = textField.getText();
+            String password = textField0.getText();
             utente=mdb.loginPartecipante(email, password);
+            System.out.println(utente);
             if(utente==null)
             {
                 Label errore = new Label();
@@ -98,8 +99,9 @@ public class LoginPage extends GeneralGrafic
         button0.setText("Login organizzatore");
         button0.setOnAction((ActionEvent ev)->{
             String email = textField.getText();
-            String password = textField.getText();
-            mdb.loginOrganizzatore(email, password);
+            String password = textField0.getText();
+            utente=mdb.loginOrganizzatore(email, password);
+            System.out.println(utente);
             if(utente==null)
             {
                 Label errore = new Label();

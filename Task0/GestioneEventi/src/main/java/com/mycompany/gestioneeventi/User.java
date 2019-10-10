@@ -20,10 +20,11 @@ public class User {
     String password;
     String username;
     String telefono;
+    int id;
     protected User(){
     
     }
-    protected User(String nome,String cognome,Date data_nascita,String email, String username, String telefono,String password,boolean organizzatore){
+    protected User(String nome,String cognome,Date data_nascita,String email, String username, String telefono,String password,boolean organizzatore,int id){
         this.nome = nome;
         this.cognome = cognome;
         this.data_nascita = data_nascita;
@@ -32,5 +33,6 @@ public class User {
         this.telefono = telefono;
         this.password = password;
         this.organizzatore=organizzatore;
+        this.id=id;
     }
 }

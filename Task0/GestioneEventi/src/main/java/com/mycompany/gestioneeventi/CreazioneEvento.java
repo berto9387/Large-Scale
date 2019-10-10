@@ -82,12 +82,13 @@ public class CreazioneEvento extends GeneralGrafic {
             String Nome=textField.getText();
             String Luogo=textField0.getText();
             String Ora=textField1.getText();
-            String sData=textField.getText();
+            String sData=textField4.getText();
             Date Data=Date.valueOf(sData);
             String Posti=textField2.getText();
+            int intero=Integer.valueOf(Posti);
             String Descrizione=textArea.getText();
             String Tipologia=textField3.getText();
-            //errore=insert.creaEvento(Nome,Luogo,Data,Ora,Posti,Tipologia,Descrizione);
+            errore=insert.creaEvento(Nome,Luogo,Data,intero,Tipologia,Descrizione,utente.id);
             if(errore==0){
                 Label label = new Label();
                 label.setText("Email esistente,effettuare il login");
@@ -98,7 +99,7 @@ public class CreazioneEvento extends GeneralGrafic {
                 label.setPrefWidth(267.0);
                 getChildren().add(label);
             }else{
-               GraficLoader.Loader(this,new LoginPage(),mainGroup );
+               GraficLoader.Loader(this,new CreazioneEvento(),mainGroup );
             }
         });
 
@@ -107,6 +108,7 @@ public class CreazioneEvento extends GeneralGrafic {
         button0.setLayoutY(24.0);
         button0.setMnemonicParsing(false);
         button0.setText("ESCI");
+        button0.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new LoginPage(),mainGroup );});
 
         label.setLayoutX(32.0);
         label.setLayoutY(140.0);

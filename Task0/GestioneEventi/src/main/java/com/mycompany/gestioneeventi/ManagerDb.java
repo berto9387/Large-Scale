@@ -90,7 +90,7 @@ public class ManagerDb implements DAO {
               {
                   java.util.Date data_nascita=rs.getDate("data_nascita");
                   utente= new User(rs.getString("nome"),rs.getString("cognome"),data_nascita,
-                          rs.getString("email"),rs.getString("username"),rs.getString("phone"),rs.getString("password"),false);
+                          rs.getString("email"),rs.getString("username"),rs.getString("phone"),rs.getString("password"),false,rs.getInt("id_Partecipante"));
               }
           } 
           catch (Exception ex) {
@@ -111,7 +111,7 @@ public class ManagerDb implements DAO {
               {
                   java.util.Date data_nascita=rs.getDate("data_nascita");
                   utente= new User(rs.getString("nome"),rs.getString("cognome"),data_nascita,
-                          rs.getString("email"),rs.getString("username"),rs.getString("phone"),rs.getString("password"),true);
+                          rs.getString("email"),rs.getString("username"),rs.getString("phone"),rs.getString("password"),true,rs.getInt("id_Organizatore"));
               }
           } 
           catch (Exception ex) {
@@ -119,5 +119,24 @@ public class ManagerDb implements DAO {
         }
           return utente;
       }
+      public int creaEvento(String nome, String Luogo, java.sql.Date data, int Posti,String Tipologia, String Descrizione,int id) {
+      String sql = "insert into evento (nome,luogo,data,posti,tipologia,descrizione,organizzatore)"+ "values ('"+nome+"','"+Luogo+"','"+data+"',"+Posti+",'"+Tipologia+"','"+Descrizione+"',"+id+")";
+      
+      try {
+         Class.forName(DRIVER);
+         Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+         Statement stmt = con.createStatement();
+          int rs = stmt.executeUpdate(sql);
+         
+         con.close();
+      } catch (ClassNotFoundException | SQLException ex) {
+          ex.printStackTrace();
+          return 0;
+      }
+      return 1;
+     
+
+      
+   }
   
 }
