@@ -88,7 +88,7 @@ public class CreazioneEvento extends GeneralGrafic {
             int intero=Integer.valueOf(Posti);
             String Descrizione=textArea.getText();
             String Tipologia=textField3.getText();
-            errore=insert.creaEvento(Nome,Luogo,Data,intero,Tipologia,Descrizione,utente.id);
+            errore=insert.creaEvento(Nome,Luogo,Data,Ora,intero,Tipologia,Descrizione,utente.id);
             if(errore==0){
                 Label label = new Label();
                 label.setText("Email esistente,effettuare il login");

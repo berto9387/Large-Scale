@@ -119,8 +119,8 @@ public class ManagerDb implements DAO {
         }
           return utente;
       }
-      public int creaEvento(String nome, String Luogo, java.sql.Date data, int Posti,String Tipologia, String Descrizione,int id) {
-      String sql = "insert into evento (nome,luogo,data,posti,tipologia,descrizione,organizzatore)"+ "values ('"+nome+"','"+Luogo+"','"+data+"',"+Posti+",'"+Tipologia+"','"+Descrizione+"',"+id+")";
+      public int creaEvento(String nome, String Luogo, java.sql.Date data,String Ora, int Posti,String Tipologia, String Descrizione,int id) {
+      String sql = "insert into evento (nome,luogo,data,ora,posti,tipologia,descrizione,organizzatore)"+ "values ('"+nome+"','"+Luogo+"','"+data+"','"+Luogo+"',"+Posti+",'"+Tipologia+"','"+Descrizione+"',"+id+")";
       
       try {
          Class.forName(DRIVER);
@@ -138,5 +138,27 @@ public class ManagerDb implements DAO {
 
       
    }
+      
+   public ArrayList<Evento> ricercaEventi(int id){
+        String sql;
+        int esito=0;
+        sql="select * from evento where organizzatore="+id+" and data>=current_date()";
+        
+        
+        try {
+            Class.forName(DRIVER);
+            Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            if(!rs.next()){
+                esito=1;
+            } 
+            rs.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+          ex.printStackTrace();
+        }
+      return esito;
+    }
   
 }

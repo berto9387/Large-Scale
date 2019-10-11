@@ -9,6 +9,6 @@ package com.mycompany.gestioneeventi;
  *
  * @author berto
  */
-public class RicercaEventi {
+public class RicercaEventi extends GeneralGrafic{
     
 }

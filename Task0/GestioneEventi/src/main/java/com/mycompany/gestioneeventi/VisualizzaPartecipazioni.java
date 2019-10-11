@@ -9,6 +9,6 @@ package com.mycompany.gestioneeventi;
  *
  * @author berto
  */
-public class VisualizzaPartecipazioni {
+public class VisualizzaPartecipazioni extends GeneralGrafic{
     
 }
