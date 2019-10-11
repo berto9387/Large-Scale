@@ -2,19 +2,11 @@ package com.mycompany.gestioneeventi;
 
 
 import java.sql.Date;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.event.*;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
 
 public class Registrazione extends GeneralGrafic {
 
@@ -30,6 +22,7 @@ public class Registrazione extends GeneralGrafic {
     protected final RadioButton r2;
     protected final ToggleGroup tg;
     private final ManagerDb insert;
+    private final Hyperlink hyperlink;
 
     
     
@@ -42,6 +35,7 @@ public class Registrazione extends GeneralGrafic {
         textField2 = new TextField();
         textField3 = new TextField();
         textField4 = new TextField();
+        hyperlink = new Hyperlink();
         
         button = new Button();
         tg = new ToggleGroup();
@@ -58,11 +52,6 @@ public class Registrazione extends GeneralGrafic {
         setPrefHeight(458.0);
         setPrefWidth(600.0);
 
-        textField.setAlignment(javafx.geometry.Pos.CENTER);
-        textField.setLayoutX(226.0);
-        textField.setLayoutY(179.0);
-        textField.setPromptText("Data nascita");
-
         label.setAlignment(javafx.geometry.Pos.CENTER);
         label.setLayoutX(167.0);
         label.setLayoutY(33.0);
@@ -71,15 +60,20 @@ public class Registrazione extends GeneralGrafic {
         label.setText("REGISTRAZIONE");
         label.setFont(new Font(24.0));
 
+        textField.setAlignment(javafx.geometry.Pos.CENTER);
+        textField.setLayoutX(226.0);
+        textField.setLayoutY(96.0);
+        textField.setPromptText("Nome");
+
         textField0.setAlignment(javafx.geometry.Pos.CENTER);
         textField0.setLayoutX(226.0);
-        textField0.setLayoutY(96.0);
-        textField0.setPromptText("Nome");
-
+        textField0.setLayoutY(138.0);
+        textField0.setPromptText("Cognome");
+        
         textField1.setAlignment(javafx.geometry.Pos.CENTER);
         textField1.setLayoutX(226.0);
-        textField1.setLayoutY(138.0);
-        textField1.setPromptText("Cognome");
+        textField1.setLayoutY(179.0);
+        textField1.setPromptText("Data nascita");
 
         textField2.setAlignment(javafx.geometry.Pos.CENTER);
         textField2.setLayoutX(226.0);
@@ -134,6 +128,13 @@ public class Registrazione extends GeneralGrafic {
                GraficLoader.Loader(this,new LoginPage(),mainGroup );
             }
         });
+        
+        hyperlink.setLayoutX(107.0);
+        hyperlink.setLayoutY(450.0);
+        hyperlink.setPrefHeight(26.0);
+        hyperlink.setPrefWidth(150.0);
+        hyperlink.setText("Torna indietro");
+        hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new LoginPage(), mainGroup );});
 
         r1.setLayoutX(226.0);
         r1.setLayoutY(328.0);
@@ -159,7 +160,7 @@ public class Registrazione extends GeneralGrafic {
         getChildren().add(textField3);
         getChildren().add(textField4);
         getChildren().add(button);
-        
+        getChildren().add(hyperlink);
         
         getChildren().add(r1); 
         getChildren().add(r2); 

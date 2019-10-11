@@ -122,10 +122,10 @@ public class LoginPage extends GeneralGrafic
         });
         
         
-        hyperlink.setLayoutX(107.0);
+        hyperlink.setLayoutX(184.0);
         hyperlink.setLayoutY(269.0);
         hyperlink.setPrefHeight(26.0);
-        hyperlink.setPrefWidth(108.0);
+        hyperlink.setPrefWidth(150.0);
         hyperlink.setText("Non sei registrato?");
         hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, reg,mainGroup );});
         

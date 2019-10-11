@@ -102,6 +102,13 @@ public class CreazioneEvento extends GeneralGrafic {
                GraficLoader.Loader(this,new CreazioneEvento(),mainGroup );
             }
         });
+        
+        label6.setLayoutX(32.0);
+        label6.setLayoutY(13.0);
+        label6.setPrefHeight(21.0);
+        label6.setPrefWidth(379.0);
+        label6.setText("CREAZIONE EVENTO");
+        label6.setFont(new Font(36.0));
 
         button0.setId("esci");
         button0.setLayoutX(592.0);
@@ -115,12 +122,6 @@ public class CreazioneEvento extends GeneralGrafic {
         label.setPrefHeight(21.0);
         label.setPrefWidth(96.0);
         label.setText("Nome ");
-
-        textArea.setId("descrizione");
-        textArea.setLayoutX(128.0);
-        textArea.setLayoutY(413.0);
-        textArea.setPrefHeight(47.0);
-        textArea.setPrefWidth(332.0);
 
         label0.setLayoutX(32.0);
         label0.setLayoutY(184.0);
@@ -178,16 +179,15 @@ public class CreazioneEvento extends GeneralGrafic {
         textField3.setLayoutX(128.0);
         textField3.setLayoutY(369.0);
 
-        label6.setLayoutX(32.0);
-        label6.setLayoutY(13.0);
-        label6.setPrefHeight(21.0);
-        label6.setPrefWidth(379.0);
-        label6.setText("CREAZIONE EVENTO");
-        label6.setFont(new Font(36.0));
-
         textField4.setId("data");
         textField4.setLayoutX(128.0);
         textField4.setLayoutY(225.0);
+        
+        textArea.setId("descrizione");
+        textArea.setLayoutX(128.0);
+        textArea.setLayoutY(413.0);
+        textArea.setPrefHeight(47.0);
+        textArea.setPrefWidth(332.0);
 
         getChildren().add(button);
         getChildren().add(button0);
