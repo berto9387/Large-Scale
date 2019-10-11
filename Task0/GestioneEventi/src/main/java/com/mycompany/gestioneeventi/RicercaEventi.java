@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
  * @author berto
  */
 public class RicercaEventi extends GeneralGrafic{
+<<<<<<< HEAD
     protected final Label label;
     protected final TextField textField;
     protected final Label label0;
@@ -108,4 +109,7 @@ public class RicercaEventi extends GeneralGrafic{
         treeTableView.getColumns().add(treeTableColumn4);
         getChildren().add(treeTableView);
     }
+=======
+    
+>>>>>>> master
 }
