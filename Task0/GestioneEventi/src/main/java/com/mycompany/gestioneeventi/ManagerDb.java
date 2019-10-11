@@ -120,7 +120,7 @@ public class ManagerDb implements DAO {
           return utente;
       }
       public int creaEvento(String nome, String Luogo, java.sql.Date data,String Ora, int Posti,String Tipologia, String Descrizione,int id) {
-      String sql = "insert into evento (nome,luogo,data,ora,posti,tipologia,descrizione,organizzatore)"+ "values ('"+nome+"','"+Luogo+"','"+data+"','"+Luogo+"',"+Posti+",'"+Tipologia+"','"+Descrizione+"',"+id+")";
+      String sql = "insert into evento (nome,luogo,data,ora,posti,tipologia,descrizione,organizzatore)"+ "values ('"+nome+"','"+Luogo+"','"+data+"','"+Ora+"',"+Posti+",'"+Tipologia+"','"+Descrizione+"',"+id+")";
       
       try {
          Class.forName(DRIVER);
@@ -141,24 +141,26 @@ public class ManagerDb implements DAO {
       
    public ArrayList<Evento> ricercaEventi(int id){
         String sql;
-        int esito=0;
         sql="select * from evento where organizzatore="+id+" and data>=current_date()";
         
         
-        try {
-            Class.forName(DRIVER);
-            Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            if(!rs.next()){
-                esito=1;
-            } 
-            rs.close();
-            con.close();
-        } catch (ClassNotFoundException | SQLException ex) {
-          ex.printStackTrace();
+        ArrayList<Evento> ev=new ArrayList<>();
+          try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps= con.prepareStatement(sql))
+          {
+              ResultSet rs = ps.executeQuery();
+              if(rs.next())
+              {
+                  java.util.Date data=rs.getDate("data");
+                  Evento s1= new Evento(rs.getInt("id"),rs.getString("nome"),rs.getString("luogo"),data,
+                          rs.getString("ora"),rs.getInt("posti"),rs.getString("tipologia"),rs.getString("descrizione"),rs.getInt("organizzatore"));
+                  ev.add(s1);
+              }
+          } 
+          catch (Exception ex) {
+            System.err.println(ex.getMessage());
         }
-      return esito;
+          return ev;
     }
   
 }
