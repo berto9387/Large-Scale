@@ -139,9 +139,15 @@ public class ManagerDb implements DAO {
       
    }
       
-   public ArrayList<Evento> ricercaEventi(int id){
+   public ArrayList<Evento> ricercaEventi(int id,int Ruolo,String Citta){
         String sql;
-        sql="select * from evento where organizzatore="+id+" and data>=current_date()";
+        if(Ruolo==0){
+            sql="select * from evento where organizzatore="+id+" and data>=current_date()";
+        } else{
+            //sql="select * from partecipa P inner join eventoE on P.Utente="+id+" where E.data>=current_date() citta='"+Citta+"'";
+            sql="select * from evento where citta='"+Citta+"' and data>=current_date()";
+
+        }
         
         
         ArrayList<Evento> ev=new ArrayList<>();
