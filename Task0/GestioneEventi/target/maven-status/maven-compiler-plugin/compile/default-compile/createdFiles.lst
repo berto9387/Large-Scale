@@ -11,3 +11,4 @@ com\mycompany\gestioneeventi\LoginPage.class
 com\mycompany\gestioneeventi\User.class
 com\mycompany\gestioneeventi\GraficLoader.class
 com\mycompany\gestioneeventi\MenuUtente.class
+com\mycompany\gestioneeventi\TabellaVisualeEvento.class
