@@ -54,7 +54,7 @@ public class MenuUtente extends GeneralGrafic {
         button0.setPrefHeight(31.0);
         button0.setPrefWidth(181.0);
         button0.setText("Ricerca Eventi");
-        //button0.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new RicercaEventi(),mainGroup );});
+        button0.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new RicercaEventi(),mainGroup );});
 
         button1.setLayoutX(98.0);
         button1.setLayoutY(232.0);

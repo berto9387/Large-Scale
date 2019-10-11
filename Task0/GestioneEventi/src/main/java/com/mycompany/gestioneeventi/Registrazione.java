@@ -98,9 +98,9 @@ public class Registrazione extends GeneralGrafic {
         button.setText("REGISTRATI");
         button.setOnAction((ActionEvent e) -> {
             int errore;
-            String Nome=textField0.getText();
-            String Cognome=textField1.getText();
-            String sData=textField.getText();
+            String Nome=textField.getText();
+            String Cognome=textField0.getText();
+            String sData=textField1.getText();
             Date Data=Date.valueOf(sData);
             String Email=textField2.getText();
             String Phone="3333333333";
@@ -129,7 +129,7 @@ public class Registrazione extends GeneralGrafic {
             }
         });
         
-        hyperlink.setLayoutX(107.0);
+        hyperlink.setLayoutX(226.0);
         hyperlink.setLayoutY(450.0);
         hyperlink.setPrefHeight(26.0);
         hyperlink.setPrefWidth(150.0);
