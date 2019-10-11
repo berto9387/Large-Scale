@@ -5,8 +5,13 @@
  */
 package com.mycompany.gestioneeventi;
 
+
+import static com.mycompany.gestioneeventi.GeneralGrafic.mainGroup;
 import java.util.ArrayList;
+import javafx.collections.*;
+import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.*;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.text.Font;
 
@@ -15,35 +20,52 @@ import javafx.scene.text.Font;
  * @author berto
  */
 public class RicercaEventi extends GeneralGrafic{
+
     protected final Label label;
     protected final TextField textField;
     protected final Label label0;
     protected final Button button;
-    protected final TreeTableView treeTableView;
-    protected final TreeTableColumn treeTableColumn;
-    protected final TreeTableColumn treeTableColumn0;
-    protected final TreeTableColumn treeTableColumn1;
-    protected final TreeTableColumn treeTableColumn2;
-    protected final TreeTableColumn treeTableColumn3;
-    protected final TreeTableColumn treeTableColumn4;
+    protected final TableView<Evento> twEvento;
+    private ObservableList<Evento> olEvento;
+    protected final TableColumn TableColumn;
+    protected final TableColumn TableColumn0;
+    protected final TableColumn TableColumn1;
+    protected final TableColumn TableColumn2;
+    protected final TableColumn TableColumn3;
+    protected final TableColumn TableColumn4;
+    protected final TableColumn TableColumn5;
+    protected final TableColumn TableColumn6;
+    protected final TableColumn TableColumn7;
     private final ManagerDb insert;
+    private ArrayList<Evento> ev;
+    
 
     public RicercaEventi() {
         this.insert = new ManagerDb();
-        ArrayList<Evento> ev=insert.ricercaEventi(1, 0, null);
-        System.err.println(ev.size());
+        
         label = new Label();
         textField = new TextField();
         label0 = new Label();
         button = new Button();
-        treeTableView = new TreeTableView();
-        treeTableColumn = new TreeTableColumn();
-        treeTableColumn0 = new TreeTableColumn();
-        treeTableColumn1 = new TreeTableColumn();
-        treeTableColumn2 = new TreeTableColumn();
-        treeTableColumn3 = new TreeTableColumn();
-        treeTableColumn4 = new TreeTableColumn();
-
+        twEvento = new TableView();
+        TableColumn5 = new TableColumn("id"); 
+        
+        TableColumn = new TableColumn("Nome");
+        TableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        
+        TableColumn0 = new TableColumn("Città");
+        TableColumn0.setCellValueFactory(new PropertyValueFactory<>("luogo"));
+        TableColumn1 = new TableColumn("Data");
+        TableColumn1.setCellValueFactory(new PropertyValueFactory<>("data"));
+        TableColumn2 = new TableColumn("Ora");
+        TableColumn2.setCellValueFactory(new PropertyValueFactory<>("ora"));
+        TableColumn3 = new TableColumn("Posti");
+        TableColumn3.setCellValueFactory(new PropertyValueFactory<>("posti"));
+        TableColumn4 = new TableColumn("Tipologia");
+        TableColumn4.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+        TableColumn6 = new TableColumn("descrizione");
+        TableColumn7 = new TableColumn("organizzatore");
+        
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -76,41 +98,46 @@ public class RicercaEventi extends GeneralGrafic{
         button.setPrefWidth(118.0);
         button.setText("RICERCA");
         button.setFont(new Font(13.0));
+        button.setOnAction((ActionEvent e) -> {
+            twEvento.getItems().clear();
+            System.err.println(textField.getText());
+            if("".equals(textField.getText())&&utente.organizzatore==false){
+                return;
+            }
+            System.err.println(utente.id);
+            ev=insert.ricercaEventi(utente.id, utente.organizzatore, textField.getText());
+            olEvento = FXCollections.observableArrayList(ev);
+            
+            
+            twEvento.setItems(olEvento);
+            
+            
+        });
 
-        treeTableView.setLayoutX(82.0);
-        treeTableView.setLayoutY(105.0);
-        treeTableView.setPrefHeight(200.0);
-        treeTableView.setPrefWidth(461.0);
+        twEvento.setLayoutX(82.0);
+        twEvento.setLayoutY(105.0);
+        twEvento.setPrefHeight(200.0);
+        twEvento.setPrefWidth(500.0);
 
-        treeTableColumn.setPrefWidth(70.4000244140625);
-        treeTableColumn.setText("Nome");
+        TableColumn.setPrefWidth(70.4000244140625);
 
-        treeTableColumn0.setPrefWidth(80.7999267578125);
-        treeTableColumn0.setText("Città");
+        TableColumn0.setPrefWidth(80.7999267578125);
 
-        treeTableColumn1.setPrefWidth(76.79997253417969);
-        treeTableColumn1.setText("Data");
+        TableColumn1.setPrefWidth(120.0);
 
-        treeTableColumn2.setPrefWidth(75.0);
-        treeTableColumn2.setText("Ora");
+        TableColumn2.setPrefWidth(75.0);
 
-        treeTableColumn3.setPrefWidth(75.0);
-        treeTableColumn3.setText("Posti");
+        TableColumn3.setPrefWidth(75.0);
 
-        treeTableColumn4.setPrefWidth(81.0);
-        treeTableColumn4.setText("Tipologia");
-        
+        TableColumn4.setPrefWidth(81.0);
+        twEvento.getColumns().addAll(TableColumn, TableColumn0, TableColumn1, TableColumn2, TableColumn3, 
+                                        TableColumn4);
+        getChildren().add(twEvento);
         getChildren().add(label);
         getChildren().add(textField);
         getChildren().add(label0);
         getChildren().add(button);
-        treeTableView.getColumns().add(treeTableColumn);
-        treeTableView.getColumns().add(treeTableColumn0);
-        treeTableView.getColumns().add(treeTableColumn1);
-        treeTableView.getColumns().add(treeTableColumn2);
-        treeTableView.getColumns().add(treeTableColumn3);
-        treeTableView.getColumns().add(treeTableColumn4);
-        getChildren().add(treeTableView);
+        
     }
-
+    
 }

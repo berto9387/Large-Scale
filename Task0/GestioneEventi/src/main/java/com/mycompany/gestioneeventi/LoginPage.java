@@ -68,7 +68,6 @@ public class LoginPage extends GeneralGrafic
              String email = textField.getText();
             String password = textField0.getText();
             utente=mdb.loginPartecipante(email, password);
-            System.out.println(utente);
             if(utente==null)
             {
                 Label errore = new Label();
@@ -104,7 +103,6 @@ public class LoginPage extends GeneralGrafic
             String email = textField.getText();
             String password = textField0.getText();
             utente=mdb.loginOrganizzatore(email, password);
-            System.out.println(utente);
             if(utente==null)
             {
                 Label errore = new Label();

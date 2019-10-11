@@ -139,13 +139,18 @@ public class ManagerDb implements DAO {
       
    }
       
-   public ArrayList<Evento> ricercaEventi(int id,int Ruolo,String Citta){
+   public ArrayList<Evento> ricercaEventi(int id,boolean Ruolo,String Citta){
         String sql;
-        if(Ruolo==0 && Citta==null){
-            sql="select * from evento where organizzatore="+id+" and data<=current_date()";
+        System.out.println(Ruolo);
+        if(Ruolo==true){
+            if("".equals(Citta))
+                sql="select * from evento where organizzatore="+id+" and data<=current_date()";
+            else
+               sql="select * from evento where organizzatore="+id+" and data<=current_date() and luogo='"+Citta+"'" ; 
         } else{
             //sql="select * from partecipa P inner join eventoE on P.Utente="+id+" where E.data>=current_date() citta='"+Citta+"'";
-            sql="select * from evento where citta='"+Citta+"' and data>=current_date()";
+            
+            sql="select * from evento where luogo='"+Citta+"' and data<=current_date()";
 
         }
         
@@ -168,5 +173,6 @@ public class ManagerDb implements DAO {
         }
           return ev;
     }
+   
   
 }

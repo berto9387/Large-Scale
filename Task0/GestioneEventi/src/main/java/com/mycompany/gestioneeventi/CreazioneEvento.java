@@ -10,16 +10,13 @@ package com.mycompany.gestioneeventi;
  * @author berto
  * 
  */
-import com.mycompany.gestioneeventi.GraficLoader;
-import com.mycompany.gestioneeventi.LoginPage;
+
 import java.sql.Date;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.text.Font;
 
@@ -27,6 +24,7 @@ public class CreazioneEvento extends GeneralGrafic {
 
     protected final Button button;
     protected final Button button0;
+    protected final Button button1;
     protected final Label label;
     protected final TextArea textArea;
     protected final Label label0;
@@ -48,6 +46,7 @@ public class CreazioneEvento extends GeneralGrafic {
         this.insert = new ManagerDb();
         button = new Button();
         button0 = new Button();
+        button1 = new Button();
         label = new Label();
         textArea = new TextArea();
         label0 = new Label();
@@ -91,7 +90,7 @@ public class CreazioneEvento extends GeneralGrafic {
             errore=insert.creaEvento(Nome,Luogo,Data,Ora,intero,Tipologia,Descrizione,utente.id);
             if(errore==0){
                 Label label = new Label();
-                label.setText("Email esistente,effettuare il login");
+                label.setText("Inserimento Evento non riuscito");
                 label.setStyle("-fx-text-fill: red;");
                 label.setLayoutX(226.0);
                 label.setLayoutY(373.0);
@@ -116,6 +115,13 @@ public class CreazioneEvento extends GeneralGrafic {
         button0.setMnemonicParsing(false);
         button0.setText("ESCI");
         button0.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new LoginPage(),mainGroup );});
+        
+        button1.setId("eventi");
+        button1.setLayoutX(500.0);
+        button1.setLayoutY(300.0);
+        button1.setMnemonicParsing(false);
+        button1.setText("Visualizza Eventi");
+        button1.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new RicercaEventi(),mainGroup );});
 
         label.setLayoutX(32.0);
         label.setLayoutY(140.0);
@@ -191,6 +197,7 @@ public class CreazioneEvento extends GeneralGrafic {
 
         getChildren().add(button);
         getChildren().add(button0);
+        getChildren().add(button1);
         getChildren().add(label);
         getChildren().add(textArea);
         getChildren().add(label0);
