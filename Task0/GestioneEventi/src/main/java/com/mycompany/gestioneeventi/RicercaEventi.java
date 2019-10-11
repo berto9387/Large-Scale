@@ -5,6 +5,7 @@
  */
 package com.mycompany.gestioneeventi;
 
+import java.util.ArrayList;
 import javafx.scene.control.*;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.text.Font;
@@ -14,7 +15,6 @@ import javafx.scene.text.Font;
  * @author berto
  */
 public class RicercaEventi extends GeneralGrafic{
-<<<<<<< HEAD
     protected final Label label;
     protected final TextField textField;
     protected final Label label0;
@@ -26,9 +26,12 @@ public class RicercaEventi extends GeneralGrafic{
     protected final TreeTableColumn treeTableColumn2;
     protected final TreeTableColumn treeTableColumn3;
     protected final TreeTableColumn treeTableColumn4;
+    private final ManagerDb insert;
 
     public RicercaEventi() {
-
+        this.insert = new ManagerDb();
+        ArrayList<Evento> ev=insert.ricercaEventi(1, 0, null);
+        System.err.println(ev.size());
         label = new Label();
         textField = new TextField();
         label0 = new Label();
@@ -96,7 +99,7 @@ public class RicercaEventi extends GeneralGrafic{
 
         treeTableColumn4.setPrefWidth(81.0);
         treeTableColumn4.setText("Tipologia");
-
+        
         getChildren().add(label);
         getChildren().add(textField);
         getChildren().add(label0);
@@ -109,7 +112,5 @@ public class RicercaEventi extends GeneralGrafic{
         treeTableView.getColumns().add(treeTableColumn4);
         getChildren().add(treeTableView);
     }
-=======
-    
->>>>>>> master
+
 }
