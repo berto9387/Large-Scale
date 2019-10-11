@@ -79,6 +79,9 @@ public class LoginPage extends GeneralGrafic
                 label.setPrefHeight(17.0);
                 label.setPrefWidth(267.0);
                 getChildren().add(errore);
+            }else{
+                 GraficLoader.Loader(this,new MenuUtente(),mainGroup );
+            
             }
         });
         

@@ -2,33 +2,18 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <Pane id="data" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.SceneController">
    <children>
-      <Button id="crea" layoutX="591.0" layoutY="426.0" mnemonicParsing="false" text="Crea" />
-      <Button id="esci" layoutX="592.0" layoutY="24.0" mnemonicParsing="false" text="ESCI" />
-      <Label layoutX="32.0" layoutY="140.0" prefHeight="21.0" prefWidth="96.0" text="Nome " />
-      <TextArea id="descrizione" layoutX="128.0" layoutY="413.0" prefHeight="47.0" prefWidth="332.0" />
-      <Label layoutX="32.0" layoutY="184.0" prefHeight="21.0" prefWidth="96.0" text="Luogo " />
-      <Label layoutX="32.0" layoutY="230.0" prefHeight="21.0" prefWidth="96.0" text="Data" />
-      <Label layoutX="32.0" layoutY="281.0" prefHeight="21.0" prefWidth="96.0" text="Ora" />
-      <Label layoutX="32.0" layoutY="325.0" prefHeight="21.0" prefWidth="96.0" text="Posti" />
-      <Label layoutX="32.0" layoutY="374.0" prefHeight="21.0" prefWidth="96.0" text="Tipologia" />
-      <Label layoutX="32.0" layoutY="415.0" prefHeight="21.0" prefWidth="96.0" text="Descrizione" />
-      <TextField id="nome" layoutX="128.0" layoutY="135.0" />
-      <TextField id="luogo" layoutX="128.0" layoutY="179.0" />
-      <TextField id="ora" layoutX="128.0" layoutY="276.0" />
-      <TextField id="posti" layoutX="128.0" layoutY="320.0" />
-      <TextField id="tipologia" layoutX="128.0" layoutY="369.0" />
-      <Label layoutX="32.0" layoutY="13.0" prefHeight="21.0" prefWidth="379.0" text="CREAZIONE EVENTO">
+      <Button layoutX="581.0" layoutY="32.0" mnemonicParsing="false" text="Esci" />
+      <Label layoutX="62.0" layoutY="22.0" prefHeight="21.0" prefWidth="346.0" text="Menù Utente">
          <font>
-            <Font size="36.0" />
+            <Font size="35.0" />
          </font>
       </Label>
-      <TextField id="data" layoutX="128.0" layoutY="225.0" />
+      <Button layoutX="328.0" layoutY="232.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="181.0" text="Ricerca Eventi" />
+      <Button layoutX="98.0" layoutY="232.0" mnemonicParsing="false" text="Visualizza Partecipazioni" />
    </children>
 </Pane>
