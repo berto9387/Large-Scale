@@ -119,6 +119,8 @@ public class ManagerDb implements DAO {
         }
           return utente;
       }
+      
+      
       public int creaEvento(String nome, String Luogo, java.sql.Date data,String Ora, int Posti,String Tipologia, String Descrizione,int id) {
       String sql = "insert into evento (nome,luogo,data,ora,posti,tipologia,descrizione,organizzatore)"+ "values ('"+nome+"','"+Luogo+"','"+data+"','"+Ora+"',"+Posti+",'"+Tipologia+"','"+Descrizione+"',"+id+")";
       
@@ -164,7 +166,8 @@ public class ManagerDb implements DAO {
               {
                   java.util.Date data=rs.getDate("data");
                   Evento s1= new Evento(rs.getInt("id"),rs.getString("nome"),rs.getString("luogo"),data,
-                          rs.getString("ora"),rs.getInt("posti"),rs.getString("tipologia"),rs.getString("descrizione"),rs.getInt("organizzatore"));
+                          rs.getString("ora"),rs.getInt("posti"),rs.getString("tipologia"),rs.getString("descrizione"),rs.getInt("organizzatore"),
+                            rs.getInt("numero_partecipanti"));
                   ev.add(s1);
               }
           } 
@@ -173,6 +176,33 @@ public class ManagerDb implements DAO {
         }
           return ev;
     }
+
+   public void updateNumeroPartecipantiEvento(int numero_aggiornato_partecipanti,int id_evento)
+   {
+           try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps= con.prepareStatement("UPDATE evento SET numero_partecipanti = ?WHERE id=?"))
+           {
+               ps.setInt(1,numero_aggiornato_partecipanti);
+               ps.setInt(2, id_evento);
+               ps.executeUpdate();
+           } 
+           catch (Exception ex){System.err.println(ex.getMessage());}
+           
    
+   }
   
+   public void iscrizioneEvento(int id_evento,int id_partecipante,int numero_partecipanti)
+   {
+        updateNumeroPartecipantiEvento(++numero_partecipanti,id_evento);
+        try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps= con.prepareStatement("INSERT INTO partecipa(Utente,evento) VALUES(?,?) "))
+        {
+            ps.setInt(1,id_evento);
+            ps.setInt(2,id_partecipante);
+            ps.executeUpdate();
+        }
+        catch (Exception ex){System.err.println(ex.getMessage());}
+   }
+   
+   
 }

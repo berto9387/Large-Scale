@@ -22,9 +22,9 @@ public class Evento {
     private final SimpleStringProperty Tipologia;
     private final SimpleStringProperty Descrizione;
     private final SimpleIntegerProperty Organizzatore;
-    
+    private final SimpleIntegerProperty NumeroPartecipanti;
    
-    protected Evento(int id,String Nome,String Luogo, Date Data,String Ora,int Posti, String Tipologia, String Descrizione,int Organizzatore){
+    protected Evento(int id,String Nome,String Luogo, Date Data,String Ora,int Posti, String Tipologia, String Descrizione,int Organizzatore,int NumeroPartecipanti){
         this.id = new SimpleIntegerProperty(id);
         this.Nome = new SimpleStringProperty(Nome);
         this.Luogo = new SimpleStringProperty(Luogo);        
@@ -34,6 +34,7 @@ public class Evento {
         this.Tipologia = new SimpleStringProperty(Tipologia);
         this.Descrizione = new SimpleStringProperty(Descrizione);
         this.Organizzatore= new SimpleIntegerProperty(Organizzatore);
+        this.NumeroPartecipanti= new SimpleIntegerProperty(NumeroPartecipanti);
     }
     
     public int getId(){
@@ -63,5 +64,8 @@ public class Evento {
     public int getOrganizzatore(){
         return Organizzatore.get();
     }
-    
+    public int getNumeroPartecipanti()
+    {
+        return NumeroPartecipanti.get();
+    }
 }
