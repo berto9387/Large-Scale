@@ -153,7 +153,7 @@ public class ManagerDb implements DAO {
         } else{
             if(Citta == ""){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto
                 
-                sql="SELECT E.* FROM evento E INNER JOIN partecipa P WHERE P.Utente="+id+" and data>=current_date()";
+                sql="SELECT E.* FROM evento E INNER JOIN partecipa P ON E.id = P.evento WHERE P.Utente="+id+" and data>=current_date()";
                 
             } else{ //Caso in cui un partecipante vuole visualizzare tutti gli eventi
                 
