@@ -142,6 +142,10 @@ LOCK TABLES `partecipante` WRITE;
 /*!40000 ALTER TABLE `partecipante` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+LOCK TABLES `partecipa` WRITE;
+/*!40000 ALTER TABLE partecipa ADD UNIQUE (Utente, evento);*/;
+UNLOCK TABLES;
 --
 -- Dumping events for database 'task_0'
 --

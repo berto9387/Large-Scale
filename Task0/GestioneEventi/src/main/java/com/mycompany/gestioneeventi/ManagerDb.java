@@ -125,13 +125,13 @@ public class ManagerDb implements DAO {
       String sql = "insert into evento (nome,luogo,data,ora,posti,tipologia,descrizione,organizzatore)"+ "values ('"+nome+"','"+Luogo+"','"+data+"','"+Ora+"',"+Posti+",'"+Tipologia+"','"+Descrizione+"',"+id+")";
       
       try {
-         Class.forName(DRIVER);
+         //Class.forName(DRIVER);
          Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
          Statement stmt = con.createStatement();
           int rs = stmt.executeUpdate(sql);
          
          con.close();
-      } catch (ClassNotFoundException | SQLException ex) {
+      } catch (SQLException ex) {
           ex.printStackTrace();
           return 0;
       }
@@ -142,17 +142,18 @@ public class ManagerDb implements DAO {
    }
       
    public ArrayList<Evento> ricercaEventi(int id,boolean Ruolo,String Citta){
+       
         String sql;
         System.out.println(Ruolo);
         if(Ruolo==true){
             if("".equals(Citta))
-                sql="select * from evento where organizzatore="+id+" and data<=current_date()";
+                sql="select * from evento where organizzatore="+id+" and data>=current_date()";
             else
-               sql="select * from evento where organizzatore="+id+" and data<=current_date() and luogo='"+Citta+"'" ; 
+               sql="select * from evento where organizzatore="+id+" and data>=current_date() and luogo='"+Citta+"'" ; 
         } else{
             //sql="select * from partecipa P inner join eventoE on P.Utente="+id+" where E.data>=current_date() citta='"+Citta+"'";
             
-            sql="select * from evento where luogo='"+Citta+"' and data<=current_date()";
+            sql="select * from evento where luogo='"+Citta+"' and data>=current_date()";
 
         }
         
@@ -172,7 +173,8 @@ public class ManagerDb implements DAO {
               }
           } 
           catch (Exception ex) {
-            System.err.println(ex.getMessage());
+            System.err.println("questo è l'errore" + ex.getMessage());
+            
         }
           return ev;
     }
@@ -180,7 +182,7 @@ public class ManagerDb implements DAO {
    public void updateNumeroPartecipantiEvento(int numero_aggiornato_partecipanti,int id_evento)
    {
            try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-                  PreparedStatement ps= con.prepareStatement("UPDATE evento SET numero_partecipanti = ?WHERE id=?"))
+                  PreparedStatement ps= con.prepareStatement("UPDATE evento SET numero_partecipanti = ? WHERE id=?"))
            {
                ps.setInt(1,numero_aggiornato_partecipanti);
                ps.setInt(2, id_evento);
@@ -191,18 +193,32 @@ public class ManagerDb implements DAO {
    
    }
   
-   public void iscrizioneEvento(int id_evento,int id_partecipante,int numero_partecipanti)
+   public void iscrizioneEvento(int id_evento,int id_partecipante)
    {
-        updateNumeroPartecipantiEvento(++numero_partecipanti,id_evento);
+       
+       int numero_partecipanti = 0;
+        try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps= con.prepareStatement("SELECT numero_partecipanti FROM evento WHERE id = ?")){
+            
+            ps.setInt(1, id_evento);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                numero_partecipanti = rs.getInt("numero_partecipanti");
+            }
+            
+        } catch (Exception ex){System.err.println(ex.getMessage());}
+        
         try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
                   PreparedStatement ps= con.prepareStatement("INSERT INTO partecipa(Utente,evento) VALUES(?,?) "))
         {
-            ps.setInt(1,id_evento);
-            ps.setInt(2,id_partecipante);
+            ps.setInt(1,id_partecipante);
+            ps.setInt(2,id_evento);
             ps.executeUpdate();
+            updateNumeroPartecipantiEvento(++numero_partecipanti,id_evento);
         }
         catch (Exception ex){System.err.println(ex.getMessage());}
+        
+        
    }
-   
-   
 }

@@ -27,7 +27,7 @@ public class TabellaVisualeEvento extends TableView<Evento>{
         setPrefHeight(200.0);
         setPrefWidth(500.0);
         setLayoutX(82.0);
-        setLayoutY(105.0);
+        setLayoutY(160.0);
         
         
         TableColumn colonna_id = new TableColumn("id");
@@ -78,11 +78,12 @@ public class TabellaVisualeEvento extends TableView<Evento>{
         //prova colorare cella non riuscita
         eventi=listaEventi;
         listaOsservabileEvento.clear();
-        for(int i=0;i<eventi.size();i++){
-            listaOsservabileEvento.add(eventi.get(i));
-            if(getItems().get(i).getPosti()==getItems().get(i).getPosti()){
-                getColumns().get(i).setStyle("-fx-background-color: red;");
-            }
-        }
+//        for(int i=0;i<eventi.size();i++){
+//            listaOsservabileEvento.add(eventi.get(i));
+//            if(getItems().get(i).getPosti()==getItems().get(i).getPosti()){
+//                getColumns().get(i).setStyle("-fx-background-color: red;");
+//            }
+//        }
+        listaOsservabileEvento.addAll(listaEventi); 
     }
 }

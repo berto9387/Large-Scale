@@ -104,8 +104,8 @@ public class Registrazione extends GeneralGrafic {
             Date Data=Date.valueOf(sData);
             String Email=textField2.getText();
             String Phone="3333333333";
-            String Password=textField4.getText();
             String Username=textField3.getText();
+            String Password=textField4.getText(); 
             RadioButton selectedRadioButton = (RadioButton) tg.getSelectedToggle();
             String Ruolo = selectedRadioButton.getText();
             String Confronta="Partecipante";
@@ -149,9 +149,6 @@ public class Registrazione extends GeneralGrafic {
         r2.setPrefHeight(17.0);
         r2.setPrefWidth(138.0);
         
-        
-        
-
         getChildren().add(textField);
         getChildren().add(label);
         getChildren().add(textField0);

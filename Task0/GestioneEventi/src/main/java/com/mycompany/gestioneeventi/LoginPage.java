@@ -31,9 +31,6 @@ public class LoginPage extends GeneralGrafic
 
     private final ManagerDb mdb;
 
-   
-   
-
     public LoginPage() {
         
         label = new Label();
@@ -46,9 +43,6 @@ public class LoginPage extends GeneralGrafic
         mdb = new ManagerDb();
         
         Registrazione reg = new Registrazione();
-
-        
-        
 
         setId("AnchorPane");
         setPrefHeight(327.0);
@@ -120,7 +114,7 @@ public class LoginPage extends GeneralGrafic
         });
         
         
-        hyperlink.setLayoutX(184.0);
+        hyperlink.setLayoutX(107.0);
         hyperlink.setLayoutY(269.0);
         hyperlink.setPrefHeight(26.0);
         hyperlink.setPrefWidth(150.0);
