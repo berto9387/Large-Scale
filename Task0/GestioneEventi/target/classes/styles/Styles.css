@@ -4,3 +4,6 @@
 .alert {
     color: red;
 }
+.prova{ 
+    -fx-background-color: coral;      
+}

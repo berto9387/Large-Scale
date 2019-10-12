@@ -16,17 +16,19 @@ import javafx.scene.control.cell.*;
  */
 public class TabellaVisualeEvento extends TableView<Evento>{
     private final ObservableList<Evento> listaOsservabileEvento;
+    public ArrayList<Evento> eventi;
     public TabellaVisualeEvento()
     {
-        setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        //setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         this.setMaxHeight(USE_PREF_SIZE);
         this.setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
         setMinWidth(USE_PREF_SIZE);
-        setPrefHeight(518.0);
-        setPrefWidth(625.0);
+        setPrefHeight(200.0);
+        setPrefWidth(500.0);
         setLayoutX(82.0);
         setLayoutY(105.0);
+        
         
         TableColumn colonna_id = new TableColumn("id");
         TableColumn colonna_nome = new TableColumn("nome");
@@ -63,15 +65,24 @@ public class TabellaVisualeEvento extends TableView<Evento>{
 
         colonna_tipologia.setPrefWidth(81.0);
         
+        
+        
         listaOsservabileEvento = FXCollections.observableArrayList();
         setItems(listaOsservabileEvento);
         getColumns().addAll(colonna_id,colonna_nome,colonna_citta,colonna_data,colonna_ora,colonna_posti,
                     colonna_numero_partecipanti,colonna_tipologia,colonna_descrizione,colonna_organizzatore);
         
     }
-    public void aggiornaTabellaEventi(List<Evento> listaEventi)
+    public void aggiornaTabellaEventi(ArrayList<Evento> listaEventi)
     {
+        //prova colorare cella non riuscita
+        eventi=listaEventi;
         listaOsservabileEvento.clear();
-        listaOsservabileEvento.addAll(listaEventi);
+        for(int i=0;i<eventi.size();i++){
+            listaOsservabileEvento.add(eventi.get(i));
+            if(getItems().get(i).getPosti()==getItems().get(i).getPosti()){
+                getColumns().get(i).setStyle("-fx-background-color: red;");
+            }
+        }
     }
 }
