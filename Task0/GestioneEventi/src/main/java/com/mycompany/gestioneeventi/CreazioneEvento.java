@@ -121,7 +121,7 @@ public class CreazioneEvento extends GeneralGrafic {
         button1.setLayoutY(300.0);
         button1.setMnemonicParsing(false);
         button1.setText("Visualizza Eventi");
-        button1.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new RicercaEventi(),mainGroup );});
+        button1.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new EventiOrganizzatore(),mainGroup );});
 
         label.setLayoutX(32.0);
         label.setLayoutY(140.0);
