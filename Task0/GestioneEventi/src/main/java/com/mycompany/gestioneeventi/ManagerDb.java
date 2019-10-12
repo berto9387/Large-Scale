@@ -147,13 +147,13 @@ public class ManagerDb implements DAO {
         System.out.println(Ruolo);
         if(Ruolo==true){
             if("".equals(Citta))
-                sql="select * from evento where organizzatore="+id+" and data>=current_date()";
+                sql="select * from evento where organizzatore="+id+" and data>=current_date() and numero_partecipanti < posti";
             else
-               sql="select * from evento where organizzatore="+id+" and data>=current_date() and luogo='"+Citta+"'" ; 
+               sql="select * from evento where organizzatore="+id+" and data>=current_date() and numero_partecipanti < posti and luogo='"+Citta+"'" ; 
         } else{
             //sql="select * from partecipa P inner join eventoE on P.Utente="+id+" where E.data>=current_date() citta='"+Citta+"'";
             
-            sql="select * from evento where luogo='"+Citta+"' and data>=current_date()";
+            sql="select * from evento where luogo='"+Citta+"' and data>=current_date() and numero_partecipanti < posti";
 
         }
         
