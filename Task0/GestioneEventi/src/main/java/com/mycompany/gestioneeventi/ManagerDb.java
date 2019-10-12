@@ -146,15 +146,20 @@ public class ManagerDb implements DAO {
         String sql;
         System.out.println(Ruolo);
         if(Ruolo==true){
-            if("".equals(Citta))
-                sql="select * from evento where organizzatore="+id+" and data>=current_date() and numero_partecipanti < posti";
+            if(Citta == "")
+                sql="select * from evento where organizzatore="+id+" and data>=current_date()";
             else
-               sql="select * from evento where organizzatore="+id+" and data>=current_date() and numero_partecipanti < posti and luogo='"+Citta+"'" ; 
+               sql="select * from evento where organizzatore="+id+" and data>=current_date() and luogo='"+Citta+"'" ; 
         } else{
-            //sql="select * from partecipa P inner join eventoE on P.Utente="+id+" where E.data>=current_date() citta='"+Citta+"'";
-            
-            sql="select * from evento where luogo='"+Citta+"' and data>=current_date() and numero_partecipanti < posti";
-
+            if(Citta == ""){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto
+                
+                sql="SELECT E.* FROM evento E INNER JOIN partecipa P WHERE P.Utente="+id+" and data>=current_date()";
+                
+            } else{ //Caso in cui un partecipante vuole visualizzare tutti gli eventi
+                
+                sql="select * from evento where luogo='"+Citta+"' and data>=current_date()";
+                
+            }
         }
         
         
@@ -221,4 +226,32 @@ public class ManagerDb implements DAO {
         
         
    }
+   
+   public void annullaIscrizioneEvento(int id_utente, int id_evento){
+       
+       int numero_partecipanti = 0;
+       try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps= con.prepareStatement("SELECT numero_partecipanti FROM evento WHERE id = ?")){
+            
+            ps.setInt(1, id_evento);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                numero_partecipanti = rs.getInt("numero_partecipanti");
+            }
+            
+       } catch (Exception ex){System.err.println(ex.getMessage());}
+       
+       try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps= con.prepareStatement("DELETE FROM partecipa WHERE Utente = ? and evento = ?"))
+        {
+            ps.setInt(1,id_utente);
+            ps.setInt(2,id_evento);
+            ps.executeUpdate();
+            updateNumeroPartecipantiEvento(--numero_partecipanti,id_evento);
+        }
+        catch (Exception ex){System.err.println(ex.getMessage());}
+   }
+   
+   
 }

@@ -60,7 +60,7 @@ public class MenuUtente extends GeneralGrafic {
         button1.setLayoutY(232.0);
         button1.setMnemonicParsing(false);
         button1.setText("Visualizza Partecipazioni");
-        //button1.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new VisualizzaPartecipazioni(),mainGroup );});
+        button1.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new VisualizzaPartecipazioni(),mainGroup );});
 
         getChildren().add(button);
         getChildren().add(label);
