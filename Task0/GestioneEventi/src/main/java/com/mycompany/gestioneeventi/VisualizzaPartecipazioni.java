@@ -65,7 +65,7 @@ public class VisualizzaPartecipazioni extends GeneralGrafic{
                 return;
             }
             insert.annullaIscrizioneEvento(utente.id, Integer.parseInt(textField0.getText()));
-            ev=insert.ricercaEventi(utente.id, utente.organizzatore, "");
+            ev=insert.ricercaPrenotazioni(utente.id, utente.organizzatore);
             tabellaEvento.aggiornaTabellaEventi(ev);
             //olEvento = FXCollections.observableArrayList(ev);
             //twEvento.setItems(olEvento);
@@ -78,8 +78,8 @@ public class VisualizzaPartecipazioni extends GeneralGrafic{
         hyperlink.setPrefHeight(26.0);
         hyperlink.setPrefWidth(189.0);
         hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new MenuUtente(), mainGroup );});
-
-        ev=insert.ricercaEventi(utente.id, utente.organizzatore, "");
+        //partecipante come parametro serve per indirizzare nella giusta query
+        ev=insert.ricercaPrenotazioni(utente.id, utente.organizzatore);
         tabellaEvento.aggiornaTabellaEventi(ev);
 
         getChildren().add(tabellaEvento);

@@ -142,7 +142,7 @@ public class ManagerDb implements DAO {
    }
       
    public ArrayList<Evento> ricercaEventi(int id,boolean Ruolo,String Citta){
-       
+       //se citta coincide con partecipante trovo gli eventi al quale partecipa l'utente
         String sql;
         System.out.println(Ruolo);
         if(Ruolo==true){
@@ -151,15 +151,44 @@ public class ManagerDb implements DAO {
             else
                sql="select * from evento where organizzatore="+id+" and data>=current_date() and luogo='"+Citta+"'" ; 
         } else{
-            if(Citta == ""){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto
-                
-                sql="SELECT E.* FROM evento E INNER JOIN partecipa P ON E.id = P.evento WHERE P.Utente="+id+" and data>=current_date()";
-                
-            } else{ //Caso in cui un partecipante vuole visualizzare tutti gli eventi
-                
-                sql="select * from evento where luogo='"+Citta+"' and data>=current_date()";
-                
+            if(Citta == ""){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto                
+                sql="select * from evento where data>=current_date()";                
+            } else{ //Caso in cui un partecipante vuole visualizzare tutti gli eventi                
+                sql="select * from evento where luogo='"+Citta+"' and data>=current_date()";                
             }
+        }
+        
+        
+        ArrayList<Evento> ev=new ArrayList<>();
+          try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps= con.prepareStatement(sql))
+          {
+              ResultSet rs = ps.executeQuery();
+              while(rs.next())
+              {
+                  java.util.Date data=rs.getDate("data");
+                  Evento s1= new Evento(rs.getInt("id"),rs.getString("nome"),rs.getString("luogo"),data,
+                          rs.getString("ora"),rs.getInt("posti"),rs.getString("tipologia"),rs.getString("descrizione"),rs.getInt("organizzatore"),
+                            rs.getInt("numero_partecipanti"));
+                  ev.add(s1);
+              }
+          } 
+          catch (Exception ex) {
+            System.err.println("questo è l'errore" + ex.getMessage());
+            
+        }
+          return ev;
+    }
+   public ArrayList<Evento> ricercaPrenotazioni(int id,boolean Ruolo){
+       //se citta coincide con partecipante trovo gli eventi al quale partecipa l'utente
+        String sql;
+        System.out.println(Ruolo);
+        if(Ruolo==false){
+                            
+                sql="SELECT E.* FROM evento E INNER JOIN partecipa P ON E.id = P.evento WHERE P.Utente="+id+" and data>=current_date()";                
+            
+        }else{
+            return null;
         }
         
         
@@ -236,7 +265,7 @@ public class ManagerDb implements DAO {
             ps.setInt(1, id_evento);
             ResultSet rs = ps.executeQuery();
             
-            while(rs.next()){
+            if(rs.next()){
                 numero_partecipanti = rs.getInt("numero_partecipanti");
             }
             
@@ -245,9 +274,12 @@ public class ManagerDb implements DAO {
        try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
                   PreparedStatement ps= con.prepareStatement("DELETE FROM partecipa WHERE Utente = ? and evento = ?"))
         {
+            int num;
             ps.setInt(1,id_utente);
             ps.setInt(2,id_evento);
-            ps.executeUpdate();
+            num=ps.executeUpdate();
+            if(num==0)
+                return;
             updateNumeroPartecipantiEvento(--numero_partecipanti,id_evento);
         }
         catch (Exception ex){System.err.println(ex.getMessage());}
