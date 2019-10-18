@@ -231,6 +231,10 @@ public class ManagerDb implements DAO {
    {
        
        int numero_partecipanti = 0;
+       
+       if(controlloGiaIscrittoAllEvento(id_evento,id_partecipante))
+           return;
+       
         try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
                   PreparedStatement ps= con.prepareStatement("SELECT numero_partecipanti FROM evento WHERE id = ?")){
             
@@ -284,6 +288,22 @@ public class ManagerDb implements DAO {
         }
         catch (Exception ex){System.err.println(ex.getMessage());}
    }
-   
+   public boolean controlloGiaIscrittoAllEvento(int id_evento,int id_partecipante)
+   {
+       
+       try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps= con.prepareStatement("SELECT * FROM partecipa WHERE evento = ? and utente = ? ")){
+            
+            ps.setInt(1, id_evento);
+            ps.setInt(2, id_partecipante);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                return true;
+            }
+            
+        } catch (Exception ex){System.err.println(ex.getMessage());}
+       return false;
+   }
    
 }
