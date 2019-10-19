@@ -50,12 +50,12 @@ public class DAO {
         String sql;
         System.out.println(Ruolo);
         if(Ruolo==true){
-            if(Citta == "")
+            if(Citta.equals(""))
                 sql="select * from evento where organizzatore="+id+" and data>=current_date()";
             else
                sql="select * from evento where organizzatore="+id+" and data>=current_date() and luogo='"+Citta+"'" ; 
         } else{
-            if(Citta == ""){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto                
+            if(Citta.equals("")){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto                
                 sql="select * from evento where data>=current_date()";                
             } else{ //Caso in cui un partecipante vuole visualizzare tutti gli eventi                
                 sql="select * from evento where luogo='"+Citta+"' and data>=current_date()";                
@@ -84,4 +84,61 @@ public class DAO {
           return ev;
     }
     
+    public static void modificaEmail(String emailDaModificare,int idUtente,String tabellaUtenteDaModificare)//01
+    {
+         try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                    PreparedStatement ps= con.prepareStatement("UPDATE" + tabellaUtenteDaModificare 
+                            + "SET email = ?"
+                            + "WHERE id = ?"))
+        {
+            ps.setString(1,emailDaModificare);
+            ps.setInt(2, idUtente);
+            ps.executeUpdate();
+        }
+        catch (Exception ex){System.err.println(ex.getMessage());}
+ }       
+    
+    
+    public static void modificaPassword(String passwordDaModificare,int idUtente,String tabellaUtenteDaModificare) //01
+    {
+         try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                    PreparedStatement ps= con.prepareStatement("UPDATE" + tabellaUtenteDaModificare 
+                            + "SET password = ?"
+                            + "WHERE id = ?");)
+        {
+            ps.setString(1,passwordDaModificare);
+            ps.setInt(2, idUtente);
+            ps.executeUpdate();
+        }
+        catch (Exception ex){System.err.println(ex.getMessage());}      
+    
+    
+    }
+   
+    
+   public static void  eliminaUtente(int idUtenteDaEliminare,String tabellaUtenteDaModificare)
+   {
+    {
+        try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                    PreparedStatement ps= con.prepareStatement("DELETE FROM" +tabellaUtenteDaModificare
+                            + "WHERE id = ?"))
+        {
+            ps.setInt(1,idUtenteDaEliminare);
+            ps.executeUpdate();
+            
+        }
+        catch (Exception ex){System.err.println(ex.getMessage());}
+  } 
+   
+   
+   }
+    
 }
+
+/*
+                        COMMENTI DI GIANLUCA
+01)  Funzioni che permettono di modificare l'email e la seconda di modificare la passwor 
+     di un utente (organizzatore/partecipante).
+        
+
+*/
