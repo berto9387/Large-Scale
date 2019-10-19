@@ -21,9 +21,7 @@ public class User {
     String username;
     String telefono;
     int id;
-    protected User(){
-    
-    }
+
     protected User(String nome,String cognome,Date data_nascita,String email, String username, String telefono,String password,boolean organizzatore,int id){
         this.nome = nome;
         this.cognome = cognome;

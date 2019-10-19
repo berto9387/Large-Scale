@@ -19,11 +19,11 @@ public class EventiOrganizzatore extends GeneralGrafic{
     protected final Label label;
     protected final Hyperlink hyperlink;
     protected final TabellaVisualeEvento tabellaEvento;
-    private final ManagerDb insert;
+    ;
     private ArrayList<Evento> ev;
     
     public EventiOrganizzatore() {
-        this.insert = new ManagerDb();
+        
         tabellaEvento = new TabellaVisualeEvento();
         
         label = new Label();
@@ -46,7 +46,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         hyperlink.setPrefWidth(189.0);
         hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new CreazioneEvento(), mainGroup );});
         //partecipante come parametro serve per indirizzare nella giusta query
-        ev=insert.ricercaEventi(utente.id, utente.organizzatore,"");
+        ev=DAO.ricercaEventi(utente.id, utente.organizzatore,"");
         tabellaEvento.aggiornaTabellaEventi(ev);
 
         getChildren().add(tabellaEvento);

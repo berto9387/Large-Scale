@@ -21,11 +21,11 @@ public class VisualizzaPartecipazioni extends GeneralGrafic{
     protected final TextField textField0;
     protected final Button button0;
     protected final TabellaVisualeEvento tabellaEvento;
-    private final ManagerDb insert;
+    //private final ManagerDb insert;
     private ArrayList<Evento> ev;
     
     public VisualizzaPartecipazioni() {
-        this.insert = new ManagerDb();
+        //this.insert = new ManagerDb();
         tabellaEvento = new TabellaVisualeEvento();
         
         label = new Label();
@@ -64,8 +64,8 @@ public class VisualizzaPartecipazioni extends GeneralGrafic{
             if("".equals(textField0.getText())&&utente.organizzatore==false){
                 return;
             }
-            insert.annullaIscrizioneEvento(utente.id, Integer.parseInt(textField0.getText()));
-            ev=insert.ricercaPrenotazioni(utente.id, utente.organizzatore);
+            GestioneOperazioniDbLatoPartecipante.annullaIscrizioneEvento(utente.id, Integer.parseInt(textField0.getText()));
+            ev=GestioneOperazioniDbLatoPartecipante.ricercaPrenotazioni(utente.id, utente.organizzatore);
             tabellaEvento.aggiornaTabellaEventi(ev);
             //olEvento = FXCollections.observableArrayList(ev);
             //twEvento.setItems(olEvento);
@@ -79,7 +79,7 @@ public class VisualizzaPartecipazioni extends GeneralGrafic{
         hyperlink.setPrefWidth(189.0);
         hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new MenuUtente(), mainGroup );});
         //partecipante come parametro serve per indirizzare nella giusta query
-        ev=insert.ricercaPrenotazioni(utente.id, utente.organizzatore);
+        ev=GestioneOperazioniDbLatoPartecipante.ricercaPrenotazioni(utente.id, utente.organizzatore);
         tabellaEvento.aggiornaTabellaEventi(ev);
 
         getChildren().add(tabellaEvento);

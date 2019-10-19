@@ -21,13 +21,13 @@ public class Registrazione extends GeneralGrafic {
     protected final RadioButton r1;
     protected final RadioButton r2;
     protected final ToggleGroup tg;
-    private final ManagerDb insert;
+    //private final ManagerDb insert;
     private final Hyperlink hyperlink;
 
     
     
     public Registrazione() {
-        this.insert = new ManagerDb();
+        //this.insert = new ManagerDb();
         textField = new TextField();
         label = new Label();
         textField0 = new TextField();
@@ -111,9 +111,9 @@ public class Registrazione extends GeneralGrafic {
             String Confronta="Partecipante";
             System.err.println(Ruolo.equals(Confronta));
             if(Ruolo.equals(Confronta)){                
-                errore=insert.inserisciPartecipante(Nome, Cognome, Data, Email,Username, Phone,Password);
+                errore=GestioneOperazioniDbLatoPartecipante.inserisciPartecipante(Nome, Cognome, Data, Email,Username, Phone,Password);
             }else{
-               errore=insert.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
+               errore=GestioneOperazioniDbLatoOrganizzatore.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
             }
             if(errore==0){
                 Label label = new Label();

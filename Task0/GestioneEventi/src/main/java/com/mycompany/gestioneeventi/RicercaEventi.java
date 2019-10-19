@@ -29,24 +29,15 @@ public class RicercaEventi extends GeneralGrafic{
     protected final Label label1;
     protected final TextField textField0;
     protected final Button button0;
-    //protected final TableView<Evento> twEvento;
+
     protected final TabellaVisualeEvento tabellaEvento;
-   // private ObservableList<Evento> olEvento;
-   /* protected final TableColumn TableColumn;
-    protected final TableColumn TableColumn0;
-    protected final TableColumn TableColumn1;
-    protected final TableColumn TableColumn2;
-    protected final TableColumn TableColumn3;
-    protected final TableColumn TableColumn4;
-    protected final TableColumn TableColumn5;
-    protected final TableColumn TableColumn6;
-    protected final TableColumn TableColumn7;*/
-    private final ManagerDb insert;
+
+   // private final ManagerDb insert;
     private ArrayList<Evento> ev;
     
 
     public RicercaEventi() {
-        this.insert = new ManagerDb();
+       // this.insert = new ManagerDb();
         tabellaEvento = new TabellaVisualeEvento();
         
         
@@ -58,34 +49,7 @@ public class RicercaEventi extends GeneralGrafic{
         label1 = new Label();
         textField0 = new TextField();
         button0 = new Button();
-        
-    /*
-        twEvento = new TableView();
-        TableColumn5 = new TableColumn("id"); 
-        
-        TableColumn = new TableColumn("Nome");
-        TableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        
-        TableColumn0 = new TableColumn("Città");
-        TableColumn0.setCellValueFactory(new PropertyValueFactory<>("luogo"));
-        TableColumn1 = new TableColumn("Data");
-        TableColumn1.setCellValueFactory(new PropertyValueFactory<>("data"));
-        TableColumn2 = new TableColumn("Ora");
-        TableColumn2.setCellValueFactory(new PropertyValueFactory<>("ora"));
-        TableColumn3 = new TableColumn("Posti");
-        TableColumn3.setCellValueFactory(new PropertyValueFactory<>("posti"));
-        TableColumn4 = new TableColumn("Tipologia");
-        TableColumn4.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-        TableColumn6 = new TableColumn("descrizione");
-        TableColumn7 = new TableColumn("organizzatore");
-        
-        setMaxHeight(USE_PREF_SIZE);
-        setMaxWidth(USE_PREF_SIZE);
-        setMinHeight(USE_PREF_SIZE);
-        setMinWidth(USE_PREF_SIZE);
-        setPrefHeight(518.0);
-        setPrefWidth(625.0);
-*/
+
         label.setAlignment(javafx.geometry.Pos.CENTER);
         label.setLayoutX(218.0);
         label.setLayoutY(42.0);
@@ -114,16 +78,14 @@ public class RicercaEventi extends GeneralGrafic{
         
         button.setOnAction((ActionEvent e) -> {
             
-            //twEvento.getItems().clear();
             System.err.println(textField.getText());
             if("".equals(textField.getText())&&utente.organizzatore==false){
                 return;
             }
             System.err.println(utente.id);
-            ev=insert.ricercaEventi(utente.id, utente.organizzatore, textField.getText());
+            ev=DAO.ricercaEventi(utente.id, utente.organizzatore, textField.getText());
             tabellaEvento.aggiornaTabellaEventi(ev);
-            //olEvento = FXCollections.observableArrayList(ev);
-            //twEvento.setItems(olEvento);
+;
             
         });
         
@@ -149,13 +111,11 @@ public class RicercaEventi extends GeneralGrafic{
             if("".equals(textField.getText())&&utente.organizzatore==false){
                 return;
             }
-            insert.iscrizioneEvento(Integer.parseInt(textField0.getText()), utente.id);
+            GestioneOperazioniDbLatoPartecipante.iscrizioneEvento(Integer.parseInt(textField0.getText()), utente.id);
             System.out.println("id udente: " + utente.id);
-            ev=insert.ricercaEventi(utente.id, utente.organizzatore, textField.getText());
+            ev=DAO.ricercaEventi(utente.id, utente.organizzatore, textField.getText());
             tabellaEvento.aggiornaTabellaEventi(ev);
-            //olEvento = FXCollections.observableArrayList(ev);
-            //twEvento.setItems(olEvento);
-            
+           
         });
 
         hyperlink.setText("Torna indietro");
@@ -165,26 +125,6 @@ public class RicercaEventi extends GeneralGrafic{
         hyperlink.setPrefWidth(189.0);
         hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new MenuUtente(), mainGroup );});
         
-/*
-        twEvento.setLayoutX(82.0);
-        twEvento.setLayoutY(105.0);
-        twEvento.setPrefHeight(200.0);
-        twEvento.setPrefWidth(500.0);
-
-        TableColumn.setPrefWidth(70.4000244140625);
-
-        TableColumn0.setPrefWidth(80.7999267578125);
-
-        TableColumn1.setPrefWidth(120.0);
-
-        TableColumn2.setPrefWidth(75.0);
-
-        TableColumn3.setPrefWidth(75.0);
-
-        TableColumn4.setPrefWidth(81.0);
-        twEvento.getColumns().addAll(TableColumn, TableColumn0, TableColumn1, TableColumn2, TableColumn3, 
-                                        TableColumn4);
-        getChildren().add(twEvento);*/
         getChildren().add(tabellaEvento);
         getChildren().add(label);
         getChildren().add(textField);

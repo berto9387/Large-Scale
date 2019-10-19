@@ -40,10 +40,10 @@ public class CreazioneEvento extends GeneralGrafic {
     protected final TextField textField3;
     protected final Label label6;
     protected final TextField textField4;
-    private final ManagerDb insert;
+    
 
     public CreazioneEvento() {
-        this.insert = new ManagerDb();
+        
         button = new Button();
         button0 = new Button();
         button1 = new Button();
@@ -87,7 +87,7 @@ public class CreazioneEvento extends GeneralGrafic {
             int intero=Integer.valueOf(Posti);
             String Descrizione=textArea.getText();
             String Tipologia=textField3.getText();
-            errore=insert.creaEvento(Nome,Luogo,Data,Ora,intero,Tipologia,Descrizione,utente.id);
+            errore=GestioneOperazioniDbLatoOrganizzatore.creaEvento(Nome,Luogo,Data,Ora,intero,Tipologia,Descrizione,utente.id);
             if(errore==0){
                 Label label = new Label();
                 label.setText("Inserimento Evento non riuscito");
