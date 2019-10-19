@@ -97,8 +97,8 @@ CREATE TABLE `partecipa` (
   PRIMARY KEY (`id`),
   KEY `Utente_idxfk` (`Utente`),
   KEY `evento_idxfk` (`evento`),
-  CONSTRAINT `Utente_idxfk` FOREIGN KEY (`Utente`) REFERENCES `partecipante` (`id_Partecipante`),
-  CONSTRAINT `evento_idxfk` FOREIGN KEY (`evento`) REFERENCES `evento` (`id`)
+  CONSTRAINT `Utente_idxfk` FOREIGN KEY (`Utente`) REFERENCES `partecipante` (`id_Partecipante`) ON DELETE CASCADE,
+  CONSTRAINT `evento_idxfk` FOREIGN KEY (`evento`) REFERENCES `evento` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
