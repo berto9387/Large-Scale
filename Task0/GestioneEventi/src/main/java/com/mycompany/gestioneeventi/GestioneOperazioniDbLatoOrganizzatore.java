@@ -36,7 +36,7 @@ public class GestioneOperazioniDbLatoOrganizzatore extends DAO{
    }
    
    
-      public static User loginOrganizzatore(String email,String password)
+      public static User loginOrganizzatore(String email,String password)// GIANLUCA 01)
       {
           User utente=null;
           try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -79,7 +79,34 @@ public class GestioneOperazioniDbLatoOrganizzatore extends DAO{
 
       
    }     
-      
+  
+  
+  public static void eliminaEvento(int idEvento,int idOrganizzatore)//GIANLUCA 02
+  {
+              try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                    PreparedStatement ps= con.prepareStatement("DELETE FROM evento WHERE id = ? and organizzatore = ?"))
+        {
+            ps.setInt(1,idEvento);
+            ps.setInt(2,idOrganizzatore);
+            ps.executeUpdate();
+            
+        }
+        catch (Exception ex){System.err.println(ex.getMessage());}
+  }
       
       
 }
+
+
+/*
+COMMENTI DI GIANLUCA
+
+01  Funzione che permette di efettuare un login di un organizzatore 
+    e restituisce null se non vi è presente un utente che abbia gli stessi
+    email e password passati come parametri alla funzione altrimenti restituisco
+    i dati dell'organizzatore.
+02  Funzione che permette ad un organizzatore di eliminare un suo evento.
+
+    
+
+*/
