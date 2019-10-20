@@ -8,7 +8,10 @@ package com.mycompany.gestioneeventi;
 import static com.mycompany.gestioneeventi.GeneralGrafic.utente;
 import java.util.*;
 import javafx.event.*;
+
+import javafx.geometry.*;
 import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
 /**
@@ -16,42 +19,58 @@ import javafx.scene.text.*;
  * @author berto
  */
 public class EventiOrganizzatore extends GeneralGrafic{
-    protected final Label label;
-    protected final Hyperlink hyperlink;
+    protected final Label labelEventiInseriti;
+    protected final Hyperlink hyperlinkTornaIndietro;
     protected final TabellaVisualeEvento tabellaEvento;
-    ;
+    protected final VBox graficaPrincipale;
     private ArrayList<Evento> ev;
     
     public EventiOrganizzatore() {
         
         tabellaEvento = new TabellaVisualeEvento();
+        graficaPrincipale= new VBox();
+        labelEventiInseriti = new Label();
+        hyperlinkTornaIndietro = new Hyperlink();
+        InizializzaGrafica();
         
-        label = new Label();
-        hyperlink = new Hyperlink();
-     
-        label.setAlignment(javafx.geometry.Pos.CENTER);
-        label.setLayoutX(218.0);
-        label.setLayoutY(42.0);
-        label.setPrefHeight(39.0);
-        label.setPrefWidth(189.0);
-        label.setText("EVENTI INSERITI");
-        label.setFont(new Font(18.0));
+    }
+    
+    private void InizializzaGrafica()
+    {
+        InizializzazioneElementiGrafica();
+        HBox lineaTitolo = new HBox();
+        lineaTitolo.getChildren().addAll(labelEventiInseriti);
+        lineaTitolo.setAlignment(Pos.CENTER);
         
+        HBox lineaTornaIndietro = new HBox();
+        lineaTornaIndietro = new HBox();
+        lineaTornaIndietro.getChildren().addAll(hyperlinkTornaIndietro);
+        lineaTornaIndietro.setAlignment(Pos.CENTER);
         
-
-        hyperlink.setText("Torna indietro");
-        hyperlink.setLayoutX(275.0);
-        hyperlink.setLayoutY(460.0);
-        hyperlink.setPrefHeight(26.0);
-        hyperlink.setPrefWidth(189.0);
-        hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new CreazioneEvento(), mainGroup );});
+        graficaPrincipale.getChildren().addAll(lineaTitolo,tabellaEvento,lineaTornaIndietro);
+        graficaPrincipale.setSpacing(15);
+        setCenter(graficaPrincipale);
+        BorderPane.setMargin(graficaPrincipale,new Insets(30,20,30,200));
+    }
+    
+    
+    private void InizializzazioneElementiGrafica()
+    {
+             
+        labelEventiInseriti.setAlignment(javafx.geometry.Pos.CENTER);
+        labelEventiInseriti.setPrefHeight(39.0);
+        labelEventiInseriti.setPrefWidth(189.0);
+        labelEventiInseriti.setText("EVENTI INSERITI");
+        labelEventiInseriti.setFont(new Font(18.0));
+        
+        hyperlinkTornaIndietro.setText("Torna indietro");
+        hyperlinkTornaIndietro.setPrefHeight(26.0);
+        hyperlinkTornaIndietro.setPrefWidth(189.0);
+        hyperlinkTornaIndietro.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new CreazioneEvento(), mainGroup );});
         //partecipante come parametro serve per indirizzare nella giusta query
         ev=DAO.ricercaEventi(utente.id, utente.organizzatore,"");
         tabellaEvento.aggiornaTabellaEventi(ev);
-
-        getChildren().add(tabellaEvento);
-        getChildren().add(label);
-        getChildren().add(hyperlink);
+        
         
     }
 }
