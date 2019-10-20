@@ -8,7 +8,6 @@ com\mycompany\gestioneeventi\Evento.class
 com\mycompany\gestioneeventi\RicercaEventi.class
 com\mycompany\gestioneeventi\CreazioneEvento.class
 com\mycompany\gestioneeventi\GeneralGrafic.class
-com\mycompany\gestioneeventi\ManagerDb.class
 com\mycompany\gestioneeventi\LoginPage.class
 com\mycompany\gestioneeventi\User.class
 com\mycompany\gestioneeventi\GraficLoader.class

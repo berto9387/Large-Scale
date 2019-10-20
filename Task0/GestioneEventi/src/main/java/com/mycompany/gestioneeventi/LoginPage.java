@@ -6,152 +6,133 @@
 package com.mycompany.gestioneeventi;
 
 import javafx.event.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.geometry.*;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.*;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.*;
 //import javafx.stage.Stage;
 
 /**
  *
- * @author tony_
+ * @author gianluca
  */
 public class LoginPage extends GeneralGrafic
-{   protected final Label label;
-    protected final Button button;
-    protected final Label label0;
-    protected final Button button0;
-    protected final Hyperlink hyperlink;
-    protected final TextField textField;
-    protected final TextField textField0;
-
-    //private final ManagerDb mdb;
-
+{ 
+    protected final Button buttonLoginPartecipante;
+    protected final Label labelLogin;
+    protected final Button buttonLoginOrganizzatore;
+    protected final Hyperlink hyperlinkNonSeiRegistrato;
+    protected final TextField textFieldEmail;
+    protected final PasswordField textFieldPassword;
+    protected VBox graficaPrincipale;
+    protected HBox pulsantiLogin;
+    protected Label etichettaErrore;
     public LoginPage() {
+        etichettaErrore = new Label();
+        graficaPrincipale=new VBox();//GIANLUCA 01)INIZIO
+        pulsantiLogin = new HBox();//GIANLUCA 01) FINE
+        buttonLoginPartecipante = new Button();
+        labelLogin = new Label();
         
-        label = new Label();
-        button = new Button();
-        label0 = new Label();
-        button0 = new Button();
-        hyperlink = new Hyperlink();
-        textField = new TextField();
-        textField0 = new TextField();
-        //mdb = new ManagerDb();
-        
+        buttonLoginOrganizzatore = new Button();
+        hyperlinkNonSeiRegistrato = new Hyperlink();
+        textFieldEmail = new TextField();
+        textFieldPassword = new PasswordField();
         Registrazione reg = new Registrazione();
 
-        setId("AnchorPane");
+        setId("BorderPane");
         setPrefHeight(327.0);
         setPrefWidth(320);
         setStyle("-fx-font.size: 25;");
+        etichettaErrore.setText("Email o password sbagliati riprova");
+        etichettaErrore.setStyle("-fx-text-fill: red;");
+        buttonLoginPartecipante.setMnemonicParsing(false);
+        buttonLoginPartecipante.setText("Login partecipante");
+        buttonLoginPartecipante.setOnAction((ActionEvent ev)->{EventoLoginPartecipante();});
 
-        label.setLayoutX(126);
-        label.setLayoutY(120);
-        label.setMinHeight(16);
-        label.setMinWidth(69);
 
-        button.setLayoutX(14.0);
-        button.setLayoutY(207.0);
-        button.setMnemonicParsing(false);
-        button.setText("Login partecipante");
-        button.setOnAction((ActionEvent ev)->{
-             String email = textField.getText();
-            String password = textField0.getText();
-            utente=GestioneOperazioniDbLatoPartecipante.loginPartecipante(email, password);
-            if(utente==null)
-            {
-                Label errore = new Label();
-                errore.setText("Email o password sbagliati riprova");
-                errore.setStyle("-fx-text-fill: red;");
-                errore.setLayoutX(126.0);
-                errore.setLayoutY(289.0);
-                label.setPrefHeight(17.0);
-                label.setPrefWidth(267.0);
-                getChildren().add(errore);
-            }else{
-                 GraficLoader.Loader(this,new MenuUtente(),mainGroup );
-            
-            }
-        });
-        
-        label0.setAlignment(javafx.geometry.Pos.CENTER);
-        label0.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
-        label0.setLayoutX(115.0);
-        label0.setLayoutY(25.0);
-        label0.setPrefHeight(32.0);
-        label0.setPrefWidth(87.0);
-        label0.setText("LOGIN");
-        label0.setTextAlignment(javafx.scene.text.TextAlignment.JUSTIFY);
-        label0.setWrapText(true);
-        label0.setFont(new Font(18.0));
+        buttonLoginOrganizzatore.setText("Login organizzatore");
+        buttonLoginOrganizzatore.setOnAction((ActionEvent ev)->{EventoLoginOrganizzatore();});
+        hyperlinkNonSeiRegistrato.setText("Non sei registrato?");
+        hyperlinkNonSeiRegistrato.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, reg,mainGroup );});
+        textFieldEmail.setPromptText("email");
+        textFieldPassword.setPromptText("password");
 
-        button0.setLayoutX(184.0);
-        button0.setLayoutY(207.0);
-        button0.setMnemonicParsing(false);
-        button0.setText("Login organizzatore");
-        button0.setOnAction((ActionEvent ev)->{
-            String email = textField.getText();
-            String password = textField0.getText();
-            utente=GestioneOperazioniDbLatoOrganizzatore.loginOrganizzatore(email, password);
-            if(utente==null)
-            {
-                Label errore = new Label();
-                errore.setText("Email o password sbagliati riprova");
-                errore.setStyle("-fx-text-fill: red;");
-                errore.setLayoutX(126.0);
-                errore.setLayoutY(289.0);
-                label.setPrefHeight(17.0);
-                label.setPrefWidth(267.0);
-                getChildren().add(errore);
-            }else{
-                 GraficLoader.Loader(this,new CreazioneEvento(),mainGroup );
-            
-            }
-        });
-        
-        
-        hyperlink.setLayoutX(107.0);
-        hyperlink.setLayoutY(269.0);
-        hyperlink.setPrefHeight(26.0);
-        hyperlink.setPrefWidth(150.0);
-        hyperlink.setText("Non sei registrato?");
-        hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, reg,mainGroup );});
-        
-        textField.setAlignment(javafx.geometry.Pos.CENTER);
-        textField.setLayoutX(85.0);
-        textField.setLayoutY(94.0);
-        textField.setPromptText("email");
-
-        textField0.setAlignment(javafx.geometry.Pos.CENTER);
-        textField0.setLayoutX(85.0);
-        textField0.setLayoutY(151.0);
-        textField0.setPromptText("password");
-
-        getChildren().add(label);
-        getChildren().add(button);
-        getChildren().add(label0);
-        getChildren().add(button0);
-        getChildren().add(hyperlink);
-        getChildren().add(textField);
-        getChildren().add(textField0);
-
-    }
-
-  /*  private void apriRegistrazione(Stage stage) {
-        Registrazione registrazione = new Registrazione();
-        Group root = new Group(registrazione); 
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        
-        stage.setTitle("GestioneEventi");
-        stage.setScene(scene);
-        stage.show();
+        inizializzaGraficaLoginPage();
     }
     
-    */
+    
+    private void inizializzaGraficaLoginPage()//GIANLUCA 02
+    {        
+        hyperlinkNonSeiRegistrato.setPrefHeight(26.0);
+        hyperlinkNonSeiRegistrato.setPrefWidth(150.0);
+        buttonLoginPartecipante.setMinWidth(170);
+        buttonLoginOrganizzatore.setMinWidth(170);
+        etichettaErrore.setVisible(false);
+        
+        buttonLoginOrganizzatore.setMnemonicParsing(false);
+        
+        labelLogin.setPrefHeight(32.0);
+        labelLogin.setPrefWidth(87.0);
+        labelLogin.setText("LOGIN");
+        labelLogin.setFont(new Font(24.0));
+        
+        
+        HBox lineaTitolo=new HBox();
+        lineaTitolo.getChildren().addAll(labelLogin);
+        lineaTitolo.setAlignment(Pos.CENTER);
+        pulsantiLogin.getChildren().addAll(buttonLoginPartecipante,buttonLoginOrganizzatore);
+        pulsantiLogin.setSpacing(20);
+        
+        graficaPrincipale.getChildren().addAll(lineaTitolo,textFieldEmail,textFieldPassword,pulsantiLogin,etichettaErrore,hyperlinkNonSeiRegistrato);
+        graficaPrincipale.setSpacing(25);
+        //setTop(lineaTitolo);
+        setCenter(graficaPrincipale);
+        BorderPane.setMargin(graficaPrincipale,new Insets(30,20,30,200));
+        
+    }
+    
+    private void EventoLoginPartecipante()
+    {        
+        String email = textFieldEmail.getText();
+        String password = textFieldPassword.getText();
+        utente=GestioneOperazioniDbLatoPartecipante.loginPartecipante(email, password);
+        if(utente==null)
+        {
+            etichettaErrore.setVisible(true);
+        }else
+        {
+            GraficLoader.Loader(this,new MenuUtente(),mainGroup );
+        }
+    }
+    
+    
+    
+    private void EventoLoginOrganizzatore()
+    {
+        String email = textFieldEmail.getText();
+        String password = textFieldPassword.getText();
+        utente=GestioneOperazioniDbLatoOrganizzatore.loginOrganizzatore(email, password);
+        if(utente==null)
+        {
+            etichettaErrore.setVisible(true);
+        }else
+        {
+            GraficLoader.Loader(this,new CreazioneEvento(),mainGroup );
+        }
+    
+    }
+
 }
+/*
+                    COMMENTI DI GIANLUCA
+
+01) inizializzati gli elementi in cui verranno incapsulati gli elementi grafici 
+    della login page VBOX permette di inserire i node in verticale mentre HBOX
+    gli elementi vengono allineati in orrizontale.
+02) gli elementi di grafica vengono incapsulati negli appositi VB e VH e vengono
+    inseriti nel corpo centrale della BordderPane.
+*/

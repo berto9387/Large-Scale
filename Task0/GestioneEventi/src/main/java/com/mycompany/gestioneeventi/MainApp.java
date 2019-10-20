@@ -17,7 +17,7 @@ public class MainApp extends Application {
         LoginPage login = new LoginPage();
         Group root = new Group(login);
         
-        Scene scene = new Scene(root,700,500);
+        Scene scene = new Scene(root,750,700);
         GeneralGrafic.setParameters(scene, root, stage);
         scene.getStylesheets().add("/styles/Styles.css");
         

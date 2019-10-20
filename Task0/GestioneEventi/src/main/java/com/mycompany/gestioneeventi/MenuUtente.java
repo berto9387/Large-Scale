@@ -11,7 +11,7 @@ package com.mycompany.gestioneeventi;
  */
 
 
-import com.mycompany.gestioneeventi.GeneralGrafic;
+
 import static com.mycompany.gestioneeventi.GeneralGrafic.mainGroup;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;

@@ -3,47 +3,75 @@ package com.mycompany.gestioneeventi;
 
 import java.sql.Date;
 import javafx.event.*;
-import javafx.scene.Group;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
 public class Registrazione extends GeneralGrafic {
 
-    protected final TextField textField;
-    protected final Label label;
-    protected final TextField textField0;
-    protected final TextField textField1;
-    protected final TextField textField2;
-    protected final TextField textField3;
-    protected final TextField textField4;
-    protected final Button button;
-    protected final RadioButton r1;
-    protected final RadioButton r2;
-    protected final ToggleGroup tg;
-    //private final ManagerDb insert;
-    private final Hyperlink hyperlink;
+    protected final TextField textFieldNome;
+    protected final Label labelRegistrazione;
+    protected final TextField textFieldCognome;
+    protected final TextField textFieldDataDiNascita;
+    protected final TextField textFieldEmail;
+    protected final TextField textFieldUsername;
+    protected final TextField textFieldPassword;
+    protected final TextField textFieldTelefono;
+    protected final Button buttonRegistrati;
+    protected final RadioButton RadioButtonOrganizzatore;
+    protected final RadioButton RadioButtonPartecipante;
+    protected final ToggleGroup ToggleGroupGruppoUtente;
+    protected final VBox graficaPrincipale;
+    protected final Label labelErrore ;
+    private final Hyperlink hyperlinkTornaIndietro;
 
     
     
     public Registrazione() {
-        //this.insert = new ManagerDb();
-        textField = new TextField();
-        label = new Label();
-        textField0 = new TextField();
-        textField1 = new TextField();
-        textField2 = new TextField();
-        textField3 = new TextField();
-        textField4 = new TextField();
-        hyperlink = new Hyperlink();
+        labelErrore = new Label();
+        textFieldTelefono = new TextField();
+        graficaPrincipale = new VBox();
+        textFieldNome = new TextField();
+        labelRegistrazione = new Label();
+        textFieldCognome = new TextField();
+        textFieldDataDiNascita = new TextField();
+        textFieldEmail = new TextField();
+        textFieldUsername = new TextField();
+        textFieldPassword = new TextField();
+        hyperlinkTornaIndietro = new Hyperlink();
         
-        button = new Button();
-        tg = new ToggleGroup();
-        r1 = new RadioButton("Organizzatore"); 
-        r2 = new RadioButton("Partecipante"); 
-        r1.setToggleGroup(tg); 
-        r2.setToggleGroup(tg);
-        r2.setSelected(true);
+        buttonRegistrati = new Button();
+        ToggleGroupGruppoUtente = new ToggleGroup();
+        RadioButtonOrganizzatore = new RadioButton("Organizzatore"); 
+        RadioButtonPartecipante = new RadioButton("Partecipante"); 
+        inizializzaGrafica();
+        
+    }
+    
+    private void inizializzaGrafica()
+    {
+
+        inizializzaElementiDelForm();
+        HBox lineaTitolo=new HBox();
+        lineaTitolo.getChildren().addAll(labelRegistrazione);
+        lineaTitolo.setAlignment(Pos.CENTER);
+        graficaPrincipale.getChildren().addAll(lineaTitolo,textFieldNome,textFieldCognome,
+                textFieldDataDiNascita,textFieldEmail,textFieldUsername,textFieldPassword,textFieldTelefono,
+                RadioButtonOrganizzatore,RadioButtonPartecipante,buttonRegistrati,hyperlinkTornaIndietro);
+        graficaPrincipale.setSpacing(25);
+        
+        setCenter(graficaPrincipale);
+        BorderPane.setMargin(graficaPrincipale, new Insets(300,20,30,90));
+    }
+    
+    
+    private void inizializzaElementiDelForm()
+    {
+        RadioButtonOrganizzatore.setToggleGroup(ToggleGroupGruppoUtente); 
+        RadioButtonPartecipante.setToggleGroup(ToggleGroupGruppoUtente);
+        RadioButtonPartecipante.setSelected(true);
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -52,61 +80,77 @@ public class Registrazione extends GeneralGrafic {
         setPrefHeight(458.0);
         setPrefWidth(600.0);
 
-        label.setAlignment(javafx.geometry.Pos.CENTER);
-        label.setLayoutX(167.0);
-        label.setLayoutY(33.0);
-        label.setPrefHeight(17.0);
-        label.setPrefWidth(267.0);
-        label.setText("REGISTRAZIONE");
-        label.setFont(new Font(24.0));
+        labelRegistrazione.setAlignment(javafx.geometry.Pos.CENTER);
+        labelRegistrazione.setPrefHeight(17.0);
+        labelRegistrazione.setPrefWidth(267.0);
+        labelRegistrazione.setText("REGISTRAZIONE");
+        labelRegistrazione.setFont(new Font(24.0));
 
-        textField.setAlignment(javafx.geometry.Pos.CENTER);
-        textField.setLayoutX(226.0);
-        textField.setLayoutY(96.0);
-        textField.setPromptText("Nome");
+        textFieldNome.setAlignment(javafx.geometry.Pos.CENTER);
+        textFieldNome.setPromptText("Nome");
 
-        textField0.setAlignment(javafx.geometry.Pos.CENTER);
-        textField0.setLayoutX(226.0);
-        textField0.setLayoutY(138.0);
-        textField0.setPromptText("Cognome");
+        textFieldCognome.setAlignment(javafx.geometry.Pos.CENTER);
+        textFieldCognome.setPromptText("Cognome");
         
-        textField1.setAlignment(javafx.geometry.Pos.CENTER);
-        textField1.setLayoutX(226.0);
-        textField1.setLayoutY(179.0);
-        textField1.setPromptText("Data nascita");
+        textFieldDataDiNascita.setAlignment(javafx.geometry.Pos.CENTER);
+        textFieldDataDiNascita.setPromptText("Data nascita");
 
-        textField2.setAlignment(javafx.geometry.Pos.CENTER);
-        textField2.setLayoutX(226.0);
-        textField2.setLayoutY(217.0);
-        textField2.setPromptText("Email");
+        textFieldEmail.setAlignment(javafx.geometry.Pos.CENTER);
+        textFieldEmail.setPromptText("Email");
 
-        textField3.setAlignment(javafx.geometry.Pos.CENTER);
-        textField3.setLayoutX(226.0);
-        textField3.setLayoutY(253.0);
-        textField3.setPromptText("Username");
+        textFieldUsername.setAlignment(javafx.geometry.Pos.CENTER);
+        textFieldUsername.setPromptText("Username");
 
-        textField4.setAlignment(javafx.geometry.Pos.CENTER);
-        textField4.setLayoutX(226.0);
-        textField4.setLayoutY(289.0);
-        textField4.setPromptText("Password");
+        textFieldPassword.setAlignment(javafx.geometry.Pos.CENTER);
+        textFieldPassword.setPromptText("Password");
+        
+        textFieldTelefono.setAlignment(javafx.geometry.Pos.CENTER);
+        textFieldTelefono.setPromptText("Telefono");
+        
+        
+        buttonRegistrati.setMnemonicParsing(false);
+        buttonRegistrati.setPrefHeight(17.0);
+        buttonRegistrati.setPrefWidth(149.0);
+        buttonRegistrati.setText("REGISTRATI");
+        
+        buttonRegistrati.setOnAction((ActionEvent e) -> {gestisciEventoLogin();});
+        
+        hyperlinkTornaIndietro.setPrefHeight(26.0);
+        hyperlinkTornaIndietro.setPrefWidth(150.0);
+        hyperlinkTornaIndietro.setText("Torna indietro");
+        hyperlinkTornaIndietro.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new LoginPage(), mainGroup );});
 
-        button.setLayoutX(226.0);
-        button.setLayoutY(402.0);
-        button.setMnemonicParsing(false);
-        button.setPrefHeight(17.0);
-        button.setPrefWidth(149.0);
-        button.setText("REGISTRATI");
-        button.setOnAction((ActionEvent e) -> {
+        RadioButtonOrganizzatore.setMnemonicParsing(false);
+        RadioButtonOrganizzatore.setPrefHeight(17.0);
+        RadioButtonOrganizzatore.setPrefWidth(123.0);
+        
+        RadioButtonPartecipante.setMnemonicParsing(false);
+        RadioButtonPartecipante.setPrefHeight(17.0);
+        RadioButtonPartecipante.setPrefWidth(138.0);        
+        
+        
+                
+        labelErrore.setText("Email esistente,effettuare il login");
+        labelErrore.setStyle("-fx-text-fill: red;");
+        labelErrore.setVisible(false);
+        labelErrore.setPrefHeight(17.0);
+        labelErrore.setPrefWidth(267.0);
+    
+    
+    }
+    
+    private void gestisciEventoLogin()
+    {
             int errore;
-            String Nome=textField.getText();
-            String Cognome=textField0.getText();
-            String sData=textField1.getText();
+            String Nome=textFieldNome.getText();
+            String Cognome=textFieldCognome.getText();
+            String sData=textFieldEmail.getText();
             Date Data=Date.valueOf(sData);
-            String Email=textField2.getText();
-            String Phone="3333333333";
-            String Username=textField3.getText();
-            String Password=textField4.getText(); 
-            RadioButton selectedRadioButton = (RadioButton) tg.getSelectedToggle();
+            String Email=textFieldEmail.getText();
+            String Phone=textFieldTelefono.getText();
+            String Username=textFieldUsername.getText();
+            String Password=textFieldPassword.getText(); 
+            RadioButton selectedRadioButton = (RadioButton) ToggleGroupGruppoUtente.getSelectedToggle();
             String Ruolo = selectedRadioButton.getText();
             String Confronta="Partecipante";
             System.err.println(Ruolo.equals(Confronta));
@@ -116,52 +160,11 @@ public class Registrazione extends GeneralGrafic {
                errore=GestioneOperazioniDbLatoOrganizzatore.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
             }
             if(errore==0){
-                Label label = new Label();
-                label.setText("Email esistente,effettuare il login");
-                label.setStyle("-fx-text-fill: red;");
-                label.setLayoutX(226.0);
-                label.setLayoutY(373.0);
-                label.setPrefHeight(17.0);
-                label.setPrefWidth(267.0);
-                getChildren().add(label);
+                labelErrore.setVisible(true); 
             }else{
                GraficLoader.Loader(this,new LoginPage(),mainGroup );
             }
-        });
         
-        hyperlink.setLayoutX(226.0);
-        hyperlink.setLayoutY(450.0);
-        hyperlink.setPrefHeight(26.0);
-        hyperlink.setPrefWidth(150.0);
-        hyperlink.setText("Torna indietro");
-        hyperlink.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new LoginPage(), mainGroup );});
-
-        r1.setLayoutX(226.0);
-        r1.setLayoutY(328.0);
-        r1.setMnemonicParsing(false);
-        r1.setPrefHeight(17.0);
-        r1.setPrefWidth(123.0);
-        
-
-        r2.setLayoutX(226.0);
-        r2.setLayoutY(356.0);
-        r2.setMnemonicParsing(false);
-        r2.setPrefHeight(17.0);
-        r2.setPrefWidth(138.0);
-        
-        getChildren().add(textField);
-        getChildren().add(label);
-        getChildren().add(textField0);
-        getChildren().add(textField1);
-        getChildren().add(textField2);
-        getChildren().add(textField3);
-        getChildren().add(textField4);
-        getChildren().add(button);
-        getChildren().add(hyperlink);
-        
-        getChildren().add(r1); 
-        getChildren().add(r2); 
-        
-
+    
     }
 }

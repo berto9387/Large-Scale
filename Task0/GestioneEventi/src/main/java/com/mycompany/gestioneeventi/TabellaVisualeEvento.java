@@ -16,7 +16,7 @@ import javafx.scene.control.cell.*;
  */
 public class TabellaVisualeEvento extends TableView<Evento>{
     private final ObservableList<Evento> listaOsservabileEvento;
-    public ArrayList<Evento> eventi;
+    
     public TabellaVisualeEvento()
     {
         //setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -75,15 +75,7 @@ public class TabellaVisualeEvento extends TableView<Evento>{
     }
     public void aggiornaTabellaEventi(ArrayList<Evento> listaEventi)
     {
-        //prova colorare cella non riuscita
-        eventi=listaEventi;
         listaOsservabileEvento.clear();
-//        for(int i=0;i<eventi.size();i++){
-//            listaOsservabileEvento.add(eventi.get(i));
-//            if(getItems().get(i).getPosti()==getItems().get(i).getPosti()){
-//                getColumns().get(i).setStyle("-fx-background-color: red;");
-//            }
-//        }
         listaOsservabileEvento.addAll(listaEventi); 
     }
 }

@@ -13,7 +13,7 @@ import javafx.stage.*;
  *
  * @author Gianluca
  */
-public class GeneralGrafic extends AnchorPane{
+public class GeneralGrafic extends BorderPane{
     protected static Scene mainScene;
     protected static Group mainGroup;
     protected static Stage mainStage;
