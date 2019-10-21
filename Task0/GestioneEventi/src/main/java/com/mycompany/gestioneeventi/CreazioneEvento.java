@@ -171,14 +171,18 @@ public class CreazioneEvento extends GeneralGrafic {
     private void InizializzaGrafica()
     {
         HBox LineaTitolo = new HBox();
-        LineaTitolo.getChildren().add(labelCreazioneEvento);
+        LineaTitolo.getChildren().addAll(labelCreazioneEvento,buttonEsci);
+        LineaTitolo.setSpacing(10);
         LineaTitolo.setAlignment(Pos.CENTER);
+        HBox LineaPulsantiera = new HBox();
+        
+        LineaPulsantiera.getChildren().addAll(buttonCrea,buttonVisualizzaEventi);
         graficaPrincipale.getChildren().addAll(textFieldNome,textFieldLuogo,textFieldOra,textFieldPosti,
-                textFieldTipologia,textFieldData,labelDescrizione,textAreaDescrizione);
+                textFieldTipologia,textFieldData,labelDescrizione,textAreaDescrizione,LineaPulsantiera);
         graficaPrincipale.setSpacing(20);
         setCenter(graficaPrincipale);
         setTop(LineaTitolo);
-        setRight(buttonEsci);
+       
         BorderPane.setAlignment(buttonEsci, Pos.TOP_RIGHT);
         BorderPane.setMargin(graficaPrincipale, new Insets(30,20,30,200));
     }
