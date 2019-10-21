@@ -66,7 +66,7 @@ public class GestioneOperazioniDbLatoPartecipante extends DAO{
         System.out.println(Ruolo);
         if(Ruolo==false){
                             
-                sql="SELECT E.* FROM evento E INNER JOIN partecipa P ON E.id = P.evento WHERE P.Utente="+id+" and data>=current_date()";                
+                sql="SELECT E.* FROM evento E INNER JOIN partecipa P ON E.id_Evento = P.evento WHERE P.Utente="+id+" and data>=current_date()";                
             
         }else{
             return null;
@@ -81,7 +81,7 @@ public class GestioneOperazioniDbLatoPartecipante extends DAO{
               while(rs.next())
               {
                   java.util.Date data=rs.getDate("data");
-                  Evento s1= new Evento(rs.getInt("id"),rs.getString("nome"),rs.getString("luogo"),data,
+                  Evento s1= new Evento(rs.getInt("id_Evento"),rs.getString("nome"),rs.getString("luogo"),data,
                           rs.getString("ora"),rs.getInt("posti"),rs.getString("tipologia"),rs.getString("descrizione"),rs.getInt("organizzatore"),
                             rs.getInt("numero_partecipanti"));
                   ev.add(s1);
@@ -99,7 +99,7 @@ public class GestioneOperazioniDbLatoPartecipante extends DAO{
    public static void updateNumeroPartecipantiEvento(int numero_aggiornato_partecipanti,int id_evento)
    {
            try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-                  PreparedStatement ps= con.prepareStatement("UPDATE evento SET numero_partecipanti = ? WHERE id=?"))
+                  PreparedStatement ps= con.prepareStatement("UPDATE evento SET numero_partecipanti = ? WHERE id_Evento=?"))
            {
                ps.setInt(1,numero_aggiornato_partecipanti);
                ps.setInt(2, id_evento);
@@ -120,7 +120,7 @@ public class GestioneOperazioniDbLatoPartecipante extends DAO{
            return;
        
         try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-                  PreparedStatement ps= con.prepareStatement("SELECT numero_partecipanti FROM evento WHERE id = ?")){
+                  PreparedStatement ps= con.prepareStatement("SELECT numero_partecipanti FROM evento WHERE id_Evento = ?")){
             
             ps.setInt(1, id_evento);
             ResultSet rs = ps.executeQuery();
@@ -132,7 +132,7 @@ public class GestioneOperazioniDbLatoPartecipante extends DAO{
         } catch (Exception ex){System.err.println(ex.getMessage());}
         
         try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-                  PreparedStatement ps= con.prepareStatement("INSERT INTO partecipa(Utente,evento) VALUES(?,?) "))
+                  PreparedStatement ps= con.prepareStatement("INSERT INTO partecipa(utente,evento) VALUES(?,?) "))
         {
             ps.setInt(1,id_partecipante);
             ps.setInt(2,id_evento);
@@ -148,7 +148,7 @@ public class GestioneOperazioniDbLatoPartecipante extends DAO{
        
        int numero_partecipanti = 0;
        try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-                  PreparedStatement ps= con.prepareStatement("SELECT numero_partecipanti FROM evento WHERE id = ?")){
+                  PreparedStatement ps= con.prepareStatement("SELECT numero_partecipanti FROM evento WHERE id_Evento = ?")){
             
             ps.setInt(1, id_evento);
             ResultSet rs = ps.executeQuery();
@@ -160,7 +160,7 @@ public class GestioneOperazioniDbLatoPartecipante extends DAO{
        } catch (Exception ex){System.err.println(ex.getMessage());}
        
        try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-                  PreparedStatement ps= con.prepareStatement("DELETE FROM partecipa WHERE Utente = ? and evento = ?"))
+                  PreparedStatement ps= con.prepareStatement("DELETE FROM partecipa WHERE utente = ? and evento = ?"))
         {
             int num;
             ps.setInt(1,id_utente);

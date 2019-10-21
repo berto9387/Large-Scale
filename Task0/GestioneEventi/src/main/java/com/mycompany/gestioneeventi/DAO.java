@@ -12,7 +12,7 @@ import java.util.*;
 public class DAO {
 
    
-   protected static final String DB_URL ="jdbc:mysql://localhost:3306/task_0?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+   protected static final String DB_URL ="jdbc:mysql://localhost:3307/task_0?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
    protected static final String DRIVER ="com.mysql.cj.jdbc.Driver";
    protected static final String USER = "root";
@@ -71,7 +71,7 @@ public class DAO {
               while(rs.next())
               {
                   java.util.Date data=rs.getDate("data");
-                  Evento s1= new Evento(rs.getInt("id"),rs.getString("nome"),rs.getString("luogo"),data,
+                  Evento s1= new Evento(rs.getInt("id_Evento"),rs.getString("nome"),rs.getString("luogo"),data,
                           rs.getString("ora"),rs.getInt("posti"),rs.getString("tipologia"),rs.getString("descrizione"),rs.getInt("organizzatore"),
                             rs.getInt("numero_partecipanti"));
                   ev.add(s1);

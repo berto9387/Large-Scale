@@ -49,7 +49,7 @@ public class GestioneOperazioniDbLatoOrganizzatore extends DAO{
               {
                   java.util.Date data_nascita=rs.getDate("data_nascita");
                   utente= new User(rs.getString("nome"),rs.getString("cognome"),data_nascita,
-                          rs.getString("email"),rs.getString("username"),rs.getString("phone"),rs.getString("password"),true,rs.getInt("id_Organizatore"));
+                          rs.getString("email"),rs.getString("username"),rs.getString("phone"),rs.getString("password"),true,rs.getInt("id_Organizzatore"));
               }
           } 
           catch (Exception ex) {
@@ -84,7 +84,7 @@ public class GestioneOperazioniDbLatoOrganizzatore extends DAO{
   public static void eliminaEvento(int idEvento,int idOrganizzatore)//GIANLUCA 02
   {
         try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-                    PreparedStatement ps= con.prepareStatement("DELETE FROM evento WHERE id = ? and organizzatore = ?");)
+                    PreparedStatement ps= con.prepareStatement("DELETE FROM evento WHERE id_Evento = ? and organizzatore = ?");)
         {
             ps.setInt(1,idEvento);
             ps.setInt(2,idOrganizzatore);

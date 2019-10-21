@@ -144,7 +144,7 @@ public class Registrazione extends GeneralGrafic {
             int errore;
             String Nome=textFieldNome.getText();
             String Cognome=textFieldCognome.getText();
-            String sData=textFieldEmail.getText();
+            String sData=textFieldDataDiNascita.getText();
             Date Data=Date.valueOf(sData);
             String Email=textFieldEmail.getText();
             String Phone=textFieldTelefono.getText();
