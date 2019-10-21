@@ -22,11 +22,11 @@ import javafx.scene.text.Font;
 
 public class CreazioneEvento extends GeneralGrafic {
 
-    protected final Button button;
-    protected final Button button0;
-    protected final Button button1;
-    protected final Label label;
-    protected final TextArea textArea;
+    protected final Button buttonCrea;
+    protected final Button buttonEsci;
+    protected final Button buttonVisualizzaEventi;
+    protected final Label labelNome;
+    protected final TextArea textAreaDescrizione;
     protected final Label label0;
     protected final Label label1;
     protected final Label label2;
@@ -44,11 +44,11 @@ public class CreazioneEvento extends GeneralGrafic {
 
     public CreazioneEvento() {
         
-        button = new Button();
-        button0 = new Button();
-        button1 = new Button();
-        label = new Label();
-        textArea = new TextArea();
+        buttonCrea = new Button();
+        buttonEsci = new Button();
+        buttonVisualizzaEventi = new Button();
+        labelNome = new Label();
+        textAreaDescrizione = new TextArea();
         label0 = new Label();
         label1 = new Label();
         label2 = new Label();
@@ -71,12 +71,12 @@ public class CreazioneEvento extends GeneralGrafic {
         setPrefHeight(495.0);
         setPrefWidth(702.0);
 
-        button.setId("crea");
-        button.setLayoutX(591.0);
-        button.setLayoutY(426.0);
-        button.setMnemonicParsing(false);
-        button.setText("Crea");
-        button.setOnAction((ActionEvent e) -> {
+        buttonCrea.setId("crea");
+        buttonCrea.setLayoutX(591.0);
+        buttonCrea.setLayoutY(426.0);
+        buttonCrea.setMnemonicParsing(false);
+        buttonCrea.setText("Crea");
+        buttonCrea.setOnAction((ActionEvent e) -> {
             int errore=0;
             String Nome=textField.getText();
             String Luogo=textField0.getText();
@@ -85,7 +85,7 @@ public class CreazioneEvento extends GeneralGrafic {
             Date Data=Date.valueOf(sData);
             String Posti=textField2.getText();
             int intero=Integer.valueOf(Posti);
-            String Descrizione=textArea.getText();
+            String Descrizione=textAreaDescrizione.getText();
             String Tipologia=textField3.getText();
             errore=GestioneOperazioniDbLatoOrganizzatore.creaEvento(Nome,Luogo,Data,Ora,intero,Tipologia,Descrizione,utente.id);
             if(errore==0){
@@ -109,25 +109,25 @@ public class CreazioneEvento extends GeneralGrafic {
         label6.setText("CREAZIONE EVENTO");
         label6.setFont(new Font(36.0));
 
-        button0.setId("esci");
-        button0.setLayoutX(592.0);
-        button0.setLayoutY(24.0);
-        button0.setMnemonicParsing(false);
-        button0.setText("ESCI");
-        button0.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new LoginPage(),mainGroup );});
+        buttonEsci.setId("esci");
+        buttonEsci.setLayoutX(592.0);
+        buttonEsci.setLayoutY(24.0);
+        buttonEsci.setMnemonicParsing(false);
+        buttonEsci.setText("ESCI");
+        buttonEsci.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new LoginPage(),mainGroup );});
         
-        button1.setId("eventi");
-        button1.setLayoutX(500.0);
-        button1.setLayoutY(300.0);
-        button1.setMnemonicParsing(false);
-        button1.setText("Visualizza Eventi");
-        button1.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new EventiOrganizzatore(),mainGroup );});
+        buttonVisualizzaEventi.setId("eventi");
+        buttonVisualizzaEventi.setLayoutX(500.0);
+        buttonVisualizzaEventi.setLayoutY(300.0);
+        buttonVisualizzaEventi.setMnemonicParsing(false);
+        buttonVisualizzaEventi.setText("Visualizza Eventi");
+        buttonVisualizzaEventi.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new EventiOrganizzatore(),mainGroup );});
 
-        label.setLayoutX(32.0);
-        label.setLayoutY(140.0);
-        label.setPrefHeight(21.0);
-        label.setPrefWidth(96.0);
-        label.setText("Nome ");
+        labelNome.setLayoutX(32.0);
+        labelNome.setLayoutY(140.0);
+        labelNome.setPrefHeight(21.0);
+        labelNome.setPrefWidth(96.0);
+        labelNome.setText("Nome ");
 
         label0.setLayoutX(32.0);
         label0.setLayoutY(184.0);
@@ -189,17 +189,17 @@ public class CreazioneEvento extends GeneralGrafic {
         textField4.setLayoutX(128.0);
         textField4.setLayoutY(225.0);
         
-        textArea.setId("descrizione");
-        textArea.setLayoutX(128.0);
-        textArea.setLayoutY(413.0);
-        textArea.setPrefHeight(47.0);
-        textArea.setPrefWidth(332.0);
+        textAreaDescrizione.setId("descrizione");
+        textAreaDescrizione.setLayoutX(128.0);
+        textAreaDescrizione.setLayoutY(413.0);
+        textAreaDescrizione.setPrefHeight(47.0);
+        textAreaDescrizione.setPrefWidth(332.0);
 
-        getChildren().add(button);
-        getChildren().add(button0);
-        getChildren().add(button1);
-        getChildren().add(label);
-        getChildren().add(textArea);
+        getChildren().add(buttonCrea);
+        getChildren().add(buttonEsci);
+        getChildren().add(buttonVisualizzaEventi);
+        getChildren().add(labelNome);
+        getChildren().add(textAreaDescrizione);
         getChildren().add(label0);
         getChildren().add(label1);
         getChildren().add(label2);

@@ -126,7 +126,7 @@ public class GestioneOperazioniDbLatoOrganizzatore extends DAO{
 COMMENTI DI GIANLUCA
 
 01  Funzione che permette di efettuare un login di un organizzatore 
-    e restituisce null se non vi Ã¨ presente un utente che abbia gli stessi
+    e restituisce null se non vi è presente un utente che abbia gli stessi
     email e password passati come parametri alla funzione altrimenti restituisco
     i dati dell'organizzatore.
 02  Funzione che permette ad un organizzatore di eliminare un suo evento.
