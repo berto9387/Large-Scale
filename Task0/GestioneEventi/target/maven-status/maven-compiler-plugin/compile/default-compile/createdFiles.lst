@@ -5,6 +5,7 @@ com\mycompany\gestioneeventi\VisualizzaPartecipazioni.class
 com\mycompany\gestioneeventi\MainApp.class
 com\mycompany\gestioneeventi\DAO.class
 com\mycompany\gestioneeventi\Evento.class
+fxml\SceneBase.class
 com\mycompany\gestioneeventi\RicercaEventi.class
 com\mycompany\gestioneeventi\CreazioneEvento.class
 com\mycompany\gestioneeventi\GeneralGrafic.class
