@@ -89,7 +89,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         hyperlinkTornaIndietro.setText("Torna indietro");
         hyperlinkTornaIndietro.setPrefHeight(26.0);
         hyperlinkTornaIndietro.setPrefWidth(189.0);
-        hyperlinkTornaIndietro.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new CreazioneEvento(), mainGroup );});
+        hyperlinkTornaIndietro.setOnAction((ActionEvent e) -> {GraficLoader.Loader(this, new CreazioneEvento(), mainGroup );});
         //partecipante come parametro serve per indirizzare nella giusta query
         ev=DAO.ricercaEventi(utente.id, utente.organizzatore,"");
         tabellaEvento.aggiornaTabellaEventi(ev);
@@ -107,7 +107,6 @@ public class EventiOrganizzatore extends GeneralGrafic{
         idEvento.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             
             try{
-                Integer.parseInt(newValue);
                 for(int i=0;i<ev.size();i++){
                     if(Integer.parseInt(newValue)==ev.get(i).getId())
                         eventoId=Integer.parseInt(newValue);
@@ -135,8 +134,9 @@ public class EventiOrganizzatore extends GeneralGrafic{
         numeroPartecipanti.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             
             try{
-                Integer.parseInt(newValue);
+                partecipanti=Integer.parseInt(newValue);
                 modificaEvento.setDisable(false);
+                
             }catch (NumberFormatException ex ){
                 numeroPartecipanti.setText("");
                 modificaEvento.setDisable(true);
