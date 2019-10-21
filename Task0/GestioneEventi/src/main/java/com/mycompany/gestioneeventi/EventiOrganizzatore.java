@@ -48,7 +48,8 @@ public class EventiOrganizzatore extends GeneralGrafic{
         modificaEvento=new Button();
         eliminaEvento=new Button();
         InizializzaGrafica();
-        eventoId=0;
+        //indica che l'array è vuoto
+        eventoId=-1;
         partecipanti=0;
     }
     
@@ -64,14 +65,18 @@ public class EventiOrganizzatore extends GeneralGrafic{
         lineaTornaIndietro.setAlignment(Pos.CENTER);
         
         HBox lineaModicaElimina = new HBox();
-        lineaModicaElimina.getChildren().addAll(labelIdEvento,idEvento,labelNumeroPartecipanti,numeroPartecipanti,modificaEvento,eliminaEvento);
+        lineaModicaElimina.getChildren().addAll(idEvento,numeroPartecipanti);
         lineaModicaElimina.setAlignment(Pos.CENTER);
         lineaModicaElimina.setSpacing(15.0);
         
-        graficaPrincipale.getChildren().addAll(lineaTitolo,tabellaEvento,lineaTornaIndietro,lineaModicaElimina);
+        HBox lineaModicaEliminaPulsantiera = new HBox();
+        lineaModicaEliminaPulsantiera.getChildren().addAll(modificaEvento,eliminaEvento);
+        lineaModicaEliminaPulsantiera.setAlignment(Pos.CENTER);
+        lineaModicaEliminaPulsantiera.setSpacing(15.0);
+        
+        graficaPrincipale.getChildren().addAll(lineaTitolo,tabellaEvento,lineaModicaElimina,lineaModicaEliminaPulsantiera,lineaTornaIndietro);
         graficaPrincipale.setSpacing(15);
         setCenter(graficaPrincipale);
-        BorderPane.setMargin(graficaPrincipale,new Insets(30,20,30,200));
         
         
     }
@@ -105,21 +110,35 @@ public class EventiOrganizzatore extends GeneralGrafic{
         idEvento.setPromptText("Id evento");
         //evento gestito dal text field idEvento
         idEvento.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            
+            if("".equals(newValue)){
+                eventoId=-1;
+                eliminaEvento.setDisable(true);
+                modificaEvento.setDisable(true);
+                return;
+            }
             try{
                 for(int i=0;i<ev.size();i++){
-                    if(Integer.parseInt(newValue)==ev.get(i).getId())
-                        eventoId=Integer.parseInt(newValue);
+                    if(Integer.parseInt(newValue)==ev.get(i).getId()){
+                        eventoId=i;
+                        break;
+                    }                    
                     else
-                        eventoId=0;
+                        eventoId=-1;
                 }
-                if(eventoId!=0)
-                    eliminaEvento.setDisable(false);
-                else
-                    eliminaEvento.setDisable(true);
+                //si tratta di aggiungere 1 per evitare lo 0
+                if(eventoId!=-1){                   
+                    eliminaEvento.setDisable(false); 
+                    if(partecipanti>0)
+                        modificaEvento.setDisable(false);
+                }else{
+                   eliminaEvento.setDisable(true);
+                   modificaEvento.setDisable(true);
+                }
+                    
             }catch (NumberFormatException ex ){
                 idEvento.setText("");
                 eliminaEvento.setDisable(true);
+                modificaEvento.setDisable(true);
             }
         });
         
@@ -135,6 +154,10 @@ public class EventiOrganizzatore extends GeneralGrafic{
             
             try{
                 partecipanti=Integer.parseInt(newValue);
+                // sempre perchè indice di array
+                if(eventoId==-1){
+                    return;
+                }
                 modificaEvento.setDisable(false);
                 
             }catch (NumberFormatException ex ){
@@ -162,33 +185,39 @@ public class EventiOrganizzatore extends GeneralGrafic{
     }
 
     private void gestisciEventoModifica() {
-        if(eventoId==0 || partecipanti==0 || partecipanti<ev.get(eventoId).getNumeroPartecipanti()){
+        System.out.println(eventoId+" "+partecipanti);
+        if(eventoId==-1 || partecipanti==0 || partecipanti<ev.get(eventoId).getNumeroPartecipanti()){
             numeroPartecipanti.setText("");
             idEvento.setDisable(true);
             idEvento.setText("");
             modificaEvento.setDisable(true);
             return;
         }
-        
-        GestioneOperazioniDbLatoOrganizzatore.modificaEvento(eventoId, partecipanti, utente.id);
+        System.out.println(ev.get(eventoId).getId()+" "+partecipanti+" "+utente.id);
+        GestioneOperazioniDbLatoOrganizzatore.modificaEvento(ev.get(eventoId).getId(), partecipanti, utente.id);
         numeroPartecipanti.setText("");
+        partecipanti=0;
+        eventoId=-1;
         idEvento.setText("");
-        idEvento.setDisable(true);
+        eliminaEvento.setDisable(true);
         modificaEvento.setDisable(true);
     }
 
     private void gestisciEventoElimina() {
-        if(eventoId==0){
+        if(eventoId==-1){
             numeroPartecipanti.setText("");
             idEvento.setText("");
-            idEvento.setDisable(true);
+            partecipanti=0;
+            eliminaEvento.setDisable(true);
             modificaEvento.setDisable(true);
             return;
         }
         
-        GestioneOperazioniDbLatoOrganizzatore.eliminaEvento(eventoId, utente.id);
+        GestioneOperazioniDbLatoOrganizzatore.eliminaEvento(ev.get(eventoId).getId(), utente.id);
         numeroPartecipanti.setText("");
         idEvento.setText("");
+        partecipanti=0;
+        eventoId=-1;
         idEvento.setDisable(true);
         modificaEvento.setDisable(true);
     }

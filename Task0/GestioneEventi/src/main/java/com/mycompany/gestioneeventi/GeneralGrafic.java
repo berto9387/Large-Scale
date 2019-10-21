@@ -5,6 +5,7 @@
  */
 package com.mycompany.gestioneeventi;
 
+import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;

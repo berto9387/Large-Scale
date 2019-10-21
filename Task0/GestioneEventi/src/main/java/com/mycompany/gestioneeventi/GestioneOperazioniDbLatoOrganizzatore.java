@@ -98,10 +98,10 @@ public class GestioneOperazioniDbLatoOrganizzatore extends DAO{
   
  public static void modificaEvento(int idEvento,int posti,int idOrganizzatore)//GIANLUCA 03
  {
-        try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-                    PreparedStatement ps= con.prepareStatement("UPDATE evento "
-                            + "SET posti=?"
-                            + "WHERE id_evento = ? and organizzatore = ?");)
+        try(
+            Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+            PreparedStatement ps= con.prepareStatement("UPDATE evento SET posti=? WHERE id_Evento = ? and organizzatore = ?");
+        )
         {
             
             ps.setInt(1, posti);
