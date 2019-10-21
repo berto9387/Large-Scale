@@ -59,7 +59,7 @@ public class Registrazione extends GeneralGrafic {
         lineaTitolo.setAlignment(Pos.CENTER);
         graficaPrincipale.getChildren().addAll(lineaTitolo,textFieldNome,textFieldCognome,
                 textFieldDataDiNascita,textFieldEmail,textFieldUsername,textFieldPassword,textFieldTelefono,
-                RadioButtonOrganizzatore,RadioButtonPartecipante,buttonRegistrati,hyperlinkTornaIndietro);
+                labelErrore, RadioButtonOrganizzatore,RadioButtonPartecipante,buttonRegistrati,hyperlinkTornaIndietro);
         graficaPrincipale.setSpacing(25);
         
         setCenter(graficaPrincipale);

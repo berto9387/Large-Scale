@@ -190,6 +190,70 @@ public class GestioneOperazioniDbLatoPartecipante extends DAO{
             
         } catch (Exception ex){System.err.println(ex.getMessage());}
        return false;
-   }    
+   }
+   
+   public static int modificaDati(User partecipante, String email, String nuovaPassword, String vecchiaPassword){
+       
+         try(Connection con0 = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps0= con0.prepareStatement("SELECT * FROM partecipante WHERE id_Partecipante = ? and password = ? ")){
+             
+             ps0.setInt(1, partecipante.id);
+             ps0.setString(2, vecchiaPassword);
+             ResultSet rs = ps0.executeQuery();
+             
+             if(rs.next()){
+                 
+                 try(Connection con1 = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps1= con1.prepareStatement("UPDATE partecipante SET email = ?, password = ? WHERE id_Partecipante = ? ")){
+                     
+                     System.err.println(nuovaPassword);
+                     
+                     if(email.equals(""))
+                         email = partecipante.email;
+                     if(nuovaPassword.equals("")){
+                         nuovaPassword = partecipante.password;
+                     }
+                     
+                     System.err.println(nuovaPassword);
+                     
+                     ps1.setString(1, email);
+                     ps1.setString(2, nuovaPassword);
+                     ps1.setInt(3, partecipante.id);
+                     
+                     int res = ps1.executeUpdate();
+                     
+                     if(res == 0){
+                         return 0;
+                     }
+                     
+                 }catch (Exception ex){System.err.println(ex.getMessage());}
+             } else{
+                 return 0;
+             }
+             
+         }catch (Exception ex){System.err.println(ex.getMessage());}
+         
+         return 1;
+   }
+
+    static int eliminaAccount(User partecipante) {
+        
+        try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+                  PreparedStatement ps = con.prepareStatement("DELETE FROM partecipante WHERE id_Partecipante = ?")){
+             
+            ps.setInt(1, partecipante.id);
+             
+            int res = ps.executeUpdate();
+                     
+            if(res == 0){
+                return 0;
+            }
+                     
+             
+         }catch (Exception ex){System.err.println(ex.getMessage());}
+         
+        return 1;
+         
+    }
     
 }
