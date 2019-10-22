@@ -12,5 +12,6 @@ com\mycompany\gestioneeventi\LoginPage.class
 com\mycompany\gestioneeventi\User.class
 com\mycompany\gestioneeventi\GraficLoader.class
 com\mycompany\gestioneeventi\MenuUtente.class
+.netbeans_automatic_build
 com\mycompany\gestioneeventi\TabellaVisualeEvento.class
 com\mycompany\gestioneeventi\GestioneOperazioniDbLatoPartecipante.class

@@ -21,20 +21,22 @@
                 </plugin>
  
         </plugins>
-</build>
+    </build>
     <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>5.4.6.Final</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>8.0.17</version>
-                  <exclusions>
-                        <exclusion>
-                              <groupId>com.google.protobuf</groupId>
-                              <artifactId>protobuf-java</artifactId>
-                        </exclusion>
-                  </exclusions>
             </dependency>
+            
 
         </dependencies>
 </project>
