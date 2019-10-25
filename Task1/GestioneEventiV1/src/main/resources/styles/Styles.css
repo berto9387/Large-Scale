@@ -1,0 +1,9 @@
+.button {
+    -fx-font-weight: bold;
+}
+.alert {
+    color: red;
+}
+.prova{ 
+    -fx-background-color: coral;      
+}
