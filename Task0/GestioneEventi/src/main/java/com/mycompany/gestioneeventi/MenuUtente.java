@@ -83,7 +83,7 @@ public class MenuUtente extends GeneralGrafic {
         
         HBox lineaTitolo=new HBox();
         lineaTitolo.getChildren().addAll(labelMenuUtente, buttonEsci);
-        lineaTitolo.setAlignment(Pos.TOP_CENTER);
+        //lineaTitolo.setAlignment(Pos.TOP_CENTER);
         lineaTitolo.setSpacing(100);
         
         HBox lineaPulsantiEventi = new HBox();
@@ -109,14 +109,14 @@ public class MenuUtente extends GeneralGrafic {
    
       
         
-        setTop(lineaTitolo);
-        setCenter(lineaPulsantiEventi);
+        //setTop(lineaTitolo);
+        //setCenter(lineaPulsantiEventi);
        
-        
         graficaPrincipale.getChildren().addAll(lineaTitolo, lineaPulsantiEventi, colonnaModificaDati, colonnaEliminaAccount);
-        graficaPrincipale.setSpacing(100);
+        
         setCenter(graficaPrincipale);
-        BorderPane.setAlignment(graficaPrincipale, Pos.CENTER);
+        graficaPrincipale.setSpacing(35);
+        //BorderPane.setAlignment(graficaPrincipale, Pos.CENTER);
         
 //        BorderPane.setMargin(graficaPrincipale, new Insets(15,20,30,90));
        // BorderPane.setMargin(buttonEsci, new Insets(0, 0, 0, 500));

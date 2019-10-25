@@ -80,7 +80,7 @@ public class GestioneOperazioniDbLatoPartecipante extends DAO{
               ResultSet rs = ps.executeQuery();
               while(rs.next())
               {
-                  java.util.Date data=rs.getDate("data");
+                  java.util.Date data = rs.getDate("data");
                   Evento s1= new Evento(rs.getInt("id_Evento"),rs.getString("nome"),rs.getString("luogo"),data,
                           rs.getString("ora"),rs.getInt("posti"),rs.getString("tipologia"),rs.getString("descrizione"),rs.getInt("organizzatore"),
                             rs.getInt("numero_partecipanti"));
