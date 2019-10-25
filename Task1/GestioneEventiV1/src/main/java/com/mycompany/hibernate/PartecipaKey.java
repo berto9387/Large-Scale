@@ -18,7 +18,7 @@ public class PartecipaKey implements Serializable{
     @Column(name="id_Partecipante")
     Long idPartecipante;
 
-    @Column(name="id_Evento");
+    @Column(name="id_Evento")
     Long idEvento;
     
 }
