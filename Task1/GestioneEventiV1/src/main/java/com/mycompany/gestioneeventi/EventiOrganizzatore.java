@@ -7,13 +7,11 @@ package com.mycompany.gestioneeventi;
 
 import static com.mycompany.gestioneeventi.GeneralGrafic.utente;
 import java.util.*;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.*;
-
-import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.text.*;
 
 /**
@@ -21,10 +19,15 @@ import javafx.scene.text.*;
  * @author berto
  */
 public class EventiOrganizzatore extends GeneralGrafic{
+    protected final VBox graficaPrincipale;
+    protected final HBox lineaTitolo;
+    protected final HBox containerTabella;
+    protected final HBox lineaModificaElimina;
+    protected final HBox lineaTornaIndietro;
+    protected final HBox lineaModificaEliminaPulsantiera;
     protected final Label labelEventiInseriti;
     protected final Hyperlink hyperlinkTornaIndietro;
     protected final TabellaVisualeEvento tabellaEvento;
-    protected final VBox graficaPrincipale;
     protected final Label labelIdEvento;
     protected final TextField idEvento;
     protected final Label labelNumeroPartecipanti;
@@ -36,9 +39,13 @@ public class EventiOrganizzatore extends GeneralGrafic{
     private int partecipanti;
     
     public EventiOrganizzatore() {
-        
-        tabellaEvento = new TabellaVisualeEvento();
         graficaPrincipale= new VBox();
+        lineaTitolo = new HBox();
+        lineaTornaIndietro = new HBox();
+        lineaModificaElimina = new HBox();
+        containerTabella=new HBox();
+        lineaModificaEliminaPulsantiera=new HBox();
+        tabellaEvento = new TabellaVisualeEvento();
         labelEventiInseriti = new Label();
         hyperlinkTornaIndietro = new Hyperlink();
         labelIdEvento=new Label();
@@ -56,29 +63,58 @@ public class EventiOrganizzatore extends GeneralGrafic{
     private void InizializzaGrafica()
     {
         InizializzazioneElementiGrafica();
-        HBox lineaTitolo = new HBox();
-        lineaTitolo.getChildren().addAll(labelEventiInseriti);
-        lineaTitolo.setAlignment(Pos.CENTER);
         
-        HBox lineaTornaIndietro = new HBox();
-        lineaTornaIndietro.getChildren().addAll(hyperlinkTornaIndietro);
-        lineaTornaIndietro.setAlignment(Pos.CENTER);
+        setMaxHeight(USE_PREF_SIZE);
+        setMaxWidth(USE_PREF_SIZE);
+        setMinHeight(USE_PREF_SIZE);
+        setMinWidth(USE_PREF_SIZE);
+        setPrefHeight(400.0);
+        setPrefWidth(600.0);
         
-        HBox lineaModicaElimina = new HBox();
-        lineaModicaElimina.getChildren().addAll(idEvento,numeroPartecipanti);
-        lineaModicaElimina.setAlignment(Pos.CENTER);
-        lineaModicaElimina.setSpacing(15.0);
-        
-        HBox lineaModicaEliminaPulsantiera = new HBox();
-        lineaModicaEliminaPulsantiera.getChildren().addAll(modificaEvento,eliminaEvento);
-        lineaModicaEliminaPulsantiera.setAlignment(Pos.CENTER);
-        lineaModicaEliminaPulsantiera.setSpacing(15.0);
-        
-        graficaPrincipale.getChildren().addAll(lineaTitolo,tabellaEvento,lineaModicaElimina,lineaModicaEliminaPulsantiera,lineaTornaIndietro);
-        graficaPrincipale.setSpacing(15);
+        BorderPane.setAlignment(graficaPrincipale, javafx.geometry.Pos.CENTER);
+        lineaTitolo.setAlignment(javafx.geometry.Pos.CENTER);
+        containerTabella.setAlignment(javafx.geometry.Pos.CENTER);
+        lineaModificaElimina.setAlignment(javafx.geometry.Pos.CENTER);
+        lineaModificaEliminaPulsantiera.setAlignment(javafx.geometry.Pos.CENTER);
+        lineaTornaIndietro.setAlignment(javafx.geometry.Pos.CENTER);
         setCenter(graficaPrincipale);
         
+        lineaTitolo.getChildren().addAll(labelEventiInseriti);
+        containerTabella.getChildren().addAll(tabellaEvento);
+        lineaModificaElimina.getChildren().addAll(idEvento,numeroPartecipanti);
+        lineaModificaElimina.setSpacing(15.0);
+        lineaModificaEliminaPulsantiera.setSpacing(15.0);
+        lineaModificaEliminaPulsantiera.getChildren().addAll(modificaEvento,eliminaEvento);
+        lineaModificaEliminaPulsantiera.setSpacing(15.0);
+        lineaTornaIndietro.getChildren().addAll(hyperlinkTornaIndietro);
         
+        graficaPrincipale.getChildren().addAll(lineaTitolo,tabellaEvento,lineaModificaElimina,lineaModificaEliminaPulsantiera,lineaTornaIndietro);
+        graficaPrincipale.setSpacing(15);
+        
+//        HBox lineaTitolo = new HBox();
+//        lineaTitolo.getChildren().addAll(labelEventiInseriti);
+//        lineaTitolo.setAlignment(Pos.CENTER);
+//        
+//        HBox lineaTornaIndietro = new HBox();
+//        lineaTornaIndietro.getChildren().addAll(hyperlinkTornaIndietro);
+//        lineaTornaIndietro.setAlignment(Pos.CENTER);
+//        
+//        HBox lineaModicaElimina = new HBox();
+//        lineaModicaElimina.getChildren().addAll(idEvento,numeroPartecipanti);
+//        lineaModicaElimina.setAlignment(Pos.CENTER);
+//        lineaModicaElimina.setSpacing(15.0);
+//        
+//        HBox lineaModicaEliminaPulsantiera = new HBox();
+//        lineaModicaEliminaPulsantiera.getChildren().addAll(modificaEvento,eliminaEvento);
+//        lineaModicaEliminaPulsantiera.setAlignment(Pos.CENTER);
+//        lineaModicaEliminaPulsantiera.setSpacing(15.0);
+//        
+//        
+//        graficaPrincipale.getChildren().addAll(lineaTitolo,tabellaEvento,lineaModicaElimina,lineaModicaEliminaPulsantiera,lineaTornaIndietro);
+//        graficaPrincipale.setSpacing(15);
+//        
+//        getChildren().add(graficaPrincipale);
+//        setCenter(graficaPrincipale);
     }
     
     
@@ -90,6 +126,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         labelEventiInseriti.setPrefWidth(189.0);
         labelEventiInseriti.setText("EVENTI INSERITI");
         labelEventiInseriti.setFont(new Font(18.0));
+
         
         hyperlinkTornaIndietro.setText("Torna indietro");
         hyperlinkTornaIndietro.setPrefHeight(26.0);
