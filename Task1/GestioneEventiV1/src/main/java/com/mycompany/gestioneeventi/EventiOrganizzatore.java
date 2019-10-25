@@ -68,8 +68,8 @@ public class EventiOrganizzatore extends GeneralGrafic{
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
         setMinWidth(USE_PREF_SIZE);
-        setPrefHeight(400.0);
-        setPrefWidth(600.0);
+        setPrefHeight(USE_COMPUTED_SIZE);
+        setPrefWidth(USE_COMPUTED_SIZE);
         
         BorderPane.setAlignment(graficaPrincipale, javafx.geometry.Pos.CENTER);
         lineaTitolo.setAlignment(javafx.geometry.Pos.CENTER);
@@ -77,7 +77,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         lineaModificaElimina.setAlignment(javafx.geometry.Pos.CENTER);
         lineaModificaEliminaPulsantiera.setAlignment(javafx.geometry.Pos.CENTER);
         lineaTornaIndietro.setAlignment(javafx.geometry.Pos.CENTER);
-        setCenter(graficaPrincipale);
+        setRight(graficaPrincipale);
         
         lineaTitolo.getChildren().addAll(labelEventiInseriti);
         containerTabella.getChildren().addAll(tabellaEvento);
