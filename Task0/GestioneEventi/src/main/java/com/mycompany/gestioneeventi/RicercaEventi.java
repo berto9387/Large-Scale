@@ -63,7 +63,7 @@ public class RicercaEventi extends GeneralGrafic{
         HBox LineaIscrizioneEvento = new HBox();
         LineaIscrizioneEvento.getChildren().addAll(labelIdEvento,textFieldIdEvento,buttonIscriviti);
         LineaIscrizioneEvento.setSpacing(15);
-        graficaPrincipale.getChildren().addAll(LineaTitolo,LineaCampoRicercaCitta,LineaIscrizioneEvento,hyperlinkTornaIndietro);
+        graficaPrincipale.getChildren().addAll(LineaTitolo,LineaCampoRicercaCitta,tabellaEvento,LineaIscrizioneEvento,hyperlinkTornaIndietro);
         graficaPrincipale.setSpacing(20);
         setCenter(graficaPrincipale);
         BorderPane.setMargin(graficaPrincipale, new Insets(30,20,30,200));
