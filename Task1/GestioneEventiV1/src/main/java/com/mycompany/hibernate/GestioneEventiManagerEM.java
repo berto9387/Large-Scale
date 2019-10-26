@@ -28,24 +28,31 @@ public class GestioneEventiManagerEM {
     
     protected static int controllaEsistenza(String Email,int Ruolo){
         String sql;
-        ArrayList<OrganizzatoreDb> listaOrganizzatore = new ArrayList<>();
-        ArrayList<PartecipanteDb> listaPartecipanti=new ArrayList<>();
-        
+        ArrayList<OrganizzatoreDb> listaOrganizzatore;
+        ArrayList<PartecipanteDb> listaPartecipanti;
+        entityManager = factory.createEntityManager();
+        int risultato=0;
         if(Ruolo==1){
-            sql="select * from partecipante where email='"+Email+"'";
+            sql="select p from partecipante p where p.email:= email";
             listaPartecipanti=(ArrayList)entityManager.createQuery(sql).getResultList();
-            if(listaOrganizzatore.isEmpty())
-                return 1;
+            if(listaPartecipanti.isEmpty())
+            {
+                System.out.println("EMAIL NON PRESENTE");
+                risultato= 1;
+            }
                 
         }else{
-            sql="select * from organizzatore where email='"+Email+"'";
+            sql="select o from organizzatore o where o.email:=email";
             listaOrganizzatore=(ArrayList)entityManager.createQuery(sql).getResultList();
             if(listaOrganizzatore.isEmpty())
-                return 1;
+            {
+                 System.out.println("EMAIL NON PRESENTE");
+                risultato= 1;
+            }
         }
         
-        
-      return 0;
+       entityManager.close(); 
+      return risultato;
     }
         
 }

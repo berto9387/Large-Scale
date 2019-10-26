@@ -17,10 +17,10 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
     
     public  int inserisciPartecipante(String nome, String cognome, java.sql.Date data_nascita, String email,String username, String telefono,String password) {
         PartecipanteDb partecipanteDaInserire = new PartecipanteDb();
-        if(controllaEsistenza(email, 1)==0)
+       /* if(controllaEsistenza(email, 1)==0)
         {
             return 0;
-        }
+        }*/
         partecipanteDaInserire.setNome(nome);
         partecipanteDaInserire.setCognome(cognome);
         partecipanteDaInserire.setData_nascita(data_nascita);
