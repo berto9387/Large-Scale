@@ -13,11 +13,12 @@ import javax.persistence.*;
  */
 public class GestioneEventiManagerEM {
     protected EntityManagerFactory factory;
-    protected EntityManagerFactory entityManager;
+    protected EntityManager entityManager;
     
     public void setup(){
-        factory=Persistence.createEntityManagerFactory("task_1");
+        factory = Persistence.createEntityManagerFactory("task_1");
     }
+    
     public void exit(){
         factory.close();
     }

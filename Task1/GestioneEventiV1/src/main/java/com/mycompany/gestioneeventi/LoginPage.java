@@ -115,6 +115,7 @@ public class LoginPage extends GeneralGrafic
     {
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();
+        
         utente=GestioneOperazioniDbLatoOrganizzatore.loginOrganizzatore(email, password);
         if(utente==null)
         {
