@@ -12,8 +12,8 @@ import javax.persistence.*;
  * @author berto
  */
 public class GestioneEventiManagerEM {
-    private EntityManagerFactory factory;
-    private EntityManagerFactory entityManager;
+    protected EntityManagerFactory factory;
+    protected EntityManagerFactory entityManager;
     
     public void setup(){
         factory=Persistence.createEntityManagerFactory("task_1");
