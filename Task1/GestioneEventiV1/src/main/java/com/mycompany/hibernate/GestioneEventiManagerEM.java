@@ -33,7 +33,7 @@ public class GestioneEventiManagerEM {
         entityManager = factory.createEntityManager();
         int risultato=0;
         if(Ruolo==1){
-            sql="select p from partecipante p where p.email:= email";
+            sql="select p from partecipante p where p.email:= Email";
             listaPartecipanti=(ArrayList)entityManager.createQuery(sql).getResultList();
             if(listaPartecipanti.isEmpty())
             {
@@ -42,7 +42,7 @@ public class GestioneEventiManagerEM {
             }
                 
         }else{
-            sql="select o from organizzatore o where o.email:=email";
+            sql="select o from organizzatore o where o.email:=Email";
             listaOrganizzatore=(ArrayList)entityManager.createQuery(sql).getResultList();
             if(listaOrganizzatore.isEmpty())
             {

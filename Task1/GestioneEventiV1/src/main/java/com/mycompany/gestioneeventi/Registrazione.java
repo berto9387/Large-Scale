@@ -155,17 +155,17 @@ public class Registrazione extends GeneralGrafic {
             String Ruolo = selectedRadioButton.getText();
             System.err.println(Ruolo.equals("Partecipante"));
             if(Ruolo.equals("Partecipante")){
-                GestioneOperazioniOrganizzatoreEM.setup();
-                errore=GestioneOperazioniDbLatoPartecipante.inserisciPartecipante(Nome, Cognome, Data, Email,Username, Phone,Password);
-                GestioneOperazioniOrganizzatoreEM.exit();
+                GestioneEventiManagerEM.setup();
+                errore=GestioneOperazioniPartecipanteEM.inserisciPartecipante(Nome, Cognome, Data, Email,Username, Phone,Password);
+                GestioneEventiManagerEM.exit();
             }else{
                 
                //GestioneOperazioniOrganizzatoreEM manager = new GestioneOperazioniOrganizzatoreEM();
-               GestioneOperazioniOrganizzatoreEM.setup();
+               GestioneEventiManagerEM.setup();
                //errore=GestioneOperazioniDbLatoOrganizzatore.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
                errore=GestioneOperazioniOrganizzatoreEM.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
                
-               GestioneOperazioniOrganizzatoreEM.exit();
+              GestioneEventiManagerEM.exit();
             }
             if(errore==0){
                labelErrore.setVisible(true); 
