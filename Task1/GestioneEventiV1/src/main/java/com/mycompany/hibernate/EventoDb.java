@@ -6,15 +6,19 @@
 package com.mycompany.hibernate;
 
 import java.sql.Date;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
  *
  * @author berto
  */
-@Entity
+@Entity(name="EventoDb")
 @Table(name="evento")
 public class EventoDb {
+    @Column(name="id_Evento")
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private String nome;
     private String luogo;
@@ -24,14 +28,32 @@ public class EventoDb {
     private String tipologia;
     private String descrizione;
     private int numero_partecipanti;
-    
-    @Column(name="id_Evento")
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    public long getId(){
-        return id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_Organizzatore")
+    private OrganizzatoreDb organizzatore;
+    @ManyToMany(mappedBy="book")
+    private Set<PartecipanteDb> partecipazioni;
+   
+    //Costruttori della classe
+    public EventoDb(){
+        //costruttore vuoto
     }
 
+    public EventoDb(long id, String nome, String luogo, Date data, String ora, int posti, String tipologia, String descrizione, int numero_partecipanti, OrganizzatoreDb organizzatore, Set<PartecipanteDb> partecipazioni) {
+        this.id = id;
+        this.nome = nome;
+        this.luogo = luogo;
+        this.data = data;
+        this.ora = ora;
+        this.posti = posti;
+        this.tipologia = tipologia;
+        this.descrizione = descrizione;
+        this.numero_partecipanti = numero_partecipanti;
+        this.organizzatore = organizzatore;
+        this.partecipazioni = partecipazioni;
+    }
+    
+    //hash and equals
     @Override
     public int hashCode() {
         int hash = 3;
@@ -56,7 +78,11 @@ public class EventoDb {
         }
         return true;
     }
-
+    
+    //get and setter
+    public long getId(){
+        return id;
+    }
     public String getNome() {
         return nome;
     }
@@ -119,6 +145,22 @@ public class EventoDb {
 
     public void setNumero_partecipanti(int numero_partecipanti) {
         this.numero_partecipanti = numero_partecipanti;
+    }
+
+    public Set<PartecipanteDb> getPartecipazioni() {
+        return partecipazioni;
+    }
+
+    public void setPartecipazioni(Set<PartecipanteDb> partecipazioni) {
+        this.partecipazioni = partecipazioni;
+    }
+
+    public OrganizzatoreDb getOrganizzatore() {
+        return organizzatore;
+    }
+
+    public void setOrganizzatore(OrganizzatoreDb organizzatore) {
+        this.organizzatore = organizzatore;
     }
     
 }

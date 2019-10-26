@@ -4,59 +4,50 @@
  * and open the template in the editor.
  */
 package com.mycompany.hibernate;
+
 import java.sql.Date;
 import java.util.Set;
 import javax.persistence.*;
+
 /**
  *
  * @author berto
  */
-@Entity(name="PartecipanteDb")
-@Table(name="partecipante")
-public class PartecipanteDb {
-    @Column(name="id_Partecipante")
+@Entity(name="OrganizzatoreDb")
+@Table(name="organizzatore")
+public class OrganizzatoreDb {
+    @Column(name="id_Organizzatore")
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private String nome;
-
-    
     private String cognome;
     private Date data_nascita;
     private String email;
     private String password;
     private String username;
     private String phone;
+    @OneToMany(
+        mappedBy = "organizzatore",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private Set<EventoDb> eventiCreati;
     
-    
-    @ManyToMany(cascade = {
-        CascadeType.PERSIST,
-        CascadeType.MERGE
-    })
-    @JoinTable(
-            name="partecipa",
-            joinColumns=@JoinColumn(name="id_Partecipante"),
-            inverseJoinColumns=@JoinColumn(name="id_Evento"))
-    
-    private Set<EventoDb> book;
-    
-    //funzioni utili
-    
-    public void addBook(EventoDb ev){
-        book.add(ev);
-        ev.getPartecipazioni().add(this);
-        
+    //funzioni utili per la classe
+    public void addEvento(EventoDb ev){
+        eventiCreati.add(ev);
+        ev.setOrganizzatore(this);
     }
-    public void removeBook(EventoDb ev){
-        book.remove(ev);
-        ev.getPartecipazioni().remove(this);
+    public void removeEvento(EventoDb ev){
+        eventiCreati.remove(ev);
+        ev.setOrganizzatore(null);
     }
     //costruttori della classe
-    public PartecipanteDb(){
+    public OrganizzatoreDb(){
         //costruttore vuoto
     }
-
-    public PartecipanteDb(long id, String nome, String cognome, Date data_nascita, String email, String password, String username, String phone, Set<EventoDb> book) {
+    public OrganizzatoreDb(long id, String nome, String cognome, Date data_nascita, String email, String password, String username, String phone) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
@@ -65,15 +56,13 @@ public class PartecipanteDb {
         this.password = password;
         this.username = username;
         this.phone = phone;
-        this.book = book;
     }
-    
-    
+
     //hash and equals
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 5;
+        hash = 71 * hash + (int) (this.id ^ (this.id >>> 32));
         return hash;
     }
 
@@ -88,18 +77,21 @@ public class PartecipanteDb {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final PartecipanteDb other = (PartecipanteDb) obj;
+        final OrganizzatoreDb other = (OrganizzatoreDb) obj;
         if (this.id != other.id) {
             return false;
         }
         return true;
     }
-    
-    
+   
     //get and setter    
-    
-    public long getId(){
+
+    public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -158,12 +150,13 @@ public class PartecipanteDb {
         this.phone = phone;
     }
 
-    public Set<EventoDb> getBook() {
-        return book;
+    public Set<EventoDb> getEventiCreati() {
+        return eventiCreati;
     }
 
-    public void setBook(Set<EventoDb> book) {
-        this.book = book;
+    public void setEventiCreati(Set<EventoDb> eventiCreati) {
+        this.eventiCreati = eventiCreati;
     }
+
     
 }
