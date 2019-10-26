@@ -1,6 +1,7 @@
 package com.mycompany.gestioneeventi;
 
 
+import com.mycompany.hibernate.*;
 import java.sql.Date;
 import javafx.event.*;
 import javafx.geometry.Insets;
@@ -152,18 +153,23 @@ public class Registrazione extends GeneralGrafic {
             String Password=textFieldPassword.getText(); 
             RadioButton selectedRadioButton = (RadioButton) ToggleGroupGruppoUtente.getSelectedToggle();
             String Ruolo = selectedRadioButton.getText();
-            String Confronta="Partecipante";
-            System.err.println(Ruolo.equals(Confronta));
-            if(Ruolo.equals(Confronta)){                
+            System.err.println(Ruolo.equals("Partecipante"));
+            if(Ruolo.equals("Partecipante")){                
                 errore=GestioneOperazioniDbLatoPartecipante.inserisciPartecipante(Nome, Cognome, Data, Email,Username, Phone,Password);
             }else{
-               errore=GestioneOperazioniDbLatoOrganizzatore.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
+                
+               GestioneOperazioniOrganizzatoreEM manager = new GestioneOperazioniOrganizzatoreEM();
+               manager.setup();
+               //errore=GestioneOperazioniDbLatoOrganizzatore.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
+               manager.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
+               
+               manager.exit();
             }
-            if(errore==0){
-                labelErrore.setVisible(true); 
-            }else{
+//            if(errore==0){
+//                labelErrore.setVisible(true); 
+//            }else{
                GraficLoader.Loader(this,new LoginPage(),mainGroup );
-            }
+//            }
         
     
     }
