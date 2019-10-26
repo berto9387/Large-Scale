@@ -21,6 +21,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         {
             return 0;
         }
+       partecipanteDaInserire.setEmail(email);
         partecipanteDaInserire.setNome(nome);
         partecipanteDaInserire.setCognome(cognome);
         partecipanteDaInserire.setData_nascita(data_nascita);
