@@ -1,5 +1,6 @@
 package com.mycompany.gestioneeventi;
 
+import com.mycompany.hibernate.GestioneEventiManagerEM;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Group;
@@ -12,8 +13,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
-        
-        
+       
         LoginPage login = new LoginPage();
         Group root = new Group(login);
         
@@ -35,6 +35,9 @@ public class MainApp extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+         GestioneEventiManagerEM manager=new GestioneEventiManagerEM();
+        manager.setup();
+        manager.exit();
         launch(args);
     }
 
