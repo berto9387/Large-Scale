@@ -14,16 +14,20 @@ import java.sql.*;
 public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
     
     
-    public void inserisciOrganizzatore(String Nome, String Cognome, Date Data, String Email, String Username, String Phone, String Password){
+    public static int inserisciOrganizzatore(String nome, String cognome, Date data, String email, String username, String phone, String password){
         // long id, String nome, String cognome, Date data_nascita, String email, String password, String username, String phone
+        if(controllaEsistenza(email, 1)==0)
+        {
+            return 0;
+        }
         OrganizzatoreDb organizzatore = new OrganizzatoreDb();
-        organizzatore.setNome(Nome);
-        organizzatore.setCognome(Cognome);
-        organizzatore.setData_nascita(Data);
-        organizzatore.setEmail(Email);
-        organizzatore.setUsername(Username);
-        organizzatore.setPhone(Phone);
-        organizzatore.setPassword(Password);
+        organizzatore.setNome(nome);
+        organizzatore.setCognome(cognome);
+        organizzatore.setData_nascita(data);
+        organizzatore.setEmail(email);
+        organizzatore.setUsername(username);
+        organizzatore.setPhone(phone);
+        organizzatore.setPassword(password);
         
         try{
             entityManager = factory.createEntityManager();
@@ -37,7 +41,8 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             System.out.println("A problem occured in updating a book!");
         } 
         finally{
-            entityManager.close();
+            entityManager.close();  
         }
+        return 1;
     }
 }
