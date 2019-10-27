@@ -41,8 +41,9 @@ public class CreazioneEvento extends GeneralGrafic {
     protected final Label labelCreazioneEvento;
     protected final TextField textFieldData;
     protected final VBox graficaPrincipale;
-
+    protected final Label labelErrore;
     public CreazioneEvento() {
+        labelErrore = new Label();
         graficaPrincipale = new VBox();
         buttonCrea = new Button();
         buttonEsci = new Button();
@@ -160,13 +161,24 @@ public class CreazioneEvento extends GeneralGrafic {
         textAreaDescrizione.setPrefHeight(47.0);
         textAreaDescrizione.setPrefWidth(332.0);
         textAreaDescrizione.setPromptText("Descrizione");
-       
+        
         
         InizializzaGrafica();
     }
     
     private void InizializzaGrafica()
     {
+        
+        
+        labelErrore.setText("Inserimento Evento non riuscito");
+        labelErrore.setStyle("-fx-text-fill: red;");
+        labelErrore.setPrefHeight(17.0);
+        labelErrore.setPrefWidth(267.0);
+        labelErrore.setVisible(false);
+        
+        HBox lineaErrore = new HBox();
+        lineaErrore.getChildren().add(labelErrore);
+        lineaErrore.setAlignment(Pos.CENTER);
         HBox LineaTitolo = new HBox();
         LineaTitolo.getChildren().addAll(labelCreazioneEvento,buttonEsci);
         LineaTitolo.setSpacing(15);
@@ -176,7 +188,7 @@ public class CreazioneEvento extends GeneralGrafic {
         LineaPulsantiera.getChildren().addAll(buttonCrea,buttonVisualizzaEventi);
         LineaPulsantiera.setSpacing(15);
         graficaPrincipale.getChildren().addAll(textFieldNome,textFieldLuogo,textFieldOra,textFieldPosti,
-                textFieldTipologia,textFieldData,labelDescrizione,textAreaDescrizione,LineaPulsantiera);
+                textFieldTipologia,textFieldData,labelDescrizione,textAreaDescrizione,lineaErrore,LineaPulsantiera);
         graficaPrincipale.setSpacing(20);
         setCenter(graficaPrincipale);
         setTop(LineaTitolo);
@@ -204,15 +216,7 @@ public class CreazioneEvento extends GeneralGrafic {
             GestioneEventiManagerEM.exit();
             
             if(errore==0){
-                HBox LineaErrore = new HBox();
-                Label labelErrore = new Label();
-                labelErrore.setText("Inserimento Evento non riuscito");
-                labelErrore.setStyle("-fx-text-fill: red;");
-                labelErrore.setPrefHeight(17.0);
-                labelErrore.setPrefWidth(267.0);
-                
-                LineaErrore.getChildren().add(labelErrore);
-                graficaPrincipale.getChildren().add(LineaErrore);
+                labelErrore.setVisible(true);
             }else{
                GraficLoader.Loader(this,new CreazioneEvento(),mainGroup );
             }
