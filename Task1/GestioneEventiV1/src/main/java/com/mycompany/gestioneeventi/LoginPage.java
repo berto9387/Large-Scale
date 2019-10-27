@@ -5,6 +5,8 @@
  */
 package com.mycompany.gestioneeventi;
 
+import com.mycompany.hibernate.GestioneEventiManagerEM;
+import com.mycompany.hibernate.GestioneOperazioniOrganizzatoreEM;
 import javafx.event.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
@@ -116,14 +118,21 @@ public class LoginPage extends GeneralGrafic
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();
         
-        utente=GestioneOperazioniDbLatoOrganizzatore.loginOrganizzatore(email, password);
-        if(utente==null)
-        {
+        GestioneEventiManagerEM.setup();
+        organizzatore = GestioneOperazioniOrganizzatoreEM.loginOrganizzatore(email, password);
+        GestioneEventiManagerEM.exit();
+        
+        if(organizzatore==null){
+            
             etichettaErrore.setVisible(true);
-        }else
-        {
+            
+        } else{
+            
             GraficLoader.Loader(this,new CreazioneEvento(),mainGroup );
+            
         }
+         
+         
     
     }
 

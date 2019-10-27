@@ -5,7 +5,10 @@
  */
 package com.mycompany.hibernate;
 
-import java.sql.*;
+import static com.mycompany.hibernate.GestioneEventiManagerEM.entityManager;
+import java.sql.Date;
+import java.util.*;
+import javax.persistence.*;
 
 /**
  *
@@ -45,4 +48,37 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         }
         return 1;
     }
+    
+    public static OrganizzatoreDb loginOrganizzatore(String email, String password){
+        OrganizzatoreDb organizzatore = null;
+        
+        String sql;
+        ArrayList<OrganizzatoreDb> listaOrganizzatore;
+        
+        entityManager = factory.createEntityManager();
+        
+        sql="SELECT o FROM OrganizzatoreDb o WHERE o.email=:Email AND o.password=:Password";
+            TypedQuery<OrganizzatoreDb> query= entityManager.createQuery(sql,OrganizzatoreDb.class);
+            query=query.setParameter("Email", email);
+            query=query.setParameter("Password", password);
+            //listaOrganizzatore=(ArrayList)entityManager.createQuery(sql).getResultList();
+            listaOrganizzatore=(ArrayList)query.getResultList();
+            if(listaOrganizzatore.isEmpty())
+            {
+                 System.out.println("EMAIL O PASSWORD SBAGLIATE");
+                 
+            } else {
+                
+                organizzatore = listaOrganizzatore.get(0);
+       
+                System.out.println("COGNOME = " + organizzatore.getCognome());
+            }
+        
+        return organizzatore;
+    }
+    
+//    public static int creaEvento(String nome, String luogo, java.sql.Date data,String ora, int posti,String tipologia, String descrizione,int id) {
+//        
+//        EventoDb evento = new EventoDb();
+//    }
 }
