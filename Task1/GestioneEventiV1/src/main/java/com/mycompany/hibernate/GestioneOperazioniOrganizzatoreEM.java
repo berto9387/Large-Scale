@@ -77,8 +77,37 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         return organizzatore;
     }
     
-//    public static int creaEvento(String nome, String luogo, java.sql.Date data,String ora, int posti,String tipologia, String descrizione,int id) {
-//        
-//        EventoDb evento = new EventoDb();
-//    }
+    public static int creaEvento(String nome, String luogo, java.sql.Date data,String ora, int posti,String tipologia, String descrizione,OrganizzatoreDb organizzatore) {
+        int errore = 1;
+        EventoDb evento = new EventoDb();
+        
+        System.out.println( "POSTI: " + posti);
+        
+        evento.setNome(nome);
+        evento.setLuogo(luogo);
+        evento.setData(data);
+        evento.setOra(ora);
+        evento.setPosti(posti);
+        evento.setTipologia(tipologia);
+        evento.setDescrizione(descrizione);
+        evento.setOrganizzatore(organizzatore);
+        
+        try{
+            entityManager = factory.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.persist(evento);
+            entityManager.getTransaction().commit();
+            System.out.println("EVENTO Added");
+            
+        } catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in creating an event!");
+            errore = 0;
+        } 
+        finally{
+            entityManager.close();  
+        }
+        
+        return errore;
+    }
 }

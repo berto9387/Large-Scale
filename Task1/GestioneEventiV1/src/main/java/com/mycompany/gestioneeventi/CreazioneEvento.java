@@ -11,14 +11,11 @@ package com.mycompany.gestioneeventi;
  * 
  */
 
+import com.mycompany.hibernate.*;
 import java.sql.Date;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.geometry.*;
+import javafx.scene.control.*;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -201,16 +198,21 @@ public class CreazioneEvento extends GeneralGrafic {
             int intero=Integer.valueOf(Posti);
             String Descrizione=textAreaDescrizione.getText();
             String Tipologia=textFieldTipologia.getText();
-            errore=GestioneOperazioniDbLatoOrganizzatore.creaEvento(Nome,Luogo,Data,Ora,intero,Tipologia,Descrizione,utente.id);
+            
+            GestioneEventiManagerEM.setup();
+            errore=GestioneOperazioniOrganizzatoreEM.creaEvento(Nome,Luogo,Data,Ora,intero,Tipologia,Descrizione, organizzatore);
+            GestioneEventiManagerEM.exit();
+            
             if(errore==0){
-                Label label = new Label();
-                label.setText("Inserimento Evento non riuscito");
-                label.setStyle("-fx-text-fill: red;");
-                label.setLayoutX(226.0);
-                label.setLayoutY(373.0);
-                label.setPrefHeight(17.0);
-                label.setPrefWidth(267.0);
-                getChildren().add(label);
+                HBox LineaErrore = new HBox();
+                Label labelErrore = new Label();
+                labelErrore.setText("Inserimento Evento non riuscito");
+                labelErrore.setStyle("-fx-text-fill: red;");
+                labelErrore.setPrefHeight(17.0);
+                labelErrore.setPrefWidth(267.0);
+                
+                LineaErrore.getChildren().add(labelErrore);
+                graficaPrincipale.getChildren().add(LineaErrore);
             }else{
                GraficLoader.Loader(this,new CreazioneEvento(),mainGroup );
             }
