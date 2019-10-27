@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package com.mycompany.hibernate;
-import java.sql.Date;
-import java.util.Set;
+//import java.sql.Date;
+import java.util.*;
 import javax.persistence.*;
 /**
  *

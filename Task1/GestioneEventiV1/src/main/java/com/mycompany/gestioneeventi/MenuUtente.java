@@ -134,7 +134,7 @@ public class MenuUtente extends GeneralGrafic {
         labelMenuUtente.setAlignment(javafx.geometry.Pos.CENTER);
         labelMenuUtente.setPrefHeight(17.0);
         labelMenuUtente.setPrefWidth(400.0);
-        labelMenuUtente.setText("Benvenuto, " + utente.nome + " " + utente.cognome);
+        labelMenuUtente.setText("Benvenuto, " + partecipante.getNome() + " " + partecipante.getCognome());
         labelMenuUtente.setFont(new Font(24.0));
         labelMenuUtente.setStyle("-fx-font-weight: bold");
         
@@ -149,7 +149,7 @@ public class MenuUtente extends GeneralGrafic {
         buttonRicercaEventi.setPrefWidth(149.0);
         buttonRicercaEventi.setText("Ricerca eventi");
         buttonRicercaEventi.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new RicercaEventi(), mainGroup );});
-        
+      
         buttonVisualizzaPartecipazioni.setMnemonicParsing(false);
         buttonVisualizzaPartecipazioni.setPrefHeight(17.0);
         buttonVisualizzaPartecipazioni.setPrefWidth(149.0);
@@ -166,7 +166,7 @@ public class MenuUtente extends GeneralGrafic {
         labelEmail.setAlignment(javafx.geometry.Pos.CENTER);
         labelEmail.setPrefHeight(17.0);
         labelEmail.setPrefWidth(400.0);
-        labelEmail.setText("Email attuale: " + utente.email);
+        labelEmail.setText("Email attuale: " + partecipante.getEmail());
         labelEmail.setFont(new Font(15.0));
         
         textFieldEmail.setAlignment(javafx.geometry.Pos.CENTER);
@@ -182,7 +182,7 @@ public class MenuUtente extends GeneralGrafic {
         buttonModifica.setPrefHeight(17.0);
         buttonModifica.setPrefWidth(149.0);
         buttonModifica.setText("Modifica");
-        buttonModifica.setOnAction((ActionEvent ev) -> {gestisciModificaDati();});
+        //buttonModifica.setOnAction((ActionEvent ev) -> {gestisciModificaDati();});
         
 //        labelInfo.setText("Email esistente,effettuare il login");
 //        labelInfo.setStyle("-fx-text-fill: red;");
@@ -193,13 +193,13 @@ public class MenuUtente extends GeneralGrafic {
         hyperlinkEliminaAccount.setPrefHeight(26.0);
         hyperlinkEliminaAccount.setPrefWidth(150.0);
         hyperlinkEliminaAccount.setText("Elimina Account");
-        hyperlinkEliminaAccount.setOnAction((ActionEvent ev) -> {gestisciEliminaAccount();});
+       // hyperlinkEliminaAccount.setOnAction((ActionEvent ev) -> {gestisciEliminaAccount();});
         
         labelError.setVisible(false);
         labelError.setPrefHeight(17.0);
         labelError.setPrefWidth(267.0);
     }
-
+/*
     private void gestisciModificaDati() {
         int errore = 2;
         String email = textFieldEmail.getText();
@@ -225,7 +225,7 @@ public class MenuUtente extends GeneralGrafic {
     private void gestisciEliminaAccount() {
         int errore;
         
-        errore = GestioneOperazioniDbLatoPartecipante.eliminaAccount(utente);
+        errore = GestioneOperazioniDbLatoPartecipante.eliminaAccount(partecipante);
         
         if(errore == 0){
             labelError.setText("Errore durante la modifica");
@@ -235,6 +235,6 @@ public class MenuUtente extends GeneralGrafic {
             GraficLoader.Loader(this, new LoginPage(), mainGroup );
         }
         
-    }
+    }*/
 }
 

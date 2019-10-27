@@ -5,7 +5,8 @@
  */
 package com.mycompany.hibernate;
 
-import java.sql.Date;
+//import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 

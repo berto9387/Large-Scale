@@ -5,8 +5,8 @@
  */
 package com.mycompany.gestioneeventi;
 
-import com.mycompany.hibernate.GestioneEventiManagerEM;
-import com.mycompany.hibernate.GestioneOperazioniOrganizzatoreEM;
+
+import com.mycompany.hibernate.*;
 import javafx.event.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
@@ -101,8 +101,10 @@ public class LoginPage extends GeneralGrafic
     {        
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();
-        utente=GestioneOperazioniDbLatoPartecipante.loginPartecipante(email, password);
-        if(utente==null)
+        GestioneEventiManagerEM.setup();
+        partecipante=GestioneOperazioniPartecipanteEM.loginPartecipante(email, password);
+        GestioneEventiManagerEM.setup();
+        if(partecipante==null)
         {
             etichettaErrore.setVisible(true);
         }else
@@ -120,7 +122,7 @@ public class LoginPage extends GeneralGrafic
         
         GestioneEventiManagerEM.setup();
         organizzatore = GestioneOperazioniOrganizzatoreEM.loginOrganizzatore(email, password);
-        GestioneEventiManagerEM.exit();
+        GestioneEventiManagerEM.setup();
         
         if(organizzatore==null){
             
