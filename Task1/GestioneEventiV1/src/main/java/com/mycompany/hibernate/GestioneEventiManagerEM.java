@@ -26,7 +26,7 @@ public class GestioneEventiManagerEM {
         factory.close();
     }
     
-    protected static int controllaEsistenza(String Email,int Ruolo){
+    protected static int controllaEsistenza(String Email,int Ruolo){//01 GIANLUCA
         String sql;
         ArrayList<OrganizzatoreDb> listaOrganizzatore;
         ArrayList<PartecipanteDb> listaPartecipanti;
@@ -36,12 +36,12 @@ public class GestioneEventiManagerEM {
    
            // sql="select p from PartecipanteDb p where p.email:=Email";
 
-            sql="select p from PartecipanteDb p where p.email=:Email";
-            TypedQuery<PartecipanteDb> query= entityManager.createQuery(sql,PartecipanteDb.class);
-            query=query.setParameter("Email", Email);
+            sql="select p from PartecipanteDb p where p.email=:Email";//01.1
+            TypedQuery<PartecipanteDb> query= entityManager.createQuery(sql,PartecipanteDb.class);//01.2
+            query=query.setParameter("Email", Email);//01.3
             
             //listaPartecipanti=(ArrayList)entityManager.createQuery(sql).getResultList();
-            listaPartecipanti=(ArrayList)query.getResultList();
+            listaPartecipanti=(ArrayList)query.getResultList();//01.4
             if(listaPartecipanti.isEmpty())
             {
                 System.out.println("EMAIL NON PRESENTE");
@@ -69,3 +69,19 @@ public class GestioneEventiManagerEM {
     }
         
 }
+/*
+--------------------------COMMENTI DI GIANLUCA-------------------------------
+01) La funzione permette di verificare se esiste già un account con l'email
+    passata come parametro restituisce 1 se l'email non è presente mentre
+    restituisco 0 se l'email non è presente.
+
+    01.1 
+        Scrivo una query che andrà a cercare l'email passata dal parametro
+        posto di andare a concatenare la stringa Email andrò ad utilizzare
+        la convenzione email:=Email
+    01.2
+        Creo una TypedQuery
+    01.3
+        vado a settare il parametro Email di Where email:=Email con la
+        il parametro Email tramite la funzione setParameter().
+*/
