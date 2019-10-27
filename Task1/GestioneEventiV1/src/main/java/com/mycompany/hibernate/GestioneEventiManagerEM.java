@@ -33,8 +33,15 @@ public class GestioneEventiManagerEM {
         entityManager = factory.createEntityManager();
         int risultato=0;
         if(Ruolo==1){
-            sql="select p from PartecipanteDb p where p.email='"+Email+"'";
-            listaPartecipanti=(ArrayList)entityManager.createQuery(sql).getResultList();
+   
+           // sql="select p from PartecipanteDb p where p.email:=Email";
+
+            sql="select p from PartecipanteDb p where p.email=:Email";
+            TypedQuery<PartecipanteDb> query= entityManager.createQuery(sql,PartecipanteDb.class);
+            query=query.setParameter("Email", Email);
+            
+            //listaPartecipanti=(ArrayList)entityManager.createQuery(sql).getResultList();
+            listaPartecipanti=(ArrayList)query.getResultList();
             if(listaPartecipanti.isEmpty())
             {
                 System.out.println("EMAIL NON PRESENTE");
@@ -42,8 +49,14 @@ public class GestioneEventiManagerEM {
             }
                 
         }else{
-            sql="select o from OrgazizzatoreDb o where o.email='"+Email+"'";
-            listaOrganizzatore=(ArrayList)entityManager.createQuery(sql).getResultList();
+
+            //sql="select o from OrgazizzatoreDb o where o.email='"+Email+"'";
+
+            sql="select o from OrganizzatoreDb o where o.email=:Email";
+            TypedQuery<OrganizzatoreDb> query= entityManager.createQuery(sql,OrganizzatoreDb.class);
+            query=query.setParameter("Email", Email);
+            //listaOrganizzatore=(ArrayList)entityManager.createQuery(sql).getResultList();
+            listaOrganizzatore=(ArrayList)query.getResultList();
             if(listaOrganizzatore.isEmpty())
             {
                  System.out.println("EMAIL NON PRESENTE");
