@@ -194,7 +194,7 @@ public class CreazioneEvento extends GeneralGrafic {
         setTop(LineaTitolo);
        
        // BorderPane.setAlignment(buttonEsci, Pos.TOP_RIGHT);
-        BorderPane.setMargin(graficaPrincipale, new Insets(30,20,30,200));
+        BorderPane.setMargin(graficaPrincipale, new Insets(100,20,30,200));
     }
     
     private void GestisciEventoCrea()

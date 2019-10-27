@@ -60,7 +60,7 @@ public class MenuUtente extends GeneralGrafic {
 
       
 //
-//        button0.setLayoutX(328.0);
+//       button0.setLayoutX(328.0);
 //        button0.setLayoutY(232.0);
 //        button0.setMnemonicParsing(false);
 //        button0.setPrefHeight(31.0);
