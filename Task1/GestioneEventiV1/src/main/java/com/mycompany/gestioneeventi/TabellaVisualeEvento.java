@@ -5,6 +5,7 @@
  */
 package com.mycompany.gestioneeventi;
 
+
 import java.util.*;
 import javafx.collections.*;
 import javafx.scene.control.*;

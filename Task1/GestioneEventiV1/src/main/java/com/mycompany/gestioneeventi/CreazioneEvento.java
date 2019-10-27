@@ -211,9 +211,10 @@ public class CreazioneEvento extends GeneralGrafic {
             String Descrizione=textAreaDescrizione.getText();
             String Tipologia=textFieldTipologia.getText();
             
-            GestioneEventiManagerEM.setup();
+            GestioneEventiManagerEM manager = new GestioneEventiManagerEM();
+            manager.setup();
             errore=GestioneOperazioniOrganizzatoreEM.creaEvento(Nome,Luogo,Data,Ora,intero,Tipologia,Descrizione, organizzatore);
-            GestioneEventiManagerEM.exit();
+            manager.exit();
             
             if(errore==0){
                 labelErrore.setVisible(true);

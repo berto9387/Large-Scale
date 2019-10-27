@@ -7,6 +7,7 @@ package com.mycompany.gestioneeventi;
 
 
 import static com.mycompany.gestioneeventi.GeneralGrafic.mainGroup;
+import com.mycompany.hibernate.EventoDb;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;

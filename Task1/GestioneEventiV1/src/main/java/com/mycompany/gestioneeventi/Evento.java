@@ -24,7 +24,7 @@ public class Evento {
     private final SimpleIntegerProperty Organizzatore;
     private final SimpleIntegerProperty NumeroPartecipanti;
    
-    protected Evento(int id,String Nome,String Luogo, Date Data,String Ora,int Posti, String Tipologia, String Descrizione,int Organizzatore,int NumeroPartecipanti){
+    public Evento(int id,String Nome,String Luogo, Date Data,String Ora,int Posti, String Tipologia, String Descrizione,int Organizzatore,int NumeroPartecipanti){
         this.id = new SimpleIntegerProperty(id);
         this.Nome = new SimpleStringProperty(Nome);
         this.Luogo = new SimpleStringProperty(Luogo);        

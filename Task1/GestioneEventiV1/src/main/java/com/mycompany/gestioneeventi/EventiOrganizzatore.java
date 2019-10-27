@@ -6,6 +6,7 @@
 package com.mycompany.gestioneeventi;
 
 import static com.mycompany.gestioneeventi.GeneralGrafic.utente;
+import com.mycompany.hibernate.*;
 import java.util.*;
 import javafx.beans.value.ObservableValue;
 import javafx.event.*;
@@ -133,7 +134,10 @@ public class EventiOrganizzatore extends GeneralGrafic{
         hyperlinkTornaIndietro.setPrefWidth(189.0);
         hyperlinkTornaIndietro.setOnAction((ActionEvent e) -> {GraficLoader.Loader(this, new CreazioneEvento(), mainGroup );});
         //partecipante come parametro serve per indirizzare nella giusta query
-        ev=DAO.ricercaEventi(utente.id, utente.organizzatore,"");
+        GestioneEventiManagerEM manager = new GestioneEventiManagerEM();
+        manager.setup();
+        ev = GestioneEventiManagerEM.ricercaEventi(organizzatore, true ,"");
+        manager.exit();
         tabellaEvento.aggiornaTabellaEventi(ev);
         
         labelIdEvento.setAlignment(javafx.geometry.Pos.BOTTOM_RIGHT);
@@ -209,7 +213,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         modificaEvento.setPrefWidth(149.0);
         modificaEvento.setText("MODIFICA");
         
-        modificaEvento.setOnAction((ActionEvent e) -> {gestisciEventoModifica();});
+        //modificaEvento.setOnAction((ActionEvent e) -> {gestisciEventoModifica();});
                 
         
         eliminaEvento.setMnemonicParsing(false);
@@ -218,44 +222,44 @@ public class EventiOrganizzatore extends GeneralGrafic{
         eliminaEvento.setPrefWidth(149.0);
         eliminaEvento.setText("ELIMINA");
         
-        eliminaEvento.setOnAction((ActionEvent e) -> {gestisciEventoElimina();});
+        //eliminaEvento.setOnAction((ActionEvent e) -> {gestisciEventoElimina();});
     }
 
-    private void gestisciEventoModifica() {
-        System.out.println(eventoId+" "+partecipanti);
-        if(eventoId==-1 || partecipanti==0 || partecipanti<ev.get(eventoId).getNumeroPartecipanti()){
-            numeroPartecipanti.setText("");
-            idEvento.setDisable(true);
-            idEvento.setText("");
-            modificaEvento.setDisable(true);
-            return;
-        }
-        System.out.println(ev.get(eventoId).getId()+" "+partecipanti+" "+utente.id);
-        GestioneOperazioniDbLatoOrganizzatore.modificaEvento(ev.get(eventoId).getId(), partecipanti, utente.id);
-        numeroPartecipanti.setText("");
-        partecipanti=0;
-        eventoId=-1;
-        idEvento.setText("");
-        eliminaEvento.setDisable(true);
-        modificaEvento.setDisable(true);
-    }
+//    private void gestisciEventoModifica() {
+//        System.out.println(eventoId+" "+partecipanti);
+//        if(eventoId==-1 || partecipanti==0 || partecipanti<ev.get(eventoId).getNumeroPartecipanti()){
+//            numeroPartecipanti.setText("");
+//            idEvento.setDisable(true);
+//            idEvento.setText("");
+//            modificaEvento.setDisable(true);
+//            return;
+//        }
+//        System.out.println(ev.get(eventoId).getId()+" "+partecipanti+" "+utente.id);
+//        GestioneOperazioniDbLatoOrganizzatore.modificaEvento(ev.get(eventoId).getId(), partecipanti, utente.id);
+//        numeroPartecipanti.setText("");
+//        partecipanti=0;
+//        eventoId=-1;
+//        idEvento.setText("");
+//        eliminaEvento.setDisable(true);
+//        modificaEvento.setDisable(true);
+//    }
 
-    private void gestisciEventoElimina() {
-        if(eventoId==-1){
-            numeroPartecipanti.setText("");
-            idEvento.setText("");
-            partecipanti=0;
-            eliminaEvento.setDisable(true);
-            modificaEvento.setDisable(true);
-            return;
-        }
-        
-        GestioneOperazioniDbLatoOrganizzatore.eliminaEvento(ev.get(eventoId).getId(), utente.id);
-        numeroPartecipanti.setText("");
-        idEvento.setText("");
-        partecipanti=0;
-        eventoId=-1;
-        idEvento.setDisable(true);
-        modificaEvento.setDisable(true);
-    }
+//    private void gestisciEventoElimina() {
+//        if(eventoId==-1){
+//            numeroPartecipanti.setText("");
+//            idEvento.setText("");
+//            partecipanti=0;
+//            eliminaEvento.setDisable(true);
+//            modificaEvento.setDisable(true);
+//            return;
+//        }
+//        
+//        GestioneOperazioniDbLatoOrganizzatore.eliminaEvento(ev.get(eventoId).getId(), utente.id);
+//        numeroPartecipanti.setText("");
+//        idEvento.setText("");
+//        partecipanti=0;
+//        eventoId=-1;
+//        idEvento.setDisable(true);
+//        modificaEvento.setDisable(true);
+//    }
 }

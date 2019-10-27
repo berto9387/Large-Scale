@@ -55,24 +55,32 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         String sql;
         ArrayList<OrganizzatoreDb> listaOrganizzatore;
         
-        entityManager = factory.createEntityManager();
-        
-        sql="SELECT o FROM OrganizzatoreDb o WHERE o.email=:Email AND o.password=:Password";
-            TypedQuery<OrganizzatoreDb> query= entityManager.createQuery(sql,OrganizzatoreDb.class);
-            query=query.setParameter("Email", email);
-            query=query.setParameter("Password", password);
-            //listaOrganizzatore=(ArrayList)entityManager.createQuery(sql).getResultList();
-            listaOrganizzatore=(ArrayList)query.getResultList();
-            if(listaOrganizzatore.isEmpty())
-            {
-                 System.out.println("EMAIL O PASSWORD SBAGLIATE");
-                 
-            } else {
-                
-                organizzatore = listaOrganizzatore.get(0);
-       
-                System.out.println("COGNOME = " + organizzatore.getCognome());
-            }
+        try{
+            entityManager = factory.createEntityManager();
+            entityManager.getTransaction().begin();
+
+            sql="SELECT o FROM OrganizzatoreDb o WHERE o.email=:Email AND o.password=:Password";
+                TypedQuery<OrganizzatoreDb> query= entityManager.createQuery(sql,OrganizzatoreDb.class);
+                query=query.setParameter("Email", email);
+                query=query.setParameter("Password", password);
+                //listaOrganizzatore=(ArrayList)entityManager.createQuery(sql).getResultList();
+                listaOrganizzatore=(ArrayList)query.getResultList();
+                if(listaOrganizzatore.isEmpty())
+                {
+                     System.out.println("EMAIL O PASSWORD SBAGLIATE");
+
+                } else {
+
+                    organizzatore = listaOrganizzatore.get(0);
+
+                    System.out.println("COGNOME = " + organizzatore.getCognome());
+                }
+        } catch (Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in logging in!");
+        } finally{
+            entityManager.close();
+        }
         
         return organizzatore;
     }
