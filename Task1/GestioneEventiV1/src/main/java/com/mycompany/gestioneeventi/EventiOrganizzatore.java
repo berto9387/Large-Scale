@@ -92,30 +92,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         graficaPrincipale.getChildren().addAll(lineaTitolo,tabellaEvento,lineaModificaElimina,lineaModificaEliminaPulsantiera,lineaTornaIndietro);
         graficaPrincipale.setSpacing(15);
         
-//        HBox lineaTitolo = new HBox();
-//        lineaTitolo.getChildren().addAll(labelEventiInseriti);
-//        lineaTitolo.setAlignment(Pos.CENTER);
-//        
-//        HBox lineaTornaIndietro = new HBox();
-//        lineaTornaIndietro.getChildren().addAll(hyperlinkTornaIndietro);
-//        lineaTornaIndietro.setAlignment(Pos.CENTER);
-//        
-//        HBox lineaModicaElimina = new HBox();
-//        lineaModicaElimina.getChildren().addAll(idEvento,numeroPartecipanti);
-//        lineaModicaElimina.setAlignment(Pos.CENTER);
-//        lineaModicaElimina.setSpacing(15.0);
-//        
-//        HBox lineaModicaEliminaPulsantiera = new HBox();
-//        lineaModicaEliminaPulsantiera.getChildren().addAll(modificaEvento,eliminaEvento);
-//        lineaModicaEliminaPulsantiera.setAlignment(Pos.CENTER);
-//        lineaModicaEliminaPulsantiera.setSpacing(15.0);
-//        
-//        
-//        graficaPrincipale.getChildren().addAll(lineaTitolo,tabellaEvento,lineaModicaElimina,lineaModicaEliminaPulsantiera,lineaTornaIndietro);
-//        graficaPrincipale.setSpacing(15);
-//        
-//        getChildren().add(graficaPrincipale);
-//        setCenter(graficaPrincipale);
+
     }
     
     
@@ -134,10 +111,9 @@ public class EventiOrganizzatore extends GeneralGrafic{
         hyperlinkTornaIndietro.setPrefWidth(189.0);
         hyperlinkTornaIndietro.setOnAction((ActionEvent e) -> {GraficLoader.Loader(this, new CreazioneEvento(), mainGroup );});
         //partecipante come parametro serve per indirizzare nella giusta query
-        GestioneEventiManagerEM manager = new GestioneEventiManagerEM();
-        manager.setup();
+        
         ev = GestioneEventiManagerEM.ricercaEventi(organizzatore, true ,"");
-        manager.exit();
+        
         tabellaEvento.aggiornaTabellaEventi(ev);
         
         labelIdEvento.setAlignment(javafx.geometry.Pos.BOTTOM_RIGHT);

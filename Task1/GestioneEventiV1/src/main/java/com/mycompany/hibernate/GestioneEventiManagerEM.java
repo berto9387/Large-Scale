@@ -79,16 +79,16 @@ public class GestioneEventiManagerEM {
             entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             if(Ruolo==true){
-                if(Citta.equals(""))
-                    sql="select e from EventoDb e where e.organizzatore="+organizzatore.getId()+" and data>=current_date()";
-                else
-                   sql="select e from EventoDb e where e.organizzatore="+organizzatore.getId()+" and data>=current_date() and luogo='"+Citta+"'" ; 
-
-                TypedQuery<EventoDb> query= entityManager.createQuery(sql, EventoDb.class);
-                listaEventi = (ArrayList)query.getResultList();
+//                if(Citta.equals(""))
+//                    sql="select e from EventoDb e where e.organizzatore="+organizzatore.getId()+" and data>=current_date()";
+//                else
+//                   sql="select e from EventoDb e where e.organizzatore="+organizzatore.getId()+" and data>=current_date() and luogo='"+Citta+"'" ; 
+//
+//                TypedQuery<EventoDb> query= entityManager.createQuery(sql, EventoDb.class);
+//                listaEventi = (ArrayList)query.getResultList();
 
     //Evento(int id,String Nome,String Luogo, Date Data,String Ora,int Posti, String Tipologia, String Descrizione,int Organizzatore,int NumeroPartecipanti){
-                for (EventoDb evento : listaEventi) {
+                for (EventoDb evento : organizzatore.getEventiCreati()) {
                     ev.add( new Evento((int)evento.getId(), evento.getNome(), evento.getLuogo(), evento.getData(), 
                                         evento.getOra(), evento.getPosti(), evento.getTipologia(), evento.getDescrizione(), 
                                         (int)evento.getOrganizzatore().getId(), evento.getNumero_partecipanti()));

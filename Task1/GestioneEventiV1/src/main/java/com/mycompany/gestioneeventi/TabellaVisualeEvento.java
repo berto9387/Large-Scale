@@ -33,7 +33,7 @@ public class TabellaVisualeEvento extends TableView<Evento>{
         
         TableColumn colonna_id = new TableColumn("id");
         TableColumn colonna_nome = new TableColumn("nome");
-        TableColumn colonna_citta = new TableColumn("citt√†");
+        TableColumn colonna_citta = new TableColumn("citt‡");
         TableColumn colonna_data = new TableColumn("data");
         TableColumn colonna_ora = new TableColumn("ora");
         TableColumn colonna_posti = new TableColumn("posti");
