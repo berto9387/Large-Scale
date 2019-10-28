@@ -92,7 +92,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             if(Citta.equals("")){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto                
-                    sql="select * from evento where data>=current_date()";                
+                    sql="select e from EventoDb e where e.data>=current_date()";                
             } else{ //Caso in cui un partecipante vuole visualizzare tutti gli eventi                
                 sql="select e from EventoDb e where e.luogo='"+Citta+"' and e.data>=current_date()";                
             }
@@ -136,5 +136,31 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             entityManager.close();  
         }
         return ev;
+    }
+
+    public static void iscrizioneEvento(PartecipanteDb partecipante, String id) {
+        String sql;
+        
+        
+        try{
+            entityManager = factory.createEntityManager();
+            entityManager.getTransaction().begin();
+            sql="select e from EventoDb e where e.id=:id";           
+            TypedQuery<EventoDb> query= entityManager.createQuery(sql, EventoDb.class);
+            query=query.setParameter("id", Long.parseLong(id));
+            EventoDb ev =query.getSingleResult();
+            partecipante.addBook(ev);
+            entityManager.merge(partecipante);
+            entityManager.getTransaction().commit();
+            System.out.println("Iscrizione avvenuta con successo");
+            
+            
+        } catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in insert events!");
+        } 
+        finally{
+            entityManager.close();  
+        }
     }
 }

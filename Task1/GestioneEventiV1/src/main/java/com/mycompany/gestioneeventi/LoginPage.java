@@ -130,10 +130,6 @@ public class LoginPage extends GeneralGrafic
         organizzatore = GestioneOperazioniOrganizzatoreEM.loginOrganizzatore(email, password);
 
         
-
-        GestioneEventiManagerEM.exit();
-
-        
         if(organizzatore==null){
             
             etichettaErrore.setVisible(true);

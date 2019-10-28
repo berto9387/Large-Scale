@@ -73,31 +73,24 @@ public class RicercaEventi extends GeneralGrafic{
         BorderPane.setMargin(graficaPrincipale, new Insets(30,20,30,200));
     }
     
-    private void GestioneEventoIscrizione() // INCOMPLETO 
+    private void GestioneEventoIscrizione() 
     {
+        System.out.println("ciao");
         if(textFieldIdEvento.getText().equals(""))
         {
             return;
-        }
+        }        
+        GestioneOperazioniPartecipanteEM.iscrizioneEvento(partecipante , textFieldIdEvento.getText());
+        System.out.println("ciao");
         
-        ev=GestioneOperazioniPartecipanteEM.iscrizioneEvento(partecipante , textFieldCittaDaCercare.getText());
-        tabellaEvento.aggiornaTabellaEventi(ev);
-        
-        GestioneOperazioniDbLatoPartecipante.iscrizioneEvento(Integer.parseInt(textFieldIdEvento.getText()), utente.id);
-        System.out.println("id udente: " + utente.id);
-        ev=DAO.ricercaEventi(utente.id, utente.organizzatore, textFieldCittaDaCercare.getText());
+        ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , textFieldCittaDaCercare.getText());
         tabellaEvento.aggiornaTabellaEventi(ev);   
     }
     
     private void GestioneEventoRicerca()
     {
-            System.err.println(textFieldCittaDaCercare.getText());
-            if("".equals(textFieldCittaDaCercare.getText())&&utente.organizzatore==false){
-                return;
-            }
-            
-            ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , textFieldCittaDaCercare.getText());
-            
+            System.err.println(textFieldCittaDaCercare.getText());            
+            ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , textFieldCittaDaCercare.getText());           
             tabellaEvento.aggiornaTabellaEventi(ev);
     
     }
