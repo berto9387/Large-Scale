@@ -3,9 +3,11 @@ package com.mycompany.gestioneeventi;
 import com.mycompany.hibernate.GestioneEventiManagerEM;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class MainApp extends Application {
@@ -13,7 +15,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
-       
+        GestioneEventiManagerEM.setup();
         LoginPage login = new LoginPage();
         Group root = new Group(login);
         
@@ -24,6 +26,13 @@ public class MainApp extends Application {
         stage.setTitle("GestioneEventi");
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent t) {
+                    GestioneEventiManagerEM.exit();
+                    System.exit(0);
+                }
+            });
     }
 
     /**
@@ -35,9 +44,6 @@ public class MainApp extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-         GestioneEventiManagerEM manager=new GestioneEventiManagerEM();
-        manager.setup();
-        manager.exit();
         launch(args);
     }
 

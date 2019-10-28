@@ -103,9 +103,7 @@ public class LoginPage extends GeneralGrafic
         organizzatore=new OrganizzatoreDb();
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();
-        GestioneEventiManagerEM.setup();
         partecipante=GestioneOperazioniPartecipanteEM.loginPartecipante(email, password);
-        //GestioneEventiManagerEM.exit();
         //con exit mi da un errore strano controllare oggi pomeriggio col professore
         if(partecipante==null)
         {
@@ -125,9 +123,9 @@ public class LoginPage extends GeneralGrafic
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();
         
-        GestioneEventiManagerEM.setup();
+        
         organizzatore = GestioneOperazioniOrganizzatoreEM.loginOrganizzatore(email, password);
-        //GestioneEventiManagerEM.exit();
+        
         
         if(organizzatore==null){
             
