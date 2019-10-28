@@ -20,7 +20,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
     public static int inserisciOrganizzatore(OrganizzatoreDb organizzatore){
         // long id, String nome, String cognome, Date data_nascita, String email, String password, String username, String phone
         
-        
+        int errore=1;
         try{
             entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
@@ -31,19 +31,19 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         }catch(PersistenceException ex)
         {
             System.out.println("Attenzione utente esistente");
-            return 0;
+            errore=0;
         }
         catch(Exception ex)
         {
             System.out.println("Riprova,qualcosa è andato storto!");
-            return 0;
+            errore=0;
         }
         
        finally
         {
             entityManager.close();  
         }
-        return 1;
+        return errore;
     }
     
     public static OrganizzatoreDb loginOrganizzatore(String email, String password){

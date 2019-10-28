@@ -106,6 +106,7 @@ public class LoginPage extends GeneralGrafic
         GestioneEventiManagerEM.setup();
         partecipante=GestioneOperazioniPartecipanteEM.loginPartecipante(email, password);
         //GestioneEventiManagerEM.exit();
+        //con exit mi da un errore strano controllare oggi pomeriggio col professore
         if(partecipante==null)
         {
             etichettaErrore.setVisible(true);
