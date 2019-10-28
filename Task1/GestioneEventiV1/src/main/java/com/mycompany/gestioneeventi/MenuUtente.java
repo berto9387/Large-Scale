@@ -90,7 +90,6 @@ public class MenuUtente extends GeneralGrafic {
         lineaPulsantiEventi.getChildren().addAll(buttonRicercaEventi, buttonVisualizzaPartecipazioni);
         lineaPulsantiEventi.setAlignment(Pos.CENTER);
         lineaPulsantiEventi.setSpacing(70);
-        //setCenter(lineaPulsantiEventi);
         
         VBox colonnaModificaDati = new VBox();
         HBox lineaModificaDati = new HBox();
@@ -101,25 +100,18 @@ public class MenuUtente extends GeneralGrafic {
         colonnaModificaDati.setSpacing(15);
         labelEmail.setAlignment(Pos.BASELINE_LEFT);
         labelModificaDati.setAlignment(Pos.BASELINE_LEFT);
-//        colonnaModificaDati.setAlignment(Pos.BASELINE_LEFT);
 
         VBox colonnaEliminaAccount = new VBox();
         colonnaEliminaAccount.getChildren().addAll(hyperlinkEliminaAccount, labelError);
         colonnaEliminaAccount.setSpacing(10);
    
-      
-        
         setTop(lineaTitolo);
         setCenter(lineaPulsantiEventi);
        
-        
         graficaPrincipale.getChildren().addAll(lineaTitolo, lineaPulsantiEventi, colonnaModificaDati, colonnaEliminaAccount);
-        graficaPrincipale.setSpacing(100);
+        graficaPrincipale.setSpacing(35);
         setCenter(graficaPrincipale);
         BorderPane.setAlignment(graficaPrincipale, Pos.CENTER);
-        
-//        BorderPane.setMargin(graficaPrincipale, new Insets(15,20,30,90));
-       // BorderPane.setMargin(buttonEsci, new Insets(0, 0, 0, 500));
     }
 
     private void inizializzaElementiMenuUtente() {
