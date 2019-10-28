@@ -17,33 +17,25 @@ import javax.persistence.*;
  */
 public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
     
-    public static int inserisciPartecipante(String nome, String cognome, java.util.Date data_nascita, String email,String username, String telefono,String password) {
-        PartecipanteDb partecipanteDaInserire = new PartecipanteDb();
-       if(controllaEsistenza(email, 1)==0)
-        {
-            return 0;
-        }
-       
-        partecipanteDaInserire.setEmail(email);
-        partecipanteDaInserire.setNome(nome);
-        partecipanteDaInserire.setCognome(cognome);
-        partecipanteDaInserire.setData_nascita(data_nascita);
-        partecipanteDaInserire.setUsername(username);
-        partecipanteDaInserire.setPhone(telefono);
-        partecipanteDaInserire.setPassword(password);
+    public static int inserisciPartecipante(PartecipanteDb partecipante) {
+        
         try{
             entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
-            entityManager.persist(partecipanteDaInserire);
+            entityManager.persist(partecipante);
             entityManager.getTransaction().commit();
             System.out.println("PARTECIPANTE Added");
-            System.out.println(data_nascita);
-        } 
+        }
+        catch(PersistenceException ex)
+        {
+            System.out.println("Attenzione utente esistente");
+            return 0;
+        }
         catch(Exception ex)
         {
-            ex.printStackTrace();
-            System.out.println("A problem occured in updating a book!");
-        } 
+            return 0;
+        }
+        
        finally
         {
             entityManager.close();  
@@ -54,23 +46,38 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
     
     public static PartecipanteDb loginPartecipante(String email,String password)
     {
-        entityManager = factory.createEntityManager();
-        ArrayList<PartecipanteDb> listaPartecipanti;
-        PartecipanteDb partecipante;
-        String sql="select p from PartecipanteDb p where p.email=:Email and p.password=:Password";//01.1
-        TypedQuery<PartecipanteDb> query= entityManager.createQuery(sql,PartecipanteDb.class);//01.2
-        query=query.setParameter("Email", email);
-        query=query.setParameter("Password",password);
-        listaPartecipanti=(ArrayList)query.getResultList();
-        if(listaPartecipanti.isEmpty())
-        {
-            partecipante=null;
-            System.out.println("oggetto null");
-        }
-        else
-            partecipante=listaPartecipanti.get(0);
+        PartecipanteDb partecipante = null;
         
-        entityManager.close();
+        String sql;
+        ArrayList<PartecipanteDb> listaPartecipanti;
+        
+        try{
+            entityManager = factory.createEntityManager();
+            entityManager.getTransaction().begin();
+
+            sql="select p from PartecipanteDb p where p.email=:Email and p.password=:Password";//0.0.1
+                TypedQuery<PartecipanteDb> query= entityManager.createQuery(sql,PartecipanteDb.class);//01.2
+                query=query.setParameter("Email", email);
+                query=query.setParameter("Password", password);
+                //listaOrganizzatore=(ArrayList)entityManager.createQuery(sql).getResultList();
+                listaPartecipanti=(ArrayList)query.getResultList();
+                if(listaPartecipanti.isEmpty())
+                {
+                     System.out.println("EMAIL O PASSWORD SBAGLIATE");
+
+                } else {
+
+                    partecipante = listaPartecipanti.get(0);
+
+                    System.out.println("COGNOME = " + partecipante.getCognome());
+                }
+        } catch (Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in logging in!");
+        } finally{
+            entityManager.close();
+        }
+        
         return partecipante;
     }
 }

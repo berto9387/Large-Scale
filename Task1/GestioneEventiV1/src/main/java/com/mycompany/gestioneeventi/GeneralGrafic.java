@@ -27,8 +27,8 @@ public class GeneralGrafic extends BorderPane{
         mainScene=scene;
         mainGroup=group;
         mainStage=stage;
-        partecipante=null;
-        organizzatore=null;
+        partecipante=new PartecipanteDb();
+        organizzatore=new OrganizzatoreDb();
     }
 }
 /*

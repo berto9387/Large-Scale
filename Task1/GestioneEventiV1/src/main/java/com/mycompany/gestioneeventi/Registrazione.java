@@ -142,7 +142,7 @@ public class Registrazione extends GeneralGrafic {
     
     private void gestisciEventoLogin()
     {
-            int errore;
+            int errore=0;
             String Nome=textFieldNome.getText();
             String Cognome=textFieldCognome.getText();
             String sData=textFieldDataDiNascita.getText();
@@ -154,19 +154,31 @@ public class Registrazione extends GeneralGrafic {
             RadioButton selectedRadioButton = (RadioButton) ToggleGroupGruppoUtente.getSelectedToggle();
             String Ruolo = selectedRadioButton.getText();
             System.err.println(Ruolo.equals("Partecipante"));
+            GestioneEventiManagerEM.setup();
             if(Ruolo.equals("Partecipante")){
-                GestioneEventiManagerEM.setup();
-                errore=GestioneOperazioniPartecipanteEM.inserisciPartecipante(Nome, Cognome, Data, Email,Username, Phone,Password);
-                GestioneEventiManagerEM.exit();
+                PartecipanteDb partecipante_aux=new PartecipanteDb();
+                partecipante_aux.setEmail(Email);
+                partecipante_aux.setNome(Nome);
+                partecipante_aux.setCognome(Cognome);
+                partecipante_aux.setData_nascita(Data);
+                partecipante_aux.setUsername(Username);
+                partecipante_aux.setPhone(Phone);
+                partecipante_aux.setPassword(Password);
+                errore=GestioneOperazioniPartecipanteEM.inserisciPartecipante(partecipante_aux);
             }else{
-                
-               //GestioneOperazioniOrganizzatoreEM manager = new GestioneOperazioniOrganizzatoreEM();
-               GestioneEventiManagerEM.setup();
-               //errore=GestioneOperazioniDbLatoOrganizzatore.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
-               errore=GestioneOperazioniOrganizzatoreEM.inserisciOrganizzatore(Nome, Cognome, Data, Email,Username, Phone,Password);
+                OrganizzatoreDb organizzatore_aux=new OrganizzatoreDb();
+                organizzatore_aux.setNome(Nome);
+                organizzatore_aux.setCognome(Cognome);
+                organizzatore_aux.setData_nascita(Data);
+                organizzatore_aux.setEmail(Email);
+                organizzatore_aux.setUsername(Username);
+                organizzatore_aux.setPhone(Phone);
+                organizzatore_aux.setPassword(Password);
+                errore=GestioneOperazioniOrganizzatoreEM.inserisciOrganizzatore(organizzatore_aux);
                
-              GestioneEventiManagerEM.exit();
+              
             }
+            GestioneEventiManagerEM.exit();
             if(errore==0){
                labelErrore.setVisible(true); 
            }else

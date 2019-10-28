@@ -5,7 +5,7 @@
  */
 package com.mycompany.hibernate;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -22,6 +22,8 @@ public class EventoDb {
     private long id;
     private String nome;
     private String luogo;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "data")
     private Date data;
     private String ora;
     private int posti;
@@ -40,6 +42,7 @@ public class EventoDb {
     }
 
     public EventoDb(long id, String nome, String luogo, Date data, String ora, int posti, String tipologia, String descrizione, int numero_partecipanti, OrganizzatoreDb organizzatore, Set<PartecipanteDb> partecipazioni) {
+        
         this.id = id;
         this.nome = nome;
         this.luogo = luogo;

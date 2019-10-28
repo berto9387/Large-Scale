@@ -98,12 +98,14 @@ public class LoginPage extends GeneralGrafic
     }
     
     private void EventoLoginPartecipante()
-    {        
+    {       
+        partecipante=new PartecipanteDb();
+        organizzatore=new OrganizzatoreDb();
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();
         GestioneEventiManagerEM.setup();
         partecipante=GestioneOperazioniPartecipanteEM.loginPartecipante(email, password);
-        GestioneEventiManagerEM.setup();
+        //GestioneEventiManagerEM.exit();
         if(partecipante==null)
         {
             etichettaErrore.setVisible(true);
@@ -117,12 +119,14 @@ public class LoginPage extends GeneralGrafic
     
     private void EventoLoginOrganizzatore()
     {
+        partecipante=new PartecipanteDb();
+        organizzatore=new OrganizzatoreDb();
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();
         
         GestioneEventiManagerEM.setup();
         organizzatore = GestioneOperazioniOrganizzatoreEM.loginOrganizzatore(email, password);
-        GestioneEventiManagerEM.setup();
+        //GestioneEventiManagerEM.exit();
         
         if(organizzatore==null){
             

@@ -12,7 +12,11 @@ package com.mycompany.gestioneeventi;
  */
 
 import com.mycompany.hibernate.*;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.geometry.*;
 import javafx.scene.control.*;
@@ -199,29 +203,43 @@ public class CreazioneEvento extends GeneralGrafic {
     
     private void GestisciEventoCrea()
     {
-        {
+        
             int errore=0;
             String Nome=textFieldNome.getText();
             String Luogo=textFieldLuogo.getText();
             String Ora=textFieldOra.getText();
             String sData=textFieldData.getText();
-            Date Data=Date.valueOf(sData);
+            Date Data = null;
+            try {
+                Data = new SimpleDateFormat("dd/MM/yyyy").parse(sData);
+            } catch (ParseException ex) {
+                Logger.getLogger(CreazioneEvento.class.getName()).log(Level.SEVERE, null, ex);
+                labelErrore.setText("Inserire la data nel formato corretto!");
+                labelErrore.setVisible(true);
+                return;
+            }
             String Posti=textFieldPosti.getText();
             int intero=Integer.valueOf(Posti);
             String Descrizione=textAreaDescrizione.getText();
             String Tipologia=textFieldTipologia.getText();
+            EventoDb evento=new EventoDb();
+            evento.setNome(Nome);
+            evento.setLuogo(Luogo);
+            evento.setData(Data);
+            evento.setOra(Ora);
+            evento.setPosti(intero);
+            evento.setTipologia(Tipologia);
+            evento.setDescrizione(Descrizione);
             
-            GestioneEventiManagerEM manager = new GestioneEventiManagerEM();
-            manager.setup();
-            errore=GestioneOperazioniOrganizzatoreEM.creaEvento(Nome,Luogo,Data,Ora,intero,Tipologia,Descrizione, organizzatore);
-            manager.exit();
-            
+            organizzatore.addEvento(evento);
+            errore=GestioneOperazioniOrganizzatoreEM.creaEvento(organizzatore);           
             if(errore==0){
+                labelErrore.setText("Inserimento Evento non riuscito");
                 labelErrore.setVisible(true);
             }else{
                GraficLoader.Loader(this,new CreazioneEvento(),mainGroup );
             }
-        }
+        
     
     
     }

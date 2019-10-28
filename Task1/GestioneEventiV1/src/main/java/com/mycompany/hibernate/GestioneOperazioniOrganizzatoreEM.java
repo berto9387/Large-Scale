@@ -17,20 +17,9 @@ import javax.persistence.*;
 public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
     
     
-    public static int inserisciOrganizzatore(String nome, String cognome, Date data, String email, String username, String phone, String password){
+    public static int inserisciOrganizzatore(OrganizzatoreDb organizzatore){
         // long id, String nome, String cognome, Date data_nascita, String email, String password, String username, String phone
-        if(controllaEsistenza(email, 1)==0)
-        {
-            return 0;
-        }
-        OrganizzatoreDb organizzatore = new OrganizzatoreDb();
-        organizzatore.setNome(nome);
-        organizzatore.setCognome(cognome);
-        organizzatore.setData_nascita(data);
-        organizzatore.setEmail(email);
-        organizzatore.setUsername(username);
-        organizzatore.setPhone(phone);
-        organizzatore.setPassword(password);
+        
         
         try{
             entityManager = factory.createEntityManager();
@@ -39,11 +28,19 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             entityManager.getTransaction().commit();
             System.out.println("ORGANIZZATORE Added");
             
-        } catch(Exception ex){
-            ex.printStackTrace();
-            System.out.println("A problem occured in updating a book!");
-        } 
-        finally{
+        }catch(PersistenceException ex)
+        {
+            System.out.println("Attenzione utente esistente");
+            return 0;
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Riprova,qualcosa è andato storto!");
+            return 0;
+        }
+        
+       finally
+        {
             entityManager.close();  
         }
         return 1;
@@ -79,31 +76,19 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in logging in!");
         } finally{
+            
             entityManager.close();
         }
         
         return organizzatore;
     }
     
-    public static int creaEvento(String nome, String luogo, java.sql.Date data,String ora, int posti,String tipologia, String descrizione,OrganizzatoreDb organizzatore) {
+    public static int creaEvento(OrganizzatoreDb organizzatore) {
         int errore = 1;
-        EventoDb evento = new EventoDb();
-        
-        System.out.println( "POSTI: " + posti);
-        
-        evento.setNome(nome);
-        evento.setLuogo(luogo);
-        evento.setData(data);
-        evento.setOra(ora);
-        evento.setPosti(posti);
-        evento.setTipologia(tipologia);
-        evento.setDescrizione(descrizione);
-        evento.setOrganizzatore(organizzatore);
-        
         try{
             entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
-            entityManager.persist(evento);
+            entityManager.merge(organizzatore);
             entityManager.getTransaction().commit();
             System.out.println("EVENTO Added");
             

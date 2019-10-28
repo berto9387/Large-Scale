@@ -24,6 +24,7 @@ public class OrganizzatoreDb {
     private String nome;
     private String cognome;
     private Date data_nascita;
+    @Column(name="email",unique=true)
     private String email;
     private String password;
     private String username;
