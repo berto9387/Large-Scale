@@ -8,6 +8,7 @@ package com.mycompany.gestioneeventi;
 
 import static com.mycompany.gestioneeventi.GeneralGrafic.mainGroup;
 import com.mycompany.hibernate.EventoDb;
+import com.mycompany.hibernate.GestioneOperazioniPartecipanteEM;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -39,7 +40,6 @@ public class RicercaEventi extends GeneralGrafic{
        
         tabellaEvento = new TabellaVisualeEvento();
         graficaPrincipale = new VBox();
-        
         labelRicercaEventi = new Label();
         textFieldCittaDaCercare = new TextField();
         labelRicercaCitta = new Label();
@@ -58,24 +58,31 @@ public class RicercaEventi extends GeneralGrafic{
         HBox LineaTitolo =new HBox();
         LineaTitolo.getChildren().addAll(labelRicercaEventi);
         LineaTitolo.setAlignment(Pos.CENTER);
+        
         HBox LineaCampoRicercaCitta = new HBox();
         LineaCampoRicercaCitta.getChildren().addAll(labelRicercaCitta,textFieldCittaDaCercare,buttonRicerca);
         LineaCampoRicercaCitta.setSpacing(15);
+        
         HBox LineaIscrizioneEvento = new HBox();
         LineaIscrizioneEvento.getChildren().addAll(labelIdEvento,textFieldIdEvento,buttonIscriviti);
         LineaIscrizioneEvento.setSpacing(15);
-        graficaPrincipale.getChildren().addAll(LineaTitolo,LineaCampoRicercaCitta,LineaIscrizioneEvento,hyperlinkTornaIndietro);
+        
+        graficaPrincipale.getChildren().addAll(LineaTitolo,LineaCampoRicercaCitta, tabellaEvento, LineaIscrizioneEvento,hyperlinkTornaIndietro);
         graficaPrincipale.setSpacing(20);
         setCenter(graficaPrincipale);
         BorderPane.setMargin(graficaPrincipale, new Insets(30,20,30,200));
     }
     
-    private void GestioneEventoIscrizione()
+    private void GestioneEventoIscrizione() // INCOMPLETO 
     {
-        if("".equals(textFieldCittaDaCercare.getText())&&utente.organizzatore==false)
+        if(textFieldIdEvento.getText().equals(""))
         {
             return;
         }
+        
+        ev=GestioneOperazioniPartecipanteEM.iscrizioneEvento(partecipante , textFieldCittaDaCercare.getText());
+        tabellaEvento.aggiornaTabellaEventi(ev);
+        
         GestioneOperazioniDbLatoPartecipante.iscrizioneEvento(Integer.parseInt(textFieldIdEvento.getText()), utente.id);
         System.out.println("id udente: " + utente.id);
         ev=DAO.ricercaEventi(utente.id, utente.organizzatore, textFieldCittaDaCercare.getText());
@@ -88,8 +95,9 @@ public class RicercaEventi extends GeneralGrafic{
             if("".equals(textFieldCittaDaCercare.getText())&&utente.organizzatore==false){
                 return;
             }
-            System.err.println(utente.id);
-            ev=DAO.ricercaEventi(utente.id, utente.organizzatore, textFieldCittaDaCercare.getText());
+            
+            ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , textFieldCittaDaCercare.getText());
+            
             tabellaEvento.aggiornaTabellaEventi(ev);
     
     }
@@ -105,7 +113,7 @@ public class RicercaEventi extends GeneralGrafic{
         
         labelRicercaCitta.setPrefHeight(17.0);
         labelRicercaCitta.setPrefWidth(114.0);
-        labelRicercaCitta.setText("Ricerca per citt√†:");
+        labelRicercaCitta.setText("Ricerca per citt‡†:");
         labelRicercaCitta.setFont(new Font(14.0));
         
         buttonRicerca.setLayoutX(440.0);

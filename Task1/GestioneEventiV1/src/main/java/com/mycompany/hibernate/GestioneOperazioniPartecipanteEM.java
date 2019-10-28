@@ -6,6 +6,7 @@
 package com.mycompany.hibernate;
 
 //import java.sql.Date;
+import com.mycompany.gestioneeventi.Evento;
 import static com.mycompany.hibernate.GestioneEventiManagerEM.entityManager;
 import java.util.*;
 import javax.persistence.*;
@@ -79,5 +80,61 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         }
         
         return partecipante;
+    }
+    
+    public static ArrayList<Evento> ricercaEventi(PartecipanteDb partecipante, String Citta){
+        
+        String sql;
+        ArrayList<EventoDb> listaEventi = new ArrayList<>();
+        ArrayList<Evento> ev=new ArrayList<>();
+        
+        try{
+            entityManager = factory.createEntityManager();
+            entityManager.getTransaction().begin();
+            if(Citta.equals("")){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto                
+                    sql="select * from evento where data>=current_date()";                
+            } else{ //Caso in cui un partecipante vuole visualizzare tutti gli eventi                
+                sql="select e from EventoDb e where e.luogo='"+Citta+"' and e.data>=current_date()";                
+            }
+            
+            TypedQuery<EventoDb> query= entityManager.createQuery(sql, EventoDb.class);
+            listaEventi = (ArrayList)query.getResultList();
+            
+            for (EventoDb evento : listaEventi) {
+                    ev.add( new Evento((int)evento.getId(), evento.getNome(), evento.getLuogo(), evento.getData(), 
+                                        evento.getOra(), evento.getPosti(), evento.getTipologia(), evento.getDescrizione(), 
+                                        (int)evento.getOrganizzatore().getId(), evento.getNumero_partecipanti()));
+            }
+        } catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in searching events!");
+        } 
+        finally{
+            entityManager.close();  
+        }
+        return ev;
+    }
+
+    public static ArrayList<Evento> ricercaPrenotazioni(PartecipanteDb partecipante) {
+        
+        ArrayList<Evento> ev=new ArrayList<>();
+        try{
+            entityManager = factory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Date todayDate = new Date();
+            for (EventoDb evento : partecipante.getBook()) {
+                if(todayDate.before(evento.getData()))
+                    ev.add( new Evento((int)evento.getId(), evento.getNome(), evento.getLuogo(), evento.getData(), 
+                                        evento.getOra(), evento.getPosti(), evento.getTipologia(), evento.getDescrizione(), 
+                                        (int)evento.getOrganizzatore().getId(), evento.getNumero_partecipanti()));
+            }
+        } catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in searching events!");
+        } 
+        finally{
+            entityManager.close();  
+        }
+        return ev;
     }
 }

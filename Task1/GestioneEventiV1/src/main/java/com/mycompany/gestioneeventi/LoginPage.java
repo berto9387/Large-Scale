@@ -104,7 +104,10 @@ public class LoginPage extends GeneralGrafic
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();
         partecipante=GestioneOperazioniPartecipanteEM.loginPartecipante(email, password);
+
         //con exit mi da un errore strano controllare oggi pomeriggio col professore
+
+
         if(partecipante==null)
         {
             etichettaErrore.setVisible(true);
@@ -125,7 +128,11 @@ public class LoginPage extends GeneralGrafic
         
         
         organizzatore = GestioneOperazioniOrganizzatoreEM.loginOrganizzatore(email, password);
+
         
+
+        GestioneEventiManagerEM.exit();
+
         
         if(organizzatore==null){
             
