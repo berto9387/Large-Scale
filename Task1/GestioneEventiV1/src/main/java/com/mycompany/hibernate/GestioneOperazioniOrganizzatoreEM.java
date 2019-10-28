@@ -6,7 +6,6 @@
 package com.mycompany.hibernate;
 
 import static com.mycompany.hibernate.GestioneEventiManagerEM.entityManager;
-import java.sql.Date;
 import java.util.*;
 import javax.persistence.*;
 
@@ -95,6 +94,46 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         } catch(Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in creating an event!");
+            errore = 0;
+        } 
+        finally{
+            entityManager.close();  
+        }
+        
+        return errore;
+    }
+    public static int modificaEvento(EventoDb ev) {
+        int errore = 1;
+        try{
+            entityManager = factory.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.merge(ev);
+            entityManager.getTransaction().commit();
+            System.out.println("EVENTO Modificato");
+            
+        } catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in updating an event!");
+            errore = 0;
+        } 
+        finally{
+            entityManager.close();  
+        }
+        
+        return errore;
+    }
+    public static int eliminaEvento(OrganizzatoreDb o) {
+        int errore = 1;
+        try{
+            entityManager = factory.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.merge(o);
+            entityManager.getTransaction().commit();
+            System.out.println("EVENTO Cancellato");
+            
+        } catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in  delete an event!");
             errore = 0;
         } 
         finally{
