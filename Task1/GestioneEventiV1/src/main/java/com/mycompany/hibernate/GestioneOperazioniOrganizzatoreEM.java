@@ -58,21 +58,22 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             entityManager.getTransaction().begin();
 
             sql="SELECT o FROM OrganizzatoreDb o WHERE o.email=:Email AND o.password=:Password";
-                TypedQuery<OrganizzatoreDb> query= entityManager.createQuery(sql,OrganizzatoreDb.class);
-                query=query.setParameter("Email", email);
-                query=query.setParameter("Password", password);
-                //listaOrganizzatore=(ArrayList)entityManager.createQuery(sql).getResultList();
-                listaOrganizzatore=(ArrayList)query.getResultList();
-                if(listaOrganizzatore.isEmpty())
-                {
-                     System.out.println("EMAIL O PASSWORD SBAGLIATE");
+            TypedQuery<OrganizzatoreDb> query= entityManager.createQuery(sql,OrganizzatoreDb.class);
+            query=query.setParameter("Email", email);
+            query=query.setParameter("Password", password);
+            //listaOrganizzatore=(ArrayList)entityManager.createQuery(sql).getResultList();
+            listaOrganizzatore=(ArrayList)query.getResultList();
+            if(listaOrganizzatore.isEmpty())
+            {
+                 System.out.println("EMAIL O PASSWORD SBAGLIATE");
 
-                } else {
+            } else {
 
-                    organizzatore = listaOrganizzatore.get(0);
+                organizzatore = listaOrganizzatore.get(0);
 
-                    System.out.println("COGNOME = " + organizzatore.getCognome());
-                }
+                System.out.println("COGNOME = " + organizzatore.getCognome());
+            }
+            entityManager.getTransaction().commit();
         } catch (Exception ex){
             entityManager.getTransaction().rollback();
             ex.printStackTrace();
@@ -106,6 +107,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         
         return errore;
     }
+    
     public static int modificaEvento(EventoDb ev) {
         int errore = 1;
         try{
