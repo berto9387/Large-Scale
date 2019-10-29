@@ -7,7 +7,8 @@
     <class>com.mycompany.hibernate.OrganizzatoreDb</class>
     <class>com.mycompany.hibernate.PartecipanteDb</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3307/task_1?serverTimezone=UTC"/>
+
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/task_1?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value=""/>
