@@ -104,7 +104,7 @@ public class LoginPage extends GeneralGrafic
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();
         partecipante=GestioneOperazioniPartecipanteEM.loginPartecipante(email, password);
-
+        
 
         if(partecipante==null)
         {

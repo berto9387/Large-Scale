@@ -34,7 +34,7 @@ public class PartecipanteDb {
     @ManyToMany(cascade = {
         CascadeType.PERSIST,
         CascadeType.MERGE
-    })
+    },fetch = FetchType.EAGER)
     @JoinTable(
             name="partecipa",
             joinColumns=@JoinColumn(name="id_Partecipante"),

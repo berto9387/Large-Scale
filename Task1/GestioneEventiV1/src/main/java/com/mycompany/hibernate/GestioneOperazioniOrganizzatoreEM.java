@@ -34,12 +34,14 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         }
         catch(Exception ex)
         {
+            entityManager.getTransaction().rollback();
             System.out.println("Riprova,qualcosa è andato storto!");
             errore=0;
         }
         
        finally
         {
+            
             entityManager.close();  
         }
         return errore;
@@ -72,6 +74,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
                     System.out.println("COGNOME = " + organizzatore.getCognome());
                 }
         } catch (Exception ex){
+            entityManager.getTransaction().rollback();
             ex.printStackTrace();
             System.out.println("A problem occured in logging in!");
         } finally{
@@ -92,6 +95,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             System.out.println("EVENTO Added");
             
         } catch(Exception ex){
+            entityManager.getTransaction().rollback();
             ex.printStackTrace();
             System.out.println("A problem occured in creating an event!");
             errore = 0;
@@ -112,6 +116,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             System.out.println("EVENTO Modificato");
             
         } catch(Exception ex){
+            entityManager.getTransaction().rollback();
             ex.printStackTrace();
             System.out.println("A problem occured in updating an event!");
             errore = 0;
@@ -133,6 +138,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             
         } catch(Exception ex){
             ex.printStackTrace();
+            entityManager.getTransaction().rollback();
             System.out.println("A problem occured in  delete an event!");
             errore = 0;
         } 

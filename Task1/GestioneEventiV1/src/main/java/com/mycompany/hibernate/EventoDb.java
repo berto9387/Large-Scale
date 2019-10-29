@@ -30,7 +30,7 @@ public class EventoDb {
     private String tipologia;
     private String descrizione;
     private int numero_partecipanti;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Organizzatore")
     private OrganizzatoreDb organizzatore;
     @ManyToMany(mappedBy="book")

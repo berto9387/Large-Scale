@@ -29,11 +29,13 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         }
         catch(PersistenceException ex)
         {
+            entityManager.getTransaction().rollback();
             System.out.println("Attenzione utente esistente");
             return 0;
         }
         catch(Exception ex)
         {
+            entityManager.getTransaction().rollback();
             return 0;
         }
         
@@ -72,6 +74,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
 
                     System.out.println("COGNOME = " + partecipante.getCognome());
                 }
+                entityManager.getTransaction().commit();
         } catch (Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in logging in!");
@@ -106,12 +109,14 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
                                         evento.getOra(), evento.getPosti(), evento.getTipologia(), evento.getDescrizione(), 
                                         (int)evento.getOrganizzatore().getId(), evento.getNumero_partecipanti()));
             }
+            entityManager.getTransaction().commit();
         } catch(Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in searching events!");
         } 
         finally{
             entityManager.close();  
+            
         }
         return ev;
     }
@@ -130,49 +135,28 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         return ev;
     }
 
-    public static EventoDb EventoAlQualeIscriversi(PartecipanteDb partecipante, String id) {
+    public static EventoDb iscrizioneEvento(PartecipanteDb partecipante, String id) {
         String sql;
         
         EventoDb ev=null;
         try{
             entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
-            sql="select e from EventoDb e where e.id=:id";           
-            TypedQuery<EventoDb> query= entityManager.createQuery(sql, EventoDb.class);
-            query=query.setParameter("id", Long.parseLong(id));
-            ev =query.getSingleResult();
-            
+            ev=entityManager.find(EventoDb.class, Long.parseLong(id));
+            partecipante.addBook(ev);
+            entityManager.merge(partecipante);
+            entityManager.getTransaction().commit();
             
             
         } catch(Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
         } 
+        
         finally{
             entityManager.close();  
         }
         return ev;
-    }
-    public static void iscrizioneEvento(PartecipanteDb p) {
-        
-        try{
-            entityManager = factory.createEntityManager();
-            entityManager.getTransaction().begin();
-            entityManager.merge(p);
-            entityManager.getTransaction().commit();
-            System.out.println("Iscrizione Avvenuta con successo");
-        }
-        
-        catch(Exception ex)
-        {
-          System.out.println("Problema iscrizione");  
-        }
-        
-       finally
-        {
-            entityManager.close();  
-        }
-    
     }
     public static void annullaIscrizioneEvento(PartecipanteDb p) {
 
@@ -184,11 +168,13 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             System.out.println("iscrizione annullata");
             
         } catch(Exception ex){
+            entityManager.getTransaction().rollback();
             ex.printStackTrace();
             System.out.println("A problem occured in  delete an event!");
             
         } 
         finally{
+            
             entityManager.close();  
         }
         
