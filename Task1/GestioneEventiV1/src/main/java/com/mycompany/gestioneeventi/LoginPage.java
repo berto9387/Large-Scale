@@ -105,8 +105,6 @@ public class LoginPage extends GeneralGrafic
         String password = textFieldPassword.getText();
         partecipante=GestioneOperazioniPartecipanteEM.loginPartecipante(email, password);
 
-        //con exit mi da un errore strano controllare oggi pomeriggio col professore
-
 
         if(partecipante==null)
         {

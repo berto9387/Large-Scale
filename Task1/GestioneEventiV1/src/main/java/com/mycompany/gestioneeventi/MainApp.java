@@ -30,6 +30,7 @@ public class MainApp extends Application {
                 @Override
                 public void handle(WindowEvent t) {
                     GestioneEventiManagerEM.exit();
+                    System.out.println("bye bye");
                     System.exit(0);
                 }
             });

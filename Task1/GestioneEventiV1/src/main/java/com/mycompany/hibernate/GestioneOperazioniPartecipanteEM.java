@@ -85,7 +85,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
     public static ArrayList<Evento> ricercaEventi(PartecipanteDb partecipante, String Citta){
         
         String sql;
-        ArrayList<EventoDb> listaEventi;
+        List<EventoDb> listaEventi;
         ArrayList<Evento> ev=new ArrayList<>();
         
         try{
@@ -99,7 +99,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             }
             
             TypedQuery<EventoDb> query= entityManager.createQuery(sql, EventoDb.class);
-            listaEventi = (ArrayList)query.getResultList();
+            listaEventi = query.getResultList();
             
             for (EventoDb evento : listaEventi) {
                     ev.add( new Evento((int)evento.getId(), evento.getNome(), evento.getLuogo(), evento.getData(), 
@@ -163,5 +163,25 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         finally{
             entityManager.close();  
         }
+    }
+
+    public static void annullaIscrizioneEvento(PartecipanteDb p) {
+
+        try{
+            entityManager = factory.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.merge(p);
+            entityManager.getTransaction().commit();
+            System.out.println("iscrizione annullata");
+            
+        } catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in  delete an event!");
+            
+        } 
+        finally{
+            entityManager.close();  
+        }
+        
     }
 }

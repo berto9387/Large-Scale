@@ -1,6 +1,7 @@
 package com.mycompany.gestioneeventi;
 
 import static com.mycompany.gestioneeventi.GeneralGrafic.utente;
+import com.mycompany.hibernate.EventoDb;
 import com.mycompany.hibernate.GestioneOperazioniPartecipanteEM;
 import java.util.*;
 import javafx.event.*;
@@ -97,14 +98,21 @@ public class VisualizzaPartecipazioni extends GeneralGrafic{
     
     private void GestioneAnnullaIscrizione()
     {
-        if("".equals(textFieldIdEvento.getText()) && utente.organizzatore==false)
+        if("".equals(textFieldIdEvento.getText()))
         {
             return;
         }
         
-        GestioneOperazioniDbLatoPartecipante.annullaIscrizioneEvento( utente.id, Integer.parseInt(textFieldIdEvento.getText()));
+        for(EventoDb evt:partecipante.getBook()){
+            if(evt.getId()==Long.parseLong(textFieldIdEvento.getText())){
+              partecipante.removeBook(evt);
+              break;
+            }              
+        }
         
-        ev = GestioneOperazioniDbLatoPartecipante.ricercaPrenotazioni(utente.id, utente.organizzatore);
+        GestioneOperazioniPartecipanteEM.annullaIscrizioneEvento(partecipante);
+        
+        ev = GestioneOperazioniPartecipanteEM.ricercaPrenotazioni(partecipante);
         tabellaEvento.aggiornaTabellaEventi(ev);   
     }
 }
