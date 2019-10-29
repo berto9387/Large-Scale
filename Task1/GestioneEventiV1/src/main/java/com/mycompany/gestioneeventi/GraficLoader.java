@@ -5,6 +5,7 @@
  */
 package com.mycompany.gestioneeventi;
 
+import com.mycompany.hibernate.GestioneEventiManagerEM;
 import javafx.scene.*;
 import javafx.stage.*;
 
@@ -15,6 +16,7 @@ import javafx.stage.*;
 public class GraficLoader {
     public static void Loader(Node pageToDiscard,Node pageToLoad,Group rootGroup)
     {
+        
         rootGroup.getChildren().remove(pageToDiscard);
         rootGroup.getChildren().add(pageToLoad);
         

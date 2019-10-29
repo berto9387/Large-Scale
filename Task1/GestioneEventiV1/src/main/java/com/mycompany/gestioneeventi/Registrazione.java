@@ -153,8 +153,6 @@ public class Registrazione extends GeneralGrafic {
             String Password=textFieldPassword.getText(); 
             RadioButton selectedRadioButton = (RadioButton) ToggleGroupGruppoUtente.getSelectedToggle();
             String Ruolo = selectedRadioButton.getText();
-            System.err.println(Ruolo.equals("Partecipante"));
-            GestioneEventiManagerEM.setup();
             if(Ruolo.equals("Partecipante")){
                 PartecipanteDb partecipante_aux=new PartecipanteDb();
                 partecipante_aux.setEmail(Email);
@@ -178,7 +176,6 @@ public class Registrazione extends GeneralGrafic {
                
               
             }
-            GestioneEventiManagerEM.exit();
             if(errore==0){
                labelErrore.setVisible(true); 
            }else
