@@ -42,6 +42,13 @@ public class GestioneEventiManagerEM {
         
         return ev;
     }
+
+    public static void creaConnesione() {
+        entityManager = factory.createEntityManager();
+    }
+    public static void chiudiConnesione() {
+        entityManager.close();
+    }
         
 }
 /*

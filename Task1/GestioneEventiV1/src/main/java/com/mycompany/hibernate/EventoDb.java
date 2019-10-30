@@ -6,6 +6,7 @@
 package com.mycompany.hibernate;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -33,8 +34,8 @@ public class EventoDb {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Organizzatore")
     private OrganizzatoreDb organizzatore;
-    @ManyToMany(mappedBy="book")
-    private Set<PartecipanteDb> partecipazioni;
+    @ManyToMany(mappedBy="book",fetch = FetchType.EAGER)
+    private Set<PartecipanteDb> partecipazioni=new HashSet<>();
    
     //Costruttori della classe
     public EventoDb(){

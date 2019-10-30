@@ -79,7 +79,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in logging in!");
         } finally{
-            entityManager.close();
+            //entityManager.close();
         }
         
         return partecipante;
@@ -92,7 +92,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         ArrayList<Evento> ev=new ArrayList<>();
         
         try{
-            entityManager = factory.createEntityManager();
+            //entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             if(Citta.equals("")){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto                
                     sql="select e from EventoDb e where  e.data>=current_date() and e.id not in (select d.id from PartecipanteDb p join p.book d  where  p.id="+partecipante.getId()+")";   
@@ -115,7 +115,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             System.out.println("A problem occured in searching events!");
         } 
         finally{
-            entityManager.close();  
+            //entityManager.close();  
             
         }
         return ev;
@@ -136,11 +136,9 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
     }
 
     public static EventoDb iscrizioneEvento(PartecipanteDb partecipante, String id) {
-        String sql;
-        
         EventoDb ev=null;
         try{
-            entityManager = factory.createEntityManager();
+            //entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             ev=entityManager.find(EventoDb.class, Long.parseLong(id));
             partecipante.addBook(ev);
@@ -154,14 +152,14 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         } 
         
         finally{
-            entityManager.close();  
+            //entityManager.close();  
         }
         return ev;
     }
     public static void annullaIscrizioneEvento(PartecipanteDb p) {
 
         try{
-            entityManager = factory.createEntityManager();
+            //entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             entityManager.merge(p);
             entityManager.getTransaction().commit();
@@ -175,8 +173,10 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         } 
         finally{
             
-            entityManager.close();  
+            //entityManager.close();  
         }
         
     }
+
+   
 }

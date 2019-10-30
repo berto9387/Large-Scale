@@ -13,6 +13,8 @@ package com.mycompany.gestioneeventi;
 
 
 import static com.mycompany.gestioneeventi.GeneralGrafic.mainGroup;
+import com.mycompany.hibernate.GestioneEventiManagerEM;
+import com.mycompany.hibernate.GestioneOperazioniPartecipanteEM;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -55,7 +57,6 @@ public class MenuUtente extends GeneralGrafic {
         labelInfo = new Label();
         hyperlinkEliminaAccount = new Hyperlink();
         labelError = new Label();
-        
         inizializzaGrafica();
 
       
@@ -116,6 +117,10 @@ public class MenuUtente extends GeneralGrafic {
 
     private void inizializzaElementiMenuUtente() {
         
+        
+        GestioneEventiManagerEM.creaConnesione();
+                
+                
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -134,7 +139,10 @@ public class MenuUtente extends GeneralGrafic {
         buttonEsci.setPrefHeight(17.0);
         buttonEsci.setPrefWidth(149.0);
         buttonEsci.setText("Esci");
-        buttonEsci.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new LoginPage(), mainGroup );});
+        buttonEsci.setOnAction((ActionEvent ev) -> {
+            GestioneEventiManagerEM.chiudiConnesione();
+            GraficLoader.Loader(this, new LoginPage(), mainGroup );
+        });
         
         buttonRicercaEventi.setMnemonicParsing(false);
         buttonRicercaEventi.setPrefHeight(17.0);

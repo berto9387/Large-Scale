@@ -7,6 +7,7 @@ package com.mycompany.hibernate;
 
 //import java.sql.Date;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -32,9 +33,10 @@ public class OrganizzatoreDb {
     @OneToMany(
         mappedBy = "organizzatore",
         cascade = CascadeType.ALL,
-        orphanRemoval = true
+        orphanRemoval = true,
+        fetch = FetchType.EAGER
     )
-    private Set<EventoDb> eventiCreati;
+    private Set<EventoDb> eventiCreati=new HashSet<>();
     
     //funzioni utili per la classe
     public void addEvento(EventoDb ev){

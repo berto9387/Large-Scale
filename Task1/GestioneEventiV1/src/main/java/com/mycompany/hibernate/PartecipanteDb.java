@@ -40,7 +40,7 @@ public class PartecipanteDb {
             joinColumns=@JoinColumn(name="id_Partecipante"),
             inverseJoinColumns=@JoinColumn(name="id_Evento"))
     
-    private Set<EventoDb> book;
+    private Set<EventoDb> book=new HashSet<>();
     
     //funzioni utili
     
