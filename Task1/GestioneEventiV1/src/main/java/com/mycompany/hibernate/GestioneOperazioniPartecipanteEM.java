@@ -182,5 +182,21 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         return 1;
     }
 
+    public static int modificaDati(PartecipanteDb partecipante) {
+        int errore=2;
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(partecipante);
+            entityManager.getTransaction().commit();
+            errore=1;
+            
+        } catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in insert events!");
+            errore=2;
+        }
+        return errore;
+    }
+
    
 }

@@ -184,10 +184,10 @@ public class MenuUtente extends GeneralGrafic {
         buttonModifica.setPrefHeight(17.0);
         buttonModifica.setPrefWidth(149.0);
         buttonModifica.setText("Modifica");
-        //buttonModifica.setOnAction((ActionEvent ev) -> {gestisciModificaDati();});
+        buttonModifica.setOnAction((ActionEvent ev) -> {gestisciModificaDati();});
         
-//        labelInfo.setText("Email esistente,effettuare il login");
-//        labelInfo.setStyle("-fx-text-fill: red;");
+        labelInfo.setText("Email esistente,effettuare il login");
+        labelInfo.setStyle("-fx-text-fill: red;");
         labelInfo.setVisible(false);
         labelInfo.setPrefHeight(17.0);
         labelInfo.setPrefWidth(267.0);
@@ -203,13 +203,18 @@ public class MenuUtente extends GeneralGrafic {
     }
 
     private void gestisciModificaDati() {
-        int errore = 2;
+        int errore = 0;
         String email = textFieldEmail.getText();
         String nuovaPassword = textFieldNuovaPassword.getText();
         String vecchiaPassword = textFieldVecchiaPassword.getText();
-        
-        errore = GestioneOperazioniDbLatoPartecipante.modificaDati(utente, email, nuovaPassword, vecchiaPassword);
-        
+        System.out.println(partecipante.getPassword());
+        System.out.println(vecchiaPassword);
+        //problema qui, da sempre falso
+        if(partecipante.getPassword().equals(vecchiaPassword)){
+            partecipante.setEmail(email);
+            partecipante.setPassword(nuovaPassword);
+            errore = GestioneOperazioniPartecipanteEM.modificaDati(partecipante);
+        }
         if(errore == 1){
             labelInfo.setText("Modifiche effettuate con successo");
             labelInfo.setStyle("-fx-text-fill: green;");
