@@ -47,6 +47,9 @@ public class CreazioneEvento extends GeneralGrafic {
     protected final VBox graficaPrincipale;
     protected final Label labelErrore;
     public CreazioneEvento() {
+        
+        GestioneEventiManagerEM.creaConnesione();
+        
         labelErrore = new Label();
         graficaPrincipale = new VBox();
         buttonCrea = new Button();
@@ -93,7 +96,10 @@ public class CreazioneEvento extends GeneralGrafic {
 
         buttonEsci.setMnemonicParsing(false);
         buttonEsci.setText("ESCI");
-        buttonEsci.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new LoginPage(),mainGroup );});
+        buttonEsci.setOnAction((ActionEvent ev) -> {
+            GestioneEventiManagerEM.chiudiConnesione();
+            GraficLoader.Loader(this, new LoginPage(),mainGroup );
+        });
         
         buttonVisualizzaEventi.setId("eventi");
 

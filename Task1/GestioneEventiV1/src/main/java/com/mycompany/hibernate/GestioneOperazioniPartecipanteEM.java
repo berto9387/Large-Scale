@@ -62,7 +62,6 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
                 TypedQuery<PartecipanteDb> query= entityManager.createQuery(sql,PartecipanteDb.class);//01.2
                 query=query.setParameter("Email", email);
                 query=query.setParameter("Password", password);
-                //listaOrganizzatore=(ArrayList)entityManager.createQuery(sql).getResultList();
                 listaPartecipanti=(ArrayList)query.getResultList();
                 if(listaPartecipanti.isEmpty())
                 {
@@ -78,9 +77,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         } catch (Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in logging in!");
-        } finally{
-            //entityManager.close();
-        }
+        } 
         
         return partecipante;
     }
@@ -92,13 +89,12 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         ArrayList<Evento> ev=new ArrayList<>();
         
         try{
-            //entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             if(Citta.equals("")){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto                
-                    sql="select e from EventoDb e where  e.data>=current_date() and e.id not in (select d.id from PartecipanteDb p join p.book d  where  p.id="+partecipante.getId()+")";   
+                    sql="select e from EventoDb e where e.numero_partecipanti<e.posti and  e.data>=current_date() and e.id not in (select d.id from PartecipanteDb p join p.book d  where  p.id="+partecipante.getId()+")";   
                     
             } else{ //Caso in cui un partecipante vuole visualizzare tutti gli eventi                
-                sql="select e from EventoDb e where e.luogo='"+Citta+"' and e.data>=current_date() and e.id not in (select d.id from PartecipanteDb p join p.book d  where  p.id="+partecipante.getId()+")";                
+                sql="select e from EventoDb e where e.numero_partecipanti<e.posti and e.luogo='"+Citta+"' and e.data>=current_date() and e.id not in (select d.id from PartecipanteDb p join p.book d  where  p.id="+partecipante.getId()+")";                
             }
             
             TypedQuery<EventoDb> query= entityManager.createQuery(sql, EventoDb.class);
@@ -113,10 +109,6 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         } catch(Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in searching events!");
-        } 
-        finally{
-            //entityManager.close();  
-            
         }
         return ev;
     }
@@ -138,7 +130,6 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
     public static EventoDb iscrizioneEvento(PartecipanteDb partecipante, String id) {
         EventoDb ev=null;
         try{
-            //entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             ev=entityManager.find(EventoDb.class, Long.parseLong(id));
             partecipante.addBook(ev);
@@ -149,17 +140,12 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         } catch(Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
-        } 
-        
-        finally{
-            //entityManager.close();  
         }
         return ev;
     }
     public static void annullaIscrizioneEvento(PartecipanteDb p) {
 
         try{
-            //entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             entityManager.merge(p);
             entityManager.getTransaction().commit();
@@ -170,12 +156,27 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in  delete an event!");
             
-        } 
-        finally{
-            
-            //entityManager.close();  
         }
         
+    }
+
+    public static int eliminaAccount(PartecipanteDb partecipante) {
+        try{
+            for(EventoDb ev:partecipante.getBook()){
+                partecipante.removeBook(ev);
+            }
+            entityManager.getTransaction().begin();
+            entityManager.remove(partecipante);
+            entityManager.getTransaction().commit();
+            System.out.println("Utente Eliminato");
+        } catch(Exception ex){
+            entityManager.getTransaction().rollback();
+            ex.printStackTrace();
+            System.out.println("Non è stato possibile eliminare l'utente!");
+            return 0;
+            
+        }
+        return 1;
     }
 
    

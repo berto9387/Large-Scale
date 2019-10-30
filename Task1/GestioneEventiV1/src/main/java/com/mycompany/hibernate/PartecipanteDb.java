@@ -31,10 +31,8 @@ public class PartecipanteDb {
     private String phone;
     
     
-    @ManyToMany(cascade = {
-        CascadeType.PERSIST,
-        CascadeType.MERGE
-    },fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+    fetch = FetchType.EAGER)
     @JoinTable(
             name="partecipa",
             joinColumns=@JoinColumn(name="id_Partecipante"),

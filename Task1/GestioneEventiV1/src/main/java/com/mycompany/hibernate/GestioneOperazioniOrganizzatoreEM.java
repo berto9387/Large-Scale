@@ -89,7 +89,6 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
     public static int creaEvento(OrganizzatoreDb organizzatore) {
         int errore = 1;
         try{
-            entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             entityManager.merge(organizzatore);
             entityManager.getTransaction().commit();
@@ -100,20 +99,18 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in creating an event!");
             errore = 0;
-        } 
-        finally{
-            entityManager.close();  
         }
         
         return errore;
     }
     
-    public static int modificaEvento(EventoDb ev) {
+    public static int modificaEvento(long id,int posti) {
         int errore = 1;
         try{
-            entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
-            entityManager.merge(ev);
+            EventoDb evt=entityManager.find(EventoDb.class, id);
+            evt.setPosti(posti);
+            entityManager.merge(evt);
             entityManager.getTransaction().commit();
             System.out.println("EVENTO Modificato");
             
@@ -122,19 +119,22 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in updating an event!");
             errore = 0;
-        } 
-        finally{
-            entityManager.close();  
         }
         
         return errore;
     }
-    public static int eliminaEvento(OrganizzatoreDb o) {
+    public static int eliminaEvento(long id) {
         int errore = 1;
         try{
-            entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
-            entityManager.merge(o);
+            EventoDb ev=entityManager.find(EventoDb.class, id);
+            if(ev!=null){
+                for(PartecipanteDb p:ev.getPartecipazioni()){
+                  entityManager.remove(p);  
+                }
+                entityManager.remove(ev);
+            }else
+               return 0;
             entityManager.getTransaction().commit();
             System.out.println("EVENTO Cancellato");
             
@@ -143,9 +143,6 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             entityManager.getTransaction().rollback();
             System.out.println("A problem occured in  delete an event!");
             errore = 0;
-        } 
-        finally{
-            entityManager.close();  
         }
         
         return errore;

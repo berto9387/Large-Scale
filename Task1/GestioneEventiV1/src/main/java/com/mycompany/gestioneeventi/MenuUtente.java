@@ -117,7 +117,7 @@ public class MenuUtente extends GeneralGrafic {
 
     private void inizializzaElementiMenuUtente() {
         
-        
+        //apertura connessione factory, vine chiusa al click del pulsante esci
         GestioneEventiManagerEM.creaConnesione();
                 
                 
@@ -193,13 +193,13 @@ public class MenuUtente extends GeneralGrafic {
         hyperlinkEliminaAccount.setPrefHeight(26.0);
         hyperlinkEliminaAccount.setPrefWidth(150.0);
         hyperlinkEliminaAccount.setText("Elimina Account");
-       // hyperlinkEliminaAccount.setOnAction((ActionEvent ev) -> {gestisciEliminaAccount();});
+        hyperlinkEliminaAccount.setOnAction((ActionEvent ev) -> {gestisciEliminaAccount();});
         
         labelError.setVisible(false);
         labelError.setPrefHeight(17.0);
         labelError.setPrefWidth(267.0);
     }
-/*
+
     private void gestisciModificaDati() {
         int errore = 2;
         String email = textFieldEmail.getText();
@@ -225,16 +225,17 @@ public class MenuUtente extends GeneralGrafic {
     private void gestisciEliminaAccount() {
         int errore;
         
-        errore = GestioneOperazioniDbLatoPartecipante.eliminaAccount(partecipante);
+        errore = GestioneOperazioniPartecipanteEM.eliminaAccount(partecipante);
         
         if(errore == 0){
             labelError.setText("Errore durante la modifica");
             labelError.setStyle("-fx-text-fill: red;");
             labelError.setVisible(true);
         } else{
+            GestioneEventiManagerEM.chiudiConnesione();
             GraficLoader.Loader(this, new LoginPage(), mainGroup );
         }
         
-    }*/
+    }
 }
 

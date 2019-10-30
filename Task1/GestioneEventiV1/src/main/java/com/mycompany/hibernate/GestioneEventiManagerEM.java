@@ -30,7 +30,7 @@ public class GestioneEventiManagerEM {
     
    
     
-    public static ArrayList<Evento> ricercaEventi(OrganizzatoreDb organizzatore,boolean Ruolo,String Citta){
+    public static ArrayList<Evento> ricercaEventi(OrganizzatoreDb organizzatore){
         
         ArrayList<Evento> ev=new ArrayList<>();
         
@@ -51,19 +51,3 @@ public class GestioneEventiManagerEM {
     }
         
 }
-/*
---------------------------COMMENTI DI GIANLUCA-------------------------------
-01) La funzione permette di verificare se esiste già un account con l'email
-    passata come parametro restituisce 1 se l'email non è presente mentre
-    restituisco 0 se l'email non è presente.
-
-    01.1 
-        Scrivo una query che andrà a cercare l'email passata dal parametro
-        posto di andare a concatenare la stringa Email andrò ad utilizzare
-        la convenzione email:=Email
-    01.2
-        Creo una TypedQuery
-    01.3
-        vado a settare il parametro Email di Where email:=Email con la
-        il parametro Email tramite la funzione setParameter().
-*/

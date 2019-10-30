@@ -112,7 +112,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         hyperlinkTornaIndietro.setOnAction((ActionEvent e) -> {GraficLoader.Loader(this, new CreazioneEvento(), mainGroup );});
         //partecipante come parametro serve per indirizzare nella giusta query
         
-        ev = GestioneEventiManagerEM.ricercaEventi(organizzatore, true ,"");
+        ev = GestioneEventiManagerEM.ricercaEventi(organizzatore);
         
         tabellaEvento.aggiornaTabellaEventi(ev);
         
@@ -215,13 +215,12 @@ public class EventiOrganizzatore extends GeneralGrafic{
             EventoDb f = it.next();
             System.out.println(f.getId()+" "+eventoId);
             if(f.getId()==eventoId){
-                if(partecipanti<f.getPosti())
+                if(partecipanti<f.getNumero_partecipanti())
                     break;
                 f.setPosti(partecipanti);
-                GestioneOperazioniOrganizzatoreEM.modificaEvento(f);
+                GestioneOperazioniOrganizzatoreEM.modificaEvento(f.getId(),partecipanti);
                 break;
             }
-            
         }
         
         numeroPartecipanti.setText("");
@@ -230,7 +229,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         idEvento.setText("");
         eliminaEvento.setDisable(true);
         modificaEvento.setDisable(true);
-        ev = GestioneEventiManagerEM.ricercaEventi(organizzatore, true ,"");
+        ev = GestioneEventiManagerEM.ricercaEventi(organizzatore);
         
         tabellaEvento.aggiornaTabellaEventi(ev);
     }
@@ -249,8 +248,8 @@ public class EventiOrganizzatore extends GeneralGrafic{
             EventoDb f = it.next();
             System.out.println(f.getId()+" "+eventoId);
             if(f.getId()==eventoId){
+                GestioneOperazioniOrganizzatoreEM.eliminaEvento(f.getId());
                 organizzatore.removeEvento(f);
-                GestioneOperazioniOrganizzatoreEM.eliminaEvento(organizzatore);
                 break;
             }
             
@@ -261,7 +260,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         eventoId=-1;
         eliminaEvento.setDisable(true);
         modificaEvento.setDisable(true);
-        ev = GestioneEventiManagerEM.ricercaEventi(organizzatore, true ,"");
+        ev = GestioneEventiManagerEM.ricercaEventi(organizzatore);
         
         tabellaEvento.aggiornaTabellaEventi(ev);
     }
