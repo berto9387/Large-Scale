@@ -20,7 +20,7 @@ import javax.persistence.*;
 public class OrganizzatoreDb {
     @Column(name="id_Organizzatore")
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private long id;
     private String nome;
     private String cognome;

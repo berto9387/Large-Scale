@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class EventoDb {
     @Column(name="id_Evento")
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private long id;
     private String nome;
     private String luogo;
@@ -35,7 +35,6 @@ public class EventoDb {
     @JoinColumn(name = "id_Organizzatore")
     private OrganizzatoreDb organizzatore;
     @ManyToMany(
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             mappedBy="book",
             fetch = FetchType.EAGER)
     private Set<PartecipanteDb> partecipazioni=new HashSet<>();

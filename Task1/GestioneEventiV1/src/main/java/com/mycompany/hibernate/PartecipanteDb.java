@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class PartecipanteDb {
     @Column(name="id_Partecipante")
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private long id;
     private String nome;
 

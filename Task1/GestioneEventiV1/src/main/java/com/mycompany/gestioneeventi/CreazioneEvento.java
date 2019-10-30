@@ -236,9 +236,9 @@ public class CreazioneEvento extends GeneralGrafic {
             evento.setPosti(intero);
             evento.setTipologia(Tipologia);
             evento.setDescrizione(Descrizione);
+            organizzatore.addEvento(evento);
             
-            
-            errore=GestioneOperazioniOrganizzatoreEM.creaEvento(organizzatore,evento);           
+            errore=GestioneOperazioniOrganizzatoreEM.creaEvento(organizzatore);           
             if(errore==0){
                 labelErrore.setText("Inserimento Evento non riuscito");
                 labelErrore.setVisible(true);
