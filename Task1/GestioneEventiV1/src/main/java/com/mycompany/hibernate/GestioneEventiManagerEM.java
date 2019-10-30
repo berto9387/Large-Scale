@@ -31,6 +31,14 @@ public class GestioneEventiManagerEM {
    
     
     public static ArrayList<Evento> ricercaEventi(OrganizzatoreDb organizzatore){
+        try{
+            entityManager.getTransaction().begin();
+            organizzatore=entityManager.find(OrganizzatoreDb.class, organizzatore.getId());
+            entityManager.getTransaction().commit();
+        }catch (Exception ex){
+            return null;
+        }
+        
         
         ArrayList<Evento> ev=new ArrayList<>();
         

@@ -86,13 +86,17 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         return organizzatore;
     }
     
-    public static int creaEvento(OrganizzatoreDb organizzatore) {
+    public static int creaEvento(OrganizzatoreDb organizzatore,EventoDb ev) {
         int errore = 1;
         try{
             entityManager.getTransaction().begin();
+            organizzatore=entityManager.find(OrganizzatoreDb.class, organizzatore.getId());
+            organizzatore.addEvento(ev);
             entityManager.merge(organizzatore);
+            
             entityManager.getTransaction().commit();
             System.out.println("EVENTO Added");
+            
             
         } catch(Exception ex){
             entityManager.getTransaction().rollback();
