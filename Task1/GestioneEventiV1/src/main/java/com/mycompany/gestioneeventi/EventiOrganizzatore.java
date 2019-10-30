@@ -246,10 +246,10 @@ public class EventiOrganizzatore extends GeneralGrafic{
         
         for (Iterator<EventoDb> it = organizzatore.getEventiCreati().iterator(); it.hasNext(); ) {
             EventoDb f = it.next();
-            System.out.println(f.getId()+" "+eventoId);
+            it.remove();
             if(f.getId()==eventoId){
                 GestioneOperazioniOrganizzatoreEM.eliminaEvento(f.getId());
-                organizzatore.removeEvento(f);
+                //organizzatore.removeEvento(f);
                 break;
             }
             

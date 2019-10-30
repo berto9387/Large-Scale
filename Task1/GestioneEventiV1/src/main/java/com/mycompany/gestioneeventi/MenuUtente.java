@@ -13,8 +13,10 @@ package com.mycompany.gestioneeventi;
 
 
 import static com.mycompany.gestioneeventi.GeneralGrafic.mainGroup;
+import com.mycompany.hibernate.EventoDb;
 import com.mycompany.hibernate.GestioneEventiManagerEM;
 import com.mycompany.hibernate.GestioneOperazioniPartecipanteEM;
+import java.util.Iterator;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -224,8 +226,7 @@ public class MenuUtente extends GeneralGrafic {
 
     private void gestisciEliminaAccount() {
         int errore;
-        
-        errore = GestioneOperazioniPartecipanteEM.eliminaAccount(partecipante);
+        errore = GestioneOperazioniPartecipanteEM.eliminaAccount(partecipante.getId());
         
         if(errore == 0){
             labelError.setText("Errore durante la modifica");

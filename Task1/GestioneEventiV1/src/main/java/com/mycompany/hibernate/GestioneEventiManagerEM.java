@@ -49,5 +49,5 @@ public class GestioneEventiManagerEM {
     public static void chiudiConnesione() {
         entityManager.close();
     }
-        
+       
 }

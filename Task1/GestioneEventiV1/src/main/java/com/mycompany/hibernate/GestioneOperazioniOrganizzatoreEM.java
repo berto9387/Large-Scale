@@ -128,13 +128,13 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         try{
             entityManager.getTransaction().begin();
             EventoDb ev=entityManager.find(EventoDb.class, id);
-            if(ev!=null){
-                for(PartecipanteDb p:ev.getPartecipazioni()){
-                  entityManager.remove(p);  
-                }
-                entityManager.remove(ev);
-            }else
-               return 0;
+            for(Iterator<PartecipanteDb> it=ev.getPartecipazioni().iterator();it.hasNext();){
+                PartecipanteDb p=it.next();
+                it.remove();
+                ev.removePartecipante(p);
+            }
+            ev.removeOrganizzatore();
+            entityManager.remove(ev);
             entityManager.getTransaction().commit();
             System.out.println("EVENTO Cancellato");
             

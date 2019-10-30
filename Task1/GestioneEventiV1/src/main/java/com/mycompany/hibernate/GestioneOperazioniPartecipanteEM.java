@@ -160,13 +160,16 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         
     }
 
-    public static int eliminaAccount(PartecipanteDb partecipante) {
+    public static int eliminaAccount(long id) {
         try{
-            for(EventoDb ev:partecipante.getBook()){
-                partecipante.removeBook(ev);
-            }
             entityManager.getTransaction().begin();
-            entityManager.remove(partecipante);
+            PartecipanteDb p=entityManager.find(PartecipanteDb.class, id);
+            for(Iterator<EventoDb> it=p.getBook().iterator();it.hasNext();){
+                EventoDb evt=it.next();
+                it.remove();
+                p.removeBook(evt);
+            }
+            entityManager.remove(p);
             entityManager.getTransaction().commit();
             System.out.println("Utente Eliminato");
         } catch(Exception ex){

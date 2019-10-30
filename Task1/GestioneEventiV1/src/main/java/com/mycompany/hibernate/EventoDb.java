@@ -59,7 +59,20 @@ public class EventoDb {
         this.organizzatore = organizzatore;
         this.partecipazioni = partecipazioni;
     }
-    
+    //funzioni utili
+    public void addPartecipante(PartecipanteDb p){
+        partecipazioni.add(p);
+        p.getBook().add(this);
+        
+    }
+    public void removePartecipante(PartecipanteDb p){
+        partecipazioni.remove(p);
+        p.getBook().remove(this);
+    }
+    public void removeOrganizzatore(){
+        organizzatore.removeEvento(this);
+        organizzatore=null;
+    }
     //hash and equals
     @Override
     public int hashCode() {
