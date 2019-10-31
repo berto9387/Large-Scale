@@ -127,21 +127,24 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         return ev;
     }
 
-    public static EventoDb iscrizioneEvento(PartecipanteDb partecipante, String id) {
+    public static PartecipanteDb iscrizioneEvento(PartecipanteDb partecipante, String id) {
         EventoDb ev=null;
+        PartecipanteDb p=null;
         try{
             entityManager.getTransaction().begin();
             ev=entityManager.find(EventoDb.class, Long.parseLong(id));
             partecipante.addBook(ev);
             entityManager.merge(partecipante);
             entityManager.getTransaction().commit();
-            
-            
+            entityManager.getTransaction().begin();
+            p=entityManager.find(PartecipanteDb.class, partecipante.getId());
+            entityManager.getTransaction().commit();
         } catch(Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
+            return null;
         }
-        return ev;
+        return p;
     }
     public static void annullaIscrizioneEvento(PartecipanteDb p) {
 

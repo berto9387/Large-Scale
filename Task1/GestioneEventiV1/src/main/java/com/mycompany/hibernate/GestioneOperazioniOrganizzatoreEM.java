@@ -86,14 +86,14 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         return organizzatore;
     }
     
-    public static int creaEvento(OrganizzatoreDb organizzatore) {
-        int errore = 1;
+    public static OrganizzatoreDb creaEvento(OrganizzatoreDb organizzatore) {
+        OrganizzatoreDb o=null;
         try{
             entityManager.getTransaction().begin();
             //organizzatore=entityManager.find(OrganizzatoreDb.class, organizzatore.getId());
             //organizzatore.addEvento(ev);
             entityManager.merge(organizzatore);
-            
+            o=entityManager.find(OrganizzatoreDb.class, organizzatore.getId());
             entityManager.getTransaction().commit();
             System.out.println("EVENTO Added");
             
@@ -102,10 +102,10 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             entityManager.getTransaction().rollback();
             ex.printStackTrace();
             System.out.println("A problem occured in creating an event!");
-            errore = 0;
+            return null;
         }
         
-        return errore;
+        return o;
     }
     
     public static int modificaEvento(long id,int posti) {

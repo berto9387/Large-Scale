@@ -81,7 +81,7 @@ public class RicercaEventi extends GeneralGrafic{
             return;
         } 
         System.out.println(textFieldIdEvento.getText());
-        GestioneOperazioniPartecipanteEM.iscrizioneEvento(partecipante, textFieldIdEvento.getText());
+        partecipante=GestioneOperazioniPartecipanteEM.iscrizioneEvento(partecipante, textFieldIdEvento.getText());
         
         
         ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , textFieldCittaDaCercare.getText());
