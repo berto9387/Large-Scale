@@ -20,7 +20,8 @@ import javax.persistence.*;
 public class OrganizzatoreDb {
     @Column(name="id_Organizzatore")
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator = "organizzatore_generator")
+    @SequenceGenerator(name="organizzatore_generator", sequenceName = "organizzatore_seq", allocationSize=50)
     private long id;
     private String nome;
     private String cognome;

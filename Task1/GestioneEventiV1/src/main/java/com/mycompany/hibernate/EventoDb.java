@@ -19,7 +19,9 @@ import javax.persistence.*;
 public class EventoDb {
     @Column(name="id_Evento")
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator = "evento_generator")
+    @SequenceGenerator(name="evento_generator", sequenceName = "evento_seq", allocationSize=50)
+
     private long id;
     private String nome;
     private String luogo;
