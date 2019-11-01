@@ -1,6 +1,5 @@
 package com.mycompany.gestioneeventi;
 
-import static com.mycompany.gestioneeventi.GeneralGrafic.utente;
 import com.mycompany.hibernate.EventoDb;
 import com.mycompany.hibernate.GestioneOperazioniPartecipanteEM;
 import java.util.*;
@@ -111,7 +110,7 @@ public class VisualizzaPartecipazioni extends GeneralGrafic{
         }
         
         GestioneOperazioniPartecipanteEM.annullaIscrizioneEvento(partecipante);
-        
+        partecipante=GestioneOperazioniPartecipanteEM.trovaPartecipante(partecipante.getId());
         ev = GestioneOperazioniPartecipanteEM.ricercaPrenotazioni(partecipante);
         tabellaEvento.aggiornaTabellaEventi(ev);   
     }

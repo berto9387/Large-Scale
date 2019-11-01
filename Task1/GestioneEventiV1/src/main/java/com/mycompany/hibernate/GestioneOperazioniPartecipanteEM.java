@@ -63,6 +63,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
                 query=query.setParameter("Email", email);
                 query=query.setParameter("Password", password);
                 listaPartecipanti=(ArrayList)query.getResultList();
+                
                 if(listaPartecipanti.isEmpty())
                 {
                      System.out.println("EMAIL O PASSWORD SBAGLIATE");
@@ -116,35 +117,38 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
     public static ArrayList<Evento> ricercaPrenotazioni(PartecipanteDb partecipante) {
         
         ArrayList<Evento> ev=new ArrayList<>();
-        
-            Date todayDate = new Date();
-            for (EventoDb evento : partecipante.getBook()) {
+        try{
+           entityManager.getTransaction().begin();
+           PartecipanteDb p=entityManager.find(PartecipanteDb.class, partecipante.getId());
+           Date todayDate = new Date();
+            for (EventoDb evento : p.getBook()) {
                 if(todayDate.before(evento.getData()))
                     ev.add( new Evento((int)evento.getId(), evento.getNome(), evento.getLuogo(), evento.getData(), 
                                         evento.getOra(), evento.getPosti(), evento.getTipologia(), evento.getDescrizione(), 
                                         (int)evento.getOrganizzatore().getId(), evento.getNumero_partecipanti()));
             }
+           entityManager.getTransaction().commit();
+        } catch (Exception ex){
+            return null;
+        }
+        
+        
+            
         return ev;
     }
 
-    public static PartecipanteDb iscrizioneEvento(PartecipanteDb partecipante, String id) {
-        EventoDb ev=null;
+    public static void iscrizioneEvento(PartecipanteDb partecipante) {
         PartecipanteDb p=null;
         try{
             entityManager.getTransaction().begin();
-            ev=entityManager.find(EventoDb.class, Long.parseLong(id));
-            partecipante.addBook(ev);
             entityManager.merge(partecipante);
             entityManager.getTransaction().commit();
-            entityManager.getTransaction().begin();
-            p=entityManager.find(PartecipanteDb.class, partecipante.getId());
-            entityManager.getTransaction().commit();
+            //p=entityManager.find(PartecipanteDb.class, partecipante.getId());
         } catch(Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
-            return null;
+            
         }
-        return p;
     }
     public static void annullaIscrizioneEvento(PartecipanteDb p) {
 
@@ -199,6 +203,33 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             errore=2;
         }
         return errore;
+    }
+
+    public static EventoDb trovaEvento(String id) {
+        EventoDb ev=null;
+        try{
+            entityManager.getTransaction().begin();
+            ev=entityManager.find(EventoDb.class, Long.parseLong(id));
+            entityManager.getTransaction().commit();
+        } catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in insert events!");
+            return null;
+        }
+        return ev;
+    }
+    public static PartecipanteDb trovaPartecipante(long id) {
+        PartecipanteDb p=null;
+        try{
+            entityManager.getTransaction().begin();
+            p=entityManager.find(PartecipanteDb.class, id);
+            entityManager.getTransaction().commit();
+        } catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("A problem occured in insert events!");
+            return null;
+        }
+        return p;
     }
 
    
