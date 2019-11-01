@@ -99,3 +99,17 @@ ALTER TABLE task_0.Partecipante ADD INDEX email_idx (email);
 ALTER TABLE task_0.Partecipa ADD FOREIGN KEY utente_idxfk (utente) REFERENCES task_0.Partecipante (id_Partecipante) ON DELETE CASCADE  ON UPDATE CASCADE;
 
 ALTER TABLE task_0.Partecipa ADD FOREIGN KEY evento_idxfk (evento) REFERENCES task_0.Evento (id_Evento) ON DELETE CASCADE  ON UPDATE CASCADE;
+
+CREATE TRIGGER incrementa_num_partecipanti
+AFTER INSERT ON partecipa
+FOR EACH ROW
+UPDATE evento
+SET numero_partecipanti = numero_partecipanti+1
+WHERE id_Evento = NEW.id_Evento;
+
+CREATE TRIGGER decrementa_num_partecipanti
+AFTER DELETE ON partecipa
+FOR EACH ROW
+UPDATE evento
+SET numero_partecipanti = numero_partecipanti-1
+WHERE id_Evento = OLD.id_Evento;

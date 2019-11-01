@@ -140,7 +140,7 @@ public class MenuUtente extends GeneralGrafic {
         buttonEsci.setMnemonicParsing(false);
         buttonEsci.setPrefHeight(17.0);
         buttonEsci.setPrefWidth(149.0);
-        buttonEsci.setText("Esci");
+        buttonEsci.setText("LOGOUT");
         buttonEsci.setOnAction((ActionEvent ev) -> {
             GestioneEventiManagerEM.chiudiConnesione();
             GraficLoader.Loader(this, new LoginPage(), mainGroup );
@@ -205,7 +205,11 @@ public class MenuUtente extends GeneralGrafic {
     private void gestisciModificaDati() {
         int errore = 0;
         String email = textFieldEmail.getText();
+        if(email.equals("")) // caso in cui voglio cambiare solo password, l'email riamane quella vecchia
+            email = partecipante.getEmail();
         String nuovaPassword = textFieldNuovaPassword.getText();
+        if(nuovaPassword.equals("")) // caso in cui voglio cambiare solo email, la password riamane quella vecchia
+            nuovaPassword = partecipante.getPassword();
         String vecchiaPassword = textFieldVecchiaPassword.getText();
         System.out.println(partecipante.getPassword());
         System.out.println(vecchiaPassword);
@@ -227,6 +231,7 @@ public class MenuUtente extends GeneralGrafic {
             labelInfo.setStyle("-fx-text-fill: red;");
         }
         labelInfo.setVisible(true);
+        labelEmail.setText("Email attuale: " + partecipante.getEmail());
     }
 
     private void gestisciEliminaAccount() {
