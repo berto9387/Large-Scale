@@ -108,7 +108,7 @@ public class VisualizzaPartecipazioni extends GeneralGrafic{
               break;
             }              
         }
-        
+        //anche se alla riga 107 rimuovo il book,alla riga 113 sembra essere ripristinato, quindi è necessario riaggiornare
         GestioneOperazioniPartecipanteEM.annullaIscrizioneEvento(partecipante);
         partecipante=GestioneOperazioniPartecipanteEM.trovaPartecipante(partecipante.getId());
         ev = GestioneOperazioniPartecipanteEM.ricercaPrenotazioni(partecipante);
