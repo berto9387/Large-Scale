@@ -79,7 +79,11 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in logging in!");
         } 
-        
+        finally
+        {
+            
+            entityManager.close();  
+        }
         return partecipante;
     }
     
