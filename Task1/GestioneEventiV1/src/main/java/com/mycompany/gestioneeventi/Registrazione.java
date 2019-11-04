@@ -64,7 +64,8 @@ public class Registrazione extends GeneralGrafic {
         graficaPrincipale.setSpacing(25);
         
         setCenter(graficaPrincipale);
-        BorderPane.setMargin(graficaPrincipale, new Insets(300,20,30,90));
+        
+        BorderPane.setMargin(graficaPrincipale, new Insets(300,20,50,150));
     }
     
     

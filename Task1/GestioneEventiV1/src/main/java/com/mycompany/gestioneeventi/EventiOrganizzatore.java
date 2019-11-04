@@ -10,6 +10,7 @@ import com.mycompany.hibernate.*;
 import java.util.*;
 import javafx.beans.value.ObservableValue;
 import javafx.event.*;
+import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
@@ -22,7 +23,7 @@ import javafx.scene.text.*;
 public class EventiOrganizzatore extends GeneralGrafic{
     protected final VBox graficaPrincipale;
     protected final HBox lineaTitolo;
-    protected final HBox containerTabella;
+    
     protected final HBox lineaModificaElimina;
     protected final HBox lineaTornaIndietro;
     protected final HBox lineaModificaEliminaPulsantiera;
@@ -44,7 +45,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         lineaTitolo = new HBox();
         lineaTornaIndietro = new HBox();
         lineaModificaElimina = new HBox();
-        containerTabella=new HBox();
+        
         lineaModificaEliminaPulsantiera=new HBox();
         tabellaEvento = new TabellaVisualeEvento();
         labelEventiInseriti = new Label();
@@ -72,16 +73,16 @@ public class EventiOrganizzatore extends GeneralGrafic{
         setPrefHeight(USE_COMPUTED_SIZE);
         setPrefWidth(USE_COMPUTED_SIZE);
         
-        BorderPane.setAlignment(graficaPrincipale, javafx.geometry.Pos.CENTER);
-        lineaTitolo.setAlignment(javafx.geometry.Pos.CENTER);
-        containerTabella.setAlignment(javafx.geometry.Pos.CENTER);
-        lineaModificaElimina.setAlignment(javafx.geometry.Pos.CENTER);
-        lineaModificaEliminaPulsantiera.setAlignment(javafx.geometry.Pos.CENTER);
-        lineaTornaIndietro.setAlignment(javafx.geometry.Pos.CENTER);
-        setRight(graficaPrincipale);
+        BorderPane.setAlignment(graficaPrincipale, Pos.CENTER);
+        lineaTitolo.setAlignment(Pos.CENTER);
+        
+        lineaModificaElimina.setAlignment(Pos.CENTER);
+        lineaModificaEliminaPulsantiera.setAlignment(Pos.CENTER);
+        lineaTornaIndietro.setAlignment(Pos.CENTER);
+        setCenter(graficaPrincipale);
         
         lineaTitolo.getChildren().addAll(labelEventiInseriti);
-        containerTabella.getChildren().addAll(tabellaEvento);
+
         lineaModificaElimina.getChildren().addAll(idEvento,numeroPartecipanti);
         lineaModificaElimina.setSpacing(15.0);
         lineaModificaEliminaPulsantiera.setSpacing(15.0);
@@ -91,7 +92,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         
         graficaPrincipale.getChildren().addAll(lineaTitolo,tabellaEvento,lineaModificaElimina,lineaModificaEliminaPulsantiera,lineaTornaIndietro);
         graficaPrincipale.setSpacing(15);
-        
+        BorderPane.setMargin(graficaPrincipale, new Insets(40,100,30,150));
 
     }
     

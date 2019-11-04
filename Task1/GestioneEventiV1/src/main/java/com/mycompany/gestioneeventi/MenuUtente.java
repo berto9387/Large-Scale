@@ -82,12 +82,14 @@ public class MenuUtente extends GeneralGrafic {
 
     private void inizializzaGrafica() {
         
+        
         inizializzaElementiMenuUtente();
         
         HBox lineaTitolo=new HBox();
         lineaTitolo.getChildren().addAll(labelMenuUtente, buttonEsci);
         lineaTitolo.setAlignment(Pos.TOP_CENTER);
-        lineaTitolo.setSpacing(100);
+        
+        lineaTitolo.setSpacing(50);
         
         HBox lineaPulsantiEventi = new HBox();
         lineaPulsantiEventi.getChildren().addAll(buttonRicercaEventi, buttonVisualizzaPartecipazioni);
@@ -100,21 +102,23 @@ public class MenuUtente extends GeneralGrafic {
         lineaModificaDati.setSpacing(15);
         lineaModificaDati.setAlignment(Pos.CENTER);
         colonnaModificaDati.getChildren().addAll(labelModificaDati, labelEmail, lineaModificaDati, buttonModifica, labelInfo);
-        colonnaModificaDati.setSpacing(15);
+        colonnaModificaDati.setSpacing(25);
+        
         labelEmail.setAlignment(Pos.BASELINE_LEFT);
         labelModificaDati.setAlignment(Pos.BASELINE_LEFT);
-
+       
         VBox colonnaEliminaAccount = new VBox();
         colonnaEliminaAccount.getChildren().addAll(hyperlinkEliminaAccount, labelError);
         colonnaEliminaAccount.setSpacing(10);
    
         setTop(lineaTitolo);
         setCenter(lineaPulsantiEventi);
-       
-        graficaPrincipale.getChildren().addAll(lineaTitolo, lineaPulsantiEventi, colonnaModificaDati, colonnaEliminaAccount);
+        
+        graficaPrincipale.getChildren().addAll(lineaPulsantiEventi, colonnaModificaDati, colonnaEliminaAccount);
         graficaPrincipale.setSpacing(35);
         setCenter(graficaPrincipale);
         BorderPane.setAlignment(graficaPrincipale, Pos.CENTER);
+        BorderPane.setMargin(graficaPrincipale, new Insets(100,20,50,150));
     }
 
     private void inizializzaElementiMenuUtente() {

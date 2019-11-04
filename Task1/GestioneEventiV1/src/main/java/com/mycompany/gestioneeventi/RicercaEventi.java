@@ -70,7 +70,7 @@ public class RicercaEventi extends GeneralGrafic{
         graficaPrincipale.getChildren().addAll(LineaTitolo,LineaCampoRicercaCitta, tabellaEvento, LineaIscrizioneEvento,hyperlinkTornaIndietro);
         graficaPrincipale.setSpacing(20);
         setCenter(graficaPrincipale);
-        BorderPane.setMargin(graficaPrincipale, new Insets(30,20,30,200));
+        BorderPane.setMargin(graficaPrincipale, new Insets(30,20,30,150));
     }
     
     private void GestioneEventoIscrizione() 
