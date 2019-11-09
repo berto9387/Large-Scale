@@ -15,6 +15,8 @@ import com.mycompany.hibernate.GestioneOperazioniPartecipanteEM;
 import org.iq80.leveldb.*;
 import static org.iq80.leveldb.impl.Iq80DBFactory.*;
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 public class EstraiEvento extends GeneralGrafic implements Runnable{
@@ -29,6 +31,8 @@ public class EstraiEvento extends GeneralGrafic implements Runnable{
             try {
                 ArrayList<Evento> ev = GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , "");
                 for(int i=0;i<ev.size();i++){
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    String dataStringa = df.format(ev.get(i).getData());
                     String partOfKey="Evento:"+ev.get(i).getId()+":";
                     String data=partOfKey+"data";
                     String descrizione=partOfKey+"descrizione";
@@ -39,7 +43,7 @@ public class EstraiEvento extends GeneralGrafic implements Runnable{
                     String posti=partOfKey+"posti";
                     String tipologia=partOfKey+"tipologia";
                     String idOrganizzatore=partOfKey+"id_Organizzatore";
-                    levelDBStore.put(bytes(data),bytes(ev.get(i).getData().toString()));
+                    levelDBStore.put(bytes(data),bytes(dataStringa));
                     levelDBStore.put(bytes(descrizione),bytes(ev.get(i).getDescrizione()));
                     levelDBStore.put(bytes(luogo),bytes(ev.get(i).getLuogo()));
                     levelDBStore.put(bytes(nome),bytes(ev.get(i).getNome()));

@@ -8,7 +8,7 @@
     <class>com.mycompany.hibernate.PartecipanteDb</class>
     <properties>
 
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3307/task_1?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3307/task_1?serverTimezone=Europe/Madrid"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value=""/>
@@ -19,6 +19,7 @@
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
        <property name="connection.pool_size" value="1"></property>
+       <property name="hibernate.jdbc.time_zone" value="UTC"/>
     </properties>
   </persistence-unit>
 </persistence>

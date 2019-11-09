@@ -20,7 +20,7 @@ import javafx.scene.text.Font;
 import org.iq80.leveldb.*;
 import static org.iq80.leveldb.impl.Iq80DBFactory.*;
 import java.io.*;
-import java.util.*;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -181,12 +181,7 @@ public class RicercaEventi extends GeneralGrafic{
 
                 if(dividiKey[2].equals("data")){
                     System.out.println(dividiKey[2]);
-                    try { 
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                        data = formatter.parse(value);
-                    } catch (ParseException ex) {
-                        java.util.logging.Logger.getLogger(RicercaEventi.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    data=Date.valueOf(value);                    
                 } else if(dividiKey[2].equals("descrizione")){
                     System.out.println(dividiKey[2]);
                     descrizione=value;

@@ -15,6 +15,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.text.*;
+import org.iq80.leveldb.*;
+import static org.iq80.leveldb.impl.Iq80DBFactory.*;
+import java.io.*;
+import java.util.logging.Level;
 
 /**
  *
@@ -250,11 +254,51 @@ public class EventiOrganizzatore extends GeneralGrafic{
             it.remove();
             if(f.getId()==eventoId){
                 GestioneOperazioniOrganizzatoreEM.eliminaEvento(f.getId());
-                //organizzatore.removeEvento(f);
+                
+                Options options = new Options();
+                options.createIfMissing(true);
+
+                try {
+                    levelDBStore = factory.open(new File("eventi"), options);
+                } catch (IOException ex) {
+                    java.util.logging.Logger.getLogger(EventiOrganizzatore.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+                    String partOfKey="Evento:"+eventoId+":";
+                    String data=partOfKey+"data";
+                    String descrizione=partOfKey+"descrizione";
+                    String luogo=partOfKey+"luogo";
+                    String nome=partOfKey+"nome";
+                    String numero_Partecipanti=partOfKey+"numero_partecipanti";
+                    String ora=partOfKey+"ora";
+                    String posti=partOfKey+"posti";
+                    String tipologia=partOfKey+"tipologia";
+                    String idOrganizzatore=partOfKey+"id_Organizzatore";
+                    levelDBStore.delete(bytes(data));
+                    levelDBStore.delete(bytes(descrizione));
+                    levelDBStore.delete(bytes(luogo));
+                    levelDBStore.delete(bytes(nome));
+                    levelDBStore.delete(bytes(numero_Partecipanti));
+                    levelDBStore.delete(bytes(ora));
+                    levelDBStore.delete(bytes(posti));
+                    levelDBStore.delete(bytes(tipologia));
+                    levelDBStore.delete(bytes(idOrganizzatore));
+                } finally {
+                    try {
+                        levelDBStore.close();
+                    } catch (IOException ex) {
+                        java.util.logging.Logger.getLogger(RicercaEventi.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+                        //organizzatore.removeEvento(f);
                 break;
             }
             
         }
+        
+        
         numeroPartecipanti.setText("");
         idEvento.setText("");
         partecipanti=0;
@@ -264,5 +308,6 @@ public class EventiOrganizzatore extends GeneralGrafic{
         ev = GestioneEventiManagerEM.ricercaEventi(organizzatore);
         
         tabellaEvento.aggiornaTabellaEventi(ev);
+        
     }
 }

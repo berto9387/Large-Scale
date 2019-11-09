@@ -1,6 +1,7 @@
 package com.mycompany.gestioneeventi;
 
 import com.mycompany.hibernate.GestioneEventiManagerEM;
+import java.util.TimeZone;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.EventHandler;
@@ -11,10 +12,10 @@ import javafx.stage.WindowEvent;
 
 
 public class MainApp extends Application {
-    
+    public TimeZone getTimeZone() { return TimeZone.getDefault(); } 
     @Override
     public void start(Stage stage) throws Exception {
-        
+        System.out.println(getTimeZone());
         GestioneEventiManagerEM.setup();
         LoginPage login = new LoginPage();
         Group root = new Group(login);
