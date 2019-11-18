@@ -24,6 +24,8 @@ public class OrganizzatoreDb {
     private long id;
     private String nome;
     private String cognome;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "data_nascita")
     private Date data_nascita;
     @Column(name="email",unique=true)
     private String email;
