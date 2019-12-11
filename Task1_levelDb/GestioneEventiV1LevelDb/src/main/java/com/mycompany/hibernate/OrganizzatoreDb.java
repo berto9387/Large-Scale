@@ -18,12 +18,14 @@ import javax.persistence.*;
 @Entity(name="OrganizzatoreDb")
 @Table(name="organizzatore")
 public class OrganizzatoreDb {
-    @Column(name="id_Organizzatore")
+    @Column(name="id_Organizzatore",updatable = false, nullable = false)
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private String nome;
     private String cognome;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "data_nascita")
     private Date data_nascita;
     @Column(name="email",unique=true)
     private String email;
@@ -36,7 +38,7 @@ public class OrganizzatoreDb {
         orphanRemoval = true,
         fetch = FetchType.EAGER
     )
-    private Set<EventoDb> eventiCreati=new HashSet<>();
+    private Set<EventoDb> eventiCreati;
     
     //funzioni utili per la classe
     public void addEvento(EventoDb ev){
@@ -92,9 +94,6 @@ public class OrganizzatoreDb {
 
     public long getId() {
         return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
     }
     public void setId(long id) {
         this.id = id;

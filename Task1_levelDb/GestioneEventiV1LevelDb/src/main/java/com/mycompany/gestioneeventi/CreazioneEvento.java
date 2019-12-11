@@ -15,6 +15,7 @@ import com.mycompany.hibernate.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -237,18 +238,24 @@ public class CreazioneEvento extends GeneralGrafic {
             evento.setPosti(intero);
             evento.setTipologia(Tipologia);
             evento.setDescrizione(Descrizione);
+            evento.setOrganizzatore(organizzatore);
+            //inserimento evento
+            int er=GestioneOperazioniOrganizzatoreEM.inserisciEvento(evento);
+            //
             organizzatore.addEvento(evento);
             
-            organizzatore=GestioneOperazioniOrganizzatoreEM.creaEvento(organizzatore);           
-            if(organizzatore==null){
+            //int er=GestioneOperazioniOrganizzatoreEM.creaEvento(organizzatore);           
+            if(er==0){
                 labelErrore.setText("Inserimento Evento non riuscito");
                 labelErrore.setVisible(true);
                 GraficLoader.Loader(this,new LoginPage(),mainGroup );
             }else{
                GraficLoader.Loader(this,new CreazioneEvento(),mainGroup );
             }
-        
-    
+            Iterator<EventoDb> it=organizzatore.getEventiCreati().iterator();
+            while(it.hasNext()){
+            System.out.println(it.next().getId());
+            }
     
     }
 }

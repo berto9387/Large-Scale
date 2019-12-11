@@ -30,26 +30,7 @@ public class GestioneEventiManagerEM {
     
    
     
-    public static ArrayList<Evento> ricercaEventi(OrganizzatoreDb organizzatore){
-        try{
-            entityManager.getTransaction().begin();
-            organizzatore=entityManager.find(OrganizzatoreDb.class, organizzatore.getId());
-            entityManager.getTransaction().commit();
-        }catch (Exception ex){
-            return null;
-        }
-        
-        
-        ArrayList<Evento> ev=new ArrayList<>();
-        
-            for (EventoDb evento : organizzatore.getEventiCreati()) {
-                    ev.add( new Evento((int)evento.getId(), evento.getNome(), evento.getLuogo(), evento.getData(), 
-                                        evento.getOra(), evento.getPosti(), evento.getTipologia(), evento.getDescrizione(), 
-                                        (int)evento.getOrganizzatore().getId(), evento.getNumero_partecipanti()));
-            }
-        
-        return ev;
-    }
+    
 
     public static void creaConnesione() {
         entityManager = factory.createEntityManager();
