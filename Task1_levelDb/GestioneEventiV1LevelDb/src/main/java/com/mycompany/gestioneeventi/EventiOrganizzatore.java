@@ -117,7 +117,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         hyperlinkTornaIndietro.setOnAction((ActionEvent e) -> {GraficLoader.Loader(this, new CreazioneEvento(), mainGroup );});
         //partecipante come parametro serve per indirizzare nella giusta query
         
-        ev = GestioneEventiManagerEM.ricercaEventi(organizzatore);
+        ev = GestioneOperazioniOrganizzatoreEM.ricercaEventi(organizzatore);
         
         tabellaEvento.aggiornaTabellaEventi(ev);
         
@@ -234,7 +234,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         idEvento.setText("");
         eliminaEvento.setDisable(true);
         modificaEvento.setDisable(true);
-        ev = GestioneEventiManagerEM.ricercaEventi(organizzatore);
+        ev = GestioneOperazioniOrganizzatoreEM.ricercaEventi(organizzatore);
         
         tabellaEvento.aggiornaTabellaEventi(ev);
     }
@@ -305,7 +305,7 @@ public class EventiOrganizzatore extends GeneralGrafic{
         eventoId=-1;
         eliminaEvento.setDisable(true);
         modificaEvento.setDisable(true);
-        ev = GestioneEventiManagerEM.ricercaEventi(organizzatore);
+        ev = GestioneOperazioniOrganizzatoreEM.ricercaEventi(organizzatore);
         
         tabellaEvento.aggiornaTabellaEventi(ev);
         
