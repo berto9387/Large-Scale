@@ -124,8 +124,7 @@ public class MenuUtente extends GeneralGrafic {
     private void inizializzaElementiMenuUtente() {
         
         //apertura connessione factory, vine chiusa al click del pulsante esci
-        GestioneEventiManagerEM.creaConnesione();
-                
+        //GestioneEventiManagerEM.creaConnesione();
                 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -146,7 +145,7 @@ public class MenuUtente extends GeneralGrafic {
         buttonEsci.setPrefWidth(149.0);
         buttonEsci.setText("LOGOUT");
         buttonEsci.setOnAction((ActionEvent ev) -> {
-            GestioneEventiManagerEM.chiudiConnesione();
+//            GestioneEventiManagerEM.chiudiConnesione();
             GraficLoader.Loader(this, new LoginPage(), mainGroup );
         });
         
@@ -247,7 +246,7 @@ public class MenuUtente extends GeneralGrafic {
             labelError.setStyle("-fx-text-fill: red;");
             labelError.setVisible(true);
         } else{
-            GestioneEventiManagerEM.chiudiConnesione();
+//            GestioneEventiManagerEM.chiudiConnesione();
             GraficLoader.Loader(this, new LoginPage(), mainGroup );
         }
         

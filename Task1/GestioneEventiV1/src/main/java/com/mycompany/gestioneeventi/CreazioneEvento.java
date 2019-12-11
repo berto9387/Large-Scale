@@ -14,7 +14,7 @@ package com.mycompany.gestioneeventi;
 import com.mycompany.hibernate.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -48,7 +48,7 @@ public class CreazioneEvento extends GeneralGrafic {
     protected final Label labelErrore;
     public CreazioneEvento() {
         
-        GestioneEventiManagerEM.creaConnesione();
+//        GestioneEventiManagerEM.creaConnesione();
         
         labelErrore = new Label();
         graficaPrincipale = new VBox();
@@ -97,7 +97,7 @@ public class CreazioneEvento extends GeneralGrafic {
         buttonEsci.setMnemonicParsing(false);
         buttonEsci.setText("ESCI");
         buttonEsci.setOnAction((ActionEvent ev) -> {
-            GestioneEventiManagerEM.chiudiConnesione();
+//            GestioneEventiManagerEM.chiudiConnesione();
             GraficLoader.Loader(this, new LoginPage(),mainGroup );
         });
         
@@ -216,15 +216,15 @@ public class CreazioneEvento extends GeneralGrafic {
             String Luogo=textFieldLuogo.getText();
             String Ora=textFieldOra.getText();
             String sData=textFieldData.getText();
-            Date Data = null;
-            try {
-                Data = new SimpleDateFormat("dd/MM/yyyy").parse(sData);
-            } catch (ParseException ex) {
-                Logger.getLogger(CreazioneEvento.class.getName()).log(Level.SEVERE, null, ex);
-                labelErrore.setText("Inserire la data nel formato corretto!");
-                labelErrore.setVisible(true);
-                return;
-            }
+            java.sql.Date Data=java.sql.Date.valueOf(sData);
+//            try {
+//                Data = new SimpleDateFormat("dd/MM/yyyy").parse(sData);
+//            } catch (ParseException ex) {
+//                Logger.getLogger(CreazioneEvento.class.getName()).log(Level.SEVERE, null, ex);
+//                labelErrore.setText("Inserire la data nel formato corretto!");
+//                labelErrore.setVisible(true);
+//                return;
+//            }
             String Posti=textFieldPosti.getText();
             int intero=Integer.valueOf(Posti);
             String Descrizione=textAreaDescrizione.getText();
@@ -237,6 +237,7 @@ public class CreazioneEvento extends GeneralGrafic {
             evento.setPosti(intero);
             evento.setTipologia(Tipologia);
             evento.setDescrizione(Descrizione);
+            evento.setOrganizzatore(organizzatore);
             organizzatore.addEvento(evento);
             
             organizzatore=GestioneOperazioniOrganizzatoreEM.creaEvento(organizzatore);           
