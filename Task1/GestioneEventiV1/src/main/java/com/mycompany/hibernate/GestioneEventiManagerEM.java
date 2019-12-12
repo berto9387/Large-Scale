@@ -32,11 +32,14 @@ public class GestioneEventiManagerEM {
     
     public static ArrayList<Evento> ricercaEventi(OrganizzatoreDb organizzatore){
         try{
+            entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             organizzatore=entityManager.find(OrganizzatoreDb.class, organizzatore.getId());
             entityManager.getTransaction().commit();
         }catch (Exception ex){
             return null;
+        } finally{
+            entityManager.close();
         }
         
         
@@ -51,11 +54,11 @@ public class GestioneEventiManagerEM {
         return ev;
     }
 
-    public static void creaConnesione() {
-        entityManager = factory.createEntityManager();
-    }
-    public static void chiudiConnesione() {
-        entityManager.close();
-    }
+//    public static void creaConnesione() {
+//        entityManager = factory.createEntityManager();
+//    }
+//    public static void chiudiConnesione() {
+//        entityManager.close();
+//    }
        
 }

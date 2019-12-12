@@ -79,9 +79,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in logging in!");
         } 
-        finally
-        {
-            
+        finally{
             entityManager.close();  
         }
         return partecipante;
@@ -94,6 +92,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         ArrayList<Evento> ev=new ArrayList<>();
         
         try{
+            entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             if(Citta.equals("")){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto                
                     sql="select e from EventoDb e where e.numero_partecipanti<e.posti and  e.data>=current_date() and e.id not in (select d.id from PartecipanteDb p join p.book d  where  p.id="+partecipante.getId()+")";   
@@ -114,6 +113,8 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         } catch(Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in searching events!");
+        } finally{
+            entityManager.close();
         }
         return ev;
     }
@@ -122,6 +123,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         
         ArrayList<Evento> ev=new ArrayList<>();
         try{
+           entityManager = factory.createEntityManager();
            entityManager.getTransaction().begin();
            PartecipanteDb p=entityManager.find(PartecipanteDb.class, partecipante.getId());
            Date todayDate = new Date();
@@ -134,6 +136,8 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
            entityManager.getTransaction().commit();
         } catch (Exception ex){
             return null;
+        }finally{
+            entityManager.close();
         }
         
         
@@ -141,24 +145,30 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         return ev;
     }
 
-    public static void iscrizioneEvento(PartecipanteDb partecipante) {
+    public static void iscrizioneEvento(PartecipanteDb partecipante, EventoDb evento) {
         PartecipanteDb p=null;
         try{
+            entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             entityManager.merge(partecipante);
+            entityManager.merge(evento);
             entityManager.getTransaction().commit();
             //p=entityManager.find(PartecipanteDb.class, partecipante.getId());
         } catch(Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
             
+        } finally{
+            entityManager.close();  
         }
     }
-    public static void annullaIscrizioneEvento(PartecipanteDb p) {
+    public static void annullaIscrizioneEvento(PartecipanteDb partecipante, EventoDb evento) {
 
         try{
+            entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
-            entityManager.merge(p);
+            entityManager.merge(partecipante);
+            entityManager.merge(evento);
             entityManager.getTransaction().commit();
             System.out.println("iscrizione annullata");
             
@@ -166,7 +176,8 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             entityManager.getTransaction().rollback();
             ex.printStackTrace();
             System.out.println("A problem occured in  delete an event!");
-            
+        }finally{
+            entityManager.close();
         }
         
     }
@@ -189,6 +200,8 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             System.out.println("Non è stato possibile eliminare l'utente!");
             return 0;
             
+        }finally{
+            entityManager.close();
         }
         return 1;
     }
@@ -196,6 +209,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
     public static int modificaDati(PartecipanteDb partecipante) {
         int errore=2;
         try{
+            entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             entityManager.merge(partecipante);
             entityManager.getTransaction().commit();
@@ -205,6 +219,8 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
             errore=2;
+        }finally{
+            entityManager.close();
         }
         return errore;
     }
@@ -212,6 +228,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
     public static EventoDb trovaEvento(String id) {
         EventoDb ev=null;
         try{
+            entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             ev=entityManager.find(EventoDb.class, Long.parseLong(id));
             entityManager.getTransaction().commit();
@@ -219,12 +236,15 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
             return null;
+        }finally{
+            entityManager.close();
         }
         return ev;
     }
     public static PartecipanteDb trovaPartecipante(long id) {
         PartecipanteDb p=null;
         try{
+            entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             p=entityManager.find(PartecipanteDb.class, id);
             entityManager.getTransaction().commit();
@@ -232,6 +252,8 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
             return null;
+        }finally{
+            entityManager.close();
         }
         return p;
     }

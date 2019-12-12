@@ -81,14 +81,12 @@ public class RicercaEventi extends GeneralGrafic{
             return;
         }
         EventoDb evt=GestioneOperazioniPartecipanteEM.trovaEvento(textFieldIdEvento.getText());
-        System.out.println("--------");
-        for(EventoDb e:partecipante.getBook())
-            System.out.println(e.getId());
-        System.out.println("--------");
-        partecipante.addBook(evt);
-        GestioneOperazioniPartecipanteEM.iscrizioneEvento(partecipante);
-        partecipante=GestioneOperazioniPartecipanteEM.trovaPartecipante(partecipante.getId());
         
+        partecipante.addBook(evt);
+        System.out.println("------>" + evt.getId() + "<--------");
+        GestioneOperazioniPartecipanteEM.iscrizioneEvento(partecipante, evt);
+        
+//        partecipante=GestioneOperazioniPartecipanteEM.trovaPartecipante(partecipante.getId());
         
         ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , textFieldCittaDaCercare.getText());
         tabellaEvento.aggiornaTabellaEventi(ev);   

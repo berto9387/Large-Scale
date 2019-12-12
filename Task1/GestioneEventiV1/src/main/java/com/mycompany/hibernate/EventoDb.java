@@ -20,7 +20,6 @@ public class EventoDb {
     @Column(name="id_Evento")
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-
     private long id;
     private String nome;
     private String luogo;
@@ -35,10 +34,9 @@ public class EventoDb {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Organizzatore")
     private OrganizzatoreDb organizzatore;
-    @ManyToMany(
-            mappedBy="book",
-            fetch = FetchType.EAGER)
-    private Set<PartecipanteDb> partecipazioni=new HashSet<>();
+    
+    @ManyToMany(mappedBy="book", fetch = FetchType.EAGER)
+    private Set<PartecipanteDb> partecipazioni;
    
     //Costruttori della classe
     public EventoDb(){

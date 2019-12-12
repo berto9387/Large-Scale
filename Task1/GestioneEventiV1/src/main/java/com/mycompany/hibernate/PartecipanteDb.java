@@ -31,22 +31,29 @@ public class PartecipanteDb {
     private String phone;
     
     
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-    fetch = FetchType.EAGER)
-    @JoinTable(
-            name="partecipa",
-            joinColumns=@JoinColumn(name="id_Partecipante"),
-            inverseJoinColumns=@JoinColumn(name="id_Evento"))
-    
-    private Set<EventoDb> book=new HashSet<>();
+//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+//    fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name="partecipa",
+//            joinColumns=@JoinColumn(name="id_Partecipante"),
+//            inverseJoinColumns=@JoinColumn(name="id_Evento"))
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    }, fetch = FetchType.EAGER)
+    @JoinTable(name = "partecipa",
+        joinColumns = @JoinColumn(name = "id_Partecipante"),
+        inverseJoinColumns = @JoinColumn(name = "id_Evento")
+    )
+    private Set<EventoDb> book;
     
     //funzioni utili
     
     public void addBook(EventoDb ev){
         book.add(ev);
         ev.getPartecipazioni().add(this);
-        
     }
+    
     public void removeBook(EventoDb ev){
         book.remove(ev);
         ev.getPartecipazioni().remove(this);

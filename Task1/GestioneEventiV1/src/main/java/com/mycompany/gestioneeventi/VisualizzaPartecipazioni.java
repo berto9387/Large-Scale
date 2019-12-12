@@ -2,6 +2,7 @@ package com.mycompany.gestioneeventi;
 
 import com.mycompany.hibernate.EventoDb;
 import com.mycompany.hibernate.GestioneOperazioniPartecipanteEM;
+import static java.lang.Long.parseLong;
 import java.util.*;
 import javafx.event.*;
 import javafx.geometry.*;
@@ -102,14 +103,19 @@ public class VisualizzaPartecipazioni extends GeneralGrafic{
             return;
         }
         
+        System.out.println( "ID VISTOOOOOOOOOOOOOOOO: " + parseLong(textFieldIdEvento.getText()));
+        
+        EventoDb evento = null;
         for(EventoDb evt:partecipante.getBook()){
-            if(evt.getId()==Long.parseLong(textFieldIdEvento.getText())){
+            System.out.println("--------> " + evt.getId() + "<----------") ; 
+            if(evt.getId()== parseLong(textFieldIdEvento.getText())){
               partecipante.removeBook(evt);
+              evento = evt;
               break;
             }              
         }
         //anche se alla riga 107 rimuovo il book,alla riga 113 sembra essere ripristinato, quindi è necessario riaggiornare
-        GestioneOperazioniPartecipanteEM.annullaIscrizioneEvento(partecipante);
+        GestioneOperazioniPartecipanteEM.annullaIscrizioneEvento(partecipante, evento);
         partecipante=GestioneOperazioniPartecipanteEM.trovaPartecipante(partecipante.getId());
         ev = GestioneOperazioniPartecipanteEM.ricercaPrenotazioni(partecipante);
         tabellaEvento.aggiornaTabellaEventi(ev);   
