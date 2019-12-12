@@ -33,12 +33,9 @@ public class PartecipanteDb {
     private String phone;
     
     
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-    fetch = FetchType.EAGER)
-    @JoinTable(
-            name="partecipa",
-            joinColumns=@JoinColumn(name="id_Partecipante"),
-            inverseJoinColumns=@JoinColumn(name="id_Evento"))
+    @ManyToMany(
+            mappedBy="partecipazioni",
+            fetch = FetchType.EAGER)
     
     private Set<EventoDb> book=new HashSet<>();
     

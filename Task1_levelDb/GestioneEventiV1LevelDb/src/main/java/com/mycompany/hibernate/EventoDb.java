@@ -35,9 +35,13 @@ public class EventoDb {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Organizzatore")
     private OrganizzatoreDb organizzatore;
-    @ManyToMany(
-            mappedBy="book",
-            fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},
+    fetch = FetchType.EAGER)
+    @JoinTable(
+            name="partecipa",
+            joinColumns=@JoinColumn(name="id_Partecipante"),
+            inverseJoinColumns=@JoinColumn(name="id_Evento"))
+    
     private Set<PartecipanteDb> partecipazioni=new HashSet<>();
    
     //Costruttori della classe

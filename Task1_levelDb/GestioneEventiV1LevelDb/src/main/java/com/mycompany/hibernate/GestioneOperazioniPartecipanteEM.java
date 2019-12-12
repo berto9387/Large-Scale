@@ -150,7 +150,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         return ev;
     }
 
-    public static void iscrizioneEvento(PartecipanteDb partecipante) {
+    public static void iscrizioneEvento(EventoDb partecipante) {
         PartecipanteDb p=null;
         try{
             entityManager = factory.createEntityManager();
@@ -168,7 +168,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             entityManager.close();  
         }
     }
-    public static void annullaIscrizioneEvento(PartecipanteDb p) {
+    public static void annullaIscrizioneEvento(EventoDb p) {
 
         try{
             entityManager = factory.createEntityManager();

@@ -23,6 +23,7 @@ import java.io.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 import java.util.logging.Level;
 /**
  *
@@ -92,7 +93,11 @@ public class RicercaEventi extends GeneralGrafic{
         }
         EventoDb evt=GestioneOperazioniPartecipanteEM.trovaEvento(textFieldIdEvento.getText());
         partecipante.addBook(evt);
-        GestioneOperazioniPartecipanteEM.iscrizioneEvento(partecipante);
+        GestioneOperazioniPartecipanteEM.iscrizioneEvento(evt);
+        Iterator<EventoDb> it=partecipante.getBook().iterator();
+        while(it.hasNext()){
+            System.out.println(it.next().getId());
+        }
         //partecipante=GestioneOperazioniPartecipanteEM.trovaPartecipante(partecipante.getId());
         
         

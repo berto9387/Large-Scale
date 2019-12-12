@@ -92,7 +92,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         try{
             entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
-            organizzatore=entityManager.merge(organizzatore);
+            entityManager.merge(organizzatore);
             entityManager.getTransaction().commit();
             System.out.println("EVENTO Added");
             

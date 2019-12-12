@@ -104,12 +104,14 @@ public class VisualizzaPartecipazioni extends GeneralGrafic{
         
         for(EventoDb evt:partecipante.getBook()){
             if(evt.getId()==Long.parseLong(textFieldIdEvento.getText())){
-              partecipante.removeBook(evt);
+              EventoDb evt1=GestioneOperazioniPartecipanteEM.trovaEvento(textFieldIdEvento.getText());  
+              partecipante.removeBook(evt1);
+              GestioneOperazioniPartecipanteEM.annullaIscrizioneEvento(evt1);
               break;
             }              
         }
         //anche se alla riga 107 rimuovo il book,alla riga 113 sembra essere ripristinato, quindi è necessario riaggiornare
-        GestioneOperazioniPartecipanteEM.annullaIscrizioneEvento(partecipante);
+        
         //partecipante=GestioneOperazioniPartecipanteEM.trovaPartecipante(partecipante.getId());
         ev = GestioneOperazioniPartecipanteEM.ricercaPrenotazioni(partecipante);
         tabellaEvento.aggiornaTabellaEventi(ev);   
