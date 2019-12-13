@@ -39,8 +39,7 @@ public class GestioneEventiManagerEM {
         entityManager.close();
     }
     
-    public static int registrazione(OrganizzatoreDb organizzatore,PartecipanteDb partecipante)
-    {
+    public static int registrazione(OrganizzatoreDb organizzatore,PartecipanteDb partecipante){
         int errore=1;
         if(((organizzatore==null)&&(partecipante==null))||((organizzatore!=null)&&(partecipante!=null)))
         {

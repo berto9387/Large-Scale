@@ -5,12 +5,10 @@
  */
 package com.mycompany.hibernate;
 
-//import java.sql.Date;
 import com.mycompany.gestioneeventi.Evento;
 import static com.mycompany.hibernate.GestioneEventiManagerEM.entityManager;
 import java.util.*;
 import javax.persistence.*;
-//import java.util.Set;
  
 /**
  *
@@ -18,37 +16,7 @@ import javax.persistence.*;
  */
 public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
     
-    public static int inserisciPartecipante(PartecipanteDb partecipante) {
-        
-        try{
-            entityManager = factory.createEntityManager();
-            entityManager.getTransaction().begin();
-            entityManager.persist(partecipante);
-            entityManager.getTransaction().commit();
-            System.out.println("PARTECIPANTE Added");
-        }
-        catch(PersistenceException ex)
-        {
-            entityManager.getTransaction().rollback();
-            System.out.println("Attenzione utente esistente");
-            return 0;
-        }
-        catch(Exception ex)
-        {
-            entityManager.getTransaction().rollback();
-            return 0;
-        }
-        
-       finally
-        {
-            entityManager.close();  
-        }
-        return 1;
-    
-    }
-    
-    public static PartecipanteDb loginPartecipante(String email,String password)
-    {
+    public static PartecipanteDb loginPartecipante(String email,String password){
         PartecipanteDb partecipante = null;
         
         String sql;
@@ -151,7 +119,6 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             entityManager.merge(partecipante);
             entityManager.merge(evento);
             entityManager.getTransaction().commit();
-            //p=entityManager.find(PartecipanteDb.class, partecipante.getId());
         } catch(Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
@@ -198,7 +165,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             System.out.println("Non è stato possibile eliminare l'utente!");
             return 0;
             
-        }finally{
+        } finally{
             entityManager.close();
         }
         return 1;
@@ -217,7 +184,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
             errore=2;
-        }finally{
+        } finally{
             entityManager.close();
         }
         return errore;
@@ -234,7 +201,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
             return null;
-        }finally{
+        } finally{
             entityManager.close();
         }
         return ev;
@@ -250,11 +217,9 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
             return null;
-        }finally{
+        } finally{
             entityManager.close();
         }
         return p;
     }
-
-   
 }

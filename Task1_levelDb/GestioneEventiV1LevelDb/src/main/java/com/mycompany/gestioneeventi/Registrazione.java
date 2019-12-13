@@ -187,7 +187,5 @@ public class Registrazione extends GeneralGrafic {
         {
             GraficLoader.Loader(this,new LoginPage(),mainGroup );
         }
-        
-    
     }
 }

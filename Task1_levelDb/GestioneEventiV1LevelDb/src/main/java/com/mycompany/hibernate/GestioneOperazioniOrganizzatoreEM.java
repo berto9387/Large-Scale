@@ -16,38 +16,6 @@ import javax.persistence.*;
  */
 public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
     
-    
-    public static int inserisciOrganizzatore(OrganizzatoreDb organizzatore){
-        // long id, String nome, String cognome, Date data_nascita, String email, String password, String username, String phone
-        
-        int errore=1;
-        try{
-            entityManager = factory.createEntityManager();
-            entityManager.getTransaction().begin();
-            entityManager.persist(organizzatore);
-            entityManager.getTransaction().commit();
-            System.out.println("ORGANIZZATORE Added");
-            
-        }catch(PersistenceException ex)
-        {
-            System.out.println("Attenzione utente esistente");
-            errore=0;
-        }
-        catch(Exception ex)
-        {
-            entityManager.getTransaction().rollback();
-            System.out.println("Riprova,qualcosa è andato storto!");
-            errore=0;
-        }
-        
-       finally
-        {
-            
-            entityManager.close();  
-        }
-        return errore;
-    }
-    
     public static OrganizzatoreDb loginOrganizzatore(String email, String password){
         OrganizzatoreDb organizzatore = null;
         
@@ -80,7 +48,6 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in logging in!");
         } finally{
-            
             entityManager.close();
         }
         
@@ -104,9 +71,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             return 0;
             
         }
-        finally
-        {
-            
+        finally{
             entityManager.close();  
         }
         return 1;
@@ -129,9 +94,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             System.out.println("A problem occured in updating an event!");
             errore = 0;
         }
-        finally
-        {
-            
+        finally{
             entityManager.close();  
         }
         
@@ -159,9 +122,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             System.out.println("A problem occured in  delete an event!");
             errore = 0;
         }
-        finally
-        {
-            
+        finally{
             entityManager.close();  
         }
         return errore;
@@ -188,9 +149,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             errore=0;
         }
         
-       finally
-        {
-            
+        finally{
             entityManager.close();  
         }
         return errore;    
@@ -204,9 +163,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
         }catch (Exception ex){
             return null;
         }
-        finally
-        {
-            
+        finally{
             entityManager.close();  
         }
         

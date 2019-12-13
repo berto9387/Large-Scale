@@ -16,36 +16,6 @@ import javax.persistence.*;
  */
 public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
     
-    
-    public static int inserisciOrganizzatore(OrganizzatoreDb organizzatore){
-        // long id, String nome, String cognome, Date data_nascita, String email, String password, String username, String phone
-        
-        int errore=1;
-        try{
-            entityManager = factory.createEntityManager();
-            entityManager.getTransaction().begin();
-            entityManager.persist(organizzatore);
-            entityManager.getTransaction().commit();
-            System.out.println("ORGANIZZATORE Added");
-            
-        }catch(PersistenceException ex)
-        {
-            System.out.println("Attenzione utente esistente");
-            errore=0;
-        }
-        catch(Exception ex)
-        {
-            entityManager.getTransaction().rollback();
-            System.out.println("Riprova,qualcosa è andato storto!");
-            errore=0;
-        }
-        
-       finally{
-            entityManager.close();  
-        }
-        return errore;
-    }
-    
     public static OrganizzatoreDb loginOrganizzatore(String email, String password){
         OrganizzatoreDb organizzatore = null;
         
@@ -66,7 +36,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             {
                  System.out.println("EMAIL O PASSWORD SBAGLIATE");
 
-            } else {
+            } else{
 
                 organizzatore = listaOrganizzatore.get(0);
 
@@ -122,7 +92,7 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             ex.printStackTrace();
             System.out.println("A problem occured in updating an event!");
             errore = 0;
-        }finally{
+        } finally{
             entityManager.close();  
         }
         
@@ -165,21 +135,15 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             entityManager.getTransaction().commit();
             System.out.println("Evento Added");
             
-        }catch(PersistenceException ex)
+        } catch(PersistenceException ex)
         {
             System.out.println("Attenzione evento esistente");
             errore=0;
-        }
-        catch(Exception ex)
-        {
+        } catch(Exception ex) {
             entityManager.getTransaction().rollback();
             System.out.println("Riprova,qualcosa è andato storto!");
             errore=0;
-        }
-        
-       finally
-        {
-            
+        } finally {
             entityManager.close();  
         }
         return errore;    
@@ -191,21 +155,19 @@ public class GestioneOperazioniOrganizzatoreEM extends GestioneEventiManagerEM{
             entityManager.getTransaction().begin();
             organizzatore=entityManager.find(OrganizzatoreDb.class, organizzatore.getId());
             entityManager.getTransaction().commit();
-        }catch (Exception ex){
+        } catch (Exception ex){
             return null;
-        }
-        finally{
+        } finally{
             entityManager.close();  
         }
         
-        
         ArrayList<Evento> ev=new ArrayList<>();
         
-            for (EventoDb evento : organizzatore.getEventiCreati()) {
-                    ev.add( new Evento((int)evento.getId(), evento.getNome(), evento.getLuogo(), evento.getData(), 
-                                        evento.getOra(), evento.getPosti(), evento.getTipologia(), evento.getDescrizione(), 
-                                        (int)evento.getOrganizzatore().getId(), evento.getNumero_partecipanti()));
-            }
+        for (EventoDb evento : organizzatore.getEventiCreati()) {
+                ev.add( new Evento((int)evento.getId(), evento.getNome(), evento.getLuogo(), evento.getData(), 
+                                    evento.getOra(), evento.getPosti(), evento.getTipologia(), evento.getDescrizione(), 
+                                    (int)evento.getOrganizzatore().getId(), evento.getNumero_partecipanti()));
+        }
         
         return ev;
     }
