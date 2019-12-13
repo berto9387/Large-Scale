@@ -92,12 +92,16 @@ public class RicercaEventi extends GeneralGrafic{
             return;
         }
         EventoDb evt=GestioneOperazioniPartecipanteEM.trovaEvento(textFieldIdEvento.getText());
-        partecipante.addBook(evt);
-        GestioneOperazioniPartecipanteEM.iscrizioneEvento(evt);
         Iterator<EventoDb> it=partecipante.getBook().iterator();
         while(it.hasNext()){
-            System.out.println(it.next().getId());
+            if(it.next().getId()==evt.getId()){
+                System.out.println("Evento già inserito");
+                return;
+            }
         }
+        partecipante.addBook(evt);
+        GestioneOperazioniPartecipanteEM.iscrizioneEvento(evt);
+        
         //partecipante=GestioneOperazioniPartecipanteEM.trovaPartecipante(partecipante.getId());
         
         
@@ -110,41 +114,41 @@ public class RicercaEventi extends GeneralGrafic{
         }
         if(e==null)
             return;
-        Options options = new Options();
-        options.createIfMissing(true);
-        try {
-            levelDBStore = factory.open(new File("eventi"), options);
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(RicercaEventi.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            String partOfKey="Evento:"+evt.getId()+":";
-            String data=partOfKey+"data";
-            String descrizione=partOfKey+"descrizione";
-            String luogo=partOfKey+"luogo";
-            String nome=partOfKey+"nome";
-            String numeroPartecipanti=partOfKey+"numero_partecipanti";
-            String ora=partOfKey+"ora";
-            String posti=partOfKey+"posti";
-            String tipologia=partOfKey+"tipologia";
-            String idOrganizzatore=partOfKey+"id_Organizzatore";
-            levelDBStore.delete(bytes(data));
-            levelDBStore.delete(bytes(descrizione));
-            levelDBStore.delete(bytes(luogo));
-            levelDBStore.delete(bytes(nome));
-            levelDBStore.delete(bytes(numeroPartecipanti));
-            levelDBStore.delete(bytes(ora));
-            levelDBStore.delete(bytes(posti));
-            levelDBStore.delete(bytes(tipologia));
-            levelDBStore.delete(bytes(idOrganizzatore));
-        } finally {
-            try {
-                levelDBStore.close();
-            } catch (IOException ex) {
-                java.util.logging.Logger.getLogger(RicercaEventi.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }      
+//        Options options = new Options();
+//        options.createIfMissing(true);
+//        try {
+//            levelDBStore = factory.open(new File("eventi"), options);
+//        } catch (IOException ex) {
+//            java.util.logging.Logger.getLogger(RicercaEventi.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        try {
+//            String partOfKey="Evento:"+evt.getId()+":";
+//            String data=partOfKey+"data";
+//            String descrizione=partOfKey+"descrizione";
+//            String luogo=partOfKey+"luogo";
+//            String nome=partOfKey+"nome";
+//            String numeroPartecipanti=partOfKey+"numero_partecipanti";
+//            String ora=partOfKey+"ora";
+//            String posti=partOfKey+"posti";
+//            String tipologia=partOfKey+"tipologia";
+//            String idOrganizzatore=partOfKey+"id_Organizzatore";
+//            levelDBStore.delete(bytes(data));
+//            levelDBStore.delete(bytes(descrizione));
+//            levelDBStore.delete(bytes(luogo));
+//            levelDBStore.delete(bytes(nome));
+//            levelDBStore.delete(bytes(numeroPartecipanti));
+//            levelDBStore.delete(bytes(ora));
+//            levelDBStore.delete(bytes(posti));
+//            levelDBStore.delete(bytes(tipologia));
+//            levelDBStore.delete(bytes(idOrganizzatore));
+//        } finally {
+//            try {
+//                levelDBStore.close();
+//            } catch (IOException ex) {
+//                java.util.logging.Logger.getLogger(RicercaEventi.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//        }      
         ev.remove(e);
         tabellaEvento.aggiornaTabellaEventi(ev);   
     }
