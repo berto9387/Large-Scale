@@ -238,10 +238,11 @@ public class CreazioneEvento extends GeneralGrafic {
             evento.setTipologia(Tipologia);
             evento.setDescrizione(Descrizione);
             evento.setOrganizzatore(organizzatore);
+            int er=GestioneOperazioniOrganizzatoreEM.inserisciEvento(evento);
             organizzatore.addEvento(evento);
             
-            organizzatore=GestioneOperazioniOrganizzatoreEM.creaEvento(organizzatore);           
-            if(organizzatore==null){
+            //organizzatore=GestioneOperazioniOrganizzatoreEM.creaEvento(organizzatore);           
+            if(er==0){
                 labelErrore.setText("Inserimento Evento non riuscito");
                 labelErrore.setVisible(true);
                 GraficLoader.Loader(this,new LoginPage(),mainGroup );

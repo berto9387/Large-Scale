@@ -32,11 +32,48 @@ public class GestioneEventiManagerEM {
     
     
 
-    public static void creaConnesione() {
+    public static void creaConnessione() {
         entityManager = factory.createEntityManager();
     }
-    public static void chiudiConnesione() {
+    public static void chiudiConnessione() {
         entityManager.close();
+    }
+    
+    public static int registrazione(OrganizzatoreDb organizzatore,PartecipanteDb partecipante)
+    {
+        int errore=1;
+        if(((organizzatore==null)&&(partecipante==null))||((organizzatore!=null)&&(partecipante!=null)))
+        {
+            System.err.println("parametri non validi riprova");
+            return 0;
+            
+        }
+        try{
+            creaConnessione();
+            entityManager.getTransaction().begin();
+            if(organizzatore!=null)
+                entityManager.persist(organizzatore);
+            else
+                entityManager.persist(partecipante);
+            
+            entityManager.getTransaction().commit();
+        }
+        catch(PersistenceException pe)
+        {
+            pe.printStackTrace();
+            errore=0;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("Errore durante la transizione riprova!");
+            errore=0;
+        }
+        finally
+        {
+            chiudiConnessione();
+        }
+        return errore;
     }
        
 }

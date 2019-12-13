@@ -143,46 +143,50 @@ public class Registrazione extends GeneralGrafic {
     
     private void gestisciEventoLogin()
     {
-            int errore=0;
-            String Nome=textFieldNome.getText();
-            String Cognome=textFieldCognome.getText();
-            String sData=textFieldDataDiNascita.getText();
-            Date Data=Date.valueOf(sData);
-            String Email=textFieldEmail.getText();
-            String Phone=textFieldTelefono.getText();
-            String Username=textFieldUsername.getText();
-            String Password=textFieldPassword.getText(); 
-            RadioButton selectedRadioButton = (RadioButton) ToggleGroupGruppoUtente.getSelectedToggle();
-            String Ruolo = selectedRadioButton.getText();
-            if(Ruolo.equals("Partecipante")){
-                PartecipanteDb partecipante_aux=new PartecipanteDb();
-                partecipante_aux.setEmail(Email);
-                partecipante_aux.setNome(Nome);
-                partecipante_aux.setCognome(Cognome);
-                partecipante_aux.setData_nascita(Data);
-                partecipante_aux.setUsername(Username);
-                partecipante_aux.setPhone(Phone);
-                partecipante_aux.setPassword(Password);
-                errore=GestioneOperazioniPartecipanteEM.inserisciPartecipante(partecipante_aux);
-            }else{
-                OrganizzatoreDb organizzatore_aux=new OrganizzatoreDb();
-                organizzatore_aux.setNome(Nome);
-                organizzatore_aux.setCognome(Cognome);
-                organizzatore_aux.setData_nascita(Data);
-                organizzatore_aux.setEmail(Email);
-                organizzatore_aux.setUsername(Username);
-                organizzatore_aux.setPhone(Phone);
-                organizzatore_aux.setPassword(Password);
-                errore=GestioneOperazioniOrganizzatoreEM.inserisciOrganizzatore(organizzatore_aux);
-               
-              
+        int errore;
+        String Nome=textFieldNome.getText();
+        String Cognome=textFieldCognome.getText();
+        String sData=textFieldDataDiNascita.getText();
+        Date Data=Date.valueOf(sData);
+        String Email=textFieldEmail.getText();
+        String Phone=textFieldTelefono.getText();
+        String Username=textFieldUsername.getText();
+        String Password=textFieldPassword.getText(); 
+        RadioButton selectedRadioButton = (RadioButton) ToggleGroupGruppoUtente.getSelectedToggle();
+        String Ruolo = selectedRadioButton.getText();
+        PartecipanteDb partecipante_aux=null;
+        OrganizzatoreDb organizzatore_aux=null;
+        if(Ruolo.equals("Partecipante"))
+        {
+            partecipante_aux=new PartecipanteDb();
+            partecipante_aux.setEmail(Email);
+            partecipante_aux.setNome(Nome);
+            partecipante_aux.setCognome(Cognome);
+            partecipante_aux.setData_nascita(Data);
+            partecipante_aux.setUsername(Username);
+            partecipante_aux.setPhone(Phone);
+            partecipante_aux.setPassword(Password);
+            
             }
-            if(errore==0){
-               labelErrore.setVisible(true); 
-           }else
-            {
-               GraficLoader.Loader(this,new LoginPage(),mainGroup );
-            }
+        else{
+            organizzatore_aux=new OrganizzatoreDb();
+            organizzatore_aux.setNome(Nome);
+            organizzatore_aux.setCognome(Cognome);
+            organizzatore_aux.setData_nascita(Data);
+            organizzatore_aux.setEmail(Email);
+            organizzatore_aux.setUsername(Username);
+            organizzatore_aux.setPhone(Phone);
+            organizzatore_aux.setPassword(Password);
+            }   
+        errore=GestioneEventiManagerEM.registrazione(organizzatore_aux, partecipante_aux);
+        if(errore==0)
+        {
+            labelErrore.setVisible(true); 
+        }
+        else
+        {
+            GraficLoader.Loader(this,new LoginPage(),mainGroup );
+        }
         
     
     }

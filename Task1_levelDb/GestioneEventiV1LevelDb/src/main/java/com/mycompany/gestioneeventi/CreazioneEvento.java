@@ -49,8 +49,6 @@ public class CreazioneEvento extends GeneralGrafic {
     protected final Label labelErrore;
     public CreazioneEvento() {
         
-        GestioneEventiManagerEM.creaConnesione();
-        
         labelErrore = new Label();
         graficaPrincipale = new VBox();
         buttonCrea = new Button();
@@ -98,7 +96,6 @@ public class CreazioneEvento extends GeneralGrafic {
         buttonEsci.setMnemonicParsing(false);
         buttonEsci.setText("ESCI");
         buttonEsci.setOnAction((ActionEvent ev) -> {
-            GestioneEventiManagerEM.chiudiConnesione();
             GraficLoader.Loader(this, new LoginPage(),mainGroup );
         });
         
@@ -107,36 +104,6 @@ public class CreazioneEvento extends GeneralGrafic {
         buttonVisualizzaEventi.setMnemonicParsing(false);
         buttonVisualizzaEventi.setText("Visualizza Eventi");
         buttonVisualizzaEventi.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new EventiOrganizzatore(),mainGroup );});
-
-        /*labelNome.setPrefHeight(21.0);
-        labelNome.setPrefWidth(96.0);
-        labelNome.setText("Nome ");*/
-
-       
-       /* labelLuogo.setPrefHeight(21.0);
-        labelLuogo.setPrefWidth(96.0);
-        labelLuogo.setText("Luogo ");*/
-
-
-       /* labelData.setPrefHeight(21.0);
-        labelData.setPrefWidth(96.0);
-        labelData.setText("Data");
-
-
-        labelOra.setPrefHeight(21.0);
-        labelOra.setPrefWidth(96.0);
-        labelOra.setText("Ora");
-
-
-        labelPosti.setPrefHeight(21.0);
-        labelPosti.setPrefWidth(96.0);
-        labelPosti.setText("Posti");
-
-
-        labelTipologia.setPrefHeight(21.0);
-        labelTipologia.setPrefWidth(96.0);
-        labelTipologia.setText("Tipologia");*/
-
 
         labelDescrizione.setPrefHeight(21.0);
         labelDescrizione.setPrefWidth(96.0);
@@ -205,7 +172,6 @@ public class CreazioneEvento extends GeneralGrafic {
         setCenter(graficaPrincipale);
         setTop(LineaTitolo);
        
-       // BorderPane.setAlignment(buttonEsci, Pos.TOP_RIGHT);
         BorderPane.setMargin(graficaPrincipale, new Insets(100,100,30,150));
     }
     

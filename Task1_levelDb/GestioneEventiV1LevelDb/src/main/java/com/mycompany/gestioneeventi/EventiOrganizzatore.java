@@ -298,7 +298,6 @@ public class EventiOrganizzatore extends GeneralGrafic{
             
         }
         
-        
         numeroPartecipanti.setText("");
         idEvento.setText("");
         partecipanti=0;

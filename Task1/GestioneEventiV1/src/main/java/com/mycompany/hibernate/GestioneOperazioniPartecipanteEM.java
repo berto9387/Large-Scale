@@ -140,8 +140,6 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             entityManager.close();
         }
         
-        
-            
         return ev;
     }
 

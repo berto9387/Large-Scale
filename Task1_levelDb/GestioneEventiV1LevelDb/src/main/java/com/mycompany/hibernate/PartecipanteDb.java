@@ -37,7 +37,7 @@ public class PartecipanteDb {
             mappedBy="partecipazioni",
             fetch = FetchType.EAGER)
     
-    private Set<EventoDb> book=new HashSet<>();
+    private Set<EventoDb> book=new HashSet<EventoDb>();
     
     //funzioni utili
     
