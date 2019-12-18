@@ -14,7 +14,7 @@ package com.mycompany.gestioneeventi;
 import com.mycompany.hibernate.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -183,15 +183,16 @@ public class CreazioneEvento extends GeneralGrafic {
             String Luogo=textFieldLuogo.getText();
             String Ora=textFieldOra.getText();
             String sData=textFieldData.getText();
-            Date Data = null;
-            try {
-                Data = new SimpleDateFormat("dd/MM/yyyy").parse(sData);
-            } catch (ParseException ex) {
-                Logger.getLogger(CreazioneEvento.class.getName()).log(Level.SEVERE, null, ex);
-                labelErrore.setText("Inserire la data nel formato corretto!");
-                labelErrore.setVisible(true);
-                return;
-            }
+//            Date Data = null;
+//            try {
+//                Data = new SimpleDateFormat("dd/MM/yyyy").parse(sData);
+//            } catch (ParseException ex) {
+//                Logger.getLogger(CreazioneEvento.class.getName()).log(Level.SEVERE, null, ex);
+//                labelErrore.setText("Inserire la data nel formato corretto!");
+//                labelErrore.setVisible(true);
+//                return;
+//            }
+            Date Data= Date.valueOf(sData);
             String Posti=textFieldPosti.getText();
             int intero=Integer.valueOf(Posti);
             String Descrizione=textAreaDescrizione.getText();

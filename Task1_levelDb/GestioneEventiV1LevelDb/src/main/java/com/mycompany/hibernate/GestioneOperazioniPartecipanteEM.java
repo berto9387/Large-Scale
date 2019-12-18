@@ -30,22 +30,22 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             entityManager.getTransaction().begin();
 
             sql="select p from PartecipanteDb p where p.email=:Email and p.password=:Password";//0.0.1
-                TypedQuery<PartecipanteDb> query= entityManager.createQuery(sql,PartecipanteDb.class);//01.2
-                query=query.setParameter("Email", email);
-                query=query.setParameter("Password", password);
-                listaPartecipanti=(ArrayList)query.getResultList();
-                
-                if(listaPartecipanti.isEmpty())
-                {
-                     System.out.println("EMAIL O PASSWORD SBAGLIATE");
+            TypedQuery<PartecipanteDb> query= entityManager.createQuery(sql,PartecipanteDb.class);//01.2
+            query=query.setParameter("Email", email);
+            query=query.setParameter("Password", password);
+            listaPartecipanti=(ArrayList)query.getResultList();
 
-                } else {
+            if(listaPartecipanti.isEmpty())
+            {
+                 System.out.println("EMAIL O PASSWORD SBAGLIATE");
 
-                    partecipante = listaPartecipanti.get(0);
+            } else {
 
-                    System.out.println("COGNOME = " + partecipante.getCognome());
-                }
-                entityManager.getTransaction().commit();
+                partecipante = listaPartecipanti.get(0);
+
+                System.out.println("COGNOME = " + partecipante.getCognome());
+            }
+            entityManager.getTransaction().commit();
         } catch (Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in logging in!");

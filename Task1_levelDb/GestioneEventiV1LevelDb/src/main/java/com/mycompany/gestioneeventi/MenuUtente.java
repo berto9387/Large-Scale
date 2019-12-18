@@ -62,23 +62,6 @@ public class MenuUtente extends GeneralGrafic {
         labelError = new Label();
         inizializzaGrafica();
 
-      
-//
-//       button0.setLayoutX(328.0);
-//        button0.setLayoutY(232.0);
-//        button0.setMnemonicParsing(false);
-//        button0.setPrefHeight(31.0);
-//        button0.setPrefWidth(181.0);
-//        button0.setText("Ricerca Eventi");
-//        button0.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new RicercaEventi(),mainGroup );});
-//
-//        button1.setLayoutX(98.0);
-//        button1.setLayoutY(232.0);
-//        button1.setMnemonicParsing(false);
-//        button1.setText("Visualizza Partecipazioni");
-//        button1.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new VisualizzaPartecipazioni(),mainGroup );});
-
-
     }
 
     private void inizializzaGrafica() {
@@ -124,9 +107,6 @@ public class MenuUtente extends GeneralGrafic {
 
     private void inizializzaElementiMenuUtente() {
         
-        
-                
-                
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -204,8 +184,7 @@ public class MenuUtente extends GeneralGrafic {
         labelError.setPrefHeight(17.0);
         labelError.setPrefWidth(267.0);
         
-        //inizio recupero dati dalla eventi con uso di thread
-        popolaLevelDb=new Thread(new EstraiEvento());
+        popolaLevelDb=new Thread(new EstraiEvento(partecipante));
         popolaLevelDb.start();
     }
 

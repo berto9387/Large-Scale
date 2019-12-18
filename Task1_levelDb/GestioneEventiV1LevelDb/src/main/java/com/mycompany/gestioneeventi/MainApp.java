@@ -7,6 +7,7 @@ import static javafx.application.Application.launch;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -23,10 +24,11 @@ public class MainApp extends Application {
         Scene scene = new Scene(root,750,700);
         GeneralGrafic.setParameters(scene, root, stage);
         scene.getStylesheets().add("/styles/Styles.css");
-        
+        scene.setFill(Color.ORANGE);
         stage.setTitle("GestioneEventi");
         stage.setScene(scene);
         stage.show();
+        
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent t) {

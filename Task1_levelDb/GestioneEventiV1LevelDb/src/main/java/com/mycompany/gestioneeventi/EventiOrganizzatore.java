@@ -6,6 +6,7 @@
 package com.mycompany.gestioneeventi;
 
 
+import static com.mycompany.gestioneeventi.levelDbManager.*;
 import com.mycompany.hibernate.*;
 import java.util.*;
 import javafx.beans.value.ObservableValue;

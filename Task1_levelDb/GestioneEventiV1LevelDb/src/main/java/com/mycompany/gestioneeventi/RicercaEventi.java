@@ -7,6 +7,7 @@ package com.mycompany.gestioneeventi;
 
 
 import static com.mycompany.gestioneeventi.GeneralGrafic.mainGroup;
+import static com.mycompany.gestioneeventi.levelDbManager.*;
 import com.mycompany.hibernate.EventoDb;
 import com.mycompany.hibernate.GestioneOperazioniPartecipanteEM;
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-
 import org.iq80.leveldb.*;
 import static org.iq80.leveldb.impl.Iq80DBFactory.*;
 import java.io.*;
@@ -60,8 +60,7 @@ public class RicercaEventi extends GeneralGrafic{
         InizializzaGrafica();
     }
     
-    private void InizializzaGrafica()
-    {
+    private void InizializzaGrafica(){
         InizializzazioneElementiGrafica();
         HBox LineaTitolo =new HBox();
         LineaTitolo.getChildren().addAll(labelRicercaEventi);
@@ -79,13 +78,10 @@ public class RicercaEventi extends GeneralGrafic{
         graficaPrincipale.setSpacing(20);
         setCenter(graficaPrincipale);
         BorderPane.setMargin(graficaPrincipale, new Insets(30,20,30,150));
-        
-        
     }
     
     
-    private void GestioneEventoIscrizione() 
-    {
+    private void GestioneEventoIscrizione(){
         
         if(textFieldIdEvento.getText().equals(""))
         {
@@ -99,6 +95,8 @@ public class RicercaEventi extends GeneralGrafic{
                 return;
             }
         }
+        //INSERIRE QUI FUNZIONE PER INCREMENTO E CONTROLLO NUMERO PARTECIPANTI
+        //evt.setNumero_partecipanti(evt.getNumero_partecipanti()+1);
         partecipante.addBook(evt);
         GestioneOperazioniPartecipanteEM.iscrizioneEvento(evt);
         
@@ -157,101 +155,15 @@ public class RicercaEventi extends GeneralGrafic{
     {
             
         ev.clear();
-        try {
-            //prova levelDb
-            popolaLevelDb.join();
-        } catch (InterruptedException ex) {
-            java.util.logging.Logger.getLogger(RicercaEventi.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Options options = new Options();
-        options.createIfMissing(true);
-        try {
-            levelDBStore = factory.open(new File("eventi"), options);
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(RicercaEventi.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        DBIterator iterator = levelDBStore.iterator();
-        try {
-            Date data = null;
-            String descrizione = null;
-            String luogo = null;
-            String nome = null;
-            Integer numeroPartecipanti = null;
-            String ora = null;
-            Integer posti = null;
-            String tipologia = null;
-            Integer idOrganizzatore = null;
-            for(iterator.seekToFirst(); iterator.hasNext(); iterator.next()) {
-              
-                String key = asString(iterator.peekNext().getKey());
-                String value = asString(iterator.peekNext().getValue());
-                String[] dividiKey=key.split(":");
-                Integer id=Integer.parseInt(dividiKey[1]);
-
-                if(dividiKey[2].equals("data")){
-                    System.out.println(dividiKey[2]);
-                    data=Date.valueOf(value);                    
-                } else if(dividiKey[2].equals("descrizione")){
-                    System.out.println(dividiKey[2]);
-                    descrizione=value;
-                } else if(dividiKey[2].equals("luogo")){
-                    System.out.println(dividiKey[2]);
-                    luogo=value;
-                }else if(dividiKey[2].equals("nome")){
-                    System.out.println(dividiKey[2]);
-                    nome=value;
-                }else if(dividiKey[2].equals("numero_partecipanti")){
-                    System.out.println(dividiKey[2]);
-                    numeroPartecipanti=Integer.parseInt(value);
-                }else if(dividiKey[2].equals("ora")){
-                    System.out.println(dividiKey[2]);
-                    ora=value;
-                }else if(dividiKey[2].equals("posti")){
-                    System.out.println(dividiKey[2]);
-                    posti=Integer.parseInt(value);
-                }else if(dividiKey[2].equals("tipologia")){
-                    System.out.println(dividiKey[2]);
-                    tipologia=value;
-                }else if(dividiKey[2].equals("id_Organizzatore")){
-                    System.out.println(dividiKey[2]);
-                    idOrganizzatore=Integer.parseInt(value);
-                }
-                if(textFieldCittaDaCercare.getText().equals("") || textFieldCittaDaCercare.getText().equals(luogo)){
-                    if(data!=null && nome!=null && luogo!=null && ora!=null && posti!=null && tipologia!=null && descrizione!=null && idOrganizzatore!=null && numeroPartecipanti!=null){
-                        System.out.println(data+nome+luogo+ora+posti+tipologia+descrizione+idOrganizzatore+numeroPartecipanti);
-                        
-                        ev.add(new Evento(id, nome, luogo, data, ora, posti, tipologia, descrizione, idOrganizzatore, numeroPartecipanti));
-                        data = null;
-                        descrizione = null;
-                        luogo = null;
-                        nome = null;
-                        numeroPartecipanti = null;
-                        ora = null;
-                        posti = null;
-                        tipologia = null;
-                        idOrganizzatore = null;
-                    }
-                    
-                }
-          }
-        } finally {
-            try {
-                // Make sure you close the iterator to avoid resource leaks.
-                iterator.close();
-                levelDBStore.close();
-            } catch (IOException ex) {
-                java.util.logging.Logger.getLogger(RicercaEventi.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }           
+        String citta = textFieldCittaDaCercare.getText();
+        ev = levelDbManager.RicercaEventi(citta);
+        
         //ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , textFieldCittaDaCercare.getText());           
         tabellaEvento.aggiornaTabellaEventi(ev);
 
     }
     
-    private void InizializzazioneElementiGrafica()
-    {
- 
+    private void InizializzazioneElementiGrafica(){
         labelRicercaEventi.setAlignment(javafx.geometry.Pos.CENTER);
         labelRicercaEventi.setPrefHeight(39.0);
         labelRicercaEventi.setPrefWidth(189.0);
@@ -270,7 +182,6 @@ public class RicercaEventi extends GeneralGrafic{
         buttonRicerca.setPrefWidth(118.0);
         buttonRicerca.setText("RICERCA");
         buttonRicerca.setFont(new Font(13.0));
-        
         buttonRicerca.setOnAction((ActionEvent e) -> {GestioneEventoRicerca();});
         
         labelIdEvento.setPrefHeight(17.0);
@@ -290,5 +201,8 @@ public class RicercaEventi extends GeneralGrafic{
         hyperlinkTornaIndietro.setPrefWidth(189.0);
         hyperlinkTornaIndietro.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new MenuUtente(), mainGroup );}); 
         
+        ev = levelDbManager.RicercaEventi("");
+        
+        tabellaEvento.aggiornaTabellaEventi(ev);
     }
 }

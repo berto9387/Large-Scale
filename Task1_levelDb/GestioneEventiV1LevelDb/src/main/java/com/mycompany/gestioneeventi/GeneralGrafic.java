@@ -23,7 +23,7 @@ public class GeneralGrafic extends BorderPane{
     protected static PartecipanteDb partecipante;
     protected static OrganizzatoreDb organizzatore;
     //prova level db
-    protected static DB levelDBStore;
+    
     //prova Thread
     protected static Thread popolaLevelDb;
     public static void setParameters(Scene scene,Group group,Stage stage)
