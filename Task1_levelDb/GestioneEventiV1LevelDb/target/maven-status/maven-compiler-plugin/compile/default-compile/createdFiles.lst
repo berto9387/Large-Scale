@@ -1,8 +1,6 @@
 com\mycompany\gestioneeventi\EventiOrganizzatore.class
-com\mycompany\gestioneeventi\GestioneOperazioniDbLatoOrganizzatore.class
 com\mycompany\hibernate\GestioneOperazioniOrganizzatoreEM.class
 com\mycompany\gestioneeventi\MainApp.class
-com\mycompany\gestioneeventi\DAO.class
 com\mycompany\gestioneeventi\Evento.class
 com\mycompany\hibernate\GestioneEventiManagerEM.class
 com\mycompany\hibernate\PartecipanteDb.class
@@ -12,6 +10,8 @@ com\mycompany\gestioneeventi\User.class
 com\mycompany\gestioneeventi\TabellaVisualeEvento.class
 com\mycompany\gestioneeventi\Registrazione.class
 com\mycompany\gestioneeventi\VisualizzaPartecipazioni.class
+com\mycompany\gestioneeventi\levelDbManager.class
+estraiDati\EstraiEvento.class
 com\mycompany\gestioneeventi\MainApp$1.class
 com\mycompany\gestioneeventi\RicercaEventi.class
 com\mycompany\gestioneeventi\CreazioneEvento.class
@@ -20,4 +20,3 @@ com\mycompany\gestioneeventi\GraficLoader.class
 com\mycompany\hibernate\GestioneOperazioniPartecipanteEM.class
 com\mycompany\hibernate\EventoDb.class
 com\mycompany\gestioneeventi\MenuUtente.class
-com\mycompany\gestioneeventi\GestioneOperazioniDbLatoPartecipante.class
