@@ -88,14 +88,14 @@ public class RicercaEventi extends GeneralGrafic{
         
 //        partecipante=GestioneOperazioniPartecipanteEM.trovaPartecipante(partecipante.getId());
         
-        ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , textFieldCittaDaCercare.getText());
+        ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante.getId() , textFieldCittaDaCercare.getText());
         tabellaEvento.aggiornaTabellaEventi(ev);   
     }
     
     private void GestioneEventoRicerca()
     {
             System.err.println(textFieldCittaDaCercare.getText());            
-            ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , textFieldCittaDaCercare.getText());           
+            ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante.getId() , textFieldCittaDaCercare.getText());           
             tabellaEvento.aggiornaTabellaEventi(ev);
     
     }

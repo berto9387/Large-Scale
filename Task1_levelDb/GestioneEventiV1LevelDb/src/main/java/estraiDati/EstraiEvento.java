@@ -10,7 +10,7 @@ package estraiDati;
  * @author berto
  */
 import com.mycompany.gestioneeventi.Evento;
-import com.mycompany.gestioneeventi.levelDbManager;
+import com.mycompany.gestioneeventi.LevelDbManager;
 import com.mycompany.hibernate.GestioneOperazioniPartecipanteEM;
 import com.mycompany.hibernate.PartecipanteDb;
 import org.iq80.leveldb.*;
@@ -20,7 +20,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
-public class EstraiEvento extends levelDbManager implements Runnable{
+public class EstraiEvento extends LevelDbManager implements Runnable{
     PartecipanteDb partecipante;
     
     public EstraiEvento(PartecipanteDb p){
@@ -36,7 +36,7 @@ public class EstraiEvento extends levelDbManager implements Runnable{
             
             try {
                 System.out.println("-------------->1");
-                ArrayList<Evento> ev = GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , "");
+                ArrayList<Evento> ev = GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante.getId() , "");
                 for(int i=0;i<ev.size();i++){
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                     String dataStringa = df.format(ev.get(i).getData());

@@ -19,7 +19,7 @@ import static org.iq80.leveldb.impl.Iq80DBFactory.*;
  *
  * @author tony_
  */
-public class levelDbManager {
+public class LevelDbManager {
     protected static DB levelDBStore;
     private static Date data;
     private static String descrizione;
@@ -90,7 +90,7 @@ public class levelDbManager {
     
     }
     
-    static ArrayList<Evento> RicercaEventi(String citta,PartecipanteDb partecipante) {
+    public static ArrayList<Evento> RicercaEventi(String citta,PartecipanteDb partecipante) {
         ArrayList<Evento> ev = new ArrayList<>(); // Variabile in cui ci andrà il risultato
         try {
             //prova levelDb
@@ -121,6 +121,10 @@ public class levelDbManager {
                 String[] dividiKey=key.split(":");
                 Integer id=Integer.parseInt(dividiKey[2]);
                 luogo = dividiKey[1];
+                if(!citta.equals("")&&!citta.equals(luogo)){
+                    break;
+                }
+                
                 SetAnEventAttributeFromKeyValue(dividiKey,value);
                 if(id !=null && data!=null && nome!=null && luogo!=null && ora!=null && posti!=null && tipologia!=null && descrizione!=null && idOrganizzatore!=null && numeroPartecipanti!=null){
                     addEventAtList(id,partecipante,ev);

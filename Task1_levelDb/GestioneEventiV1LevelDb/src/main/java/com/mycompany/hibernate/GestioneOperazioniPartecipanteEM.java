@@ -55,7 +55,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         return partecipante;
     }
     
-    public static ArrayList<Evento> ricercaEventi(PartecipanteDb partecipante, String Citta){
+    public static ArrayList<Evento> ricercaEventi(long idPartecipante, String Citta){
         
         String sql;
         List<EventoDb> listaEventi;
@@ -65,10 +65,10 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
             entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             if(Citta.equals("")){ //Caso in cui un partecipante vuole visualizzare gli eventi a cui è iscritto                
-                    sql="select e from EventoDb e where e.numero_partecipanti<e.posti and  e.data>=current_date() and e.id not in (select d.id from PartecipanteDb p join p.book d  where  p.id="+partecipante.getId()+")";   
+                    sql="select e from EventoDb e where e.numero_partecipanti<e.posti and  e.data>=current_date() and e.id not in (select d.id from PartecipanteDb p join p.book d  where  p.id="+idPartecipante+")";   
                     
             } else{ //Caso in cui un partecipante vuole visualizzare tutti gli eventi                
-                sql="select e from EventoDb e where e.numero_partecipanti<e.posti and e.luogo='"+Citta+"' and e.data>=current_date() and e.id not in (select d.id from PartecipanteDb p join p.book d  where  p.id="+partecipante.getId()+")";                
+                sql="select e from EventoDb e where e.numero_partecipanti<e.posti and e.luogo='"+Citta+"' and e.data>=current_date() and e.id not in (select d.id from PartecipanteDb p join p.book d  where  p.id="+idPartecipante+")";                
             }
             
             TypedQuery<EventoDb> query= entityManager.createQuery(sql, EventoDb.class);
