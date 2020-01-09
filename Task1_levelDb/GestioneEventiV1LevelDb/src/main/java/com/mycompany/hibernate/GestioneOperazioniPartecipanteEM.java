@@ -92,23 +92,16 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
     public static ArrayList<Evento> ricercaPrenotazioni(PartecipanteDb partecipante) {
         
         ArrayList<Evento> ev=new ArrayList<>();
-        try{
-           entityManager = factory.createEntityManager();
-           entityManager.getTransaction().begin();
-           PartecipanteDb p=entityManager.find(PartecipanteDb.class, partecipante.getId());
+        
+           
            Date todayDate = new Date();
-            for (EventoDb evento : p.getBook()) {
+            for (EventoDb evento : partecipante.getBook()) {
                 if(todayDate.before(evento.getData()))
                     ev.add( new Evento((int)evento.getId(), evento.getNome(), evento.getLuogo(), evento.getData(), 
                                         evento.getOra(), evento.getPosti(), evento.getTipologia(), evento.getDescrizione(), 
                                         (int)evento.getOrganizzatore().getId(), evento.getNumero_partecipanti()));
             }
-           entityManager.getTransaction().commit();
-        } catch (Exception ex){
-            return null;
-        }finally {
-            entityManager.close();  
-        }
+           
         
             
         return ev;

@@ -8,6 +8,8 @@ package com.mycompany.hibernate;
 //import java.sql.Date;
 import java.util.*;
 import javax.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 /**
  *
  * @author berto
@@ -36,7 +38,7 @@ public class PartecipanteDb {
     @ManyToMany(
             mappedBy="partecipazioni",
             fetch = FetchType.EAGER)
-    
+    @Fetch(value = FetchMode.SUBSELECT)
     private Set<EventoDb> book=new HashSet<EventoDb>();
     
     //funzioni utili

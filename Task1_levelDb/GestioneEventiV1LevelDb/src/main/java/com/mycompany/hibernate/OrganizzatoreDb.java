@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -38,6 +40,7 @@ public class OrganizzatoreDb {
         orphanRemoval = true,
         fetch = FetchType.EAGER
     )
+    @Fetch(value = FetchMode.SUBSELECT)
     private Set<EventoDb> eventiCreati;
     
     //funzioni utili per la classe

@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -41,7 +43,7 @@ public class EventoDb {
             name="partecipa",
             joinColumns=@JoinColumn(name="id_Partecipante"),
             inverseJoinColumns=@JoinColumn(name="id_Evento"))
-    
+    @Fetch(value = FetchMode.SUBSELECT)
     private Set<PartecipanteDb> partecipazioni=new HashSet<>();
    
     //Costruttori della classe

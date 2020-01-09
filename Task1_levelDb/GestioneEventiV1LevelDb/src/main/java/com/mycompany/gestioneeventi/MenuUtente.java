@@ -184,8 +184,7 @@ public class MenuUtente extends GeneralGrafic {
         labelError.setPrefHeight(17.0);
         labelError.setPrefWidth(267.0);
         
-        popolaLevelDb=new Thread(new EstraiEvento(partecipante));
-        popolaLevelDb.start();
+        
     }
 
     private void gestisciModificaDati() {

@@ -6,7 +6,9 @@
 package com.mycompany.gestioneeventi;
 
 
+import static com.mycompany.gestioneeventi.GeneralGrafic.popolaLevelDb;
 import com.mycompany.hibernate.*;
+import estraiDati.EstraiEvento;
 import javafx.event.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
@@ -111,6 +113,8 @@ public class LoginPage extends GeneralGrafic
             etichettaErrore.setVisible(true);
         }else
         {
+            popolaLevelDb=new Thread(new EstraiEvento(partecipante));
+            popolaLevelDb.start();
             GraficLoader.Loader(this,new MenuUtente(),mainGroup );
         }
     }
