@@ -156,7 +156,7 @@ public class RicercaEventi extends GeneralGrafic{
             
         ev.clear();
         String citta = textFieldCittaDaCercare.getText();
-        ev = LevelDbManager.RicercaEventi(citta,partecipante);
+        ev = LevelDbManager.RicercaEventi(citta,partecipante,false);
         
         //ev=GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante , textFieldCittaDaCercare.getText());           
         tabellaEvento.aggiornaTabellaEventi(ev);
@@ -201,7 +201,7 @@ public class RicercaEventi extends GeneralGrafic{
         hyperlinkTornaIndietro.setPrefWidth(189.0);
         hyperlinkTornaIndietro.setOnAction((ActionEvent ev) -> {GraficLoader.Loader(this, new MenuUtente(), mainGroup );}); 
         
-        ev = LevelDbManager.RicercaEventi("",partecipante);
+        ev = LevelDbManager.RicercaEventi("",partecipante,false);
         
         tabellaEvento.aggiornaTabellaEventi(ev);
     }

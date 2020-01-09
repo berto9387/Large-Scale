@@ -90,11 +90,12 @@ public class LevelDbManager {
     
     }
     
-    public static ArrayList<Evento> RicercaEventi(String citta,PartecipanteDb partecipante) {
+    public static ArrayList<Evento> RicercaEventi(String citta,PartecipanteDb partecipante,boolean TestDAccesso) {
         ArrayList<Evento> ev = new ArrayList<>(); // Variabile in cui ci andrà il risultato
         try {
             //prova levelDb
-            popolaLevelDb.join();
+            if(!TestDAccesso)
+                popolaLevelDb.join();
         } catch (InterruptedException ex) {
             java.util.logging.Logger.getLogger(RicercaEventi.class.getName()).log(Level.SEVERE, null, ex);
         }

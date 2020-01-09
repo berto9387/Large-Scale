@@ -41,9 +41,15 @@ public class EventoDb {
     fetch = FetchType.EAGER)
     @JoinTable(
             name="partecipa",
+<<<<<<< HEAD
             joinColumns=@JoinColumn(name="id_Partecipante"),
             inverseJoinColumns=@JoinColumn(name="id_Evento"))
     @Fetch(value = FetchMode.SUBSELECT)
+=======
+            joinColumns=@JoinColumn(name="id_Evento"),
+            inverseJoinColumns=@JoinColumn(name="id_Partecipante"))
+    
+>>>>>>> master
     private Set<PartecipanteDb> partecipazioni=new HashSet<>();
    
     //Costruttori della classe
