@@ -9,7 +9,11 @@
     <properties>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3307/task_1?serverTimezone=Europe/Madrid"/>
+=======
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/task_1_leveldb?serverTimezone=Europe/Madrid"/>
+>>>>>>> master
 =======
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/task_1_leveldb?serverTimezone=Europe/Madrid"/>
 >>>>>>> master

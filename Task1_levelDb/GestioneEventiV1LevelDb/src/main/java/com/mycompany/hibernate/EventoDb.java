@@ -42,10 +42,13 @@ public class EventoDb {
     @JoinTable(
             name="partecipa",
 <<<<<<< HEAD
+<<<<<<< HEAD
             joinColumns=@JoinColumn(name="id_Partecipante"),
             inverseJoinColumns=@JoinColumn(name="id_Evento"))
     @Fetch(value = FetchMode.SUBSELECT)
 =======
+=======
+>>>>>>> master
             joinColumns=@JoinColumn(name="id_Evento"),
             inverseJoinColumns=@JoinColumn(name="id_Partecipante"))
     
