@@ -7,7 +7,9 @@ package AnalisiStatisticheAccessoDatiEvento;
 import com.mycompany.gestioneeventi.LevelDbManager;
 import com.mycompany.hibernate.*;
 
+
 import java.util.*;
+
 
 
 /**
@@ -18,12 +20,15 @@ public class LetturaEventiDaArchivio extends Thread{
     private final StatisticaAccessoLettura statistica;
     private final String tipoDiArchivio;
     private final PartecipanteDb partecipante;
-    public LetturaEventiDaArchivio(StatisticaAccessoLettura statistica,String tipoDiArchivio)
+    private final GestoreFileDiScrittura gestore;
+    private int numeroProcessi;
+    public LetturaEventiDaArchivio(StatisticaAccessoLettura statistica,String tipoDiArchivio,GestoreFileDiScrittura gestore,int numeroProcessi)
     {
         this.statistica=statistica;
         this.tipoDiArchivio=tipoDiArchivio;
         partecipante= new PartecipanteDb(0, "", "", null, "", "", "", "", new HashSet<>());
-        
+        this.gestore=gestore;
+        this.numeroProcessi=numeroProcessi;
     }
     
     @Override
@@ -41,7 +46,7 @@ public class LetturaEventiDaArchivio extends Thread{
         }
         if(tempoEsecuzione>0)
         {
-            System.out.println("-----------Il tempo di lettura da "+tipoDiArchivio +"è: " + tempoEsecuzione+ " --------------");
+            gestore.writeFile(numeroProcessi, tempoEsecuzione);
         }
         GestioneOperazioniPartecipanteEM.exit();
     }
@@ -56,7 +61,9 @@ public class LetturaEventiDaArchivio extends Thread{
     public long letturaDaLevelDb()
     {        
         statistica.notificaInizioLettura();      
-        LevelDbManager.RicercaEventi("", partecipante);
+        LevelDbManager.RicercaEventi("", partecipante,true);
         return statistica.notificaFineLettura();
     }
+
+     
 }

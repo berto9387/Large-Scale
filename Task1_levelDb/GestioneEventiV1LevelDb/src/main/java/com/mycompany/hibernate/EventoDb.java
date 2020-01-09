@@ -39,8 +39,8 @@ public class EventoDb {
     fetch = FetchType.EAGER)
     @JoinTable(
             name="partecipa",
-            joinColumns=@JoinColumn(name="id_Partecipante"),
-            inverseJoinColumns=@JoinColumn(name="id_Evento"))
+            joinColumns=@JoinColumn(name="id_Evento"),
+            inverseJoinColumns=@JoinColumn(name="id_Partecipante"))
     
     private Set<PartecipanteDb> partecipazioni=new HashSet<>();
    

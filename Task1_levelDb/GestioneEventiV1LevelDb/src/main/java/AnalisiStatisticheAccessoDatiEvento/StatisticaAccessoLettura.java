@@ -5,6 +5,8 @@
  */
 package AnalisiStatisticheAccessoDatiEvento;
 
+
+
 /**
  *
  * @author Gianluca
@@ -13,6 +15,7 @@ public class StatisticaAccessoLettura {
     private long timestampInizioLetturaPrimoThread;
     private long timestampFineLetturaUltimoThread;
     private final int numeroMaxThreadInLettura;
+    
     private int numeroThreadFineLettura;
     public StatisticaAccessoLettura(int numeroMaxThreadInLettura)
     {
@@ -38,4 +41,5 @@ public class StatisticaAccessoLettura {
         }
         return (long)-1;
     }
+
 }
