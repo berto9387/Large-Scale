@@ -41,7 +41,7 @@ public class OrganizzatoreDb {
         fetch = FetchType.EAGER
     )
     @Fetch(value = FetchMode.SUBSELECT)
-    private Set<EventoDb> eventiCreati;
+    private Set<EventoDb> eventiCreati=new HashSet<EventoDb>();
     
     //funzioni utili per la classe
     public void addEvento(EventoDb ev){

@@ -254,8 +254,8 @@ public class EventiOrganizzatore extends GeneralGrafic{
         
         for (Iterator<EventoDb> it = organizzatore.getEventiCreati().iterator(); it.hasNext(); ) {
             EventoDb eventoAusiliario = it.next();
-            it.remove();
             if(eventoAusiliario.getId()==eventoId){
+                it.remove();
                 GestioneOperazioniOrganizzatoreEM.eliminaEvento(eventoAusiliario.getId());
                 
                 Options options = new Options();
