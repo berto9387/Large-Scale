@@ -13,7 +13,7 @@ public class AnalisiDegliAccessi {
     private static GestoreFileDiScrittura gestore;
     private static StatisticaAccessoLettura letturaEventi;
 
-    private static final int NUMEROTHREAD = 2;
+    private static final int NUMEROTHREAD = 1;
     private static final String TIPODIARCHIVIO = "MySql";
     private static final String NOMEFILE = TIPODIARCHIVIO + ".txt";
     private static final String NOMECARTELLA = "DatiStatisticheAccesso";

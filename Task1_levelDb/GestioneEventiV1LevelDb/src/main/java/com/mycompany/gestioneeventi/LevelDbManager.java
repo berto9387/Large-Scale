@@ -53,10 +53,10 @@ public class LevelDbManager {
         for (EventoDb evento : partecipante.getBook()) {
             if(evento.getId() == id)
                  trovato = true;     //Controllo se il partecipante è già iscritto all'evento
-                }
-            if(trovato == false)    //Se non è iscritto, aggiungo l'evento alla lista, altrimenti no
-                ev.add(new Evento(id, nome, luogo, data, ora, posti, tipologia, descrizione, idOrganizzatore, numeroPartecipanti));
-                setNullAllEventAttributes();
+        }
+        if(trovato == false)    //Se non è iscritto, aggiungo l'evento alla lista, altrimenti no
+            ev.add(new Evento(id, nome, luogo, data, ora, posti, tipologia, descrizione, idOrganizzatore, numeroPartecipanti));
+        setNullAllEventAttributes();
     
     } 
             

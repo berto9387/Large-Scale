@@ -19,6 +19,8 @@ import javafx.scene.text.*;
 import org.iq80.leveldb.*;
 import static org.iq80.leveldb.impl.Iq80DBFactory.*;
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 
 /**
@@ -251,10 +253,10 @@ public class EventiOrganizzatore extends GeneralGrafic{
         }
         
         for (Iterator<EventoDb> it = organizzatore.getEventiCreati().iterator(); it.hasNext(); ) {
-            EventoDb f = it.next();
+            EventoDb eventoAusiliario = it.next();
             it.remove();
-            if(f.getId()==eventoId){
-                GestioneOperazioniOrganizzatoreEM.eliminaEvento(f.getId());
+            if(eventoAusiliario.getId()==eventoId){
+                GestioneOperazioniOrganizzatoreEM.eliminaEvento(eventoAusiliario.getId());
                 
                 Options options = new Options();
                 options.createIfMissing(true);
@@ -266,19 +268,20 @@ public class EventiOrganizzatore extends GeneralGrafic{
                 }
 
                 try {
-                    String partOfKey="Evento:"+eventoId+":";
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    String partOfKey="Evento:"+eventoAusiliario.getLuogo()+ ":" +eventoAusiliario.getId()+":";
                     String data=partOfKey+"data";
                     String descrizione=partOfKey+"descrizione";
-                    String luogo=partOfKey+"luogo";
                     String nome=partOfKey+"nome";
                     String numero_Partecipanti=partOfKey+"numero_partecipanti";
                     String ora=partOfKey+"ora";
                     String posti=partOfKey+"posti";
                     String tipologia=partOfKey+"tipologia";
                     String idOrganizzatore=partOfKey+"id_Organizzatore";
+                    
+                    
                     levelDBStore.delete(bytes(data));
                     levelDBStore.delete(bytes(descrizione));
-                    levelDBStore.delete(bytes(luogo));
                     levelDBStore.delete(bytes(nome));
                     levelDBStore.delete(bytes(numero_Partecipanti));
                     levelDBStore.delete(bytes(ora));
