@@ -221,7 +221,6 @@ public class EventiOrganizzatore extends GeneralGrafic{
         
         for (Iterator<EventoDb> it = organizzatore.getEventiCreati().iterator(); it.hasNext(); ) {
             EventoDb f = it.next();
-            System.out.println(f.getId()+" "+eventoId);
             if(f.getId()==eventoId){
                 if(partecipanti<f.getNumero_partecipanti())
                     break;

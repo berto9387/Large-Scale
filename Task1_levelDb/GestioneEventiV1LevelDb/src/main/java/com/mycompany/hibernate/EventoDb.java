@@ -38,7 +38,7 @@ public class EventoDb {
     @JoinColumn(name = "id_Organizzatore")
     private OrganizzatoreDb organizzatore;
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},
-    fetch = FetchType.EAGER)
+    fetch = FetchType.LAZY)
     @JoinTable(
             name="partecipa",
             

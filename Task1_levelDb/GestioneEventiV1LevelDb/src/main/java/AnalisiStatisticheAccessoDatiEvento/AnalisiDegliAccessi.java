@@ -12,9 +12,9 @@ package AnalisiStatisticheAccessoDatiEvento;
 public class AnalisiDegliAccessi {
     private static GestoreFileDiScrittura gestore;
     private static StatisticaAccessoLettura letturaEventi;
-
+    private static final int NUMEROENTRATE=1000;
     private static final int NUMEROTHREAD = 1;
-    private static final String TIPODIARCHIVIO = "MySql";
+    private static final String TIPODIARCHIVIO = "LevelDB";
     private static final String NOMEFILE = TIPODIARCHIVIO + ".txt";
     private static final String NOMECARTELLA = "DatiStatisticheAccesso";
     public static void main(String args[])
@@ -24,7 +24,7 @@ public class AnalisiDegliAccessi {
         letturaEventi= new StatisticaAccessoLettura(NUMEROTHREAD);
         for(int i=0;i<NUMEROTHREAD;i++)
         {
-            new LetturaEventiDaArchivio(letturaEventi,TIPODIARCHIVIO,gestore,NUMEROTHREAD).start();
+            new LetturaEventiDaArchivio(letturaEventi,TIPODIARCHIVIO,gestore,NUMEROTHREAD,NUMEROENTRATE).start();
         }
     }
     

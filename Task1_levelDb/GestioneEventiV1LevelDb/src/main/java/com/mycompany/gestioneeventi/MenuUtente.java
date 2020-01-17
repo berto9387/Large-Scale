@@ -196,8 +196,6 @@ public class MenuUtente extends GeneralGrafic {
         if(nuovaPassword.equals("")) // caso in cui voglio cambiare solo email, la password riamane quella vecchia
             nuovaPassword = partecipante.getPassword();
         String vecchiaPassword = textFieldVecchiaPassword.getText();
-        System.out.println(partecipante.getPassword());
-        System.out.println(vecchiaPassword);
         //problema qui, da sempre falso
         if(partecipante.getPassword().equals(vecchiaPassword)){
             partecipante.setEmail(email);

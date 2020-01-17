@@ -47,7 +47,6 @@ public class LevelDbManager {
     private static void addEventAtList(Integer id,PartecipanteDb partecipante,ArrayList<Evento> ev)
     {
     
-        System.out.println(""+id+data+nome+luogo+ora+posti+tipologia+descrizione+idOrganizzatore+numeroPartecipanti);
                     
         boolean trovato = false;
         for (EventoDb evento : partecipante.getBook()) {
@@ -63,28 +62,20 @@ public class LevelDbManager {
     private static void SetAnEventAttributeFromKeyValue(String[] dividiKey,String value)
     {
                 if(dividiKey[3].equals("data")){
-                    //System.out.println(dividiKey[2]);
                     data=Date.valueOf(value);                    
                 } else if(dividiKey[3].equals("descrizione")){
-                    //System.out.println(dividiKey[2]);
                     descrizione=value;
                 } else if(dividiKey[3].equals("nome")){
-                    //System.out.println(dividiKey[2]);
                     nome=value;
                 }else if(dividiKey[3].equals("numero_partecipanti")){
-                    //System.out.println(dividiKey[2]);
                     numeroPartecipanti=Integer.parseInt(value);
                 }else if(dividiKey[3].equals("ora")){
-                    //System.out.println(dividiKey[2]);
                     ora=value;
                 }else if(dividiKey[3].equals("posti")){
-                    System.out.println(dividiKey[2]);
                     posti=Integer.parseInt(value);
                 }else if(dividiKey[3].equals("tipologia")){
-                   // System.out.println(dividiKey[2]);
                     tipologia=value;
                 }else if(dividiKey[3].equals("id_Organizzatore")){
-                    //System.out.println(dividiKey[2]);
                     idOrganizzatore=Integer.parseInt(value);
                 }
     

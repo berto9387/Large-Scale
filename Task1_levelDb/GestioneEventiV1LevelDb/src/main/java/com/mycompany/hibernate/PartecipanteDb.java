@@ -37,7 +37,7 @@ public class PartecipanteDb {
     
     @ManyToMany(
             mappedBy="partecipazioni",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private Set<EventoDb> book=new HashSet<EventoDb>();
     

@@ -29,13 +29,11 @@ public class EstraiEvento extends LevelDbManager implements Runnable{
     @Override
     public void run(){
         try {
-            System.out.println("-------------->");
             Options options = new Options();
             options.createIfMissing(true);
             levelDBStore = factory.open(new File("eventi"), options);
             
             try {
-                System.out.println("-------------->1");
                 ArrayList<Evento> ev = GestioneOperazioniPartecipanteEM.ricercaEventi(partecipante.getId() , "");
                 for(int i=0;i<ev.size();i++){
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -60,7 +58,7 @@ public class EstraiEvento extends LevelDbManager implements Runnable{
                     levelDBStore.put(bytes(tipologia),bytes(ev.get(i).getTipologia()));
                     levelDBStore.put(bytes(idOrganizzatore),bytes(String.valueOf(ev.get(i).getOrganizzatore())));
                     
-                    System.out.println("-------------->" + numeroPartecipanti);
+                    
                 }
                 
             } finally {

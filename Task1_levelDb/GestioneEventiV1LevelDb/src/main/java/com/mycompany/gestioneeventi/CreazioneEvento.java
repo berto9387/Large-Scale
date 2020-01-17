@@ -177,21 +177,10 @@ public class CreazioneEvento extends GeneralGrafic {
     
     private void GestisciEventoCrea()
     {
-        
-            int errore=0;
             String Nome=textFieldNome.getText();
             String Luogo=textFieldLuogo.getText();
             String Ora=textFieldOra.getText();
             String sData=textFieldData.getText();
-//            Date Data = null;
-//            try {
-//                Data = new SimpleDateFormat("dd/MM/yyyy").parse(sData);
-//            } catch (ParseException ex) {
-//                Logger.getLogger(CreazioneEvento.class.getName()).log(Level.SEVERE, null, ex);
-//                labelErrore.setText("Inserire la data nel formato corretto!");
-//                labelErrore.setVisible(true);
-//                return;
-//            }
             Date Data= Date.valueOf(sData);
             String Posti=textFieldPosti.getText();
             int intero=Integer.valueOf(Posti);
@@ -206,12 +195,8 @@ public class CreazioneEvento extends GeneralGrafic {
             evento.setTipologia(Tipologia);
             evento.setDescrizione(Descrizione);
             evento.setOrganizzatore(organizzatore);
-            //inserimento evento
             int er=GestioneOperazioniOrganizzatoreEM.inserisciEvento(evento);
-            //
-            organizzatore.addEvento(evento);
-            
-            //int er=GestioneOperazioniOrganizzatoreEM.creaEvento(organizzatore);           
+            organizzatore.addEvento(evento);           
             if(er==0){
                 labelErrore.setText("Inserimento Evento non riuscito");
                 labelErrore.setVisible(true);

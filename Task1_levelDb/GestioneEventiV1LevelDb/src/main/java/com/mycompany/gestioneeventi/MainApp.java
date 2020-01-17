@@ -13,10 +13,8 @@ import javafx.stage.WindowEvent;
 
 
 public class MainApp extends Application {
-    public TimeZone getTimeZone() { return TimeZone.getDefault(); } 
     @Override
     public void start(Stage stage) throws Exception {
-        System.out.println(getTimeZone());
         GestioneEventiManagerEM.setup();
         LoginPage login = new LoginPage();
         Group root = new Group(login);

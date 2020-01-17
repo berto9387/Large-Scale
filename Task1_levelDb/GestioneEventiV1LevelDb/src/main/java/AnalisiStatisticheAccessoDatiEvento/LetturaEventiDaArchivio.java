@@ -21,14 +21,16 @@ public class LetturaEventiDaArchivio extends Thread{
     private final String tipoDiArchivio;
     private final PartecipanteDb partecipante;
     private final GestoreFileDiScrittura gestore;
-    private int numeroProcessi;
-    public LetturaEventiDaArchivio(StatisticaAccessoLettura statistica,String tipoDiArchivio,GestoreFileDiScrittura gestore,int numeroProcessi)
+    private final int numeroProcessi;
+    private final int numeroEntrate;
+    public LetturaEventiDaArchivio(StatisticaAccessoLettura statistica,String tipoDiArchivio,GestoreFileDiScrittura gestore,int numeroProcessi, int numeroEntrate)
     {
         this.statistica=statistica;
         this.tipoDiArchivio=tipoDiArchivio;
         partecipante= new PartecipanteDb(0, "", "", null, "", "", "", "", new HashSet<>());
         this.gestore=gestore;
         this.numeroProcessi=numeroProcessi;
+        this.numeroEntrate=numeroEntrate;
     }
     
     @Override
@@ -46,7 +48,7 @@ public class LetturaEventiDaArchivio extends Thread{
         }
         if(tempoEsecuzione>0)
         {
-            gestore.writeFile(numeroProcessi, tempoEsecuzione);
+            gestore.writeFile(numeroProcessi, tempoEsecuzione,numeroEntrate);
         }
         GestioneOperazioniPartecipanteEM.exit();
     }

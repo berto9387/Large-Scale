@@ -88,17 +88,21 @@ public class RicercaEventi extends GeneralGrafic{
             return;
         }
         EventoDb evt=GestioneOperazioniPartecipanteEM.trovaEvento(textFieldIdEvento.getText());
+        if(evt==null){
+            System.out.println("Evento inesistente!");
+            return;
+        }
         Iterator<EventoDb> it=partecipante.getBook().iterator();
-        while(it.hasNext()){
-            if(it.next().getId()==evt.getId()){
-                System.out.println("Evento già inserito");
-                return;
-            }
+          while(it.hasNext()){
+              if(it.next().getId()==evt.getId()){
+                  System.out.println("Evento già inserito");
+                  return;
+              }
         }
         //INSERIRE QUI FUNZIONE PER INCREMENTO E CONTROLLO NUMERO PARTECIPANTI
         //evt.setNumero_partecipanti(evt.getNumero_partecipanti()+1);
-        partecipante.addBook(evt);
-        GestioneOperazioniPartecipanteEM.iscrizioneEvento(evt);
+        //partecipante.addBook(evt);
+        GestioneOperazioniPartecipanteEM.iscrizioneEvento(partecipante,Long.parseLong(textFieldIdEvento.getText()));
         
         //partecipante=GestioneOperazioniPartecipanteEM.trovaPartecipante(partecipante.getId());
         

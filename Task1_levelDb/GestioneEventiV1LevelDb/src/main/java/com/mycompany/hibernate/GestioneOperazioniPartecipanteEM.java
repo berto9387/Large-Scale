@@ -45,6 +45,10 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
 
                 System.out.println("COGNOME = " + partecipante.getCognome());
             }
+            for (EventoDb evento : partecipante.getBook()) {
+                evento = entityManager.getReference(evento.getClass(), evento.getId());
+                partecipante.addBook(evento);
+            }
             entityManager.getTransaction().commit();
         } catch (Exception ex){
             ex.printStackTrace();
@@ -107,12 +111,18 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         return ev;
     }
 
-    public static void iscrizioneEvento(EventoDb partecipante) {
-        PartecipanteDb p=null;
+    public static void iscrizioneEvento(PartecipanteDb partecipante,long id_Evento) {
+        
         try{
             entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
-            entityManager.merge(partecipante);
+            EventoDb ev=entityManager.find(EventoDb.class, id_Evento);
+            for(PartecipanteDb partecipanteDaAttaccare:ev.getPartecipazioni()){
+                partecipanteDaAttaccare = entityManager.getReference(partecipanteDaAttaccare.getClass(), partecipanteDaAttaccare.getId());
+                ev.addPartecipante(partecipanteDaAttaccare);
+            }
+            partecipante.addBook(ev);
+            entityManager.merge(ev);
             entityManager.getTransaction().commit();
             //p=entityManager.find(PartecipanteDb.class, partecipante.getId());
         } catch(Exception ex){

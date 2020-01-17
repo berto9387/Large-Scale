@@ -5,7 +5,9 @@
  */
 package AnalisiStatisticheAccessoDatiEvento;
 
-import java.io.PrintWriter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import java.util.logging.*;
 
@@ -14,9 +16,10 @@ import java.util.logging.*;
  * @author Gianluca
  */
 public class GestoreFileDiScrittura {
-    private PrintWriter writer;
+    private BufferedWriter writer;
     private final String nameFile;
     private final String folderName;
+    
  
     public GestoreFileDiScrittura(String nameFile,String folderName)
     {
@@ -28,23 +31,24 @@ public class GestoreFileDiScrittura {
     private void openFileConnection()
     {
         try {
-            writer = new PrintWriter(folderName+"\\"+nameFile);
+            writer = new BufferedWriter(
+                    new FileWriter(folderName+"\\"+nameFile, true) 
+                    );
         } catch (Exception ex) {
             Logger.getLogger(StatisticaAccessoLettura.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
     }
-    private void closeFileConnection()
+    private void closeFileConnection() throws IOException
     {
         writer.close();
     }
      
-     public synchronized void writeFile(int numeroProcessi,long tempoDAccesso)
+     public synchronized void writeFile(int numeroProcessi,long tempoDAccesso,int numeroEntrate) throws IOException
      {
             openFileConnection();
-            writer.print("L'accesso all'archivio con "+ numeroProcessi+ " processi concorrenziali "+ 
-                    "ha il seguente tempo d'esecuzione: " + tempoDAccesso+" millisecondi"); 
-            writer.print("\n");
+            writer.write(tempoDAccesso+" "+numeroEntrate);
+            writer.newLine();
             closeFileConnection();
      }
 }
