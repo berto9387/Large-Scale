@@ -111,7 +111,7 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         return ev;
     }
 
-    public static void iscrizioneEvento(PartecipanteDb partecipante,long id_Evento) {
+    public static int iscrizioneEvento(PartecipanteDb partecipante,long id_Evento) {
         
         try{
             entityManager = factory.createEntityManager();
@@ -128,10 +128,12 @@ public class GestioneOperazioniPartecipanteEM extends GestioneEventiManagerEM{
         } catch(Exception ex){
             ex.printStackTrace();
             System.out.println("A problem occured in insert events!");
+            return 0;
             
         }finally{
             entityManager.close();  
         }
+        return 1;
     }
     public static void annullaIscrizioneEvento(EventoDb p) {
 

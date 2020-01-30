@@ -12,7 +12,7 @@ package AnalisiStatisticheAccessoDatiEvento;
 public class AnalisiDegliAccessi {
     private static GestoreFileDiScrittura gestore;
     private static StatisticaAccessoLettura letturaEventi;
-    private static final int NUMEROENTRATE=1000;
+    private static final int NUMEROENTRATE=1;
     private static final int NUMEROTHREAD = 1;
     private static final String TIPODIARCHIVIO = "LevelDB";
     private static final String NOMEFILE = TIPODIARCHIVIO + ".txt";

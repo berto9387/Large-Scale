@@ -6,9 +6,12 @@
 package AnalisiStatisticheAccessoDatiEvento;
 import com.mycompany.gestioneeventi.LevelDbManager;
 import com.mycompany.hibernate.*;
+import java.io.IOException;
 
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -48,7 +51,11 @@ public class LetturaEventiDaArchivio extends Thread{
         }
         if(tempoEsecuzione>0)
         {
-            gestore.writeFile(numeroProcessi, tempoEsecuzione,numeroEntrate);
+            try {
+                gestore.writeFile(numeroProcessi, tempoEsecuzione,numeroEntrate);
+            } catch (IOException ex) {
+                Logger.getLogger(LetturaEventiDaArchivio.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         GestioneOperazioniPartecipanteEM.exit();
     }
