@@ -10,18 +10,20 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
+    Stage primaryStage;
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+        primaryStage=stage;
+        primaryStage.setTitle("markApp");
+        ScreenController.setMain(this);
+        ScreenController.showLogin();
         
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        
-        stage.setTitle("JavaFX and Maven");
-        stage.setScene(scene);
-        stage.show();
     }
 
+    public Stage getStage()
+    {
+        return primaryStage;
+    }
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be
