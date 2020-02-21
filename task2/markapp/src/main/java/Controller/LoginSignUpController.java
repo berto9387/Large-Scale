@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import task2.markapp.ScreenController;
+import static task2.markapp.ScreenController.utente;
 
 /**
  *
@@ -134,7 +135,16 @@ public class LoginSignUpController implements Initializable{
             err_log_label.setVisible(true);
         }else if (login == 0){ //Carico l'interfaccia sistema
             err_log_label.setVisible(false);
-            ScreenController.showHomePage();
+            
+            String homePage = null;
+            switch(utente.getRuolo()){
+                case "admin": 
+                    homePage = "AmministratoreSistema";
+                    break;
+                    //BISOGNA AGGIUNGERE TUTTI I CASE PER TUTTI GLI UTENTI
+            }
+            
+            ScreenController.showHomePage(homePage);
         }
     }
     

@@ -34,13 +34,14 @@ public class ScreenController {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         stage.setScene(scene);
-        stage.initStyle(StageStyle.UNDECORATED);
+        
         stage.show();
     }
     
-     public static void showHomePage() throws IOException{
+     public static void showHomePage(String homePageUtente) throws IOException{
         Stage stage=mainApp.getStage();
-        Parent root = FXMLLoader.load(MainApp.class.getResource("/fxml/AmministratoreSistema.fxml"));
+        Parent root = null;
+        root = FXMLLoader.load(MainApp.class.getResource("/fxml/"+ homePageUtente +".fxml"));
         
         mainApp.setRootLayout((BorderPane) root);
         stage.setScene(new Scene(root));

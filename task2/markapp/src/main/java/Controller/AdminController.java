@@ -38,13 +38,13 @@ public class AdminController extends GenerallController{
     }
     
     @FXML
-    public void handlGestioneUtenti(MouseEvent event){
+    public void handleGestioneUtenti(MouseEvent event){
         
-        ScreenController.showPage("prova2");
+        ScreenController.showPage("ModificaProfiloPersonale");
         
     }
     @FXML
-    public void handlGestioneAmministratoreSquadra(MouseEvent event){
+    public void handleGestioneAmministratoreSquadra(MouseEvent event){
         
         ScreenController.showPage("GestioneAmministratoreSquadra");
         
