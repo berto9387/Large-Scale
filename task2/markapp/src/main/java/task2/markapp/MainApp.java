@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class MainApp extends Application {
@@ -26,6 +27,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         primaryStage=stage;
         primaryStage.setTitle("markApp");
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         ScreenController.setMain(this);
         ScreenController.showLogin();
         
