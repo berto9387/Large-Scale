@@ -9,6 +9,6 @@ package Controller;
  *
  * @author berto
  */
-public class HomePageAmministratoreDelegatoController {
+public class HomePageAmministratoreDelegatoController extends GenerallController{
     
 }

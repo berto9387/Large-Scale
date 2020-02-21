@@ -10,6 +10,6 @@ package Controller;
  * @author berto
  * usa ProfiloInteresseMongoDataAccess
  */
-public class HomePageOsservatoreController {
+public class HomePageOsservatoreController extends GenerallController{
     
 }

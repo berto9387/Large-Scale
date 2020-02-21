@@ -10,6 +10,6 @@ package Controller;
  * @author berto
  * usa RicercaGiocatoriMongoDataAccess
  */
-public class RisultatoRicercaGiocatoreController {
+public class RisultatoRicercaGiocatoreController extends GenerallController{
     
 }

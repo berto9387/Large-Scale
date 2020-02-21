@@ -11,6 +11,6 @@ package Controller;
  * usa ProfiloInteresseMongoDataAccess
  * 
  */
-public class HomePageAllenatoreController {
+public class HomePageAllenatoreController extends GenerallController{
     
 }

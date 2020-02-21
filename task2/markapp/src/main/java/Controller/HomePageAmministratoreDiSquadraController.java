@@ -10,6 +10,6 @@ package Controller;
  * @author berto
  * usa GestioneProfiliMongoDb
  */
-public class HomePageAmministratoreDiSquadraController {
+public class HomePageAmministratoreDiSquadraController extends GenerallController{
     
 }

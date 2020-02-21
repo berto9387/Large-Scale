@@ -5,12 +5,23 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 
 public class MainApp extends Application {
 
     Stage primaryStage;
+    private BorderPane rootLayout;
+
+    public BorderPane getRootLayout() {
+        return rootLayout;
+    }
+
+    public void setRootLayout(BorderPane rootLayout) {
+        this.rootLayout = rootLayout;
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage=stage;

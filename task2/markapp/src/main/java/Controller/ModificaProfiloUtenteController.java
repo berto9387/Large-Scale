@@ -10,6 +10,6 @@ package Controller;
  * @author berto
  * usa GestioneProfiliMongoDataAccess
  */
-public class ModificaProfiloUtenteController {
+public class ModificaProfiloUtenteController extends GenerallController{
     
 }
