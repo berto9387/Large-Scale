@@ -9,6 +9,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
 
 /**
@@ -47,5 +48,23 @@ public class MongoDataAccess {
      */
     public static void chiudiConnessione(){
         mongoClient.close();
+    }
+    
+    /**
+     * La funzione verifica l'esistenza dell'email nel database
+     * @param email
+     * @return 0 se l'email non esiste;1 se l'email esiste;2 se ci sono altri errori
+     */
+    protected static int controllaEsistenzaUtente(String email){
+        Document trovaUtente;
+        try {
+            trovaUtente=(Document) collectionUtenti.find(eq("email",email)).first();
+        } catch (Exception e) {
+            return 2;
+        }
+       
+       if(trovaUtente!=null)
+           return 1;
+       return 0;
     }
 }

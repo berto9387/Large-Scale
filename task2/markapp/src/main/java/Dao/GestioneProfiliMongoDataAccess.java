@@ -14,8 +14,11 @@ import java.util.Arrays;
 import java.util.List;
 import org.bson.Document;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bson.Document;
 import task2.markapp.ScreenController;
 
@@ -30,15 +33,19 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
     private static final String nomeCollectionSocieta="societa"; 
     private static final String nomeCollectionUtenti = "utenti";
     /**
-     * La funzione restituisce l'amministratore di squadra 
+     * La funzione effetua una ricerca dell'utente in base al ruolo 
+     * e restituisce un'istanza dell'utente trovato come parametro
+     * e ritorna un intero come codice di errore
      * @param squadra
      * @param nazione
-     * @return 0:amministratore di squadra trovato;1:non esistel'amministratore di squadra per la squadra;2: altri errori
+     * @param utente
+     * @param ruolo
+     * @return 0:utente trovato;1:non esiste un attore con quel ruolo nella societa;2: altri errori
      */
-    public static int aggiornaAmministratoreDiSquadra(Utente utente,String squadra,String nazione){
+    public static int trovaUtenteInBaseAlRuolo(Utente utente,String squadra,String nazione,String ruolo){
         Document doc=null;
         try{
-            doc = collectionSocieta.aggregate(Arrays.asList(match(and(eq("nomeSocieta", squadra), eq("nazione", nazione))), lookup("utenti", "_id", "societa", "utente"), match(eq("utente.ruolo", "Amministratore di squadra")), project(include("nomeSocieta", "nazione", "utente._id", "utente.nome", "utente.cognome", "utente.email")))).first();
+            doc = collectionSocieta.aggregate(Arrays.asList(match(and(eq("nomeSocieta", squadra), eq("nazione", nazione))), lookup("utenti", "_id", "societa", "utente"), match(eq("utente.ruolo", ruolo)), project(include("nomeSocieta", "nazione", "utente._id", "utente.nome", "utente.cognome", "utente.email")))).first();
             
         } catch(Exception e){
             return 2;
@@ -55,16 +62,72 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
             utente.setNome(aux.getString("nome"));
             utente.setCognome(aux.getString("cognome"));
             utente.setEmail(aux.getString("email"));
+            utente.setRuolo(aux.getString("ruolo"));
         }
         utente.setSocieta(soc);
         return 0;
+    }
+    /**
+     * la funzione aggiorna il campo dei vari ruoli nella collection
+     * societa
+     * @param vecchioMembro
+     * @param nuovoMembroEmail
+     * @param controlloRuolo
+     * @return 0 aggiornamento riuscito
+     */
+    public  static int aggiornaTeamSocieta(Utente vecchioMembro, String nuovoMembroEmail,String controlloRuolo){
+        Utente nuovoMembro=null; 
+        String ruolo=nuovoMembro.getRuolo().toLowerCase();
+        if(!ruolo.equals(controlloRuolo)){
+            return 1;
+        }
+        String idSocieta=vecchioMembro.getSocieta().getId();
+        String idNuovoMembro=nuovoMembro.getId();
+        try {
+            nuovoMembro=cercaUtenteDaEmail(nuovoMembroEmail);
+        } catch (Exception ex) {
+            return 2;
+        }
+        int er=eliminaUtenteDaSocieta(nuovoMembro.getRuolo().toLowerCase(), idNuovoMembro);
+        if(er==2){
+            return 3;
+        }
+        if(!vecchioMembro.getId().isEmpty())
+            er=eliminaUtenteDaSocieta(vecchioMembro.getRuolo().toLowerCase(), vecchioMembro.getId());
+        if(er==2){
+            return 3;
+        }
+        UpdateResult updateResult = null;    
+        
+        try{
+           
+            updateResult = collectionSocieta.updateOne(eq("_id",idSocieta ), set(ruolo,idNuovoMembro)  );
+            
+            
+        } catch(Exception e){
+            return 4;
+        }
+        try{
+           
+            updateResult = collectionUtenti.updateOne(eq("_id",idNuovoMembro ), set("societa",idSocieta)  );
+            
+            
+        } catch(Exception e){
+            return 4;
+        }
+        
+        nuovoMembro.setSocieta(vecchioMembro.getSocieta());
+        vecchioMembro=nuovoMembro;
+        return 0;
+        
     }
     
     /**
      * Funzione di utilita per eliminare utente 
      * anche dal documento della societa
      * @return 0 se cancellazione andata a buon fine, 
-     * 1 altrimenti
+     * 1 l'utente non appartiene alla societa,
+     * 2 altri errori
      */
     private static int eliminaUtenteDaSocieta(String ruolo, String id) {
         //Ancora non sappiamo se funziona perchè non abbiamo l'interfaccia per 
@@ -73,10 +136,11 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
         
         try{
            
-            updateResult = collectionUtenti.updateOne(eq(ruolo, id), new Document("$unset", new Document(ruolo, "")));
-            //in dubbio che sia la collection giusta
+            updateResult = collectionUtenti.updateOne(eq(ruolo, id), new Document("$unset", new Document("societa", "")));
+            //ma da società ??
+            
         } catch(Exception e){
-            return 1;
+            return 2;
         }
         
         if(updateResult.getModifiedCount() == 1){
@@ -132,7 +196,7 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
      * altrimenti restituisce null
      * @throws Exception 
      */
-    public Utente cercaUtenteDaEmail(String email) throws Exception
+    public static Utente cercaUtenteDaEmail(String email) throws Exception
     {
         Document utenteDoc;
         Utente utente; 
@@ -141,7 +205,7 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
                     utenteDoc.getString("cognome"), utenteDoc.getString("email"), utenteDoc.getString("ruolo"),null);
         return utente;
     }
-    public boolean modificaProfilo(String email,String password)
+    public static boolean modificaProfilo(String email,String password)
     {
         return false;
     }

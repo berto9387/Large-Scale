@@ -9,12 +9,10 @@ import Dao.GestioneProfiliMongoDataAccess;
 import Entita.Utente;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
-import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -25,7 +23,8 @@ import javafx.scene.text.Text;
  * gli amministratori di squadra
  */
 public class GestioneAmministratoreSquadraController implements Initializable{
-    Utente utente=null;
+    private Utente utente=null;
+    private String ruolo="Amministratore di squadra";
     @FXML
     private Text scegliNazioneTesto;
 
@@ -69,7 +68,8 @@ public class GestioneAmministratoreSquadraController implements Initializable{
             return;
         }
         utente=new Utente();
-        int er=GestioneProfiliMongoDataAccess.aggiornaAmministratoreDiSquadra(utente, squadraInput.getText().toLowerCase(), nazioneInput.getText().toLowerCase());
+        
+        int er=GestioneProfiliMongoDataAccess.trovaUtenteInBaseAlRuolo(utente, squadraInput.getText().toLowerCase(), nazioneInput.getText().toLowerCase(),ruolo);
         if(er==0){
             errorScegliSquadra.setText("Amministratore di squadra trovato!");
             nomeAmministratoreSquadra.setText(utente.getNome()+" "+utente.getCognome());
@@ -96,18 +96,27 @@ public class GestioneAmministratoreSquadraController implements Initializable{
     }
     @FXML
     void modificaAmministratoreSquadra(MouseEvent event) {
-        System.out.println("ciao");
+        if(emailInput.getText().isEmpty() || utente.getId().isEmpty()){
+            errorCambiaAmministratoreSquadra.setText("Inserisci l'email del nuovo amministratore di squadra!");
+            return;
+        }
+        if(utente.getSocieta().getId().isEmpty()){
+            errorCambiaAmministratoreSquadra.setText("Cerca prima la società!");
+        }
+        int er=GestioneProfiliMongoDataAccess.aggiornaTeamSocieta(utente, emailInput.getText(),ruolo);
+        if(er==0){
+            errorCambiaAmministratoreSquadra.setText("Aggiornamento riuscito!");
+        }
+            
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         nazioneInput.textProperty().addListener((Observable, oldValue, newValue) -> {
             scegliNazione(newValue);
-            System.out.println("We're in a text property listener, new value: " + newValue);
         });
         squadraInput.textProperty().addListener((Observable, oldValue, newValue) -> {
             ScegliSquadra(newValue);
-            System.out.println("We're in a text property listener, new value: " + newValue);
         });
     }
 }

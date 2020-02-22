@@ -28,23 +28,7 @@ import task2.markapp.*;
 public class LoginSignUpMongoDataAccess extends MongoDataAccess{
 
     
-    /**
-     * La funzione verifica l'esistenza dell'email nel database
-     * @param email
-     * @return 0 se l'email non esiste;1 se l'email esiste;2 se ci sono altri errori
-     */
-    private static int controllaEsistenzaUtente(String email){
-        Document trovaUtente;
-        try {
-            trovaUtente=(Document) collectionUtenti.find(eq("email",email)).first();
-        } catch (Exception e) {
-            return 2;
-        }
-       
-       if(trovaUtente!=null)
-           return 1;
-       return 0;
-    }
+    
     /**
      * La funzione è utilizzata per registrare l'utente nel database
      * @param nome
