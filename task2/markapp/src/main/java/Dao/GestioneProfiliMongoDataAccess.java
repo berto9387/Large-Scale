@@ -200,28 +200,95 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
     }
     
     /**
-     * Funzione che restituisce un utente a partire da un email,
-     * viene utilizzata per ricercare e restituire le informazioni principali di
-     * un utente con il campo oggetto società a null poichè è un'informazione
-     * che non serve nella modifica profilo dell'utente
+     * Funzione che restituisce un utente in formato document a partire da un email,
+     * viene utilizzata per ricercare e restituire un document di un utente che
+     * verrà utilizzato per creare successivamente un oggetto di tipo Utente
      * 
      * @param email
-     * @return Se l'utente è presente restituirà un oggetto di tipo User
+     * @return Se l'utente è presente restituirà un oggetto di tipo Document
      * altrimenti restituisce null
      * @throws Exception 
      */
+    public static Document cercaUtenteDocumentDaEmail(String email) throws Exception
+    {
+        if(email==null)
+            return null;
+        Document utenteDoc;
+        utenteDoc=(Document)collectionUtenti.find(eq("email",email)).first();
+        return utenteDoc;
+    }
+    /**
+     * Funzione che datata l'email vecchia permette di cambiare i seguenti 
+     * parametri dell'utente: email e password in base ai valori presenti nei
+     * parametri nuovaEmail e password.
+     * 
+     * @param vecchiaEmail email attuale dell'utente a cui si vogliono cambiare
+     * le informazioni
+     * @param nuovaEmail rappresenta la nuova email da sostituire con quella vecchia
+     * se non si vuole cambiare email va passato il carattere ""
+     * @param password rasenta la nuova password da sostituire a quella vecchia
+     * se non si vuole cambiare password va passato il carattere ""
+     * @return restituisce false se la modifica non è andata a buon fine: la 
+     * vecchiaEmail non corrisponde a nessun utente registrato, la nuova email è
+     * già usata da un utente oppure non viene effettuata nessuna modifica ovvero
+     * la nuovaEmail e password sono entrambe stringhe "";
+     * @throws Exception 
+     */
+    public static boolean modificaProfilo(String vecchiaEmail,String nuovaEmail,String password) throws Exception
+    {
+        Document nuovoValore;
+        Document updateDocument;
+        UpdateResult updateResult;
+        Document utenteDoc=cercaUtenteDocumentDaEmail(vecchiaEmail);
+        if(utenteDoc==null || (nuovaEmail.equals("")&&password.equals(""))){
+            return false;
+        }
+        if(!nuovaEmail.equals(""))
+        {
+            if(cercaUtenteDocumentDaEmail(nuovaEmail)!=null)
+            {
+                return false;
+            }
+            if(password.equals(""))
+            {
+                nuovoValore = new Document("email",nuovaEmail);
+                updateDocument = new Document("$set",nuovoValore);
+                updateResult =collectionUtenti.updateOne(eq("email",vecchiaEmail),updateDocument);
+                return true;
+                
+            }
+            nuovoValore= new Document("email",nuovaEmail);
+            nuovoValore=nuovoValore.append("password", password);
+            updateDocument = new Document("$set",nuovoValore);
+            updateResult = collectionUtenti.updateOne(eq("email",vecchiaEmail),updateDocument);
+            return true;
+        }
+        nuovoValore = new Document("password",password);
+        updateDocument = new Document("$set",nuovoValore);
+        updateResult =collectionUtenti.updateOne(eq("email",vecchiaEmail),updateDocument);
+        return true;
+    }
+    /**
+     * Funzione che restituisce un utente come oggetto Utente a partire da un'email
+     * viene utilizzata per ricercare e restituire le informazioni principali di
+     * un utente con il campo oggetto società a null poichè è un'informazione
+     * che non serve nella modifica profilo dell'utente
+     * @param email
+     * @return
+     * Se l'utente è presente restituirà un oggetto di tipo Utente con i campi 
+     * @throws Exception 
+     */
+    
     public static Utente cercaUtenteDaEmail(String email) throws Exception
     {
         Document utenteDoc;
         Utente utente; 
-        utenteDoc=(Document)collectionUtenti.find(eq("email",email)).first();
+        utenteDoc=cercaUtenteDocumentDaEmail(email);
+        if(utenteDoc==null)
+            return null;
         utente=new Utente(utenteDoc.getObjectId("_id").toString(), utenteDoc.getString("nome"),
-                    utenteDoc.getString("cognome"), utenteDoc.getString("email"), utenteDoc.getString("ruolo"),null);
+                   utenteDoc.getString("cognome"), utenteDoc.getString("email"), utenteDoc.getString("ruolo"),null);
         return utente;
-    }
-    public static boolean modificaProfilo(String email,String password)
-    {
-        return false;
-    }
     
+    } 
 }
