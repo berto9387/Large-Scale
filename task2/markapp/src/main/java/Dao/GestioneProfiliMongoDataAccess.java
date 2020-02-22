@@ -37,14 +37,8 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
      */
     public static int aggiornaAmministratoreDiSquadra(Utente utente,String squadra,String nazione){
         Document doc=null;
-        
-        try {
-            apriConnessione(nomeCollectionSocieta);
-        } catch (Exception e) {
-            return 2;
-        }
         try{
-            doc = collection.aggregate(Arrays.asList(match(and(eq("nomeSocieta", squadra), eq("nazione", nazione))), lookup("utenti", "_id", "societa", "utente"), match(eq("utente.ruolo", "Amministratore di squadra")), project(include("nomeSocieta", "nazione", "utente._id", "utente.nome", "utente.cognome", "utente.email")))).first();
+            doc = collectionSocieta.aggregate(Arrays.asList(match(and(eq("nomeSocieta", squadra), eq("nazione", nazione))), lookup("utenti", "_id", "societa", "utente"), match(eq("utente.ruolo", "Amministratore di squadra")), project(include("nomeSocieta", "nazione", "utente._id", "utente.nome", "utente.cognome", "utente.email")))).first();
             
         } catch(Exception e){
             return 2;
@@ -79,7 +73,8 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
         
         try{
            
-            updateResult = collection.updateOne(eq(ruolo, id), new Document("$unset", new Document(ruolo, "")));
+            updateResult = collectionUtenti.updateOne(eq(ruolo, id), new Document("$unset", new Document(ruolo, "")));
+            //in dubbio che sia la collection giusta
         } catch(Exception e){
             return 1;
         }
@@ -104,16 +99,10 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
      * 2 altri errori
      */
     public static int eliminaAccount(String email, String ruolo, String id){
-        
-        try {
-            apriConnessione(nomeCollectionUtenti);
-        } catch (Exception e) {
-            return 2;
-        }
         DeleteResult deleteResult = null;
         //Per prima cosa va cancellato l'utente dalla collection "utenti"
         try{
-            deleteResult = collection.deleteOne(eq("email", email));
+            deleteResult = collectionUtenti.deleteOne(eq("email", email));
             
         } catch(Exception e){
             return 2;
@@ -132,16 +121,29 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
             return 1;
     }
     
-  /*  private Utente cercaUtenteDaEmail(String email) throws Exception
+    /**
+     * Funzione che restituisce un utente a partire da un email,
+     * viene utilizzata per ricercare e restituire le informazioni principali di
+     * un utente con il campo oggetto società a null poichè è un'informazione
+     * che non serve nella modifica profilo dell'utente
+     * 
+     * @param email
+     * @return Se l'utente è presente restituirà un oggetto di tipo User
+     * altrimenti restituisce null
+     * @throws Exception 
+     */
+    public Utente cercaUtenteDaEmail(String email) throws Exception
     {
-        apriConnessione(nomeCollectionUtenti);
         Document utenteDoc;
-        Utente utente;
-        
-        utenteDoc=(Document)collection.find(eq("email",email)).first();
+        Utente utente; 
+        utenteDoc=(Document)collectionUtenti.find(eq("email",email)).first();
         utente=new Utente(utenteDoc.getObjectId("_id").toString(), utenteDoc.getString("nome"),
-                    utenteDoc.getString("cognome"), utenteDoc.getString("email"), utenteDoc.getString("ruolo"),soc);
+                    utenteDoc.getString("cognome"), utenteDoc.getString("email"), utenteDoc.getString("ruolo"),null);
+        return utente;
+    }
+    public boolean modificaProfilo(String email,String password)
+    {
+        return false;
     }
     
-    */
 }

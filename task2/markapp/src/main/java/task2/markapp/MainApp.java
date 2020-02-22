@@ -1,5 +1,6 @@
 package task2.markapp;
 
+import Dao.MongoDataAccess;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -25,10 +26,11 @@ public class MainApp extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        MongoDataAccess.apriConnessione();
         primaryStage=stage;
         primaryStage.setTitle("markApp");
         primaryStage.initStyle(StageStyle.UNDECORATED);
-        ScreenController.setMain(this);
+        ScreenController.setMain(this);        
         ScreenController.showLogin();
         
     }

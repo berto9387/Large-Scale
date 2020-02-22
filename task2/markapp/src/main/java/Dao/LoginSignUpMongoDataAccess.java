@@ -26,8 +26,7 @@ import task2.markapp.*;
  * Gestione delle funzioni necessarie per effettuare il  login e il signup 
  */
 public class LoginSignUpMongoDataAccess extends MongoDataAccess{
-    private static final String nomeCollectionUtenti="utenti";
-    private static final String nomeCollectionSocieta="societa";
+
     
     /**
      * La funzione verifica l'esistenza dell'email nel database
@@ -37,7 +36,7 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
     private static int controllaEsistenzaUtente(String email){
         Document trovaUtente;
         try {
-            trovaUtente=(Document) collection.find(eq("email",email)).first();
+            trovaUtente=(Document) collectionUtenti.find(eq("email",email)).first();
         } catch (Exception e) {
             return 2;
         }
@@ -56,29 +55,21 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
      * @return 0 se utente è inserito correttamente;1 email esistente;2 altri errori
      */
     public static int registraUtente(String nome,String cognome,String email,String password,String ruolo){
-        try {
-            apriConnessione(nomeCollectionUtenti);
-        } catch (Exception e) {
-            return 2;
-        }
         int giaEsiste=controllaEsistenzaUtente(email);
         
-        if(giaEsiste!=0){
-            chiudiConnessione();
+        if(giaEsiste!=0){    
             return  giaEsiste;
         } 
         
         try {
             Document document=new Document("nome",nome).append("cognome", cognome)
                     .append("email", email).append("password", password).append("ruolo", ruolo);
-            collection.insertOne(document);
+            collectionUtenti.insertOne(document);
             
         } catch (Exception e1) {
-            chiudiConnessione();
+           
             return 2;
-        } finally{
-            chiudiConnessione();
-        }
+        } 
         
         return 0;
     }
@@ -91,19 +82,11 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
      */
     private static Document ricercaUtente(String email,String password){
         Document utenteDoc=null;
-       
-        try {
-            apriConnessione(nomeCollectionUtenti);
-        } catch (Exception e) {
-            return null;
-        }
         try{
-            utenteDoc = collection.find(and(eq("email", email), eq("password", password))).projection(exclude("password")).first();
+            utenteDoc = collectionUtenti.find(and(eq("email", email), eq("password", password))).projection(exclude("password")).first();
             
         } catch(Exception e){
             return null;
-        }finally{
-            chiudiConnessione();            
         }
         return utenteDoc;
         
@@ -115,19 +98,11 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
      */
     private static Document ricercaSocietaDoc(ObjectId idSocieta){
         Document societaDoc=null;
-       
-        try {
-            apriConnessione(nomeCollectionSocieta);
-        } catch (Exception e) {
-            return null;
-        }
         try{
-            societaDoc = collection.find(eq("_id", idSocieta)).first();
+            societaDoc = collectionSocieta.find(eq("_id", idSocieta)).first();
             
         } catch(Exception e){
             return null;
-        }finally{
-            chiudiConnessione();            
         }
         return societaDoc;
         
