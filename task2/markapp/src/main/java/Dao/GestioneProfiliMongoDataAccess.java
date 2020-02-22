@@ -28,6 +28,7 @@ import task2.markapp.ScreenController;
  */
 public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
     private static final String nomeCollectionSocieta="societa"; 
+    private static final String nomeCollectionUtenti = "utenti";
     /**
      * La funzione restituisce l'amministratore di squadra 
      * @param squadra
@@ -130,7 +131,17 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
                //(Problema: se, per qualsiasi motivo, vengono cancellati più utenti ?
             return 1;
     }
-
     
-    private static final String nomeCollectionUtenti = "utenti";
+  /*  private Utente cercaUtenteDaEmail(String email) throws Exception
+    {
+        apriConnessione(nomeCollectionUtenti);
+        Document utenteDoc;
+        Utente utente;
+        
+        utenteDoc=(Document)collection.find(eq("email",email)).first();
+        utente=new Utente(utenteDoc.getObjectId("_id").toString(), utenteDoc.getString("nome"),
+                    utenteDoc.getString("cognome"), utenteDoc.getString("email"), utenteDoc.getString("ruolo"),soc);
+    }
+    
+    */
 }

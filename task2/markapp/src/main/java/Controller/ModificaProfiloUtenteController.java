@@ -6,6 +6,7 @@
 package Controller;
 
 import Dao.GestioneProfiliMongoDataAccess;
+import Entita.Utente;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -15,7 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import task2.markapp.ScreenController;
-import static task2.markapp.ScreenController.utente;
+
 
 /**
  *
@@ -43,13 +44,14 @@ public class ModificaProfiloUtenteController extends GenerallController{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Utente utente = ScreenController.getUtente();
         nomeUtenteLabel.setText(utente.getNome() + " " + utente.getCognome());
         emailAttualeLabel.setText(utente.getEmail());
     }
     
     @FXML
     void handleEliminaAccount(MouseEvent event) throws IOException {
-        
+        Utente utente = ScreenController.getUtente();
         int err = GestioneProfiliMongoDataAccess.eliminaAccount(utente.getEmail(), utente.getRuolo(), utente.getId());
         if(err == 0)
             ScreenController.showLogin();

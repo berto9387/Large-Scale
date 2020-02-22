@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="658.0" prefWidth="858.0" style="-fx-background-color: #00000059;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller.GestioneUtentiController">
+  <children>
+    <VBox layoutX="0.0" layoutY="0.0" prefHeight="658.0" prefWidth="858.0">
+      <children>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Text fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestione Utenti" textAlignment="CENTER">
+              <font>
+                <Font size="30.0" />
+              </font>
+            </Text>
+          </children>
+        </HBox>
+        <Button mnemonicParsing="false" prefHeight="57.0" prefWidth="176.0" text="Button" />
+      </children>
+    </VBox>
+  </children>
+</AnchorPane>

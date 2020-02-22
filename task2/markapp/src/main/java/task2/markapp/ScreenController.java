@@ -18,15 +18,20 @@ import javafx.stage.StageStyle;
  * @author berto
  */
 public class ScreenController {
-    public static MainApp mainApp;
-    public static Utente utente;
-    public static Pane view;
+    private static MainApp mainApp;
+    private static Utente utente;
+    private static Pane view;
     
     
     public static void setMain(MainApp main){
         mainApp=main;
     }
-    
+    public static void setUtente(Utente user){
+        utente=user;
+    }
+    public static Utente getUtente(){
+        return utente;
+    }
     public static void showLogin() throws IOException{
         Stage stage=mainApp.getStage();
         Parent root = FXMLLoader.load(MainApp.class.getResource("/fxml/LoginSignUp.fxml"));

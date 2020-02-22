@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import static task2.markapp.ScreenController.utente;
+import task2.markapp.*;
 
 /**
  * 
@@ -180,7 +180,7 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
      * @return 0:login è andato a buon fine; 1:email o password errate;2:altri errori
      */
     public static int login(String email,String password){
-        
+        Utente utente;
         Document utenteDoc=ricercaUtente(email, password);
         if(utenteDoc==null){
             return 1;
@@ -189,6 +189,7 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
         if(utenteDoc.getString("ruolo").equals(("admin"))){
             utente=new Utente(utenteDoc.getObjectId("_id").toString(), utenteDoc.getString("nome"),
                     utenteDoc.getString("cognome"), utenteDoc.getString("email"), utenteDoc.getString("ruolo"));
+            ScreenController.setUtente(utente);
             return 0;
         } else {
             Document societaDoc=ricercaSocietaDoc(utenteDoc.getObjectId("societa"));
@@ -200,7 +201,7 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
             }
             utente=new Utente(utenteDoc.getObjectId("_id").toString(), utenteDoc.getString("nome"),
                     utenteDoc.getString("cognome"), utenteDoc.getString("email"), utenteDoc.getString("ruolo"),soc);
-            
+            ScreenController.setUtente(utente);
             ObjectMapper mapper = new ObjectMapper();
             try{
             String jsonInString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(utente);

@@ -1,0 +1,108 @@
+
+.root{
+    -fx-background-image:url("../img/back.jpeg");
+    -fx-background-size:cover;
+}
+
+.backgroundImg{
+    /*-fx-background-image:url("../img/back.jpeg");*/
+    -fx-background-color:#00000059;
+    -fx-background-size:cover;
+}
+
+.topHbox{
+    -fx-padding: 8px 15px 8px 15px;
+}
+
+.closeBtn{
+    -fx-fill: #FC5D57;
+    -fx-stroke: white;
+}
+
+.loginPageButtons{
+    -fx-background-color:transparent;
+    -fx-text-fill:white;
+    -fx-border-width:0px 0px 2px 0px;
+    -fx-border-color:white;
+    -fx-font-size:1.5em;
+    -fx-font-weight:bold;
+}
+.active{
+    -fx-text-fill:#aeaeae;
+}
+
+#titleLogin{
+    -fx-font-family:Roboto;
+    -fx-font-weight:bolder;
+    -fx-font-size:2.4em;
+    -fx-fill:white;
+}
+
+.inputField{
+    -fx-font-family:Roboto;
+    -fx-background-color:transparent;
+    -fx-prompt-text-fill:white;
+    -fx-text-fill:white;
+}
+
+.choiceBoxField{
+    -fx-font-family:Roboto;
+    -fx-background-color:transparent;
+    
+    -fx-mark-size:3em;
+}
+
+.choiceBoxField .menu-item:focused{
+    -fx-background-color: orange; 
+}
+
+.choiceBoxField  > .label { 
+    -fx-text-fill: white; 
+}
+
+.choiceBoxField .arrow { 
+   -fx-background-color:orange;
+   -fx-min-width:2em;
+   -fx-min-height:1em;
+}
+
+.icon{
+    -fx-font-size:1.3em;
+    -fx-fill: orange;
+}
+.containerField{
+    -fx-border-color:white;
+    -fx-border-width:0px 0px 2px 0px;
+}
+
+.enterButton{
+    -fx-background-color:#2f2f2fa3;
+    -fx-background-radius:100px;
+    -fx-text-fill:white;
+    -fx-font-family:Roboto;
+    -fx-font-weight:bold;
+    -fx-border-color: orange;
+    -fx-border-radius: 100px;
+    -fx-border-width: 2px;
+}
+
+.err_label{
+    -fx-text-fill: #ff9933;
+    -fx-font-family: Roboto;
+    -fx-font-size:1.3em;
+    -fx-font-weight:bold;
+}
+
+.mainContainer{
+    -fx-background-color:#00000059;
+    -fx-background-radius:10px;
+    -fx-padding: 0px 8px 0px 8px;
+}
+
+.mainFxmlClass{
+    -fx-background-color:#00000059;
+}
+
+.activeButton{
+    -fx-background-color: grey;
+}

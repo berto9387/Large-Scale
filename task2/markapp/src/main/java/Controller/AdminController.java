@@ -1,5 +1,6 @@
 package Controller;
 
+import Entita.Utente;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -8,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import task2.markapp.ScreenController;
-import static task2.markapp.ScreenController.utente;
+import task2.markapp.*;
 
 public class AdminController extends GenerallController{
 
@@ -33,6 +34,7 @@ public class AdminController extends GenerallController{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Utente utente = ScreenController.getUtente();
         nomeAdmin.setText(utente.getNome() + " " + utente.getCognome());
         emailAdmin.setText(utente.getEmail());
     }

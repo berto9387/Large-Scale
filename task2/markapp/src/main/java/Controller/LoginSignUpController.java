@@ -6,6 +6,7 @@
 package Controller;
 
 import Dao.LoginSignUpMongoDataAccess;
+import Entita.Utente;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import task2.markapp.ScreenController;
-import static task2.markapp.ScreenController.utente;
+
 
 /**
  *
@@ -137,6 +138,7 @@ public class LoginSignUpController implements Initializable{
             err_log_label.setVisible(false);
             
             String homePage = null;
+            Utente utente = ScreenController.getUtente();
             switch(utente.getRuolo()){
                 case "admin": 
                     homePage = "AmministratoreSistema";
