@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import task2.markapp.ScreenController;
-import task2.markapp.*;
 
 public class AdminController extends GenerallController{
 
@@ -42,7 +41,7 @@ public class AdminController extends GenerallController{
     @FXML
     public void handleGestioneUtenti(MouseEvent event){
         
-        ScreenController.showPage("ModificaProfiloPersonale");
+        
         
     }
     @FXML
@@ -50,6 +49,10 @@ public class AdminController extends GenerallController{
         
         ScreenController.showPage("GestioneAmministratoreSquadra");
         
+    }
+    @FXML
+    void handleModificaProfilo(MouseEvent event) {
+        ScreenController.showPage("ModificaProfiloPersonale");
     }
     
     
