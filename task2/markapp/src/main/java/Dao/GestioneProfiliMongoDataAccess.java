@@ -41,6 +41,7 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
      * @param utente
      * @param ruolo
      * @return 0:utente trovato;1:non esiste un attore con quel ruolo nella societa;2: altri errori
+     * 3:solo societa
      */
     public static int trovaUtenteInBaseAlRuolo(Utente utente,String squadra,String nazione,String ruolo){
         Document doc=null;
@@ -50,8 +51,20 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
         } catch(Exception e){
             return 2;
         }
-        if(doc==null)
-            return 1;
+        if(doc==null){
+            try {
+                doc=collectionSocieta.find(and(eq("nomeSocieta", squadra), eq("nazione", nazione))).first();
+                Societa soc=new Societa();
+                soc.setId(doc.getObjectId("_id").toString());
+                soc.setNazione(doc.getString("nazione"));
+                soc.setNomeSocieta(doc.getString("nomeSocieta"));
+                utente.setSocieta(soc);
+                return 3;
+            } catch (Exception e) {
+                return 2;
+            }
+        }
+            
         Societa soc=new Societa();
         soc.setId(doc.getObjectId("_id").toString());
         soc.setNazione(doc.getString("nazione"));
@@ -77,26 +90,27 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
      */
     public  static int aggiornaTeamSocieta(Utente vecchioMembro, String nuovoMembroEmail,String controlloRuolo){
         Utente nuovoMembro=null; 
+        
+        try {
+            nuovoMembro=cercaUtenteDaEmail(nuovoMembroEmail);
+        } catch (Exception ex) {
+            return 2;
+        }
         String ruolo=nuovoMembro.getRuolo().toLowerCase();
         if(!ruolo.equals(controlloRuolo)){
             return 1;
         }
         String idSocieta=vecchioMembro.getSocieta().getId();
         String idNuovoMembro=nuovoMembro.getId();
-        try {
-            nuovoMembro=cercaUtenteDaEmail(nuovoMembroEmail);
-        } catch (Exception ex) {
-            return 2;
-        }
-        int er=eliminaUtenteDaSocieta(nuovoMembro.getRuolo().toLowerCase(), idNuovoMembro);
-        if(er==2){
-            return 3;
-        }
-        if(!vecchioMembro.getId().isEmpty())
-            er=eliminaUtenteDaSocieta(vecchioMembro.getRuolo().toLowerCase(), vecchioMembro.getId());
-        if(er==2){
-            return 3;
-        }
+//        int er=eliminaUtenteDaSocieta(nuovoMembro.getRuolo().toLowerCase(), idNuovoMembro);
+//        if(er==2){
+//            return 3;
+//        }
+//        if(vecchioMembro.getId()!=null)
+//            er=eliminaUtenteDaSocieta(vecchioMembro.getRuolo().toLowerCase(), vecchioMembro.getId());
+//        if(er==2){
+//            return 3;
+//        }
         UpdateResult updateResult = null;    
         
         try{

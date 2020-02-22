@@ -75,7 +75,7 @@ public class GestioneAmministratoreSquadraController implements Initializable{
             nomeAmministratoreSquadra.setText(utente.getNome()+" "+utente.getCognome());
             emailAmministratoreSquadra.setText(utente.getEmail());
             return;
-        } else if(er==1){
+        } else if(er==3){
             errorScegliSquadra.setText("La società non ha un amministratore di squadra!");
         } else{
             errorScegliSquadra.setText("Riprova più tardi!");
@@ -96,11 +96,11 @@ public class GestioneAmministratoreSquadraController implements Initializable{
     }
     @FXML
     void modificaAmministratoreSquadra(MouseEvent event) {
-        if(emailInput.getText().isEmpty() || utente.getId().isEmpty()){
+        if(emailInput.getText().isEmpty()){
             errorCambiaAmministratoreSquadra.setText("Inserisci l'email del nuovo amministratore di squadra!");
             return;
         }
-        if(utente.getSocieta().getId().isEmpty()){
+        if(utente.getSocieta().getId()==null){
             errorCambiaAmministratoreSquadra.setText("Cerca prima la società!");
         }
         int er=GestioneProfiliMongoDataAccess.aggiornaTeamSocieta(utente, emailInput.getText(),ruolo);
