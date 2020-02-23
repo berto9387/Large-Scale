@@ -5,22 +5,23 @@
  */
 package Dao;
 
-import static Dao.MongoDataAccess.apriConnessione;
 import Entita.*;
+import com.mongodb.*;
+import com.mongodb.TransactionOptions;
+import com.mongodb.client.ClientSession;
+import com.mongodb.client.TransactionBody;
 import static com.mongodb.client.model.Aggregates.*;
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Projections.include;
 import java.util.Arrays;
 import java.util.List;
-import org.bson.Document;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bson.Document;
-import task2.markapp.ScreenController;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -30,55 +31,61 @@ import task2.markapp.ScreenController;
  * 
  */
 public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
-    private static final String nomeCollectionSocieta="societa"; 
-    private static final String nomeCollectionUtenti = "utenti";
+    
+    
     /**
      * La funzione effetua una ricerca dell'utente in base al ruolo 
      * e restituisce un'istanza dell'utente trovato come parametro
-     * e ritorna un intero come codice di errore
+     * e ritorna un intero come codice di errore;
+     * Attenzione bisogna fare un controllo sulla classe utente
+     * per controllare se esiste l'utente cercato oppure no
      * @param squadra
      * @param nazione
      * @param utente
      * @param ruolo
-     * @return 0:utente trovato;1:non esiste un attore con quel ruolo nella societa;2: altri errori
-     * 3:solo societa
+     * @return 0:trovata la società;1:società non trovata;2: altri errori
      */
     public static int trovaUtenteInBaseAlRuolo(Utente utente,String squadra,String nazione,String ruolo){
         Document doc=null;
         try{
-            doc = collectionSocieta.aggregate(Arrays.asList(match(and(eq("nomeSocieta", squadra), eq("nazione", nazione))), lookup("utenti", "_id", "societa", "utente"), match(eq("utente.ruolo", ruolo)), project(include("nomeSocieta", "nazione", "utente._id", "utente.nome", "utente.cognome", "utente.email")))).first();
-            
+            doc = collectionSocieta.aggregate(Arrays.asList(match(and(eq("nomeSocieta", squadra), eq("nazione", nazione))), lookup("utenti", "_id", "societa", "utente"), match(eq("utente.ruolo", ruolo)), project(include("nomeSocieta", "nazione", "utente._id", "utente.nome", "utente.cognome", "utente.email","utente.ruolo")))).first();
+            //1)
         } catch(Exception e){
             return 2;
         }
         if(doc==null){
             try {
                 doc=collectionSocieta.find(and(eq("nomeSocieta", squadra), eq("nazione", nazione))).first();
-                Societa soc=new Societa();
-                soc.setId(doc.getObjectId("_id").toString());
-                soc.setNazione(doc.getString("nazione"));
-                soc.setNomeSocieta(doc.getString("nomeSocieta"));
-                utente.setSocieta(soc);
-                return 3;
+                //2)
             } catch (Exception e) {
                 return 2;
             }
+        } else{
+            List<Document> utenteDoc=(List<Document>) doc.get("utente");
+            for(Document aux : utenteDoc){
+                utente.setId(aux.getObjectId("_id").toString());
+                utente.setNome(aux.getString("nome"));
+                utente.setCognome(aux.getString("cognome"));
+                utente.setEmail(aux.getString("email"));
+                utente.setRuolo(aux.getString("ruolo"));
+                
+            }
         }
-            
+        if(doc==null){
+            return 1;
+        }    
         Societa soc=new Societa();
         soc.setId(doc.getObjectId("_id").toString());
         soc.setNazione(doc.getString("nazione"));
-        soc.setNomeSocieta(doc.getString("nomeSocieta"));
-        List<Document> utenteDoc=(List<Document>) doc.get("utente");
-        for(Document aux : utenteDoc){
-            utente.setId(aux.getObjectId("_id").toString());
-            utente.setNome(aux.getString("nome"));
-            utente.setCognome(aux.getString("cognome"));
-            utente.setEmail(aux.getString("email"));
-            utente.setRuolo(aux.getString("ruolo"));
-        }
+        soc.setNomeSocieta(doc.getString("nomeSocieta"));        
         utente.setSocieta(soc);
+        //3
         return 0;
+        //
+        //1) Qui ricerco l'utente e la società a cui appartiene
+        //2) Se la società non ha un utente per quel ruolo cerco solo la società
+        //3) la classe restituisce in intero come codice di errore
+        // e un'istanza della classe utente che contiene la società e se c'è l'utente
     }
     /**
      * la funzione aggiorna il campo dei vari ruoli nella collection
@@ -86,7 +93,12 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
      * @param vecchioMembro
      * @param nuovoMembroEmail
      * @param controlloRuolo
-     * @return 0 aggiornamento riuscito
+     * @return
+     * 0: aggiornamento riuscito
+     * 1:l'utente trovato e il ruolo scelto non coincidono,
+     * 2: l'utente selezionato non esiste;
+     * 3: problemi nell'eliminaUtenteDaSocietà è necessario renderla atomica in qualche modo;
+     * 4: problemi nell'aggiornamento del nuovo utente che ricoprirà i ruolo di $;
      */
     public  static int aggiornaTeamSocieta(Utente vecchioMembro, String nuovoMembroEmail,String controlloRuolo){
         Utente nuovoMembro=null; 
@@ -97,33 +109,35 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
             return 2;
         }
         String ruolo=nuovoMembro.getRuolo().toLowerCase();
-        if(!ruolo.equals(controlloRuolo)){
+        if(!ruolo.equals(controlloRuolo.toLowerCase())){
             return 1;
         }
         String idSocieta=vecchioMembro.getSocieta().getId();
         String idNuovoMembro=nuovoMembro.getId();
-//        int er=eliminaUtenteDaSocieta(nuovoMembro.getRuolo().toLowerCase(), idNuovoMembro);
-//        if(er==2){
-//            return 3;
-//        }
-//        if(vecchioMembro.getId()!=null)
-//            er=eliminaUtenteDaSocieta(vecchioMembro.getRuolo().toLowerCase(), vecchioMembro.getId());
-//        if(er==2){
-//            return 3;
-//        }
+        int er=eliminaUtenteDaSocieta(nuovoMembro.getRuolo().toLowerCase(), new ObjectId(idNuovoMembro));
+        if(er>1){
+            System.err.println(er);
+            return 3;
+        }
+        if(vecchioMembro.getId()!=null)
+            er=eliminaUtenteDaSocieta(vecchioMembro.getRuolo().toLowerCase(), new ObjectId(vecchioMembro.getId()));
+        if(er>1){
+            System.err.println(er);
+            return 3;
+        }
         UpdateResult updateResult = null;    
-        
+//      1)
         try{
            
-            updateResult = collectionSocieta.updateOne(eq("_id",idSocieta ), set(ruolo,idNuovoMembro)  );
+            updateResult = collectionSocieta.updateOne(eq("_id",new ObjectId(idSocieta) ), set(ruolo,new ObjectId(idNuovoMembro))  );
             
             
         } catch(Exception e){
             return 4;
         }
         try{
-           
-            updateResult = collectionUtenti.updateOne(eq("_id",idNuovoMembro ), set("societa",idSocieta)  );
+          
+            updateResult = collectionUtenti.updateOne(eq("_id",new ObjectId(idNuovoMembro) ), set("societa",new ObjectId(idSocieta))  );
             
             
         } catch(Exception e){
@@ -133,41 +147,47 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
         nuovoMembro.setSocieta(vecchioMembro.getSocieta());
         vecchioMembro=nuovoMembro;
         return 0;
-        
+        //1 se non riesce a svolgere le operazioni seguenti:
+        //è stato possibile settare i campi sia nella collection utenti sia nella societa
+        //ma non è stato possibile inserire il nuovo utente nella nuova societa
     }
-    
     /**
      * Funzione di utilita per eliminare utente 
      * anche dal documento della societa
      * @return 0 se cancellazione andata a buon fine, 
      * 1 l'utente non appartiene alla societa,
-     * 2 altri errori
+     * 2 non è stato possibile aggiornare il campo $societa della collection utenti
+     * 3 non è stato possibile aggiornare il campo $ruolo della collection societa ma solo
+     * il campo $societa della collection utenti
      */
-    private static int eliminaUtenteDaSocieta(String ruolo, String id) {
-        //Ancora non sappiamo se funziona perchè non abbiamo l'interfaccia per 
-        //gli altri utenti diversi dall'admin
-        UpdateResult updateResult = null;
+    private static int eliminaUtenteDaSocieta(String ruolo,ObjectId id){
         
-        try{
-           
-            updateResult = collectionUtenti.updateOne(eq(ruolo, id), new Document("$unset", new Document("societa", "")));
-            //ma da società ??
-            
-        } catch(Exception e){
+        Bson filter = eq("_id", id);
+        Bson updateOperation = set("societa", "");
+        UpdateResult result=null;
+        try {
+            result = collectionUtenti.updateOne(filter, updateOperation);
+        } catch (Exception e) {
             return 2;
+        }       
+        if(result.getModifiedCount()==0){
+           return 1; 
+        }       
+        filter=eq(ruolo.toLowerCase(),id);
+        updateOperation=set(ruolo.toLowerCase(),"");
+        try {
+            result = collectionSocieta.updateOne(filter, updateOperation);
+        } catch (Exception e) {
+            return 3;
         }
-        
-        if(updateResult.getModifiedCount() == 1){
-            
-            System.out.println(ruolo + " eliminato dalla società");
-            return 0;
-        }else{
-            
-            System.out.println(ruolo + " NON eliminato dalla società");
+        if(result.getModifiedCount()==1){
+           return 0; 
+        } else{
             return 1;
         }
-          
-         
+                
+            
+        
     }
     
     /**
@@ -189,7 +209,7 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
             
             if(!ruolo.equals("admin")){ //Se è un utente di una società dobbiamo eliminarlo
                                         //anche dal documento della società
-                return eliminaUtenteDaSocieta(ruolo, id);
+                return eliminaUtenteDaSocieta(ruolo, new ObjectId(id));
                 
             } else{                 //Se è un admin abbiamo finito. 
                 return 0;

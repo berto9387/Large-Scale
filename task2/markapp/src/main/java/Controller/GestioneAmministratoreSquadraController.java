@@ -71,12 +71,18 @@ public class GestioneAmministratoreSquadraController implements Initializable{
         
         int er=GestioneProfiliMongoDataAccess.trovaUtenteInBaseAlRuolo(utente, squadraInput.getText().toLowerCase(), nazioneInput.getText().toLowerCase(),ruolo);
         if(er==0){
+            if(utente.getId()==null){
+                errorScegliSquadra.setText("La società non ha un amministratore di squadra!");
+                nomeAmministratoreSquadra.setText("");
+                emailAmministratoreSquadra.setText("");
+                return;
+            }
             errorScegliSquadra.setText("Amministratore di squadra trovato!");
             nomeAmministratoreSquadra.setText(utente.getNome()+" "+utente.getCognome());
             emailAmministratoreSquadra.setText(utente.getEmail());
             return;
-        } else if(er==3){
-            errorScegliSquadra.setText("La società non ha un amministratore di squadra!");
+        } else if(er==1){
+            errorScegliSquadra.setText("La società non esiste!");
         } else{
             errorScegliSquadra.setText("Riprova più tardi!");
         }
@@ -106,6 +112,15 @@ public class GestioneAmministratoreSquadraController implements Initializable{
         int er=GestioneProfiliMongoDataAccess.aggiornaTeamSocieta(utente, emailInput.getText(),ruolo);
         if(er==0){
             errorCambiaAmministratoreSquadra.setText("Aggiornamento riuscito!");
+            errorScegliSquadra.setText("Amministratore di squadra trovato!");
+            nomeAmministratoreSquadra.setText(utente.getNome()+" "+utente.getCognome());
+            emailAmministratoreSquadra.setText(utente.getEmail());
+        }else if(er==1){
+            errorCambiaAmministratoreSquadra.setText("Ruolo dell'utente non idoneo!");
+        } else if(er==2){
+            errorCambiaAmministratoreSquadra.setText("L'utente non esiste!");
+        } else{
+            errorCambiaAmministratoreSquadra.setText("problemi di consistenza!");
         }
             
     }

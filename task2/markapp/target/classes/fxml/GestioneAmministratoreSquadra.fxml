@@ -102,9 +102,9 @@
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="268.0" prefWidth="348.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="160.0" prefWidth="242.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 5px;">
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#modificaAmministratoreSquadra" prefHeight="160.0" prefWidth="242.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 5px;">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#modificaAmministratoreSquadra" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../img/transfer.png" />
                                  </image>
