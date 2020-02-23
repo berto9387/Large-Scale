@@ -66,6 +66,33 @@ public class GestioneUtentiController implements Initializable {
             }
         }
     }
+    @FXML
+    private void gestisciEventoCambioInformazioni(ActionEvent event) 
+    {
+        String email="";
+        String password="";
+        if(campoNuovaEmail.getText().isEmpty()&&campoNuovaPassword.getText().isEmpty())
+        {
+            gestisciErrore.setText("Errore utente non presente");
+        }
+        else{
+            String nuovaEmail=campoNuovaEmail.getText();
+            String vecchiaEmail = emailUtente.getText();
+            boolean aggiornamentoCorretto;
+            try {
+                aggiornamentoCorretto=GestioneProfiliMongoDataAccess.modificaProfilo(vecchiaEmail,nuovaEmail, password);
+                if(!aggiornamentoCorretto)
+                    gestisciErrore.setText("Errore campi non corretti");
+                else{
+                    emailUtente.setText(email);
+                }
+                    
+            } catch (Exception ex) {
+                Logger.getLogger(GestioneUtentiController.class.getName()).log(Level.SEVERE, null, ex);
+                gestisciErrore.setText("Errore con l'aggiornamento riprova");
+            }
+        }
+    }
     /**
      * Initializes the controller class.
      */
