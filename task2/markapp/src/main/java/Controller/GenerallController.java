@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
+import Dao.*;
 
 /**
  *
@@ -26,6 +27,7 @@ public class GenerallController implements Initializable{
     
     @FXML
     private void handleClose(MouseEvent event) {
+        MongoDataAccess.chiudiConnessione();
         System.exit(0);
     }
 
