@@ -128,12 +128,6 @@
             <artifactId>jfoenix</artifactId>
             <version>8.0.8</version>
         </dependency>
-        
-        <dependency>
-            <groupId>org.mongojack</groupId>
-            <artifactId>mongojack</artifactId>
-            <version>2.8.1</version>
-        </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>bson</artifactId>

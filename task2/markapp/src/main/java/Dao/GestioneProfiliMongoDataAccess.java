@@ -108,13 +108,15 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
         } catch (Exception ex) {
             return 2;
         }
+        if(nuovoMembro==null)
+            return 2;
         String ruolo=nuovoMembro.getRuolo().toLowerCase();
         if(!ruolo.equals(controlloRuolo.toLowerCase())){
             return 1;
         }
         String idSocieta=vecchioMembro.getSocieta().getId();
         String idNuovoMembro=nuovoMembro.getId();
-        int er=eliminaUtenteDaSocieta(nuovoMembro.getRuolo().toLowerCase(), new ObjectId(idNuovoMembro));
+        int er=eliminaUtenteDaSocieta(ruolo, new ObjectId(idNuovoMembro));
         if(er>1){
             System.err.println(er);
             return 3;
@@ -144,8 +146,12 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
             return 4;
         }
         
-        nuovoMembro.setSocieta(vecchioMembro.getSocieta());
-        vecchioMembro=nuovoMembro;
+        
+        vecchioMembro.setId(nuovoMembro.getId());
+        vecchioMembro.setCognome(nuovoMembro.getCognome());
+        vecchioMembro.setNome(nuovoMembro.getNome());
+        vecchioMembro.setEmail(nuovoMembro.getEmail());
+        vecchioMembro.setRuolo(nuovoMembro.getRuolo());
         return 0;
         //1 se non riesce a svolgere le operazioni seguenti:
         //è stato possibile settare i campi sia nella collection utenti sia nella societa
@@ -185,9 +191,38 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
         } else{
             return 1;
         }
-                
             
-        
+//    ClientSession clientSession=mongoClient.startSession();
+//    TransactionBody txnBody = new TransactionBody<String>() {
+//        public String execute() {
+//
+//            /*
+//               Important:: You must pass the session to the operations.
+//             */
+//            Bson filter = eq("_id", id);
+//            Bson updateOperation = set("societa", "");
+//            collectionUtenti.updateOne(clientSession,filter, updateOperation);
+//            filter=eq(ruolo.toLowerCase(),id);
+//            updateOperation=set(ruolo.toLowerCase(),"");
+//            collectionSocieta.updateOne(clientSession,filter, updateOperation);
+//            return "Inserted into collections in different databases";
+//        }
+//
+//    };
+//    try {
+//            /*
+//               Step 4: Use .withTransaction() to start a transaction,
+//               execute the callback, and commit (or abort on error).
+//            */
+//
+//            clientSession.withTransaction(txnBody);
+//        } catch (RuntimeException e) {
+//            return 1;
+//        } finally {
+//            clientSession.close();
+//        }
+//            
+//        return 0;
     }
     
     /**

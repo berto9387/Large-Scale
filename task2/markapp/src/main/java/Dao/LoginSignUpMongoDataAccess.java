@@ -10,7 +10,6 @@ import Entita.ProfiloInteresse;
 import Entita.Report;
 import Entita.Societa;
 import Entita.Utente;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Projections.exclude;
@@ -161,13 +160,6 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
             utente=new Utente(utenteDoc.getObjectId("_id").toString(), utenteDoc.getString("nome"),
                     utenteDoc.getString("cognome"), utenteDoc.getString("email"), utenteDoc.getString("ruolo"),soc);
             ScreenController.setUtente(utente);
-            ObjectMapper mapper = new ObjectMapper();
-            try{
-            String jsonInString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(utente);
-            System.out.println(jsonInString2);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
            
             
         }
