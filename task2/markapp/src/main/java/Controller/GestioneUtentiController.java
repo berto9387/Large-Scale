@@ -22,6 +22,7 @@ import javafx.scene.control.*;
  * @author Gianluca
  */
 public class GestioneUtentiController implements Initializable {
+    private Utente utente;
     @FXML
     private TextField campoEmailRicerca;
     @FXML
@@ -39,8 +40,8 @@ public class GestioneUtentiController implements Initializable {
     private Label gestisciErrore;
     @FXML
     private void gestisciRicerca(ActionEvent event){
-        Utente utente;
-        
+       
+        gestisciErrore.setText("");
         if(campoEmailRicerca.getText().isEmpty()){
             gestisciErrore.setText("Email non valida");
             }
@@ -69,6 +70,7 @@ public class GestioneUtentiController implements Initializable {
     @FXML
     private void gestisciEventoCambioInformazioni(ActionEvent event) 
     {
+        gestisciErrore.setText("");
         String nuovaEmail="";
         String password="";
         if(campoNuovaEmail.getText().isEmpty()&&campoNuovaPassword.getText().isEmpty())
@@ -89,8 +91,11 @@ public class GestioneUtentiController implements Initializable {
                 if(!aggiornamentoCorretto)
                     gestisciErrore.setText("Errore campi non corretti");
                 else{
-                    if(!nuovaEmail.equals(""))
-                    emailUtente.setText(nuovaEmail);
+                    if(!nuovaEmail.equals("")){
+                        emailUtente.setText(nuovaEmail);
+                        utente.setEmail(nuovaEmail);
+                    }
+                    
                 }
                     
             } catch (Exception ex) {
@@ -102,8 +107,19 @@ public class GestioneUtentiController implements Initializable {
     @FXML
     private void gestisciEliminaUtente(ActionEvent event)
     {
-        
-        //GestioneProfiliMongoDataAccess.eliminaAccount(email, ruolo, id);
+        gestisciErrore.setText("");
+        String email=utente.getEmail();
+        String ruolo=utente.getRuolo();
+        String id=utente.getId();
+        int risultato=GestioneProfiliMongoDataAccess.eliminaAccount(email, ruolo, id);
+        if(risultato==0){
+            nomeUtente.setText("");
+            cognomeUtente.setText("");
+            emailUtente.setText("");       
+        }
+        else{
+               gestisciErrore.setText("Errore durante la elimina"); 
+        }
     } 
     /**
      * Initializes the controller class.
