@@ -34,12 +34,12 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="360.0" layoutY="37.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: WHITE;">
+                        <TextField fx:id="campoEmailRicerca" layoutX="360.0" layoutY="37.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: WHITE;">
                            <effect>
                               <InnerShadow />
                            </effect>
                         </TextField>
-                        <Button layoutX="572.0" layoutY="31.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="82.0" style="-fx-background-color: ORANGE;">
+                        <Button layoutX="572.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#gestisciRicerca" prefHeight="40.0" prefWidth="82.0" style="-fx-background-color: ORANGE;">
                            <graphic>
                               <Icon content="SEARCH" prefHeight="24.0" prefWidth="87.0" />
                            </graphic></Button>
@@ -59,7 +59,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="142.0" layoutY="116.0" prefHeight="20.0" prefWidth="82.0">
+                  <Label fx:id="nomeUtente" layoutX="142.0" layoutY="116.0" prefHeight="20.0" prefWidth="82.0">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -69,27 +69,17 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="55.0" layoutY="261.0" text="Password:">
+                  <Label fx:id="emailUtente" layoutX="147.0" layoutY="213.0" prefHeight="26.0" prefWidth="82.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="147.0" layoutY="213.0" prefHeight="26.0" prefWidth="82.0">
+                  <Label fx:id="cognomeUtente" layoutX="147.0" layoutY="168.0" prefHeight="20.0" prefWidth="82.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="147.0" layoutY="168.0" prefHeight="20.0" prefWidth="82.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="147.0" layoutY="261.0" prefHeight="20.0" prefWidth="82.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="336.0" layoutY="145.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="110.0" style="-fx-background-color: ORANGE;">
+                  <Button layoutX="336.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#gestisciEventoCambioInformazioni" prefHeight="66.0" prefWidth="110.0" style="-fx-background-color: ORANGE;">
                      <graphic>
                         <Icon content="SWAP_HORIZ" />
                      </graphic></Button>
@@ -98,7 +88,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="662.0" layoutY="123.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: WHITE;">
+                  <TextField fx:id="campoNuovaEmail" layoutX="669.0" layoutY="119.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: WHITE;">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -108,13 +98,13 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="669.0" layoutY="213.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: WHITE;">
+                  <TextField fx:id="campoNuovaPassword" layoutX="669.0" layoutY="213.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: WHITE;">
                      <effect>
                         <InnerShadow />
                      </effect>
                   </TextField>
-                  <Icon accessibleRole="BUTTON" content="DELETE_FOREVER" layoutX="54.0" layoutY="304.0" prefHeight="40.0" prefWidth="36.0" />
-                  <Label fx:id="bhbjb" layoutX="215.0" layoutY="405.0" prefHeight="20.0" prefWidth="429.0">
+                  <Icon accessibleRole="BUTTON" content="DELETE_FOREVER" layoutX="50.0" layoutY="274.0" onMouseClicked="#gestisciEliminaUtente" prefHeight="40.0" prefWidth="36.0" />
+                  <Label fx:id="gestisciErrore" layoutX="215.0" layoutY="405.0" prefHeight="20.0" prefWidth="429.0">
                      <font>
                         <Font size="14.0" />
                      </font>
