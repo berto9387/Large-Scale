@@ -170,7 +170,7 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
                Important:: You must pass the session to the operations.
              */
             Bson filter = eq("_id", id);
-            Bson updateOperation = set("societa", "");
+            Bson updateOperation = unset("societa");
             collectionUtenti.updateOne(clientSession,filter, updateOperation);
             filter=eq(ruolo.toLowerCase(),id);
             updateOperation=unset(ruolo.toLowerCase());

@@ -28,7 +28,7 @@ import task2.markapp.ScreenController;
  */
 public class GestioneMembriSquadraController implements Initializable {
     ObservableList<String> ruoli=FXCollections.observableArrayList("Allenatore","Osservatore","Amministratore delegato");
-    Utente utente=null;
+    Utente utente=new Utente();
     @FXML
     private Text nomeSquadra;
     
@@ -60,8 +60,8 @@ public class GestioneMembriSquadraController implements Initializable {
     @FXML
     void cercaTeamSquadra(ActionEvent event) {
         
-        utente=new Utente();
         
+        utente=new Utente();
         int er=GestioneProfiliMongoDataAccess.trovaUtenteInBaseAlRuolo(utente, ScreenController.getUtente().getSocieta().getNomeSocieta().toLowerCase(), 
                 ScreenController.getUtente().getSocieta().getNazione(),scegliTeamSquadra.getValue().toLowerCase());
         if(er==0){
@@ -93,6 +93,10 @@ public class GestioneMembriSquadraController implements Initializable {
             errorCambia.setText("Inserisci l'email del nuovo amministratore di squadra!");
             return;
         }
+        if(utente==null){
+            errorCambia.setText("Seleziona il ruolo che vuoi aggiornare!");
+            return;
+        }
         int er=GestioneProfiliMongoDataAccess.aggiornaTeamSocieta(utente, emailInput.getText(),scegliTeamSquadra.getValue().toLowerCase());
         if(er==0){
             errorCambia.setText("Aggiornamento riuscito!");
@@ -108,6 +112,8 @@ public class GestioneMembriSquadraController implements Initializable {
         } else{
             errorCambia.setText("aggiornamento non riuscito riprova!");
         }
+        utente=null;
+        errorScegliSquadra.setText("");
     }
 
     @Override
