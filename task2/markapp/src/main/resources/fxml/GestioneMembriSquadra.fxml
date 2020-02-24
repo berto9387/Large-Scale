@@ -104,7 +104,7 @@
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="268.0" prefWidth="348.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#modificaAmministratoreSquadra" prefHeight="160.0" prefWidth="242.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 5px;">
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#modificaTeamSquadra" prefHeight="160.0" prefWidth="242.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 5px;">
                            <children>
                               <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -127,6 +127,11 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
+                              <Text fx:id="titoloUtenteModificare" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20px; -text-fill: white; -fx-font-family: Roboto;" textAlignment="CENTER" wrappingWidth="305.99609375" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
                               <JFXTextField fx:id="emailInput" alignment="CENTER" focusColor="ORANGE" prefHeight="31.0" prefWidth="282.0" promptText="Inserisci email" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" unFocusColor="WHITE">
                                  <font>
                                     <Font size="16.0" />
@@ -135,14 +140,14 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Text fx:id="errorCambiaAmministratoreSquadra" fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 20px;" />
+                              <Text fx:id="errorCambia" fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 20px;" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="1">
                      <children>
-                        <ChoiceBox prefHeight="26.0" prefWidth="309.0" styleClass="choiceBoxField" stylesheets="@../styles/utility.css" />
+                        <ChoiceBox fx:id="scegliTeamSquadra" prefHeight="26.0" prefWidth="309.0" styleClass="choiceBoxField" stylesheets="@../styles/utility.css" />
                      </children>
                   </HBox>
                </children>

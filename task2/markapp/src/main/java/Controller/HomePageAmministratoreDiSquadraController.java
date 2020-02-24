@@ -5,7 +5,11 @@
  */
 package Controller;
 
+import Entita.Utente;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -40,5 +44,11 @@ public class HomePageAmministratoreDiSquadraController extends GenerallControlle
     @FXML
     void handleModificaProfilo(MouseEvent event) {
         ScreenController.showPage("ModificaProfiloPersonale");
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        Utente utente = ScreenController.getUtente();
+        nomeAdmin.setText(utente.getNome() + " " + utente.getCognome());
+        emailAdmin.setText(utente.getEmail());
     }
 }
