@@ -57,7 +57,7 @@ public class ScreenController {
      public static void showPage(String fileName){
          
          try{
-             
+             //System.out.println("sono nella showPage, la stringa passatami è: " + fileName);
              URL fileUrl = MainApp.class.getResource("/fxml/"+ fileName+".fxml");
              if(fileUrl == null){
                  System.err.println("Pagina non trovata");

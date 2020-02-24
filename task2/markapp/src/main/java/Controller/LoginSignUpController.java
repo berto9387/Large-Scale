@@ -147,6 +147,9 @@ public class LoginSignUpController implements Initializable{
                 case "amministratore di squadra":
                     homePage="AmministratoreSquadra";
                     break;
+                case "allenatore":
+                    homePage = "Allenatore";
+                    break;
                     
                   
             }
