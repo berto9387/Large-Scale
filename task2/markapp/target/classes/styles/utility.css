@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24-feb-2020, 10.41.49
+    Author     : berto
+*/
+.choiceBoxField{
+    -fx-font-family:Roboto;
+    -fx-background-color:transparent;
+    -fx-border-color: white;
+    -fx-mark-size:3em;
+}
+
+.choiceBoxField .menu-item:focused{
+    -fx-background-color: orange; 
+}
+
+.choiceBoxField  > .label { 
+    -fx-text-fill: white; 
+}
+
+.choiceBoxField .arrow { 
+   -fx-background-color:orange;
+   -fx-min-width:2em;
+   -fx-min-height:1em;
+}

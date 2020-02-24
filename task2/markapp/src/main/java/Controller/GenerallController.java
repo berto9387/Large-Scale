@@ -13,6 +13,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import Dao.*;
+import java.io.IOException;
+import task2.markapp.ScreenController;
 
 /**
  *
@@ -29,6 +31,14 @@ public class GenerallController implements Initializable{
     private void handleClose(MouseEvent event) {
         MongoDataAccess.chiudiConnessione();
         System.exit(0);
+    }
+    
+    @FXML
+    private void handlerLogout(MouseEvent event) throws IOException{
+        
+        ScreenController.setUtente(null);
+        
+        ScreenController.showLogin();
     }
 
     @Override

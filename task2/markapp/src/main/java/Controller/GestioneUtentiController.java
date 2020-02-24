@@ -7,6 +7,7 @@ package Controller;
 
 import Dao.GestioneProfiliMongoDataAccess;
 import Entita.Utente;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -14,6 +15,8 @@ import java.util.logging.Logger;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import task2.markapp.ScreenController;
 
 
 /**
@@ -24,15 +27,13 @@ import javafx.scene.control.*;
 public class GestioneUtentiController implements Initializable {
     private Utente utente;
     @FXML
-    private TextField campoEmailRicerca;
+    private JFXTextField campoEmailRicerca;
     @FXML
-    private TextField campoNuovaEmail;
+    private JFXTextField campoNuovaEmail;
     @FXML
-    private TextField campoNuovaPassword;
+    private JFXTextField campoNuovaPassword;
     @FXML
     private Label nomeUtente;
-    @FXML
-    private Label cognomeUtente;
     @FXML
     private Label emailUtente;
     
@@ -56,8 +57,7 @@ public class GestioneUtentiController implements Initializable {
                     
                 }
                 else{
-                    nomeUtente.setText(utente.getNome());
-                    cognomeUtente.setText(utente.getCognome());
+                    nomeUtente.setText(utente.getNome() + " " + utente.getCognome());
                     emailUtente.setText(utente.getEmail());
                 }
                 
@@ -68,7 +68,7 @@ public class GestioneUtentiController implements Initializable {
         }
     }
     @FXML
-    private void gestisciEventoCambioInformazioni(ActionEvent event) 
+    private void gestisciEventoCambioInformazioni(MouseEvent event) 
     {
         gestisciErrore.setText("");
         String nuovaEmail="";
@@ -94,6 +94,8 @@ public class GestioneUtentiController implements Initializable {
                     if(!nuovaEmail.equals("")){
                         emailUtente.setText(nuovaEmail);
                         utente.setEmail(nuovaEmail);
+                        campoNuovaEmail.clear();
+                        campoNuovaPassword.clear();
                     }
                     
                 }
@@ -105,7 +107,7 @@ public class GestioneUtentiController implements Initializable {
         }
     }
     @FXML
-    private void gestisciEliminaUtente(ActionEvent event)
+    private void gestisciEliminaUtente(MouseEvent event)
     {
         gestisciErrore.setText("");
         String email=utente.getEmail();
@@ -114,7 +116,6 @@ public class GestioneUtentiController implements Initializable {
         int risultato=GestioneProfiliMongoDataAccess.eliminaAccount(email, ruolo, id);
         if(risultato==0){
             nomeUtente.setText("");
-            cognomeUtente.setText("");
             emailUtente.setText("");       
         }
         else{
@@ -126,7 +127,7 @@ public class GestioneUtentiController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
     
 }

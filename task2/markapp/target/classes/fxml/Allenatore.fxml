@@ -15,35 +15,69 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="927.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminController">
+<<<<<<< Updated upstream
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="927.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomePageAllenatoreController">
+
+=======
+<<<<<<< HEAD
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="927.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomePageAllenatoreController">
+=======
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="927.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomePageAllenatoreController">
+>>>>>>> master
+>>>>>>> Stashed changes
    <left>
       <VBox maxWidth="-Infinity" prefHeight="535.0" prefWidth="200.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
+<<<<<<< Updated upstream
+                  <ImageView fitHeight="151.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+
+                          <Image url="@../img/coach.png" />
+
+                      </image>
+                  </ImageView>
+                  <Label fx:id="nomeAllenatore" style="-fx-text-fill: black; -fx-font-size: 14px;">
+=======
                   <ImageView fx:id="imgAdmin" fitHeight="151.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
                       <image>
+<<<<<<< HEAD
+                          <Image url="@../img/coach.png" />
+=======
                           <Image backgroundLoading="true" url="@../img/logo-admin-png-4.png" />
+>>>>>>> master
                       </image>
                   </ImageView>
                   <Label fx:id="nomeAdmin" style="-fx-text-fill: black; -fx-font-size: 14px;">
+>>>>>>> Stashed changes
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
+<<<<<<< Updated upstream
+                  <Label fx:id="emailAllenatore" style="-fx-text-fill: grey;">
+=======
                   <Label fx:id="emailAdmin" style="-fx-text-fill: grey;">
+>>>>>>> Stashed changes
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Ruolo: Amministratore di sistema">
+                  <Label text="Ruolo: Allenatore">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
                </children>
             </VBox>
-            <HBox fx:id="gestioneUtenteButton" alignment="CENTER_LEFT" onMouseClicked="#handleGestioneUtenti">
+<<<<<<< Updated upstream
+
+            <HBox fx:id="cercaGiocatoreButton" alignment="CENTER_LEFT" onMouseClicked="#handlerRicercaGiocatori">
+=======
+<<<<<<< HEAD
+            <HBox fx:id="cercaGiocatoreButton" alignment="CENTER_LEFT" onMouseClicked="#handleCercaGiocatore">
+>>>>>>> Stashed changes
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -51,21 +85,26 @@
                   <Insets top="40.0" />
                </VBox.margin>
                <children>
-                  <FontAwesomeIcon fill="ORANGE" glyphName="USERS" size="1.3em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 14;" text="Gestione Utenti">
+                  <FontAwesomeIcon fill="ORANGE" glyphName="SEARCH" size="1.3em" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 14;" text="Cerca Giocatore">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Text>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleGestioneAmministratoreSquadra">
+<<<<<<< Updated upstream
+            
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#handlerVisualizzaListaPreferiti">
+=======
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleVisualizzaListaPreferiti">
+>>>>>>> Stashed changes
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <FontAwesomeIcon fill="ORANGE" glyphName="USER" size="1.3em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 14;" text="Gestione Amministratore squadra">
+                  <FontAwesomeIcon fill="ORANGE" glyphName="LIST" size="1.3em" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 14;" text="Visualizza Lista preferiti">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -75,29 +114,62 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
+<<<<<<< Updated upstream
+            
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#handlerAggiungiProfiloDiInteresse">
+
+=======
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleAggiungiProfiloDiInteresse">
+=======
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleRicercaCalciatori">
+>>>>>>> master
+>>>>>>> Stashed changes
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+<<<<<<< Updated upstream
+
+                  <FontAwesomeIcon fill="ORANGE" glyphName="PLUS" size="1.3em" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 14;" text="Aggiungi Profilo di interesse">
+
+
+=======
+<<<<<<< HEAD
+                  <FontAwesomeIcon fill="ORANGE" glyphName="PLUS" size="1.3em" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 14;" text="Aggiungi Profilo di interesse">
+=======
+                  <FontAwesomeIcon fill="ORANGE" glyphName="USER" size="1.3em" text="" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 14;" text="Ricerca Calciatori">
+>>>>>>> master
+>>>>>>> Stashed changes
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+<<<<<<< Updated upstream
+
+
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleModificaProfiloPersonale">
+
+=======
+<<<<<<< HEAD
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleModificaProfiloPersonale">
+=======
             <HBox alignment="CENTER_LEFT" onMouseClicked="#handleModificaProfilo">
+>>>>>>> master
+>>>>>>> Stashed changes
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <FontAwesomeIcon fill="ORANGE" glyphName="GEARS" size="1.3em" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 14;" text="Modifica profilo personale">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER_LEFT">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <children>
-                  <FontAwesomeIcon fill="ORANGE" glyphName="DATABASE" size="1.3em" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 14;" text="Aggiorna Database">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -138,8 +210,13 @@
                      <children>
                         <HBox alignment="CENTER" maxWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: ORANGE;">
                            <children>
+<<<<<<< Updated upstream
                               <Hyperlink onMouseClicked="#handlerLogout" style="-fx-font-family: Roboto; -fx-font-size: 16px; -fx-text-fill: white; -fx-underline: true; -fx-border-color: transparent; -fx-font-weight: bold;" text="Logout" />
                               <FontAwesomeIcon fill="#fffefe" glyphName="SIGN_OUT" onMouseClicked="#handlerLogout" size="1.5em">
+=======
+                              <Hyperlink style="-fx-font-family: Roboto; -fx-font-size: 16px; -fx-text-fill: white; -fx-underline: true; -fx-border-color: transparent; -fx-font-weight: bold;" text="Logout" />
+                              <FontAwesomeIcon fill="#fffefe" glyphName="SIGN_OUT" size="1.5em">
+>>>>>>> Stashed changes
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></FontAwesomeIcon>
@@ -170,6 +247,21 @@
          </padding>
       </HBox>
    </top>
+<<<<<<< Updated upstream
+
+   
+   <stylesheets>
+        <URL value="@/styles/Styles.css" />
+    </stylesheets>
+
+=======
+<<<<<<< HEAD
+   
+   <stylesheets>
+        <URL value="@/styles/Styles.css"/>
+    </stylesheets>
+=======
+>>>>>>> Stashed changes
 <!--   <center>
       
    </center>
@@ -181,4 +273,9 @@
          </children>
       </AnchorPane>
    </center>-->
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> master
+>>>>>>> Stashed changes
 </BorderPane>
