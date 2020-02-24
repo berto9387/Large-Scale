@@ -30,27 +30,33 @@ public class HomePageAllenatoreController extends GenerallController{
     private ImageView imgAdmin;
 
     @FXML
-    private Label nomeAdmin;
+    private Label nomeAllenatore;
 
     @FXML
-    private Label emailAdmin;
-
+    private Label emailAllenatore;
     
-
+    @FXML   
+    void handlerVisualizzaListaPreferiti(MouseEvent event){
+        
+    } 
     
-
+    @FXML 
+    void handlerAggiungiProfiloDiInteresse(MouseEvent event){
+        
+    }
+    
     @FXML
-    void handleRicercaCalciatori(MouseEvent event) {
+    void handlerRicercaGiocatori(MouseEvent event) {
         ScreenController.showPage("RicercaCalciatori");
     }
     @FXML
-    void handleModificaProfilo(MouseEvent event) {
+    void handleModificaProfiloPersonale(MouseEvent event) {
         ScreenController.showPage("ModificaProfiloPersonale");
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Utente utente = ScreenController.getUtente();
-        nomeAdmin.setText(utente.getNome() + " " + utente.getCognome());
-        emailAdmin.setText(utente.getEmail());
+        nomeAllenatore.setText(utente.getNome() + " " + utente.getCognome());
+        emailAllenatore.setText(utente.getEmail());
     }
 }

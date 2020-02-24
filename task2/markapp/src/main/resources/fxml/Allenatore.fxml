@@ -15,31 +15,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<<<<<<< HEAD
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="927.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomePageAllenatoreController">
-=======
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="927.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomePageAllenatoreController">
->>>>>>> master
+
    <left>
       <VBox maxWidth="-Infinity" prefHeight="535.0" prefWidth="200.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <ImageView fx:id="imgAdmin" fitHeight="151.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="151.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-<<<<<<< HEAD
+
                           <Image url="@../img/coach.png" />
-=======
-                          <Image backgroundLoading="true" url="@../img/logo-admin-png-4.png" />
->>>>>>> master
+
                       </image>
                   </ImageView>
-                  <Label fx:id="nomeAdmin" style="-fx-text-fill: black; -fx-font-size: 14px;">
+                  <Label fx:id="nomeAllenatore" style="-fx-text-fill: black; -fx-font-size: 14px;">
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="emailAdmin" style="-fx-text-fill: grey;">
+                  <Label fx:id="emailAllenatore" style="-fx-text-fill: grey;">
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
@@ -51,8 +46,8 @@
                   </Label>
                </children>
             </VBox>
-<<<<<<< HEAD
-            <HBox fx:id="cercaGiocatoreButton" alignment="CENTER_LEFT" onMouseClicked="#handleCercaGiocatore">
+
+            <HBox fx:id="cercaGiocatoreButton" alignment="CENTER_LEFT" onMouseClicked="#handlerRicercaGiocatori">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -68,7 +63,8 @@
                   </Text>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleVisualizzaListaPreferiti">
+            
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#handlerVisualizzaListaPreferiti">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -84,21 +80,18 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleAggiungiProfiloDiInteresse">
-=======
-            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleRicercaCalciatori">
->>>>>>> master
+            
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#handlerAggiungiProfiloDiInteresse">
+
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-<<<<<<< HEAD
+
                   <FontAwesomeIcon fill="ORANGE" glyphName="PLUS" size="1.3em" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 14;" text="Aggiungi Profilo di interesse">
-=======
-                  <FontAwesomeIcon fill="ORANGE" glyphName="USER" size="1.3em" text="" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 14;" text="Ricerca Calciatori">
->>>>>>> master
+
+
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -108,11 +101,10 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-<<<<<<< HEAD
+
+
             <HBox alignment="CENTER_LEFT" onMouseClicked="#handleModificaProfiloPersonale">
-=======
-            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleModificaProfilo">
->>>>>>> master
+
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -159,8 +151,8 @@
                      <children>
                         <HBox alignment="CENTER" maxWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: ORANGE;">
                            <children>
-                              <Hyperlink style="-fx-font-family: Roboto; -fx-font-size: 16px; -fx-text-fill: white; -fx-underline: true; -fx-border-color: transparent; -fx-font-weight: bold;" text="Logout" />
-                              <FontAwesomeIcon fill="#fffefe" glyphName="SIGN_OUT" size="1.5em">
+                              <Hyperlink onMouseClicked="#handlerLogout" style="-fx-font-family: Roboto; -fx-font-size: 16px; -fx-text-fill: white; -fx-underline: true; -fx-border-color: transparent; -fx-font-weight: bold;" text="Logout" />
+                              <FontAwesomeIcon fill="#fffefe" glyphName="SIGN_OUT" onMouseClicked="#handlerLogout" size="1.5em">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></FontAwesomeIcon>
@@ -191,12 +183,12 @@
          </padding>
       </HBox>
    </top>
-<<<<<<< HEAD
+
    
    <stylesheets>
-        <URL value="@/styles/Styles.css"/>
+        <URL value="@/styles/Styles.css" />
     </stylesheets>
-=======
+
 <!--   <center>
       
    </center>
@@ -208,5 +200,5 @@
          </children>
       </AnchorPane>
    </center>-->
->>>>>>> master
+
 </BorderPane>

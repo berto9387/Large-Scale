@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="927.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomePageAmministratoreDiSquadraController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="927.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomePageAmministratoreDiSquadraController">
    <left>
       <VBox maxWidth="-Infinity" prefHeight="535.0" prefWidth="200.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
          <children>
@@ -106,8 +106,8 @@
                      <children>
                         <HBox alignment="CENTER" maxWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: ORANGE;">
                            <children>
-                              <Hyperlink style="-fx-font-family: Roboto; -fx-font-size: 16px; -fx-text-fill: white; -fx-underline: true; -fx-border-color: transparent; -fx-font-weight: bold;" text="Logout" />
-                              <FontAwesomeIcon fill="#fffefe" glyphName="SIGN_OUT" size="1.5em">
+                              <Hyperlink onMouseClicked="#handlerLogout" style="-fx-font-family: Roboto; -fx-font-size: 16px; -fx-text-fill: white; -fx-underline: true; -fx-border-color: transparent; -fx-font-weight: bold;" text="Logout" />
+                              <FontAwesomeIcon fill="#fffefe" glyphName="SIGN_OUT" onMouseClicked="#handlerLogout" size="1.5em">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></FontAwesomeIcon>

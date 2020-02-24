@@ -39,6 +39,7 @@ public class ScreenController {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         stage.setScene(scene);
+        stage.centerOnScreen();
         
         stage.show();
     }
