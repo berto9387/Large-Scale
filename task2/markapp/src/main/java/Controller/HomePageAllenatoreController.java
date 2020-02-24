@@ -5,6 +5,17 @@
  */
 package Controller;
 
+import Entita.Utente;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Circle;
+import task2.markapp.ScreenController;
+
 /**
  *
  * @author berto
@@ -12,5 +23,34 @@ package Controller;
  * 
  */
 public class HomePageAllenatoreController extends GenerallController{
+    @FXML
+    private BorderPane mainPane;
+
+    @FXML
+    private ImageView imgAdmin;
+
+    @FXML
+    private Label nomeAdmin;
+
+    @FXML
+    private Label emailAdmin;
+
     
+
+    
+
+    @FXML
+    void handleRicercaCalciatori(MouseEvent event) {
+        ScreenController.showPage("RicercaCalciatori");
+    }
+    @FXML
+    void handleModificaProfilo(MouseEvent event) {
+        ScreenController.showPage("ModificaProfiloPersonale");
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        Utente utente = ScreenController.getUtente();
+        nomeAdmin.setText(utente.getNome() + " " + utente.getCognome());
+        emailAdmin.setText(utente.getEmail());
+    }
 }

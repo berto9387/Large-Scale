@@ -46,6 +46,7 @@
                   <Label style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" GridPane.rowIndex="3" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" style="-fx-background-radius: 10; -fx-background-color: #00000059;" GridPane.rowIndex="3">
                      <children>
+<<<<<<< HEAD
                         <VBox alignment="CENTER" prefHeight="114.0" prefWidth="425.0" spacing="30.0">
                            <children>
                               <HBox alignment="CENTER" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
@@ -107,9 +108,18 @@
                                  </image>
                               </ImageView>
                            </graphic>
+=======
+                        <Label layoutX="287.0" layoutY="37.0" text="Email:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="campoEmailRicerca" layoutX="360.0" layoutY="37.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: WHITE;">
+>>>>>>> master
                            <effect>
                               <DropShadow />
                            </effect>
+<<<<<<< HEAD
                         </Button>
                      </children>
                   </HBox>
@@ -179,6 +189,79 @@
                         </HBox>
                      </children>
                   </VBox>
+=======
+                        </TextField>
+                        <Button layoutX="572.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#gestisciRicerca" prefHeight="40.0" prefWidth="82.0" style="-fx-background-color: ORANGE;">
+                           <graphic>
+                              <Icon content="SEARCH" prefHeight="24.0" prefWidth="87.0" />
+                           </graphic></Button>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+            <Pane prefHeight="456.0" prefWidth="858.0">
+               <children>
+                  <Label layoutX="55.0" layoutY="116.0" text="Nome:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="54.0" layoutY="166.0" text="Cognome:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nomeUtente" layoutX="142.0" layoutY="116.0" prefHeight="20.0" prefWidth="82.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="54.0" layoutY="213.0" text="Email:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="emailUtente" layoutX="147.0" layoutY="213.0" prefHeight="26.0" prefWidth="82.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="cognomeUtente" layoutX="147.0" layoutY="168.0" prefHeight="20.0" prefWidth="82.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="336.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#gestisciEventoCambioInformazioni" prefHeight="66.0" prefWidth="110.0" style="-fx-background-color: ORANGE;">
+                     <graphic>
+                        <Icon content="SWAP_HORIZ" />
+                     </graphic></Button>
+                  <Label layoutX="537.0" layoutY="119.0" prefHeight="27.0" prefWidth="92.0" text="Nuova email: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="campoNuovaEmail" layoutX="669.0" layoutY="119.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: WHITE;">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </TextField>
+                  <Label layoutX="537.0" layoutY="213.0" prefHeight="27.0" prefWidth="110.0" text="Nuova password:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="campoNuovaPassword" layoutX="669.0" layoutY="213.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: WHITE;">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </TextField>
+                  <Icon accessibleRole="BUTTON" content="DELETE_FOREVER" layoutX="50.0" layoutY="274.0" onMouseClicked="#gestisciEliminaUtente" prefHeight="40.0" prefWidth="36.0" />
+                  <Label fx:id="gestisciErrore" layoutX="215.0" layoutY="405.0" prefHeight="20.0" prefWidth="429.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+>>>>>>> master
                </children>
             </GridPane>
          </children>
