@@ -8,6 +8,7 @@ Entita\Societa.class
 Controller\RisultatoRicercaGiocatoreController.class
 Entita\Report.class
 Controller\GenerallController.class
+Dao\GestioneProfiliMongoDataAccess$1.class
 Dao\GestioneProfiliMongoDataAccess.class
 Dao\StatisticheMongoDataAccess.class
 Controller\HomePageAmministratoreDelegatoController.class

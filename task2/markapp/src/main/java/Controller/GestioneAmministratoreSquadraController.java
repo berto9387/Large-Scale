@@ -112,18 +112,20 @@ public class GestioneAmministratoreSquadraController implements Initializable{
         int er=GestioneProfiliMongoDataAccess.aggiornaTeamSocieta(utente, emailInput.getText(),ruolo);
         if(er==0){
             errorCambiaAmministratoreSquadra.setText("Aggiornamento riuscito!");
-            errorScegliSquadra.setText("Amministratore di squadra trovato!");
             nomeAmministratoreSquadra.setText(utente.getNome()+" "+utente.getCognome());
             emailAmministratoreSquadra.setText(utente.getEmail());
         }else if(er==1){
             errorCambiaAmministratoreSquadra.setText("Ruolo dell'utente non idoneo!");
         } else if(er==2){
             errorCambiaAmministratoreSquadra.setText("L'utente non esiste!");
+        } else if(er==3){
+            errorCambiaAmministratoreSquadra.setText("problemi con elimina da società");
         } else{
-            errorCambiaAmministratoreSquadra.setText("problemi di consistenza!");
+            errorCambiaAmministratoreSquadra.setText("aggiornamento non riuscito riprova!");
         }
-            
     }
+            
+    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

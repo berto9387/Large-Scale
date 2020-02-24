@@ -95,10 +95,10 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
      * @param controlloRuolo
      * @return
      * 0: aggiornamento riuscito
-     * 1:l'utente trovato e il ruolo scelto non coincidono,
+     * 1: l'utente trovato e il ruolo scelto non coincidono,
      * 2: l'utente selezionato non esiste;
-     * 3: problemi nell'eliminaUtenteDaSocietà è necessario renderla atomica in qualche modo;
-     * 4: problemi nell'aggiornamento del nuovo utente che ricoprirà i ruolo di $;
+     * 3: problemi elimina da società
+     * 4: non è stato possibile aggiornare la società
      */
     public  static int aggiornaTeamSocieta(Utente vecchioMembro, String nuovoMembroEmail,String controlloRuolo){
         Utente nuovoMembro=null; 
@@ -117,35 +117,30 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
         String idSocieta=vecchioMembro.getSocieta().getId();
         String idNuovoMembro=nuovoMembro.getId();
         int er=eliminaUtenteDaSocieta(ruolo, new ObjectId(idNuovoMembro));
-        if(er>1){
-            System.err.println(er);
+        if(er!=0){
             return 3;
         }
         if(vecchioMembro.getId()!=null)
             er=eliminaUtenteDaSocieta(vecchioMembro.getRuolo().toLowerCase(), new ObjectId(vecchioMembro.getId()));
-        if(er>1){
-            System.err.println(er);
+        if(er!=0){
             return 3;
         }
-        UpdateResult updateResult = null;    
-//      1)
-        try{
-           
-            updateResult = collectionSocieta.updateOne(eq("_id",new ObjectId(idSocieta) ), set(ruolo,new ObjectId(idNuovoMembro))  );
-            
-            
-        } catch(Exception e){
-            return 4;
-        }
-        try{
-          
-            updateResult = collectionUtenti.updateOne(eq("_id",new ObjectId(idNuovoMembro) ), set("societa",new ObjectId(idSocieta))  );
-            
-            
-        } catch(Exception e){
-            return 4;
-        }
         
+        ClientSession clientSession=mongoClient.startSession();
+        TransactionBody txnBody = (TransactionBody<String>) () -> {
+            collectionSocieta.updateOne(eq("_id",new ObjectId(idSocieta) ), set(ruolo,new ObjectId(idNuovoMembro))  );
+            collectionUtenti.updateOne(eq("_id",new ObjectId(idNuovoMembro) ), set("societa",new ObjectId(idSocieta))  );
+            return "aggiorna societa";
+        };
+        try {
+            clientSession.withTransaction(txnBody);
+        } catch (RuntimeException e) {
+            return 4;
+        } finally {
+            clientSession.close();
+        }
+
+
         
         vecchioMembro.setId(nuovoMembro.getId());
         vecchioMembro.setCognome(nuovoMembro.getCognome());
@@ -160,69 +155,38 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
     /**
      * Funzione di utilita per eliminare utente 
      * anche dal documento della societa
-     * @return 0 se cancellazione andata a buon fine, 
-     * 1 l'utente non appartiene alla societa,
-     * 2 non è stato possibile aggiornare il campo $societa della collection utenti
-     * 3 non è stato possibile aggiornare il campo $ruolo della collection societa ma solo
-     * il campo $societa della collection utenti
+     * @return 
+     * 0 se cancellazione andata a buon fine, 
+     * 1 non è stato possibile eseguire l'operazione
      */
     private static int eliminaUtenteDaSocieta(String ruolo,ObjectId id){
-        
-        Bson filter = eq("_id", id);
-        Bson updateOperation = set("societa", "");
-        UpdateResult result=null;
-        try {
-            result = collectionUtenti.updateOne(filter, updateOperation);
-        } catch (Exception e) {
-            return 2;
-        }       
-        if(result.getModifiedCount()==0){
-           return 1; 
-        }       
-        filter=eq(ruolo.toLowerCase(),id);
-        updateOperation=set(ruolo.toLowerCase(),"");
-        try {
-            result = collectionSocieta.updateOne(filter, updateOperation);
-        } catch (Exception e) {
-            return 3;
-        }
-        if(result.getModifiedCount()==1){
-           return 0; 
-        } else{
-            return 1;
-        }
             
-//    ClientSession clientSession=mongoClient.startSession();
-//    TransactionBody txnBody = new TransactionBody<String>() {
-//        public String execute() {
-//
-//            /*
-//               Important:: You must pass the session to the operations.
-//             */
-//            Bson filter = eq("_id", id);
-//            Bson updateOperation = set("societa", "");
-//            collectionUtenti.updateOne(clientSession,filter, updateOperation);
-//            filter=eq(ruolo.toLowerCase(),id);
-//            updateOperation=set(ruolo.toLowerCase(),"");
-//            collectionSocieta.updateOne(clientSession,filter, updateOperation);
-//            return "Inserted into collections in different databases";
-//        }
-//
-//    };
-//    try {
-//            /*
-//               Step 4: Use .withTransaction() to start a transaction,
-//               execute the callback, and commit (or abort on error).
-//            */
-//
-//            clientSession.withTransaction(txnBody);
-//        } catch (RuntimeException e) {
-//            return 1;
-//        } finally {
-//            clientSession.close();
-//        }
-//            
-//        return 0;
+    ClientSession clientSession=mongoClient.startSession();
+    TransactionBody txnBody = new TransactionBody<String>() {
+        public String execute() {
+
+            /*
+               Important:: You must pass the session to the operations.
+             */
+            Bson filter = eq("_id", id);
+            Bson updateOperation = set("societa", "");
+            collectionUtenti.updateOne(clientSession,filter, updateOperation);
+            filter=eq(ruolo.toLowerCase(),id);
+            updateOperation=set(ruolo.toLowerCase(),"");
+            collectionSocieta.updateOne(clientSession,filter, updateOperation);
+            return "cancella societa da utenti";
+        }
+
+    };
+    try {
+        clientSession.withTransaction(txnBody);
+    } catch (RuntimeException e) {
+        return 1;
+    } finally {
+        clientSession.close();
+    }
+            
+        return 0;
     }
     
     /**
