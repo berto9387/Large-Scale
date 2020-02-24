@@ -148,14 +148,12 @@ public class LoginSignUpController implements Initializable{
                     homePage="AmministratoreSquadra";
                     break;
                 case "allenatore":
-<<<<<<< HEAD
                     homePage = "Allenatore";
-                    break;
-=======
-                    homePage="Allenatore";
+                   /* break;
+                    homePage="Allenatore";*/
                     break;
                         
->>>>>>> master
+
                     
                   
             }
