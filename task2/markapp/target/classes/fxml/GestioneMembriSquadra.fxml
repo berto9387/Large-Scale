@@ -110,9 +110,6 @@
                                  <image>
                                     <Image url="@../img/transfer.png" />
                                  </image>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
                               </ImageView>
                            </children>
                         </HBox>

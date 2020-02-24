@@ -76,9 +76,6 @@
                                        <padding>
                                           <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                        </padding>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
                                        <effect>
                                           <DropShadow height="30.53" radius="14.765" spread="0.26" width="30.53" />
                                        </effect>
@@ -100,9 +97,6 @@
                                  </image>
                               </ImageView>
                            </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
                            <effect>
                               <DropShadow height="52.33" offsetX="1.0" radius="29.7475" spread="0.23" width="68.66" />
                            </effect>

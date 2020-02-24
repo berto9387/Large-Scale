@@ -140,9 +140,7 @@
                            <children>
                               <Hyperlink onMouseClicked="#handlerLogout" style="-fx-font-family: Roboto; -fx-font-size: 16px; -fx-text-fill: white; -fx-underline: true; -fx-border-color: transparent; -fx-font-weight: bold;" text="Logout" />
                               <FontAwesomeIcon fill="#fffefe" glyphName="SIGN_OUT" onMouseClicked="#handlerLogout" size="1.5em">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor></FontAwesomeIcon>
+                                 </FontAwesomeIcon>
                            </children>
                         </HBox>
                      </children>
@@ -155,9 +153,7 @@
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
+                     
                   </Circle>
                </children>
                <padding>

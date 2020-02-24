@@ -56,9 +56,7 @@
             <HBox alignment="TOP_RIGHT" prefHeight="58.0" prefWidth="46.0" styleClass="topHbox">
                <children>
                   <Circle fx:id="btnClose" fill="DODGERBLUE" onMouseClicked="#handleClose" radius="7.0" stroke="BLACK" strokeType="INSIDE" styleClass="closeBtn">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></Circle>
+                     </Circle>
                </children>
             </HBox>
          </children>
