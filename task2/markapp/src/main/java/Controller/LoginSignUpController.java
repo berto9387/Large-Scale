@@ -6,6 +6,7 @@
 package Controller;
 
 import Dao.LoginSignUpMongoDataAccess;
+import Dao.MongoDataAccess;
 import Entita.Utente;
 import java.io.IOException;
 import java.net.URL;
@@ -139,11 +140,15 @@ public class LoginSignUpController implements Initializable{
             
             String homePage = null;
             Utente utente = ScreenController.getUtente();
-            switch(utente.getRuolo()){
+            switch(utente.getRuolo().toLowerCase()){
                 case "admin": 
                     homePage = "AmministratoreSistema";
                     break;
-                    //BISOGNA AGGIUNGERE TUTTI I CASE PER TUTTI GLI UTENTI
+                case "amministratore di squadra":
+                    homePage="AmministratoreSquadra";
+                    break;
+                    
+                  
             }
             
             ScreenController.showHomePage(homePage);
@@ -159,6 +164,7 @@ public class LoginSignUpController implements Initializable{
 
     @FXML
     private void handleClose(MouseEvent event) {
+        MongoDataAccess.chiudiConnessione();
         System.exit(0);
     }
 }
