@@ -43,7 +43,7 @@ public class GestioneUtentiController implements Initializable {
        
         gestisciErrore.setText("");
         if(campoEmailRicerca.getText().isEmpty()){
-            gestisciErrore.setText("Email non valida");
+            gestisciErrore.setText("Campo Email vuoto");
             }
         else{
             String email;

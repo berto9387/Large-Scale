@@ -41,7 +41,7 @@ public class AdminController extends GenerallController{
     @FXML
     public void handleGestioneUtenti(MouseEvent event){
         
-        
+        ScreenController.showPage("GestioneUtenti");
         
     }
     @FXML
