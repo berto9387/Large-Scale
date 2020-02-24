@@ -39,7 +39,10 @@
                               <InnerShadow />
                            </effect>
                         </TextField>
-                        <Button layoutX="572.0" layoutY="31.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="82.0" style="-fx-background-color: ORANGE;" text="Cerca" />
+                        <Button layoutX="572.0" layoutY="31.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="82.0" style="-fx-background-color: ORANGE;">
+                           <graphic>
+                              <Icon content="SEARCH" prefHeight="24.0" prefWidth="87.0" />
+                           </graphic></Button>
                      </children>
                   </Pane>
                </children>
@@ -86,7 +89,10 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button layoutX="336.0" layoutY="145.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="110.0" style="-fx-background-color: ORANGE;" text="Button" />
+                  <Button layoutX="336.0" layoutY="145.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="110.0" style="-fx-background-color: ORANGE;">
+                     <graphic>
+                        <Icon content="SWAP_HORIZ" />
+                     </graphic></Button>
                   <Label layoutX="537.0" layoutY="119.0" prefHeight="27.0" prefWidth="92.0" text="Nuova email: ">
                      <font>
                         <Font size="14.0" />
@@ -117,5 +123,6 @@
             </Pane>
       </children>
     </VBox>
+      <Icon content="HELP_OUTLINE" layoutX="-239.0" layoutY="234.0" />
   </children>
 </AnchorPane>
