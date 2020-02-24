@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
+import static com.mongodb.client.model.Updates.unset;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
@@ -172,7 +173,7 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
             Bson updateOperation = set("societa", "");
             collectionUtenti.updateOne(clientSession,filter, updateOperation);
             filter=eq(ruolo.toLowerCase(),id);
-            updateOperation=set(ruolo.toLowerCase(),"");
+            updateOperation=unset(ruolo.toLowerCase());
             collectionSocieta.updateOne(clientSession,filter, updateOperation);
             return "cancella societa da utenti";
         }
