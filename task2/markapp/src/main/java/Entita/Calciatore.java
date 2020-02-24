@@ -29,8 +29,8 @@ public class Calciatore extends InformazioniPrincipali{
     private ArrayList<Trasferimento> trasferimenti;
     private ArrayList<Infortunio> infortuni;
 
-    public Calciatore(int altezza, String procuratore, Date inRosaDa, Date scadenza, int cartelliniGialliStagioneAttuale, int cartelliniRossiStagioneAttuale, int partiteGiocateStagioneAttuale, int assistStagioneAttuale, int minutiGiocatiStagioneAttuale, List<String> altriRuoli, ArrayList<Statistica> statistiche, ArrayList<Trasferimento> trasferimenti, ArrayList<Infortunio> infortuni, String idCalciatore, String nome, String ruoloPrincipale, String squadra, Date dataNascita, int valoreMercato, String nazionalita) {
-        super(idCalciatore, nome, ruoloPrincipale, squadra, dataNascita, valoreMercato, nazionalita);
+    public Calciatore(int altezza, String procuratore, Date inRosaDa, Date scadenza, int cartelliniGialliStagioneAttuale, int cartelliniRossiStagioneAttuale, int partiteGiocateStagioneAttuale, int assistStagioneAttuale, int minutiGiocatiStagioneAttuale, List<String> altriRuoli, ArrayList<Statistica> statistiche, ArrayList<Trasferimento> trasferimenti, ArrayList<Infortunio> infortuni, String idCalciatore, String nome, String ruoloPrincipale, String squadra, Date dataNascita, String linkFoto, String nazionalita) {
+        super(idCalciatore, nome, ruoloPrincipale, squadra, dataNascita, linkFoto, nazionalita);
         this.altezza = altezza;
         this.procuratore = procuratore;
         this.inRosaDa = inRosaDa;
@@ -45,6 +45,8 @@ public class Calciatore extends InformazioniPrincipali{
         this.trasferimenti = trasferimenti;
         this.infortuni = infortuni;
     }
+
+    
 
     public int getAltezza() {
         return altezza;

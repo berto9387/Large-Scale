@@ -5,13 +5,23 @@
  */
 package Controller;
 
+import Dao.RicercaGiocatoriMongoDataAccess;
+import Entita.InformazioniPrincipali;
+import Model.InformazioniRicercaCalciatore;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 /**
@@ -20,6 +30,8 @@ import javafx.scene.text.Text;
  * usa RicercaGiocatoriMongoDataAccess
  */
 public class RicercaGiocatoriController extends GenerallController{
+    ObservableList<InformazioniRicercaCalciatore> values=FXCollections.observableArrayList();
+    
     @FXML
     private Text scegliNomeTesto;
 
@@ -36,28 +48,25 @@ public class RicercaGiocatoriController extends GenerallController{
     private Text errorCercaCalciatore;
 
     @FXML
-    private TableView<?> tabellaCalciatori;
+    private TableView<InformazioniRicercaCalciatore> tabellaCalciatori;
 
     @FXML
-    private TableColumn<?, ?> fotoColumn;
+    private TableColumn<InformazioniRicercaCalciatore, ImageView> fotoColumn;
 
     @FXML
-    private TableColumn<?, ?> nomeColumn;
+    private TableColumn<InformazioniRicercaCalciatore, String> nomeColumn;
 
     @FXML
-    private TableColumn<?, ?> cognomeColumn;
+    private TableColumn<InformazioniRicercaCalciatore, String> posizioneColumn;
 
     @FXML
-    private TableColumn<?, ?> posizioneColumn;
+    private TableColumn<InformazioniRicercaCalciatore, String> squadraColumn;
 
     @FXML
-    private TableColumn<?, ?> squadraColumn;
+    private TableColumn<InformazioniRicercaCalciatore, String> etaColumn;
 
     @FXML
-    private TableColumn<?, ?> etaColumn;
-
-    @FXML
-    private TableColumn<?, ?> nazionalitaColumn;
+    private TableColumn<InformazioniRicercaCalciatore, String> nazionalitaColumn;
 
     @FXML
     void cercaCalciatore(ActionEvent event) {
@@ -65,7 +74,12 @@ public class RicercaGiocatoriController extends GenerallController{
             errorCercaCalciatore.setText("Completa almeno uno dei campi!");
             return;
         }
-        
+        List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriMongoDataAccess.ricerca(nomeInput.getText(),cognomeInput.getText());
+        for(InformazioniRicercaCalciatore info :infos){
+            values.add(info);
+        }
+        tabellaCalciatori.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tabellaCalciatori.setItems(values);
     }
     void scegliNome(String newValue) {
         if(newValue.isEmpty())
@@ -89,5 +103,14 @@ public class RicercaGiocatoriController extends GenerallController{
         cognomeInput.textProperty().addListener((Observable, oldValue, newValue) -> {
             scegliCognome(newValue);
         });
+        
+        fotoColumn.setPrefWidth(80);
+        fotoColumn.setCellValueFactory(new PropertyValueFactory<InformazioniRicercaCalciatore, ImageView>("image"));
+        nomeColumn.setCellValueFactory(cellData->cellData.getValue().nomeProperty());
+        posizioneColumn.setCellValueFactory(cellData->cellData.getValue().ruoloProperty());
+        squadraColumn.setCellValueFactory(cellData->cellData.getValue().squadraProperty());
+        etaColumn.setCellValueFactory(cellData->cellData.getValue().etaProperty());
+        nazionalitaColumn.setCellValueFactory(cellData->cellData.getValue().nazionalitaProperty());
+        
     }
 }

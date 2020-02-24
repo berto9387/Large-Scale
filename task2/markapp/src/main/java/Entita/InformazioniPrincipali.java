@@ -20,6 +20,7 @@ public class InformazioniPrincipali {
     private String squadra;
     private Date dataNascita;
     private int valoreMercato;
+    private String linkFoto;
     private String nazionalita;
     private int giudizioDirigenza;
     private int giudizioAllenatore;
@@ -40,15 +41,20 @@ public class InformazioniPrincipali {
         this.report = report;
     }
 
-    public InformazioniPrincipali(String idCalciatore, String nome, String ruoloPrincipale, String squadra, Date dataNascita, int valoreMercato, String nazionalita) {
+    public InformazioniPrincipali(String idCalciatore, String nome, String ruoloPrincipale, String squadra, Date dataNascita, String linkFoto, String nazionalita) {
         this.idCalciatore = idCalciatore;
         this.nome = nome;
         this.ruoloPrincipale = ruoloPrincipale;
         this.squadra = squadra;
         this.dataNascita = dataNascita;
-        this.valoreMercato = valoreMercato;
+        this.linkFoto = linkFoto;
         this.nazionalita = nazionalita;
     }
+
+    public InformazioniPrincipali() {
+    }
+
+    
     
 
     public String getNome() {
@@ -139,6 +145,14 @@ public class InformazioniPrincipali {
 
     public void setReport(Report report) {
         this.report = report;
+    }
+
+    public String getLinkFoto() {
+        return linkFoto;
+    }
+
+    public void setLinkFoto(String linkFoto) {
+        this.linkFoto = linkFoto;
     }
     
     

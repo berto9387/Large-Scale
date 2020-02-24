@@ -13,6 +13,7 @@ Dao\MongoDataAccess.class
 task2\markapp\MainApp.class
 Controller\GestioneMembriSquadraController$1.class
 Controller\RicercaGiocatoriController.class
+Model\InformazioniRicercaCalciatore.class
 Controller\HomePageAllenatoreController.class
 Controller\GestioneAmministratoreSquadraController.class
 Controller\GestioneUtentiController.class
