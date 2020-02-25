@@ -16,10 +16,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import task2.markapp.ScreenController;
 
 /**
  *
@@ -109,5 +111,17 @@ public class RicercaGiocatoriController extends GenerallController{
         etaColumn.setCellValueFactory(cellData->cellData.getValue().etaProperty());
         nazionalitaColumn.setCellValueFactory(cellData->cellData.getValue().nazionalitaProperty());
         
+        tabellaCalciatori.setRowFactory(tv -> { //Funzione per individuare doppio click su un elemento della tabella
+            TableRow<InformazioniRicercaCalciatore> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    InformazioniRicercaCalciatore rowData = row.getItem();
+                    System.out.println("Giocatore selezionato: "+ rowData.getIdCalciatore());
+                    
+                    ScreenController.showPage("InfoPrincipaliCalciatore");
+                }
+            });
+            return row ;
+        });
     }
 }
