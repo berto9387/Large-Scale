@@ -38,3 +38,9 @@
    -fx-min-width:2em;
    -fx-min-height:1em;
 }
+.spinnerBox{
+    -fx-font-family:Roboto;
+    -fx-background-color:transparent;
+    -fx-border-color: white;
+    -fx-mark-size:3em;
+}
