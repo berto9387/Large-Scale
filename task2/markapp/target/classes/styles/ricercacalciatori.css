@@ -44,10 +44,36 @@
 .spinnerBox .thumb{
    -fx-background-color: orange;
 }
-.spinnerBox .axis:bottom{
+.spinnerBox .axis:bottom,.rangeSlider .axis:bottom{
    -fx-tick-label-fill: white;
 }
 
-.rangeSlider .rangeBar{
+.rangeSlider .high-thumb,.rangeSlider .low-thumb{
     -fx-background-color: orange;
+}
+.rangeSlider .range-bar{
+    -fx-background-color: orange;
+}
+.rangeSlider .track{
+    -fx-background-radius: 5px;
+    -fx-background-color: #cccccc;
+    -fx-background-insets: 0px;
+}
+
+.enterButton{
+    -fx-background-color:#2f2f2fa3;
+    -fx-background-radius:100px;
+    -fx-text-fill:white;
+    -fx-font-family:Roboto;
+    -fx-font-weight:bold;
+    -fx-border-color: orange;
+    -fx-border-radius: 100px;
+    -fx-border-width: 2px;
+}
+
+.err_label{
+    -fx-text-fill: #ff9933;
+    -fx-font-family: Roboto;
+    -fx-font-size:1.3em;
+    -fx-font-weight:bold;
 }

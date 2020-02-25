@@ -4,16 +4,15 @@ package task2.markapp;
 import Entita.Utente;
 import java.io.IOException;
 import java.net.URL;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -23,6 +22,11 @@ public class ScreenController {
     private static MainApp mainApp;
     private static Utente utente;
     private static Pane view;
+    private static ObservableList<String> ruoloInCampo=FXCollections.observableArrayList
+        ("Punta centrale","Terzino destro","Mediano","Ala sinistra","NA","Seconda punta",
+                "Centrocampista di destra","Terzino sinistro","Centrale","Ala destra","Trequartista",
+                "Portiere","Difensore centrale","Centrocampista di sinistra");
+
     
     public static void setMain(MainApp main){
         mainApp=main;
@@ -32,6 +36,9 @@ public class ScreenController {
     }
     public static Utente getUtente(){
         return utente;
+    }
+    public static ObservableList<String> getRuoloInCampo(){
+        return ruoloInCampo;
     }
     public static void showLogin() throws IOException{
         Stage stage=mainApp.getStage();

@@ -7,6 +7,7 @@ package Controller;
 
 import Dao.RicercaGiocatoriMongoDataAccess;
 import Model.InformazioniRicercaCalciatore;
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.List;
@@ -15,12 +16,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import org.controlsfx.control.RangeSlider;
 import task2.markapp.ScreenController;
 
 /**
@@ -66,6 +69,42 @@ public class RicercaGiocatoriController extends GenerallController{
 
     @FXML
     private TableColumn<InformazioniRicercaCalciatore, String> nazionalitaColumn;
+    
+    @FXML
+    private JFXTextField inputCampionato;
+
+    @FXML
+    private JFXTextField inputSquadra;
+
+    @FXML
+    private ChoiceBox<String> inputPosizione;
+
+    @FXML
+    private JFXSlider inputMediaInfortuniStagionali;
+
+    @FXML
+    private JFXSlider inputMediaGoalStagionali;
+
+    @FXML
+    private JFXSlider inputMediaAssistStagionali;
+
+    @FXML
+    private JFXSlider inputMediaGoalSubiti;
+
+    @FXML
+    private JFXSlider inputMediaCartellini;
+
+    @FXML
+    private RangeSlider inputValoreDiMercato;
+
+    @FXML
+    private RangeSlider inputAltezza;
+
+    @FXML
+    private RangeSlider inputEta;
+
+    @FXML
+    private ChoiceBox<?> inputContratto;
 
     @FXML
     void cercaCalciatore(ActionEvent event) {
@@ -93,6 +132,10 @@ public class RicercaGiocatoriController extends GenerallController{
         else{
             scegliCognomeTesto.setVisible(true);
         }
+    }
+    @FXML
+    void ricercaAvanzata(ActionEvent event) {
+        System.err.println(inputMediaAssistStagionali.getValue()+" "+inputValoreDiMercato.getHighValue());
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -123,5 +166,7 @@ public class RicercaGiocatoriController extends GenerallController{
             });
             return row ;
         });
+        //ricerca avanzata
+        inputPosizione.setItems(ScreenController.getRuoloInCampo());
     }
 }
