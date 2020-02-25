@@ -17,9 +17,9 @@
 
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="927.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomePageAmministratoreDiSquadraController">
    <left>
-      <VBox maxWidth="-Infinity" prefHeight="535.0" prefWidth="200.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
+      <VBox style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="TOP_CENTER">
                <children>
                   <ImageView fx:id="imgAdmin" fitHeight="151.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
                       <image>
@@ -36,7 +36,7 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Ruolo: Amministratore di squadra">
+                  <Label prefHeight="18.0" prefWidth="190.0" text="Ruolo: Amministratore di squadra">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -121,6 +121,9 @@
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Circle>
                </children>
                <padding>

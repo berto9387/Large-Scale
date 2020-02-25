@@ -8,6 +8,7 @@ package Entita;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class Calciatore extends InformazioniPrincipali{
    
+    private ImageView image;
     private int altezza;    
     private String procuratore;   
     private Date inRosaDa;
@@ -46,7 +48,13 @@ public class Calciatore extends InformazioniPrincipali{
         this.infortuni = infortuni;
     }
 
-    
+    public ImageView getImage() {
+        return image;
+    }
+
+    public void setImage(ImageView image) {
+        this.image = image;
+    }
 
     public int getAltezza() {
         return altezza;

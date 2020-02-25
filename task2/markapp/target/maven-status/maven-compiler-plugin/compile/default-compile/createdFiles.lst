@@ -4,6 +4,7 @@ Controller\ListaGiocatoriInteresseController.class
 Entita\Statistica.class
 Controller\GestioneMembriSquadraController.class
 Dao\RicercaGiocatoriMongoDataAccess.class
+Controller\InfoPrincipaliCalciatoreController.class
 Entita\Infortunio.class
 Controller\RicercaGiocatoriController.class
 Controller\GestioneAmministratoreSquadraController.class

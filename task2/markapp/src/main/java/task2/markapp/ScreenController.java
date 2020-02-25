@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -21,7 +23,6 @@ public class ScreenController {
     private static MainApp mainApp;
     private static Utente utente;
     private static Pane view;
-    
     
     public static void setMain(MainApp main){
         mainApp=main;
@@ -39,6 +40,7 @@ public class ScreenController {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         stage.setScene(scene);
+        //stage.setMaximized(false);
         stage.centerOnScreen();
         
         stage.show();
@@ -50,8 +52,9 @@ public class ScreenController {
         root = FXMLLoader.load(MainApp.class.getResource("/fxml/"+ homePageUtente +".fxml"));
         
         mainApp.setRootLayout((BorderPane) root);
-        stage.setScene(new Scene(root));
-        stage.setMaximized(true);
+        stage.setScene(new Scene(root, mainApp.getScreenSize().getWidth(), mainApp.getScreenSize().getHeight()));
+        
+        stage.centerOnScreen();
         stage.show();
     }
      

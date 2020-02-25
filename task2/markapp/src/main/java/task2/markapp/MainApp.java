@@ -4,9 +4,11 @@ import Dao.MongoDataAccess;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -14,8 +16,17 @@ import javafx.stage.StageStyle;
 public class MainApp extends Application {
 
     Stage primaryStage;
+    private Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
     private BorderPane rootLayout;
 
+    public Rectangle2D getScreenSize() {
+        return screenSize;
+    }
+
+    public void setScreenSize(Rectangle2D screenSize) {
+        this.screenSize = screenSize;
+    }
+    
     public BorderPane getRootLayout() {
         return rootLayout;
     }
