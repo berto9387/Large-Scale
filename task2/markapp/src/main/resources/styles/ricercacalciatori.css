@@ -38,9 +38,24 @@
    -fx-min-width:2em;
    -fx-min-height:1em;
 }
-.spinnerBox{
-    -fx-font-family:Roboto;
-    -fx-background-color:transparent;
-    -fx-border-color: white;
-    -fx-mark-size:3em;
+.spinnerBox .colored-track{
+   -fx-background-color: orange;
+}
+.spinnerBox .thumb{
+   -fx-background-color: orange;
+}
+.spinnerBox .axis:bottom,.rangeSlider .axis:bottom{
+   -fx-tick-label-fill: white;
+}
+
+.rangeSlider .high-thumb,.rangeSlider .low-thumb{
+    -fx-background-color: orange;
+}
+.rangeSlider .range-bar{
+    -fx-background-color: orange;
+}
+.rangeSlider .track{
+    -fx-background-radius: 5px;
+    -fx-background-color: #cccccc;
+    -fx-background-insets: 0px;
 }
