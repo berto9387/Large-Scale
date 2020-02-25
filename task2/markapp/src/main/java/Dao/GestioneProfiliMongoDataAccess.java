@@ -49,7 +49,7 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
     public static int trovaUtenteInBaseAlRuolo(Utente utente,String squadra,String nazione,String ruolo){
         Document doc=null;
         try{
-            doc = collectionSocieta.aggregate(Arrays.asList(match(and(eq("nomeSocieta", squadra), eq("nazione", nazione))), lookup("utenti", "_id", "societa", "utente"), match(eq("utente.ruolo", ruolo)), project(include("nomeSocieta", "nazione", "utente._id", "utente.nome", "utente.cognome", "utente.email","utente.ruolo")))).first();
+            doc = collectionSocieta.aggregate(Arrays.asList(match(and(eq("nomeSocieta", squadra), eq("nazione", nazione))), lookup("utenti", ruolo.toLowerCase(), "_id", "utente"), match(eq("utente.ruolo", ruolo)), project(include("nomeSocieta", "nazione", "utente._id", "utente.nome", "utente.cognome", "utente.email","utente.ruolo")))).first();
             //1)
         } catch(Exception e){
             return 2;

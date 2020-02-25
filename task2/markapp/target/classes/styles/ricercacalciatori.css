@@ -5,3 +5,36 @@
 .mainFxmlClass {
 
 }
+.testo{
+    -fx-font-family:Roboto;
+    -fx-fill: white;
+    -fx-font-size:16px; 
+}
+.titolo{
+    -fx-font-size:16px; 
+}
+.inputField{
+    -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
+     
+}
+.choiceBoxField{
+    -fx-font-family:Roboto;
+    -fx-background-color:transparent;
+    -fx-border-color: white;
+    -fx-mark-size:3em;
+}
+
+.choiceBoxField .menu-item:focused{
+    -fx-background-color: orange; 
+}
+
+.choiceBoxField  > .label { 
+    -fx-text-fill: white; 
+}
+
+.choiceBoxField .arrow { 
+   -fx-background-color:orange;
+   -fx-min-width:2em;
+   -fx-min-height:1em;
+}

@@ -6,14 +6,11 @@
 package Controller;
 
 import Dao.RicercaGiocatoriMongoDataAccess;
-import Entita.InformazioniPrincipali;
 import Model.InformazioniRicercaCalciatore;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.List;
-import java.util.Observable;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
