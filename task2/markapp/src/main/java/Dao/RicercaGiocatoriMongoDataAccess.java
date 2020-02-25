@@ -28,7 +28,11 @@ import org.bson.conversions.Bson;
 public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
 
     public static List<InformazioniRicercaCalciatore> ricerca(String nome, String cognome) {
-        String regex =  "(^.*?\\b"+nome+"([a-z])*\\b.*?\\b"+cognome+"([a-z])*\\b.*?$)|(^.*?\\b"+cognome+"([a-z])*\\b.*?\\b"+nome+"([a-z])*\\b.*?$)";
+        if(!nome.isEmpty())
+            nome+="([a-z])*";
+        if(!cognome.isEmpty())
+            cognome+="([a-z])*";
+        String regex =  "(^.*?\\b"+nome+"\\b.*?\\b"+cognome+"\\b.*?$)|(^.*?\\b"+cognome+"\\b.*?\\b"+nome+"\\b.*?$)";
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Bson filter = Filters.eq("nome", pattern);
         List<InformazioniRicercaCalciatore> infos=new ArrayList<>();
