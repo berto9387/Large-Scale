@@ -59,3 +59,21 @@
     -fx-background-color: #cccccc;
     -fx-background-insets: 0px;
 }
+
+.enterButton{
+    -fx-background-color:#2f2f2fa3;
+    -fx-background-radius:100px;
+    -fx-text-fill:white;
+    -fx-font-family:Roboto;
+    -fx-font-weight:bold;
+    -fx-border-color: orange;
+    -fx-border-radius: 100px;
+    -fx-border-width: 2px;
+}
+
+.err_label{
+    -fx-text-fill: #ff9933;
+    -fx-font-family: Roboto;
+    -fx-font-size:1.3em;
+    -fx-font-weight:bold;
+}

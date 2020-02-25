@@ -85,7 +85,6 @@
                         </VBox>
                         <VBox style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="2">
                            <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10px;">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#cercaCalciatore" prefHeight="33.0" prefWidth="151.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-text-fill: white; -fx-font-family: Roboto; -fx-font-weight: bold; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 2px;" text="Cerca" />
@@ -96,7 +95,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Text fx:id="errorCercaCalciatore" fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 20px;" />
+                                    <Text fx:id="errorCercaCalciatore" fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="err_label" />
                                  </children>
                               </HBox>
                            </children>
@@ -356,6 +355,31 @@
                               <RangeSlider highValue="200.0" lowValue="1.0" majorTickUnit="5.0" max="50.0" min="10.0" showTickLabels="true" styleClass="rangeSlider" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="187.0" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="testo" text="Stato contratto:" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                           <children>
+                              <ChoiceBox fx:id="inputPosizione1" prefHeight="26.0" prefWidth="195.0" styleClass="choiceBoxField" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="284.0" styleClass="enterButton" text="Cerca" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                </children></VBox>
