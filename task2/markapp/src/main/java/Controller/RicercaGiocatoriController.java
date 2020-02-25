@@ -108,6 +108,7 @@ public class RicercaGiocatoriController extends GenerallController{
 
     @FXML
     void cercaCalciatore(ActionEvent event) {
+        tabellaCalciatori.getItems().clear();
         if(nomeInput.getText().isEmpty() && cognomeInput.getText().isEmpty()){
             errorCercaCalciatore.setText("Completa almeno uno dei campi!");
             return;
