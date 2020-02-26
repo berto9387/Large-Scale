@@ -5,9 +5,11 @@
  */
 package Entita;
 
+import java.util.*;
+
 /**
  *
- * @author tony_
+ * @author gianluca
  */
 public class ProfiloInteresse {
     private String _id;
@@ -15,13 +17,18 @@ public class ProfiloInteresse {
     private int etaMinima;
     private int etaMassima;
     private String descrizioneCaratteristiche;
+    private String idAllenatore;
+    private Date timeStampAggiunto;
 
-    public ProfiloInteresse(String _id, String ruolo, int etaMinima, int etaMassima, String descrizioneCaratteristiche) {
+    public ProfiloInteresse(String _id, String ruolo, int etaMinima, int etaMassima,
+            String descrizioneCaratteristiche,String idAllenatore,Date timeStampAggiunto) {
         this._id = _id;
         this.ruolo = ruolo;
         this.etaMinima = etaMinima;
         this.etaMassima = etaMassima;
         this.descrizioneCaratteristiche = descrizioneCaratteristiche;
+        this.timeStampAggiunto=timeStampAggiunto;
+        this.idAllenatore=idAllenatore;
     }
 
     public String getId() {
@@ -63,8 +70,14 @@ public class ProfiloInteresse {
     public void setDescrizioneCaratteristiche(String descrizioneCaratteristiche) {
         this.descrizioneCaratteristiche = descrizioneCaratteristiche;
     }
-
-   
-    
+    public void setTimeStampAggiunto(Date timeStampAggiunto){
+        this.timeStampAggiunto=timeStampAggiunto;
+    }
+    public Date getTimeStampAggiunto(){
+        return timeStampAggiunto;
+    }
+    public void setIdAllenatore(String idAllenatore){
+        this.idAllenatore=idAllenatore;
+    }
     
 }
