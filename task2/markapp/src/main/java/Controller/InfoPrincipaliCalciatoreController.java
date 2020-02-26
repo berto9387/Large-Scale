@@ -5,14 +5,28 @@
  */
 package Controller;
 
+import Entita.Calciatore;
+import com.sun.xml.internal.ws.util.StringUtils;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
 /**
  *
  * @author tony_
  */
-public class InfoPrincipaliCalciatoreController {
+public class InfoPrincipaliCalciatoreController extends GeneralSchedaGiocatoreController{
+    
+    
+    @FXML
+    private ImageView imgCalciatore;
     @FXML
     private Label dataNascita;
 
@@ -38,9 +52,6 @@ public class InfoPrincipaliCalciatoreController {
     private Label squadraAttuale;
 
     @FXML
-    private Label presenzeStagioneAttuale;
-
-    @FXML
     private Label minutiGiocatiStagioneAttuale;
 
     @FXML
@@ -51,8 +62,87 @@ public class InfoPrincipaliCalciatoreController {
 
     @FXML
     private Label cartelliniRossiStagioneAttuale;
+    
+    @FXML
+    private Label assist_goalSubitiLabel;
+    
+    @FXML
+    private Label assist_goalSubitiStagioneAttuale;
+    
+    @FXML
+    private Label partiteNoGoalLabel;
+    
+    @FXML
+    private Label partiteNoGoalStagioneAttuale;
 
     @FXML
     private Label valoreMercato;
+    
+    @FXML
+    private HBox infoPrestito;
+
+    @FXML
+    private Label inPrestitoDa;
+
+    @FXML
+    private Label contrattoFinoAl;
+
+    public InfoPrincipaliCalciatoreController(Calciatore calciatore) {
+        super(calciatore);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        
+        Image image = new Image(calciatore.getImage());
+        imgCalciatore.setImage(image);
+       
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
+        dataNascita.setText(df.format(calciatore.getDataNascita()));
+        
+        luogoNascita.setText(calciatore.getLuogoNascita());
+        
+        nazionalita.setText(calciatore.getNazionalita());
+        
+        procuratore.setText(calciatore.getProcuratore());
+        
+        altezza.setText(Integer.toString(calciatore.getAltezza()));
+        
+        ruolo.setText(calciatore.getRuoloPrincipale());
+        
+        nomeCalciatore.setText(calciatore.getNome());
+        
+        squadraAttuale.setText(calciatore.getSquadra());
+        
+        minutiGiocatiStagioneAttuale.setText(Integer.toString(calciatore.getMinutiGiocatiStagioneAttuale()));
+        
+        goalStagioneAttuale.setText(Integer.toString(calciatore.getGoalStagioneAttuale()));
+        
+        cartelliniGialliStagioneAttuale.setText(Integer.toString(calciatore.getCartelliniGialliStagioneAttuale()));
+        
+        cartelliniRossiStagioneAttuale.setText(Integer.toString(calciatore.getCartelliniRossiStagioneAttuale()));
+        
+        String valoreFormattato = String.format("%,d", calciatore.getValoreMercato());//Integer.toString(calciatore.getValoreMercato());
+        valoreMercato.setText(valoreFormattato + "€");
+        
+        if(calciatore.getRuoloPrincipale().equals("Portiere")){
+            assist_goalSubitiLabel.setText("Goal subiti: ");
+            assist_goalSubitiStagioneAttuale.setText(Integer.toString(calciatore.getGoalSubitiStagioneAttuale()));
+            
+            partiteNoGoalLabel.setVisible(true);
+            partiteNoGoalStagioneAttuale.setText(Integer.toString(calciatore.getPartiteNoGoalStagioneAttuale()));
+            
+        }else{
+            assist_goalSubitiLabel.setText("Assist: ");
+            assist_goalSubitiStagioneAttuale.setText(Integer.toString(calciatore.getAssistStagioneAttuale()));
+        }
+        
+        if(calciatore.getInPrestitoDa() != null){//GIOCATORE IN PRESTITO
+            infoPrestito.setVisible(true);
+            inPrestitoDa.setText(calciatore.getInPrestitoDa());
+            contrattoFinoAl.setText(df.format(calciatore.getContrattoFinoAl()));
+            
+        }
+    }
 
 }

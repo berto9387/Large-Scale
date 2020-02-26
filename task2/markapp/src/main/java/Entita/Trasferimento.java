@@ -29,6 +29,10 @@ public class Trasferimento {
         this.riscatto = riscatto;
     }
 
+    public Trasferimento() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     public String getStagione() {
         return stagione;

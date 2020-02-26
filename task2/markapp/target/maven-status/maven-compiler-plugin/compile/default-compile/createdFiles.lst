@@ -21,6 +21,11 @@ Entita\Infortunio.class
 Controller\RicercaGiocatoriController.class
 Controller\GestioneAmministratoreSquadraController.class
 Controller\GenerallController.class
+<<<<<<< Updated upstream
+=======
+Controller\LoginSignUpController.class
+Controller\GeneralSchedaGiocatoreController.class
+>>>>>>> Stashed changes
 Controller\RisultatoRicercaGiocatoreController.class
 Controller\HomePageAmministratoreDelegatoController.class
 Controller\GestioneUtentiController.class
