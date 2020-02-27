@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="834.0" prefWidth="1265.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.InfoPrincipaliCalciatore">
+<AnchorPane id="AnchorPane" prefHeight="834.0" prefWidth="1265.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.InfoPrincipaliCalciatoreController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="785.0" spacing="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label style="-fx-font-family: Roboto; -fx-font-size: 30; -fx-font-weight: bold;" text="Scheda giocatore" textFill="ORANGE">
+            <Label style="-fx-font-family: Roboto; -fx-font-size: 36; -fx-font-weight: bold;" text="Scheda giocatore" textFill="ORANGE">
                <effect>
                   <DropShadow spread="0.33" />
                </effect>
@@ -32,119 +32,182 @@
                </rowConstraints>
                <children>
                   <Label style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" GridPane.rowIndex="1" />
-                  <HBox alignment="BOTTOM_RIGHT" prefHeight="217.0" prefWidth="412.0" spacing="30.0" style="-fx-background-radius: 10; -fx-background-color: #00000059;" GridPane.rowIndex="1">
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" style="-fx-background-radius: 10; -fx-background-color: #00000059;" GridPane.rowIndex="1">
                      <children>
-                        <VBox prefHeight="413.0" prefWidth="412.0" spacing="30.0">
+                        <VBox alignment="TOP_CENTER" spacing="20.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
+                              <Label style="-fx-font-family: Roboto; -fx-font-size: 22; -fx-font-weight: bold;" text="INFORMAZIONI GENERALI" textFill="ORANGE" />
+                              <VBox spacing="30.0">
                                  <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Data di nascita:  " textFill="WHITE" />
-                                    <Label fx:id="dataNascita" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px; -fx-text-fill: orange;" text="Data di nascita:  " textFill="WHITE" />
+                                          <Label fx:id="dataNascita" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px; -fx-text-fill: orange;" text="Luogo di nascita:  " textFill="WHITE" />
+                                          <Label fx:id="luogoNascita" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px; -fx-text-fill: orange;" text="Nazionalità:  " textFill="WHITE" />
+                                          <Label fx:id="nazionalita" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px; -fx-text-fill: orange;" text="Procuratore:  " textFill="WHITE" />
+                                          <Label fx:id="procuratore" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Altezza:  " textFill="ORANGE" />
+                                          <Label fx:id="altezza" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Ruolo:  " textFill="ORANGE" />
+                                          <Label fx:id="ruolo" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
                                  </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
-                                 <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Luogo di nascita:  " textFill="WHITE" />
-                                    <Label fx:id="luogoNascita" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
-                                 <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Nazionalità:  " textFill="WHITE" />
-                                    <Label fx:id="nazionalita" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
-                                 <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Procuratore:  " textFill="WHITE" />
-                                    <Label fx:id="procuratore" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
-                                 <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Altezza:  " textFill="WHITE" />
-                                    <Label fx:id="altezza" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
-                                 <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Ruolo:  " textFill="WHITE" />
-                                    <Label fx:id="ruolo" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
-                                 </children>
-                              </HBox>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </VBox>
                            </children>
                         </VBox>
                      </children>
                      <padding>
-                        <Insets left="5.0" top="20.0" />
+                        <Insets top="20.0" />
                      </padding>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" style="-fx-background-radius: 10; -fx-background-color: #00000059;">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="150.0" prefWidth="465.0">
+                        <HBox alignment="CENTER" prefHeight="150.0" prefWidth="465.0" spacing="10.0">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <HBox alignment="CENTER" style="-fx-background-radius: 10; -fx-border-color: orange; -fx-border-width: 4; -fx-border-radius: 10;">
+                                 <children>
+                                    <ImageView fx:id="imgCalciatore" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                                 <effect>
+                                    <DropShadow radius="15.3625" width="42.45" />
+                                 </effect>
+                              </HBox>
                               <Label fx:id="nomeCalciatore" style="-fx-font-family: Roboto; -fx-font-size: 24px; -fx-text-fill: white; -fx-font-weight: bold;" />
                            </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
                         </HBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="463.0" prefWidth="412.0" spacing="30.0" style="-fx-background-radius: 10; -fx-background-color: #00000059;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" style="-fx-background-radius: 10; -fx-background-color: #00000059;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <VBox prefHeight="411.0" prefWidth="412.0" spacing="30.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
+                              <Label style="-fx-font-family: Roboto; -fx-font-size: 22; -fx-font-weight: bold;" text="STAGIONE ATTUALE" textFill="ORANGE" />
+                              <VBox spacing="30.0">
                                  <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Squadra attuale:  " textFill="WHITE" />
-                                    <Label fx:id="squadraAttuale" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Squadra :  " textFill="ORANGE" />
+                                          <Label fx:id="squadraAttuale" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Minuti giocati:  " textFill="ORANGE" />
+                                          <Label fx:id="minutiGiocatiStagioneAttuale" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Cartellini gialli:  " textFill="ORANGE" />
+                                          <Label fx:id="cartelliniGialliStagioneAttuale" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Cartellini rossi:  " textFill="ORANGE" />
+                                          <Label fx:id="cartelliniRossiStagioneAttuale" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Goal:  " textFill="ORANGE" />
+                                          <Label fx:id="goalStagioneAttuale" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label fx:id="assist_goalSubitiLabel" style="-fx-font-family: Roboto; -fx-font-size: 18px;" textFill="ORANGE" />
+                                          <Label fx:id="assist_goalSubitiStagioneAttuale" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label fx:id="partiteNoGoalLabel" style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Partite No Goal: " textFill="ORANGE" visible="false" />
+                                          <Label fx:id="partiteNoGoalStagioneAttuale" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
                                  </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
-                                 <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Presenze stagione attuale:  " textFill="WHITE" />
-                                    <Label fx:id="presenzeStagioneAttuale" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
-                                 <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Minuti giocati stagione attuale:  " textFill="WHITE" />
-                                    <Label fx:id="minutiGiocatiStagioneAttuale" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
-                                 <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Goal stagione attuale:  " textFill="WHITE" />
-                                    <Label fx:id="goalStagioneAttuale" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
-                                 <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Cartellini gialli stagione attuale:  " textFill="WHITE" />
-                                    <Label fx:id="cartelliniGialliStagioneAttuale" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="244.0" spacing="30.0">
-                                 <children>
-                                    <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Cartellini gialli stagione attuale:  " textFill="WHITE" />
-                                    <Label fx:id="cartelliniRossiStagioneAttuale" style="-fx-font-family: Roboto; -fx-font-size: 14;" textFill="WHITE" />
-                                 </children>
-                              </HBox>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </VBox>
                            </children>
                         </VBox>
                      </children>
                      <padding>
-                        <Insets left="5.0" top="20.0" />
+                        <Insets top="20.0" />
                      </padding>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" style="-fx-background-radius: 10; -fx-background-color: #00000059;" GridPane.columnIndex="1">
                      <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="465.0">
                            <children>
-                              <Label style="-fx-font-family: Roboto; -fx-font-size: 24px; -fx-text-fill: white; -fx-font-weight: bold;" text="Valore di mercato:  " />
+                              <Label style="-fx-font-family: Roboto; -fx-font-size: 24px; -fx-text-fill: orange; -fx-font-weight: bold;" text="Valore di mercato:  " />
                               <Label fx:id="valoreMercato" style="-fx-font-family: Roboto; -fx-font-size: 24px; -fx-text-fill: white; -fx-font-weight: bold;" />
                            </children>
                         </HBox>
                      </children>
+                  </HBox>
+                  <HBox fx:id="infoPrestito" alignment="CENTER_LEFT" spacing="30.0" style="-fx-background-radius: 10; -fx-background-color: #00000059;" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label style="-fx-font-family: Roboto; -fx-font-size: 22; -fx-font-weight: bold;" text="INFORMAZIONI PRESTITO" textFill="ORANGE" />
+                              <VBox spacing="30.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="In prestito da:  " textFill="ORANGE" />
+                                          <Label fx:id="inPrestitoDa" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label style="-fx-font-family: Roboto; -fx-font-size: 18px;" text="Contratto fino al:  " textFill="ORANGE" />
+                                          <Label fx:id="contrattoFinoAl" style="-fx-font-family: Roboto; -fx-font-size: 20;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding>
                   </HBox>
                </children>
             </GridPane>

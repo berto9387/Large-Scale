@@ -6,6 +6,7 @@
 package Controller;
 
 import Dao.RicercaGiocatoriMongoDataAccess;
+import Entita.Calciatore;
 import Model.InformazioniRicercaCalciatore;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
@@ -175,10 +176,15 @@ public class RicercaGiocatoriController extends GenerallController{
             TableRow<InformazioniRicercaCalciatore> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    InformazioniRicercaCalciatore rowData = row.getItem();
-                    System.out.println("Giocatore selezionato: "+ rowData.getIdCalciatore());
                     
-                    ScreenController.showPage("InfoPrincipaliCalciatore");
+                    InformazioniRicercaCalciatore calciatoreTarget = row.getItem();
+                    System.out.println("Giocatore selezionato: "+ calciatoreTarget.getIdCalciatore());
+                    
+                    Calciatore calciatore = new Calciatore();
+                    
+                    calciatore = RicercaGiocatoriMongoDataAccess.ricercaPerId(calciatoreTarget.getIdCalciatore());
+                    if(calciatore != null)
+                        ScreenController.showPageCalciatore("InfoPrincipaliCalciatore", calciatore);
                 }
             });
             return row ;

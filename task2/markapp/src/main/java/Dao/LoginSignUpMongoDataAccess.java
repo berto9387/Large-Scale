@@ -124,7 +124,8 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
         if(societaDoc.get("listaProfiliDiInteresse")!=null){
             List<Document> list=(List<Document>)societaDoc.get("listaProfiliDiInteresse");
             for(Document doc: list){
-                ProfiloInteresse aux=new ProfiloInteresse(doc.getObjectId("_id").toString(),doc.getString("nomeLista"),doc.getInteger("etaMinima"),doc.getInteger("etaMassima"), doc.getString("descrizioneCaratteristiche"));
+                ProfiloInteresse aux=new ProfiloInteresse(doc.getObjectId("_id").toString(),doc.getString("ruolo"),doc.getInteger("etaMinima"),doc.getInteger("etaMassima"),
+                        doc.getString("descrizioneCaratteristiche"),doc.getString("idAllenatore"),new Date(Long.getLong(doc.getString("timeStampAggiunto"))));
 
                soc.addProfiloInteresse(aux);
             }

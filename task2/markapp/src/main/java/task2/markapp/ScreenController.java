@@ -1,7 +1,11 @@
 
 package task2.markapp;
 
+import Controller.GeneralSchedaGiocatoreController;
+import Controller.InfoPrincipaliCalciatoreController;
+import Entita.Calciatore;
 import Entita.Utente;
+import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.io.IOException;
 import java.net.URL;
 import javafx.collections.FXCollections;
@@ -69,8 +73,9 @@ public class ScreenController {
          
          try{
              //System.out.println("sono nella showPage, la stringa passatami è: " + fileName);
-             URL fileUrl = MainApp.class.getResource("/fxml/"+ fileName+".fxml");
-             if(fileUrl == null){
+             URL fileUrl = MainApp.class.getResource("/fxml/"+ fileName +".fxml");
+             
+             if(fileUrl == null){ //Qui dentro ci entra anche se ci sono errori nel FXML da caricare
                  System.err.println("Pagina non trovata");
              }
              
@@ -84,6 +89,33 @@ public class ScreenController {
              System.err.println("Pagina non trovata");
          }
          
+     }
+     
+     public static void showPageCalciatore(String fileName, Calciatore calciatore){
+         
+         try{
+             
+             //System.out.println("sono nella showPage, la stringa passatami è: " + fileName);
+             URL fileUrl = MainApp.class.getResource("/fxml/"+ fileName +".fxml");
+             FXMLLoader loader = new FXMLLoader(fileUrl);
+             
+             if(fileUrl == null){ //Qui dentro ci entra anche se ci sono errori nel FXML da caricare
+                 System.err.println("Pagina non trovata URL");
+             }
+             
+             
+             loader.setControllerFactory(c -> {
+                return new InfoPrincipaliCalciatoreController(calciatore);
+             });
+             view = loader.load();
+             
+             BorderPane root = mainApp.getRootLayout();
+             BorderPane.setMargin(view, new Insets(10, 10, 10, 10));
+             root.setCenter(view);
+             
+         } catch(IOException e){
+             e.printStackTrace();
+         }
      }
      
 }

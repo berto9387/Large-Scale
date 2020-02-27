@@ -16,22 +16,37 @@ import javafx.scene.image.ImageView;
  */
 public class Calciatore extends InformazioniPrincipali{
    
-    private ImageView image;
-    private int altezza;    
+    private String image;
+    private int altezza; 
+    private String luogoNascita;
+    private String piede;
     private String procuratore;   
     private Date inRosaDa;
     private Date scadenza;
+    //Solo per giocatori in prestito
+    private String inPrestitoDa;
+    private Date contrattoFinoAl;
+    //
+    private ArrayList<String> altriRuoli = new ArrayList<>();
+    private ArrayList<Statistica> statistiche = new ArrayList<>();;
+    private ArrayList<Trasferimento> trasferimenti = new ArrayList<>();;
+    private ArrayList<Infortunio> infortuni = new ArrayList<>();;
+    private int goalStagioneAttuale;
     private int cartelliniGialliStagioneAttuale;
     private int cartelliniRossiStagioneAttuale;
-    private int partiteGiocateStagioneAttuale;
-    private int assistStagioneAttuale;
     private int minutiGiocatiStagioneAttuale;
-    private List<String> altriRuoli;
-    private ArrayList<Statistica> statistiche;
-    private ArrayList<Trasferimento> trasferimenti;
-    private ArrayList<Infortunio> infortuni;
-
-    public Calciatore(int altezza, String procuratore, Date inRosaDa, Date scadenza, int cartelliniGialliStagioneAttuale, int cartelliniRossiStagioneAttuale, int partiteGiocateStagioneAttuale, int assistStagioneAttuale, int minutiGiocatiStagioneAttuale, List<String> altriRuoli, ArrayList<Statistica> statistiche, ArrayList<Trasferimento> trasferimenti, ArrayList<Infortunio> infortuni, String idCalciatore, String nome, String ruoloPrincipale, String squadra, Date dataNascita, String linkFoto, String nazionalita) {
+    //Solo per i calciatori
+    private int assistStagioneAttuale;
+    //
+    //Solo per portieri
+    private int partiteNoGoalStagioneAttuale;
+    private int goalSubitiStagioneAttuale;
+    //
+    
+    
+    
+    //Costruttore per calciatore
+    public Calciatore(int altezza, String procuratore, Date inRosaDa, Date scadenza, int cartelliniGialliStagioneAttuale, int cartelliniRossiStagioneAttuale, int partiteGiocateStagioneAttuale, int assistStagioneAttuale, int minutiGiocatiStagioneAttuale, ArrayList<String> altriRuoli, ArrayList<Statistica> statistiche, ArrayList<Trasferimento> trasferimenti, ArrayList<Infortunio> infortuni, String idCalciatore, String nome, String ruoloPrincipale, String squadra, Date dataNascita, String linkFoto, String nazionalita) {
         super(idCalciatore, nome, ruoloPrincipale, squadra, dataNascita, linkFoto, nazionalita);
         this.altezza = altezza;
         this.procuratore = procuratore;
@@ -39,7 +54,6 @@ public class Calciatore extends InformazioniPrincipali{
         this.scadenza = scadenza;
         this.cartelliniGialliStagioneAttuale = cartelliniGialliStagioneAttuale;
         this.cartelliniRossiStagioneAttuale = cartelliniRossiStagioneAttuale;
-        this.partiteGiocateStagioneAttuale = partiteGiocateStagioneAttuale;
         this.assistStagioneAttuale = assistStagioneAttuale;
         this.minutiGiocatiStagioneAttuale = minutiGiocatiStagioneAttuale;
         this.altriRuoli = altriRuoli;
@@ -48,11 +62,53 @@ public class Calciatore extends InformazioniPrincipali{
         this.infortuni = infortuni;
     }
 
-    public ImageView getImage() {
+    //Costruttore portiere
+    public Calciatore(String image, int altezza, String luogoNascita, String piede, String procuratore, Date inRosaDa, Date scadenza, int goalStagioneAttuale, int cartelliniGialliStagioneAttuale, int cartelliniRossiStagioneAttuale, int minutiGiocatiStagioneAttuale, int partiteNoGoalStagioneAttuale, int goalSubitiStagioneAttuale, ArrayList<String> altriRuoli, ArrayList<Statistica> statistiche, ArrayList<Trasferimento> trasferimenti, ArrayList<Infortunio> infortuni, String idCalciatore, String nome, String ruoloPrincipale, String squadra, Date dataNascita, String linkFoto, String nazionalita) {
+        super(idCalciatore, nome, ruoloPrincipale, squadra, dataNascita, linkFoto, nazionalita);
+        this.image = image;
+        this.altezza = altezza;
+        this.luogoNascita = luogoNascita;
+        this.piede = piede;
+        this.procuratore = procuratore;
+        this.inRosaDa = inRosaDa;
+        this.scadenza = scadenza;
+        this.goalStagioneAttuale = goalStagioneAttuale;
+        this.cartelliniGialliStagioneAttuale = cartelliniGialliStagioneAttuale;
+        this.cartelliniRossiStagioneAttuale = cartelliniRossiStagioneAttuale;
+        this.minutiGiocatiStagioneAttuale = minutiGiocatiStagioneAttuale;
+        this.partiteNoGoalStagioneAttuale = partiteNoGoalStagioneAttuale;
+        this.goalSubitiStagioneAttuale = goalSubitiStagioneAttuale;
+        this.altriRuoli = altriRuoli;
+        this.statistiche = statistiche;
+        this.trasferimenti = trasferimenti;
+        this.infortuni = infortuni;
+    }
+
+    public Calciatore() {
+        
+    }
+
+    public String getLuogoNascita() {
+        return luogoNascita;
+    }
+
+    public void setLuogoNascita(String luogoNascita) {
+        this.luogoNascita = luogoNascita;
+    }
+
+    public String getPiede() {
+        return piede;
+    }
+
+    public void setPiede(String piede) {
+        this.piede = piede;
+    }
+    
+     public String getImage() {
         return image;
     }
 
-    public void setImage(ImageView image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -88,6 +144,30 @@ public class Calciatore extends InformazioniPrincipali{
         this.scadenza = scadenza;
     }
 
+    public String getInPrestitoDa() {
+        return inPrestitoDa;
+    }
+
+    public void setInPrestitoDa(String inPrestitoDa) {
+        this.inPrestitoDa = inPrestitoDa;
+    }
+
+    public Date getContrattoFinoAl() {
+        return contrattoFinoAl;
+    }
+
+    public void setContrattoFinoAl(Date contrattoFinoAl) {
+        this.contrattoFinoAl = contrattoFinoAl;
+    }
+
+    public int getGoalStagioneAttuale() {
+        return goalStagioneAttuale;
+    }
+
+    public void setGoalStagioneAttuale(int goalStagioneAttuale) {
+        this.goalStagioneAttuale = goalStagioneAttuale;
+    }
+
     public int getCartelliniGialliStagioneAttuale() {
         return cartelliniGialliStagioneAttuale;
     }
@@ -104,12 +184,20 @@ public class Calciatore extends InformazioniPrincipali{
         this.cartelliniRossiStagioneAttuale = cartelliniRossiStagioneAttuale;
     }
 
-    public int getPartiteGiocateStagioneAttuale() {
-        return partiteGiocateStagioneAttuale;
+    public int getPartiteNoGoalStagioneAttuale() {
+        return partiteNoGoalStagioneAttuale;
     }
 
-    public void setPartiteGiocateStagioneAttuale(int partiteGiocateStagioneAttuale) {
-        this.partiteGiocateStagioneAttuale = partiteGiocateStagioneAttuale;
+    public void setPartiteNoGoalStagioneAttuale(int partiteNoGoalStagioneAttuale) {
+        this.partiteNoGoalStagioneAttuale = partiteNoGoalStagioneAttuale;
+    }
+
+    public int getGoalSubitiStagioneAttuale() {
+        return goalSubitiStagioneAttuale;
+    }
+
+    public void setGoalSubitiStagioneAttuale(int goalSubitiStagioneAttuale) {
+        this.goalSubitiStagioneAttuale = goalSubitiStagioneAttuale;
     }
 
     public int getAssistStagioneAttuale() {
@@ -128,11 +216,11 @@ public class Calciatore extends InformazioniPrincipali{
         this.minutiGiocatiStagioneAttuale = minutiGiocatiStagioneAttuale;
     }
 
-    public List<String> getAltriRuoli() {
+    public ArrayList<String> getAltriRuoli() {
         return altriRuoli;
     }
 
-    public void setAltriRuoli(List<String> altriRuoli) {
+    public void setAltriRuoli(ArrayList<String> altriRuoli) {
         this.altriRuoli = altriRuoli;
     }
 
@@ -159,6 +247,25 @@ public class Calciatore extends InformazioniPrincipali{
     public void setInfortuni(ArrayList<Infortunio> infortuni) {
         this.infortuni = infortuni;
     }
+
+    public void addTrasferimento(Trasferimento nuovoTrasferimento) {
+        this.trasferimenti.add(nuovoTrasferimento);
+    }
+
+    public void addStatistica(Statistica nuovaStatistica) {
+        this.statistiche.add(nuovaStatistica);
+    }
+
+    public void addRuolo(String nuovoRuolo) {
+        this.altriRuoli.add(nuovoRuolo);
+    }
+
+    public void addInfortunio(Infortunio nuovoInfortunio) {
+        this.infortuni.add(nuovoInfortunio);
+    }
+    
+    
+    
 
     
 }
