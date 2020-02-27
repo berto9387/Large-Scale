@@ -156,6 +156,7 @@ public class RicercaGiocatoriController extends GenerallController{
         }
         //tabellaCalciatori.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tabellaCalciatori.setItems(values);
+        autoResizeColumns(tabellaCalciatori);
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -166,7 +167,7 @@ public class RicercaGiocatoriController extends GenerallController{
             scegliCognome(newValue);
         });
         
-        fotoColumn.setPrefWidth(50);
+        fotoColumn.setPrefWidth(150);
         fotoColumn.setCellValueFactory(new PropertyValueFactory<InformazioniRicercaCalciatore, ImageView>("image"));
         nomeColumn.setCellValueFactory(cellData->cellData.getValue().nomeProperty());
         posizioneColumn.setCellValueFactory(cellData->cellData.getValue().ruoloProperty());

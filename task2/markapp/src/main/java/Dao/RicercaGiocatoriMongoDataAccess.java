@@ -52,7 +52,6 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             while (cur.hasNext()) {
 
                 Document aux = cur.next();
-                System.err.println(aux.getLong("dataNascita")+" "+aux.getString("nome"));
                 InformazioniRicercaCalciatore info=new InformazioniRicercaCalciatore();
                 if(aux.getString("_id")!=null)
                     info.setIdCalciatore(aux.getString("_id"));
@@ -86,10 +85,7 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             double assitMedia, double goalSubitiMedia, double cartelliniMedia) {
         
 
-        System.out.println(competizione+"  "+stagione+"  "+squadra+"  "+
-                posizionePrincipale+"  "+minVM+"  "+maxVM+"  "+minAltezza+"  "+maxAltezza+"  "+
-                etaMin+"  "+etaMax+"  "+contratto+"  "+infortuniMedia+"  "+goalMedia+"  "+
-                assitMedia+"  "+goalSubitiMedia+"  "+cartelliniMedia);
+        
         //prima match importante per sfoltire i risultati
         Document filtroMatch1=new Document();
         //filtro squadra
@@ -198,7 +194,6 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                         Arrays.asList(new Document("$match",filtroMatch1))
                     ).iterator();
             } else if(filtroMatch1.isEmpty() && !filtroMatch2.isEmpty()){
-                System.out.println("filtro2");
                 cur=collectionCalciatore.aggregate(
                         Arrays.asList(
                             new Document("$unwind",unwind),
@@ -207,7 +202,6 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                             new Document("$match",filtroMatch2))
                     ).iterator();
             } else{
-                System.out.println("filtro");
                 cur=collectionCalciatore.aggregate(
                         Arrays.asList(
                             new Document("$match",filtroMatch1),
@@ -228,8 +222,6 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                     aux=(Document)prova.get("_id");
                 }
                         
-                 
-                System.err.println(prova.toJson());
                 InformazioniRicercaCalciatore info=new InformazioniRicercaCalciatore();
                 if(aux.getString("_id")!=null)
                     info.setIdCalciatore(aux.getString("_id"));
@@ -355,7 +347,6 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                 List<Document> statistiche = (List<Document>)calciatoreDoc.get("statistiche");
                 Statistica aux = null;
                 for(Document statistica : statistiche){
-                    System.out.println(calciatoreCercato.getRuoloPrincipale());
                     if(calciatoreCercato.getRuoloPrincipale().equals("Portiere")){ //Portiere e calciatori hanno statistiche diverse
                         //Portieri
                         aux= new Statistica(statistica.getString("stagione"), statistica.getString("competizione"), statistica.getString("squadra"),
@@ -402,7 +393,6 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                 for(int i=0 ; i< ruoli.size(); i++){
                     
                     aux = ruoli.get(i);
-                    System.out.println(aux);
                     calciatoreCercato.addRuolo(aux);
                 }
             }
@@ -414,7 +404,6 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                 Infortunio aux = new Infortunio();
                 for(Document infortunio : infortuni){
                     if(infortunio.getString("stagione") != null){
-                        System.out.println(infortunio.getString("stagione"));
                         aux.setStagione(infortunio.getString("stagione"));
                     }
                     if(infortunio.getString("tipoInfortunio") != null){

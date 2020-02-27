@@ -79,6 +79,7 @@ public class GenerallController implements Initializable{
             }
             
             //set the new max-widht with some extra space
+            System.err.println("-_>"+max);
             column.setPrefWidth( max +10d );
         } );
     }
