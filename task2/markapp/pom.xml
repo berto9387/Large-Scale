@@ -140,6 +140,9 @@
             <artifactId>controlsfx</artifactId>
             <version>8.40.11</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fatboyindustrial.gson-jodatime-serialisers/gson-jodatime-serialisers -->
+        
+
 
     </dependencies>
     

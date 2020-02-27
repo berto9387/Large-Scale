@@ -136,7 +136,23 @@ public class RicercaGiocatoriController extends GenerallController{
     }
     @FXML
     void ricercaAvanzata(ActionEvent event) {
-        System.err.println(inputMediaAssistStagionali.getValue()+" "+inputValoreDiMercato.getHighValue());
+        tabellaCalciatori.getItems().clear();
+        List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriMongoDataAccess.ricercaAvanzata(
+            inputCampionato.getText(),"19/20",inputSquadra.getText(),inputPosizione.getValue(),
+            (int)inputValoreDiMercato.getLowValue(),(int)inputValoreDiMercato.getHighValue(),
+            (int)inputAltezza.getLowValue(),(int)inputAltezza.getHighValue(),
+            (int)inputEta.getLowValue(),(int)inputEta.getHighValue(),null,
+            inputMediaInfortuniStagionali.getValue(),inputMediaGoalStagionali.getValue(),
+            inputMediaAssistStagionali.getValue(),inputMediaGoalSubiti.getValue(),inputMediaCartellini.getValue()
+        );
+        if(infos==null)
+            return;
+            
+        for(InformazioniRicercaCalciatore info :infos){
+            values.add(info);
+        }
+        tabellaCalciatori.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tabellaCalciatori.setItems(values);
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {

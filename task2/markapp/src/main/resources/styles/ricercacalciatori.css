@@ -77,3 +77,6 @@
     -fx-font-size:1.3em;
     -fx-font-weight:bold;
 }
+.tabella:row-selection .placeholder{
+    -fx-background-color:  #00000059;
+}
