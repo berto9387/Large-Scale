@@ -32,6 +32,7 @@ import task2.markapp.ScreenController;
  * @author berto
  * usa RicercaGiocatoriMongoDataAccess
  */
+
 public class RicercaGiocatoriController extends GenerallController{
     ObservableList<InformazioniRicercaCalciatore> values=FXCollections.observableArrayList();
     
@@ -120,6 +121,7 @@ public class RicercaGiocatoriController extends GenerallController{
         }
         tabellaCalciatori.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tabellaCalciatori.setItems(values);
+        autoResizeColumns(tabellaCalciatori);
     }
     void scegliNome(String newValue) {
         if(newValue.isEmpty())
@@ -152,7 +154,7 @@ public class RicercaGiocatoriController extends GenerallController{
         for(InformazioniRicercaCalciatore info :infos){
             values.add(info);
         }
-        tabellaCalciatori.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        //tabellaCalciatori.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tabellaCalciatori.setItems(values);
     }
     @Override
@@ -164,7 +166,7 @@ public class RicercaGiocatoriController extends GenerallController{
             scegliCognome(newValue);
         });
         
-        fotoColumn.setPrefWidth(80);
+        fotoColumn.setPrefWidth(50);
         fotoColumn.setCellValueFactory(new PropertyValueFactory<InformazioniRicercaCalciatore, ImageView>("image"));
         nomeColumn.setCellValueFactory(cellData->cellData.getValue().nomeProperty());
         posizioneColumn.setCellValueFactory(cellData->cellData.getValue().ruoloProperty());

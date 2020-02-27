@@ -14,6 +14,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import Dao.*;
 import java.io.IOException;
+import javafx.scene.control.TableView;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import task2.markapp.ScreenController;
 
 /**
@@ -44,5 +48,38 @@ public class GenerallController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
+    }
+    public  void autoResizeColumns( TableView<?> table )
+    {
+        //Set the right policy
+        table.setColumnResizePolicy( TableView.UNCONSTRAINED_RESIZE_POLICY);
+        table.getColumns().stream().skip(1).forEach( (column) ->
+        {
+            
+            //Minimal width = columnheader
+            Text t = new Text( column.getText() );
+            t.setFont(Font.font("Roboto", 25.0d));
+            t.applyCss();
+            double max = t.getLayoutBounds().getWidth();
+            for ( int i = 0; i < table.getItems().size(); i++ )
+            {
+                //cell must not be empty
+                if ( column.getCellData( i ) != null )
+                {
+                    t = new Text( column.getCellData( i ).toString() );
+                    t.setFont(Font.font("Roboto", 25.0d));
+                    t.applyCss();
+                    double calcwidth = t.getLayoutBounds().getWidth();
+                    //remember new max-width
+                    if ( calcwidth > max )
+                    {
+                        max = calcwidth;
+                    }
+                }
+            }
+            
+            //set the new max-widht with some extra space
+            column.setPrefWidth( max +10d );
+        } );
     }
 }
