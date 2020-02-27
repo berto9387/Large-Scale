@@ -21,13 +21,17 @@ Controller\InfoPrincipaliCalciatoreController.class
 Entita\Infortunio.class
 Controller\RicercaGiocatoriController.class
 Controller\GestioneAmministratoreSquadraController.class
+<<<<<<< Updated upstream
 Controller\GenerallController.class
 Controller\GeneralSchedaGiocatoreController.class
 Controller\RisultatoRicercaGiocatoreController.class
 Controller\HomePageAmministratoreDelegatoController.class
+=======
+>>>>>>> Stashed changes
 Controller\GestioneUtentiController.class
 Entita\Utente.class
 Entita\ProfiloInteresse.class
+<<<<<<< Updated upstream
 Dao\GestioneProfiliMongoDataAccess$1.class
 Dao\MongoDataAccess.class
 Entita\Calciatore.class
@@ -35,4 +39,10 @@ Controller\HomePageOsservatoreController.class
 Controller\GestioneMembriSquadraController$1.class
 Dao\GestioneReportMongoDataAccess.class
 Dao\GestioneProfiliMongoDataAccess.class
+=======
+Entita\Trasferimento.class
+Entita\Statistica.class
+Controller\GeneralSchedaGiocatoreController.class
+Controller\GestioneMembriSquadraController.class
+>>>>>>> Stashed changes
 Dao\LoginSignUpMongoDataAccess.class

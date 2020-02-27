@@ -12,6 +12,7 @@ import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import java.util.*;
 import org.bson.*;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /**
@@ -88,11 +89,12 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         return (maxID+1);
     }
     
-    public static void aggiungiAListaProfiliInteresse(String idSocieta,String ruolo,int etaMinima,
+    public static void aggiungiAListaProfiliInteresse(String idSocieta,String idAllenatore,String ruolo,int etaMinima,
             int etaMassima,String descrizioneCaratteristiche){
         
         String _id=Integer.toString(prossimoID);
         Document profiloInteresse=new Document("_id",new ObjectId(_id))
+                .append("idAllenatore",idAllenatore)
                 .append("ruolo",ruolo)
                 .append("etaMinima",etaMinima)
                 .append("etaMassima",etaMassima)
@@ -104,10 +106,26 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         
     }
     
-    public static void modificaListaProfiliInteresse(String idSocieta,int etaMinima,
+    public static void modificaListaProfiliInteresse(String idSocieta,String idProfiloInteresse,String ruolo,int etaMinima,
             int etaMassima,String descrizioneCaratteristiche){
+      
+        Bson filter =and(eq("_id",idSocieta),eq("listaProfiliInteresse._id")); 
+        Document profiloInteresseAggiornato=new Document("listaProfiliInteresse.$.ruolo",ruolo)
+              .append("listaProfiliInteresse.$.etaMinima",etaMinima)
+              .append("listaProfiliInteresse.$.etaMassima",etaMassima)
+              .append("listaProfiliInteresse.$.descrizioneCaratteristiche", descrizioneCaratteristiche)
+              .append("listaProfiliInteresse.$.timeStamp", System.currentTimeMillis());
+        collectionSocieta.updateOne(filter,profiloInteresseAggiornato);
         
-        
+    }
+    
+    public static void eliminaProfiloInteresse(String idSocieta,String idProfilo){
+    
+        Bson filter = eq("_id",idSocieta);
+        Document idProfiloInteresseDaEliminare = new Document("_id",idProfilo); 
+        Document fieldDelete = new Document("listaProfiliDiInteresse",idProfiloInteresseDaEliminare);
+        Document update = new Document("$pull",fieldDelete);
+        collectionSocieta.updateOne(filter, update);
     }
     
 }
