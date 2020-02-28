@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -81,7 +82,7 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
     }
     public static List<InformazioniRicercaCalciatore> ricercaAvanzata(String competizione,String stagione, String squadra,
             String posizionePrincipale, int minVM,int maxVM,int minAltezza,int maxAltezza,
-            int etaMin, int etaMax, String contratto, double infortuniMedia, double goalMedia,
+            int etaMin, int etaMax, String contratto, double goalMedia,
             double assitMedia, double goalSubitiMedia, double cartelliniMedia) {
         
 
@@ -114,7 +115,9 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             Date etaMaxDate=trovaDataDiXAnniFa((int)etaMax);
             filtroMatch1.append("dataNascita", new Document("$gt", etaMaxDate.getTime()).append("$lt", etaMinDate.getTime()));
         }
-        
+///////////////////////////////////////        
+//query usando la collection calciatore
+/////////////////////////////////////
         //filtro unwind/////////////////////
         Document unwind=new Document();
         unwind.append("path", "$statistiche");
@@ -131,13 +134,13 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                 .append("linkFoto", "$linkFoto")
                 .append("posizionePrincipale", "$posizionePrincipale")
                 .append("valoreAttuale", "$valoreAttuale")
-                .append("infortunio", "$infortunio")
+                //.append("infortunio", "$infortunio")
                 .append("stagione", "$statistiche.stagione");
         group1.append("_id", groupStagione)
         //somma tutte le statistiche per una determinata stagione
         .append("presenze", new Document("$sum", "$statistiche.presenze"))
         .append("reti", new Document("$sum", "$statistiche.reti"))
-        .append("cartellini", new Document("$sum", new Document("$multiply", Arrays.asList("$statistiche.ammonizioni", "$statistiche.doppieAmmonizioni", "$statistiche.espulsioni"))))
+        .append("cartellini", new Document("$sum", new Document("$add", Arrays.asList("$statistiche.ammonizioni", "$statistiche.doppieAmmonizioni", "$statistiche.espulsioni"))))
         .append("retiSubite", new Document("$sum", "$statistiche.retiSubite"))
         .append("puntiPartita", new Document("$sum", "$statistiche.puntiPartita"))
         .append("minutiGiocati", new Document("$sum", "$statistiche.minutiGiocati"))
@@ -154,8 +157,8 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                     .append("squadra", "$_id.squadra")
                     .append("linkFoto", "$_id.linkFoto")
                     .append("posizionePrincipale", "$_id.posizionePrincipale")
-                    .append("valoreAttuale", "$_id.valoreAttuale")
-                    .append("infortunio", "$_id.infortunio");
+                    .append("valoreAttuale", "$_id.valoreAttuale");
+                    //.append("infortunio", "$_id.infortunio");
         group2.append("_id", groupMedia)
         //media delle caratteristiche
         .append("presenze", new Document("$avg", "$presenze"))
@@ -166,7 +169,36 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
         .append("minutiGiocati", new Document("$avg", "$minutiGiocati"))
         .append("partiteNoGoal", new Document("$avg", "$partiteNoGoal"))
         .append("assist", new Document("$avg", "$assist"));
-        
+//////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+//////////FILTRO CHE USA LA COLLECTION STATISTICHE
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+
+    Document statisticheGroupSum=new Document("$group", 
+                                    new Document("_id", new Document("calciatore", "$calciatore")
+                                    .append("stagione", "$stagione"))
+                                    .append("presenze", new Document("$sum", "$presenze"))
+                                    .append("puntiPartita", new Document("$sum", "$puntiPartita"))
+                                    .append("reti", new Document("$sum", "$reti"))
+                                    .append("cartellini", new Document("$sum", new Document("$add", Arrays.asList("$ammonizione", "$doppieAmmonizioni", "$espulsioni"))))
+                                    .append("minutiGiocati", new Document("$sum", "$minutiGiocati"))
+                                    .append("assist", new Document("$sum", "$assist"))); 
+    Document statisticheGroupAvg=new Document("$group", 
+                                    new Document("_id", "$_id.calciatore")
+                                    .append("presenze", new Document("$avg", "$presenze"))
+                                    .append("puntiPartita", new Document("$avg", "$puntiPartita"))
+                                    .append("reti", new Document("$avg", "$reti"))
+                                    .append("cartellini", new Document("$avg", "$cartellini"))
+                                    .append("minutiGiocati", new Document("$avg", "$minutiGiocati"))
+                                    .append("assist", new Document("$avg", "$assist")));
+    
+            
+
+//////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
         //ora qui occore fare il filtro che matcha con i filtri scelti
         Document filtroMatch2=new Document();
         //filtro media goal stagionali
@@ -174,14 +206,25 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             filtroMatch2.append("reti", new Document("$gt",goalMedia));
         //filtro media cartellini stagionali
         if(cartelliniMedia!=0.0 && !"Portiere".equals(posizionePrincipale))
-            filtroMatch2.append("cartellini", new Document("$lt",cartelliniMedia));
+            filtroMatch2.append("cartellini", new Document("$gt",cartelliniMedia));
         //filtro media assist stagionali
         if(assitMedia!=0.0 && !"Portiere".equals(posizionePrincipale))
             filtroMatch2.append("assist", new Document("$gt",assitMedia));
         //filtro media goal subiti stagionali
         if(goalSubitiMedia!=0.0 && "Portiere".equals(posizionePrincipale))
-            filtroMatch2.append("retiSubite", new Document("$lt",goalSubitiMedia));
-           
+            filtroMatch2.append("retiSubite", new Document("$gt",goalSubitiMedia));
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////LOOKUP/////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+    Document lookupDoc= new Document("$lookup", new Document("from", "calc")
+                                    .append("localField", "_id")
+                                    .append("foreignField", "_id")
+                                    .append("as", "_id"));
+
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
             
         List<InformazioniRicercaCalciatore> infos=new ArrayList<>();
         
@@ -194,13 +237,15 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                         Arrays.asList(new Document("$match",filtroMatch1))
                     ).iterator();
             } else if(filtroMatch1.isEmpty() && !filtroMatch2.isEmpty()){
-                cur=collectionCalciatore.aggregate(
+                System.out.println("-->");
+                cur=collectionStatistiche.aggregate(
                         Arrays.asList(
-                            new Document("$unwind",unwind),
-                            new Document("$group",group1),
-                            new Document("$group",group2),
-                            new Document("$match",filtroMatch2))
-                    ).iterator();
+                            statisticheGroupSum,
+                            statisticheGroupAvg,
+                            new Document("$match",filtroMatch2),
+                            lookupDoc)
+                    ).allowDiskUse(Boolean.TRUE).iterator();
+                System.err.println("<--");
             } else{
                 cur=collectionCalciatore.aggregate(
                         Arrays.asList(
@@ -213,15 +258,16 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             }
             
             while (cur.hasNext()) {
-                
+                System.out.println("iniziocur");
                 Document prova= cur.next();
+                System.err.println(prova.toJson());
                 Document aux = null;
                 if(!filtroMatch1.isEmpty() && filtroMatch2.isEmpty()){
                     aux=prova;
                 } else{
-                    aux=(Document)prova.get("_id");
+                    List<Document> appoggio=(List<Document>)prova.get("_id");
+                    aux=appoggio.get(0);
                 }
-                        
                 InformazioniRicercaCalciatore info=new InformazioniRicercaCalciatore();
                 if(aux.getString("_id")!=null)
                     info.setIdCalciatore(aux.getString("_id"));
@@ -248,6 +294,7 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             }
             cur.close();
         } catch (Exception e) {           
+            e.printStackTrace();
             return null;
         } 
         

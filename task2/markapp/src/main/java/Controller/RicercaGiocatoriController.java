@@ -13,16 +13,21 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.RangeSlider;
 import task2.markapp.ScreenController;
@@ -74,7 +79,8 @@ public class RicercaGiocatoriController extends GenerallController{
     
     @FXML
     private JFXTextField inputCampionato;
-
+    @FXML
+    private JFXTextField inputStagione;
     @FXML
     private JFXTextField inputSquadra;
 
@@ -107,6 +113,12 @@ public class RicercaGiocatoriController extends GenerallController{
 
     @FXML
     private ChoiceBox<?> inputContratto;
+    
+     @FXML
+    private VBox progressIndicatorContainer;
+
+    @FXML
+    private ProgressIndicator progressIndicator;
 
     @FXML
     void cercaCalciatore(ActionEvent event) {
@@ -115,13 +127,29 @@ public class RicercaGiocatoriController extends GenerallController{
             errorCercaCalciatore.setText("Completa almeno uno dei campi!");
             return;
         }
-        List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriMongoDataAccess.ricerca(nomeInput.getText(),cognomeInput.getText());
-        for(InformazioniRicercaCalciatore info :infos){
-            values.add(info);
-        }
-        tabellaCalciatori.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tabellaCalciatori.setItems(values);
-        autoResizeColumns(tabellaCalciatori);
+        Task<List<InformazioniRicercaCalciatore>> task = new Task<List<InformazioniRicercaCalciatore>>() {
+
+            @Override
+            protected List<InformazioniRicercaCalciatore> call() throws Exception {
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriMongoDataAccess.ricerca(nomeInput.getText(),cognomeInput.getText());
+
+                return infos;
+            }
+
+        };
+        task.setOnSucceeded(evt -> {
+            progressIndicatorContainer.setVisible(false);
+            for(InformazioniRicercaCalciatore info :task.getValue()){
+                values.add(info);
+            }
+            tabellaCalciatori.setItems(values);
+            autoResizeColumns(tabellaCalciatori);
+        });
+        progressIndicatorContainer.setVisible(true);
+        new Thread(task).start();
+        
+
+        
     }
     void scegliNome(String newValue) {
         if(newValue.isEmpty())
@@ -137,27 +165,50 @@ public class RicercaGiocatoriController extends GenerallController{
             scegliCognomeTesto.setVisible(true);
         }
     }
-    @FXML
+@FXML
     void ricercaAvanzata(ActionEvent event) {
         tabellaCalciatori.getItems().clear();
-        List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriMongoDataAccess.ricercaAvanzata(
-            inputCampionato.getText(),"19/20",inputSquadra.getText(),inputPosizione.getValue(),
-            (int)inputValoreDiMercato.getLowValue(),(int)inputValoreDiMercato.getHighValue(),
-            (int)inputAltezza.getLowValue(),(int)inputAltezza.getHighValue(),
-            (int)inputEta.getLowValue(),(int)inputEta.getHighValue(),null,
-            inputMediaInfortuniStagionali.getValue(),inputMediaGoalStagionali.getValue(),
-            inputMediaAssistStagionali.getValue(),inputMediaGoalSubiti.getValue(),inputMediaCartellini.getValue()
-        );
-        if(infos==null)
-            return;
-            
-        for(InformazioniRicercaCalciatore info :infos){
-            values.add(info);
+        String regex = "^(\\d{2}\\/\\d{2})$";
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(inputStagione.getText());
+        if(!matcher.find()){
+            errorCercaCalciatore.setText("Formato stagione: '18/19'");
         }
-        //tabellaCalciatori.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tabellaCalciatori.setItems(values);
-        autoResizeColumns(tabellaCalciatori);
+        progressIndicatorContainer.setVisible(true);
+        Task<List<InformazioniRicercaCalciatore>> task = new Task<List<InformazioniRicercaCalciatore>>() {
+
+            @Override
+            protected List<InformazioniRicercaCalciatore> call() throws Exception {
+                System.err.println("1cc");
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriMongoDataAccess.ricercaAvanzata(
+                    inputCampionato.getText(),inputStagione.getText(),inputSquadra.getText(),inputPosizione.getValue(),
+                    (int)inputValoreDiMercato.getLowValue(),(int)inputValoreDiMercato.getHighValue(),
+                    (int)inputAltezza.getLowValue(),(int)inputAltezza.getHighValue(),
+                    (int)inputEta.getLowValue(),(int)inputEta.getHighValue(),null
+                    ,inputMediaGoalStagionali.getValue(),
+                    inputMediaAssistStagionali.getValue(),inputMediaGoalSubiti.getValue(),inputMediaCartellini.getValue()
+                );
+                return infos;
+            }
+            
+        };
+        task.setOnSucceeded(evt -> {
+            progressIndicatorContainer.setVisible(false);
+            if(task.getValue()==null)
+                return;
+            for(InformazioniRicercaCalciatore info :task.getValue()){
+                values.add(info);
+            }
+            tabellaCalciatori.setItems(values);
+            autoResizeColumns(tabellaCalciatori);
+        });
+        
+        progressIndicatorContainer.setVisible(true);
+        new Thread(task).start();
+            
+        
     }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         nomeInput.textProperty().addListener((Observable, oldValue, newValue) -> {
