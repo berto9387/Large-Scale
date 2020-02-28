@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 Controller\HomePageAllenatoreController.class
 Controller\AdminController.class
 Entita\Statistica.class
@@ -47,3 +48,5 @@ Controller\GeneralSchedaGiocatoreController.class
 Controller\GestioneMembriSquadraController.class
 >>>>>>> Stashed changes
 Dao\LoginSignUpMongoDataAccess.class
+=======
+>>>>>>> Stashed changes
