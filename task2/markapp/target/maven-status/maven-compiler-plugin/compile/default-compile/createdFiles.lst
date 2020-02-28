@@ -13,6 +13,7 @@ Entita\Trasferimento.class
 Entita\Report.class
 task2\markapp\ScreenController.class
 Entita\InformazioniPrincipali.class
+Controller\RicercaGiocatoriController$1.class
 Controller\ModificaProfiloUtenteController.class
 Controller\ListaGiocatoriInteresseController.class
 Controller\GestioneMembriSquadraController.class
