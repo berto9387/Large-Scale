@@ -144,6 +144,23 @@ public class Statistica {
     public void setMinutiGiocati(int minutiGiocati) {
         this.minutiGiocati = minutiGiocati;
     }
+
+    public int getRetiSubite() {
+        return retiSubite;
+    }
+
+    public void setRetiSubite(int retiSubite) {
+        this.retiSubite = retiSubite;
+    }
+
+    public int getPartiteNoGoal() {
+        return partiteNoGoal;
+    }
+
+    public void setPartiteNoGoal(int partiteNoGoal) {
+        this.partiteNoGoal = partiteNoGoal;
+    }
+    
     
     
 }

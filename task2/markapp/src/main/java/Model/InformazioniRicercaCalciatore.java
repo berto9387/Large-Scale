@@ -134,10 +134,6 @@ public class InformazioniRicercaCalciatore {
         this.image = image;
     }
 
-    
-    
-    
-    
     public String getNazionalita() {
         return nazionalita.get();
     }

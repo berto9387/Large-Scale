@@ -644,14 +644,14 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                 for(Document statistica : statistiche){
                     if(calciatoreCercato.getRuoloPrincipale().equals("Portiere")){ //Portiere e calciatori hanno statistiche diverse
                         //Portieri
-                        aux= new Statistica(statistica.getString("stagione"), statistica.getString("competizione"), statistica.getString("squadra"),
+                        aux= new Statistica(statistica.getString("stagione"), statistica.getString("competizione"), statistica.getString("societa"),
                                         statistica.getInteger("presenze"), statistica.getInteger("reti"),
                                         statistica.getInteger("ammonizioni"), statistica.getInteger("doppieAmmonizioni"),statistica.getInteger("espulsioni"),
                                         statistica.getInteger("minutiGiocati"), statistica.getInteger("retiSubite"), statistica.getInteger("partiteNoGol"));
                     }else{
                         //Calciatori
                         
-                        aux= new Statistica(statistica.getString("stagione"), statistica.getString("competizione"), statistica.getString("squadra"),
+                        aux= new Statistica(statistica.getString("stagione"), statistica.getString("competizione"), statistica.getString("societa"),
                                         statistica.getInteger("presenze"), statistica.getInteger("reti"),
                                         statistica.getInteger("assist"), statistica.getInteger("ammonizioni"), statistica.getInteger("doppieAmmonizioni"),
                                         statistica.getInteger("espulsioni"), statistica.getInteger("minutiGiocati"));

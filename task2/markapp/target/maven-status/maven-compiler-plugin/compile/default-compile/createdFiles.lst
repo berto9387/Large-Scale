@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 Controller\HomePageAllenatoreController.class
 Controller\AdminController.class
 Entita\Statistica.class
@@ -22,14 +23,20 @@ Controller\InfoPrincipaliCalciatoreController.class
 Entita\Infortunio.class
 Controller\RicercaGiocatoriController.class
 Controller\GestioneAmministratoreSquadraController.class
+<<<<<<< HEAD
+Controller\GenerallController.class
+Controller\StatisticheStagionaliController.class
+=======
 <<<<<<< Updated upstream
 Controller\GenerallController.class
+>>>>>>> master
 Controller\GeneralSchedaGiocatoreController.class
 Controller\RisultatoRicercaGiocatoreController.class
 Controller\HomePageAmministratoreDelegatoController.class
 =======
 >>>>>>> Stashed changes
 Controller\GestioneUtentiController.class
+Model\InformazioniStatistiche.class
 Entita\Utente.class
 Entita\ProfiloInteresse.class
 <<<<<<< Updated upstream
@@ -47,3 +54,5 @@ Controller\GeneralSchedaGiocatoreController.class
 Controller\GestioneMembriSquadraController.class
 >>>>>>> Stashed changes
 Dao\LoginSignUpMongoDataAccess.class
+=======
+>>>>>>> Stashed changes

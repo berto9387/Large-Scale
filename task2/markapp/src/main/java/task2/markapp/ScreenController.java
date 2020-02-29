@@ -3,6 +3,7 @@ package task2.markapp;
 
 import Controller.GeneralSchedaGiocatoreController;
 import Controller.InfoPrincipaliCalciatoreController;
+import Controller.StatisticheStagionaliController;
 import Entita.Calciatore;
 import Entita.Utente;
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
@@ -72,11 +73,11 @@ public class ScreenController {
      public static void showPage(String fileName){
          
          try{
-             //System.out.println("sono nella showPage, la stringa passatami è: " + fileName);
+             System.out.println("sono nella showPage, la stringa passatami è: " + fileName);
              URL fileUrl = MainApp.class.getResource("/fxml/"+ fileName +".fxml");
              
              if(fileUrl == null){ //Qui dentro ci entra anche se ci sono errori nel FXML da caricare
-                 System.err.println("Pagina non trovata");
+                 System.err.println("URL null: Pagina non trovata");
              }
              
              view = FXMLLoader.load(fileUrl);
@@ -85,8 +86,9 @@ public class ScreenController {
              BorderPane.setMargin(view, new Insets(10, 10, 10, 10));
              root.setCenter(view);
              
-         } catch(IOException e){
+         } catch(Exception e){
              System.err.println("Pagina non trovata");
+             e.printStackTrace();
          }
          
      }
@@ -95,7 +97,8 @@ public class ScreenController {
          
          try{
              
-             //System.out.println("sono nella showPage, la stringa passatami è: " + fileName);
+             System.out.println("sono nella showPage, la stringa passatami è: " + fileName);
+             
              URL fileUrl = MainApp.class.getResource("/fxml/"+ fileName +".fxml");
              FXMLLoader loader = new FXMLLoader(fileUrl);
              
@@ -103,10 +106,18 @@ public class ScreenController {
                  System.err.println("Pagina non trovata URL");
              }
              
-             
-             loader.setControllerFactory(c -> {
-                return new InfoPrincipaliCalciatoreController(calciatore);
-             });
+             switch(fileName){
+                 case "InfoPrincipaliCalciatore":
+                    loader.setControllerFactory(c -> {
+                       return new InfoPrincipaliCalciatoreController(calciatore);
+                    });
+                    break;
+                 case "StatisticheStagionali":
+                     loader.setControllerFactory(c -> {
+                       return new StatisticheStagionaliController(calciatore);
+                    });
+                    break;
+            }
              view = loader.load();
              
              BorderPane root = mainApp.getRootLayout();
