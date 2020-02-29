@@ -26,7 +26,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
      * che appartengono ad una societa redati dall'attuale allenatore.
      * @param idSocieta
      * @return una lista vuota se la societa non ha una lista di profili di se invece
-     * la società ha una lista di interesse dell'attuale allenatore restituisce 
+     * la società ha una lista di profili di interesse dell'attuale allenatore restituisce 
      * una lista di oggetti ProfiloInteresse.
      * 
      */
@@ -61,7 +61,16 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         }
         return listaProfiloInteresse;
     }
-    
+    /**
+     * Funzione che permette di restituire una lista di profili di interesse
+     * sottoforma di oggetti beans.
+     * che appartengono ad una societa redati dall'attuale allenatore.
+     * @param idSocieta
+     * @return una lista vuota se la societa non ha una lista di profili di se invece
+     * la società ha una lista di oggetti beans di profili di interesse dell'attuale allenatore restituisce 
+     * una lista di oggetti ProfiloInteresse.
+     * 
+     */
     public static ArrayList<ProfiloInteresseBeans>ottieniListaProfiliInteresseBeans(String idSocieta){
         ArrayList<ProfiloInteresseBeans>listaProfiliInteresseBeans=new ArrayList<>();
         ArrayList<ProfiloInteresse>listaProfiliInteresse=ottieniListaProfiliInteresse(idSocieta);
@@ -73,7 +82,11 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         }
         return listaProfiliInteresseBeans;
     }
-    
+    /**
+     * La funzione permette di calcolare l'id del prossimo profilo d'interesse
+     * @param listaProfiliInteresseDoc
+     * @return un intero che indica l'id della prossimma scheda profilo d'interese
+     */
     private static int calcoloProssimoId(ArrayList<Document> listaProfiliInteresseDoc){
     
         int maxID=0;

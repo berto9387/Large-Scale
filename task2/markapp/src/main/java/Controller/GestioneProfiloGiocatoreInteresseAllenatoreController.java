@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.*;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 /**
  * FXML Controller class
@@ -23,13 +23,26 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
     private VBox areaModificaProfili;
     @FXML
     private ChoiceBox sceltaRuolo;
-
+    @FXML
+    private TextField etaMinimaTextField;
+    @FXML
+    private TextField etaMassimaTextField;
+    @FXML
+    private Button incrementMin;
+    @FXML
+    private Button decrementMin;
+    @FXML
+    private Button incrementMax;
+    @FXML
+    private Button decrementMax;
+    
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        sceltaRuolo.setItems(null);
     }    
     
 }
