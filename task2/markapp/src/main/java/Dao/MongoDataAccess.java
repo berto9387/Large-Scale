@@ -12,7 +12,6 @@ import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.Period;
 import java.util.Date;
 import org.bson.Document;
 
@@ -32,7 +31,7 @@ public class MongoDataAccess {
     protected static final String DBNAME="mercato";
     private static final String nomeCollectionUtenti="utenti";
     private static final String nomeCollectionSocieta="societa";
-    private static final String nomeCollectionCalciatore="calciatore";
+    private static final String nomeCollectionCalciatore="calc";
     private static final String nomeCollectionStatistiche="statistiche";
     /**
      * Instaura la connessione con il database

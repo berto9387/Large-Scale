@@ -9,9 +9,12 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 
 /**
  *
@@ -23,6 +26,10 @@ public class InformazioniRicercaCalciatore {
     private StringProperty ruoloPrincipale;
     private StringProperty squadra;
     private StringProperty eta;
+    private IntegerProperty valoreMercato;
+    private Circle giudizioAllenatore;
+    private Circle giudizioDirigenza;
+    private Button elimina;
     private ImageView image;
     private StringProperty nazionalita;
 
@@ -31,7 +38,8 @@ public class InformazioniRicercaCalciatore {
                 new SimpleStringProperty(),new SimpleStringProperty(),new SimpleStringProperty());
     }
 
-    public InformazioniRicercaCalciatore(StringProperty idCalciatore, StringProperty nome, StringProperty ruoloPrincipale, StringProperty squadra, StringProperty dataNascita,  StringProperty nazionalita) {
+    public InformazioniRicercaCalciatore(StringProperty idCalciatore, StringProperty nome, StringProperty ruoloPrincipale, StringProperty squadra, StringProperty dataNascita,  
+            StringProperty nazionalita) {
         this.idCalciatore = idCalciatore;
         this.nome = nome;
         this.ruoloPrincipale = ruoloPrincipale;
@@ -140,6 +148,43 @@ public class InformazioniRicercaCalciatore {
 
     public StringProperty nazionalitaProperty(){
         return nazionalita;
+    }
+    
+    public int getValoreMercato() {
+        return valoreMercato.get();
+    }
+
+    public void setValoreMercato(int valoreMercato) {
+        this.valoreMercato=new SimpleIntegerProperty();        
+        this.valoreMercato.set(valoreMercato);
+    }
+
+    public IntegerProperty valoreMercatoProperty(){
+        return valoreMercato;
+    }
+
+    public Circle getGiudizioAllenatore() {
+        return giudizioAllenatore;
+    }
+
+    public void setGiudizioAllenatore(Circle giudizioAllenatore) {
+        this.giudizioAllenatore = giudizioAllenatore;
+    }
+
+    public Circle getGiudizioDirigenza() {
+        return giudizioDirigenza;
+    }
+
+    public void setGiudizioDirigenza(Circle giudizioDirigenza) {
+        this.giudizioDirigenza = giudizioDirigenza;
+    }
+
+    public Button getElimina() {
+        return elimina;
+    }
+
+    public void setElimina(Button elimina) {
+        this.elimina = elimina;
     }
     
 }

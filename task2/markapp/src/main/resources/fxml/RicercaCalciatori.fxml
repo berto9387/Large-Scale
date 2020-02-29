@@ -32,9 +32,9 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="80.0" prefWidth="927.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RICERCA CALCIATORI" textAlignment="CENTER" wrappingWidth="238.73828125">
+                        <Text fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" text="RICERCA CALCIATORI" textAlignment="CENTER">
                            <font>
-                              <Font name="Roboto Bold" size="20.0" />
+                              <Font name="Roboto Bold" size="30.0" />
                            </font>
                         </Text>
                      </children>

@@ -23,6 +23,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -43,6 +44,8 @@ import task2.markapp.ScreenController;
 
 public class RicercaGiocatoriController extends GenerallController{
     ObservableList<InformazioniRicercaCalciatore> values=FXCollections.observableArrayList();
+    private  ObservableList<String> statoContratto=FXCollections.observableArrayList
+        ("In scadenza","Svincolato","In contratto");
     
     @FXML
     private Text scegliNomeTesto;
@@ -205,9 +208,9 @@ public class RicercaGiocatoriController extends GenerallController{
                     inputCampionato.getText(),inputStagione.getText(),inputSquadra.getText(),inputPosizione.getValue(),
                     (int)inputValoreDiMercato.getLowValue(),(int)inputValoreDiMercato.getHighValue(),
                     (int)inputAltezza.getLowValue(),(int)inputAltezza.getHighValue(),
-                    (int)inputEta.getLowValue(),(int)inputEta.getHighValue(),null
-                    ,inputMediaGoalStagionali.getValue(),
-                    inputMediaAssistStagionali.getValue(),inputMediaGoalSubiti.getValue(),inputMediaCartellini.getValue()
+                    (int)inputEta.getLowValue(),(int)inputEta.getHighValue(),inputContratto.getValue(),
+                    inputMediaGoalStagionali.getValue(),inputMediaAssistStagionali.getValue(),
+                    inputMediaGoalSubiti.getValue(),inputMediaCartellini.getValue()
                 );
                 long elapsedTime = System.nanoTime() - startTime;
                 System.out.println(elapsedTime/1000000);
@@ -275,6 +278,7 @@ public class RicercaGiocatoriController extends GenerallController{
         });
         //ricerca avanzata
         inputPosizione.setItems(ScreenController.getRuoloInCampo());
+        inputContratto.setItems(statoContratto);
         //evento choice box per la selezione del portiere
         inputPosizione.getSelectionModel().selectedItemProperty()
         .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) ->{
