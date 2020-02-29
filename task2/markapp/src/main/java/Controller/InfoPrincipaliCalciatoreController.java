@@ -126,7 +126,7 @@ public class InfoPrincipaliCalciatoreController extends GeneralSchedaGiocatoreCo
         
         cartelliniRossiStagioneAttuale.setText(Integer.toString(calciatore.getCartelliniRossiStagioneAttuale()));
         
-        String valoreFormattato = String.format("%,d", calciatore.getValoreMercato());//Integer.toString(calciatore.getValoreMercato());
+        String valoreFormattato = String.format("%,d", calciatore.getValoreMercato());
         valoreMercato.setText(valoreFormattato + "€");
         
         if(calciatore.getRuoloPrincipale().equals("Portiere")){

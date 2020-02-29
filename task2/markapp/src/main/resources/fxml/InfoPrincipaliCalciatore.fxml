@@ -24,7 +24,7 @@
                   <DropShadow spread="0.33" />
                </effect>
             </Label>
-            <GridPane prefHeight="38.0" prefWidth="1246.0" style="-fx-background-radius: 10; -fx-background-color: #00000059#00000059;">
+            <GridPane prefHeight="38.0" prefWidth="1246.0" style="-fx-background-radius: 10;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

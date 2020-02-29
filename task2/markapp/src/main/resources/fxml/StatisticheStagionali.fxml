@@ -20,14 +20,14 @@
 
 <AnchorPane id="AnchorPane" prefHeight="1070.0" prefWidth="1398.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StatisticheStagionaliController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label style="-fx-font-family: Roboto; -fx-font-size: 34; -fx-font-weight: bold;" text="Scheda giocatore" textFill="ORANGE">
                <effect>
                   <DropShadow spread="0.33" />
                </effect>
             </Label>
-            <GridPane prefHeight="38.0" prefWidth="1246.0" style="-fx-background-radius: 10; -fx-background-color: #00000059#00000059;">
+            <GridPane prefHeight="38.0" prefWidth="1246.0" style="-fx-background-radius: 10;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -123,7 +123,7 @@
                   <RowConstraints maxHeight="330.6000122070312" minHeight="10.0" prefHeight="179.19998168945312" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <HBox alignment="CENTER" spacing="30.0" style="-fx-background-radius: 10; -fx-background-color: #00000059;">
+                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="465.0" spacing="30.0" style="-fx-background-radius: 10; -fx-background-color: #00000059;">
                      <children>
                         <HBox alignment="CENTER" spacing="15.0">
                            <children>
@@ -185,6 +185,9 @@
                            <effect>
                               <DropShadow height="66.28" radius="30.8525" width="59.13" />
                            </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                      </children>
                   </AnchorPane>

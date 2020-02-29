@@ -63,8 +63,7 @@ public class GeneralSchedaGiocatoreController implements Initializable{
     
     @FXML
     void handlerCronologiaTrasferimenti(ActionEvent event) {
-        
-        
+        ScreenController.showPageCalciatore("InfoTrasferimenti", calciatore);
     }
 
     @FXML
@@ -84,8 +83,6 @@ public class GeneralSchedaGiocatoreController implements Initializable{
 
     @FXML
     void handlerStatisticheStagionali(ActionEvent event) {
-        
         ScreenController.showPageCalciatore("StatisticheStagionali", calciatore);
-        
     }
 }

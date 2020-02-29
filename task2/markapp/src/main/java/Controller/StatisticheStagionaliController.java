@@ -7,7 +7,7 @@ package Controller;
 
 import Entita.Calciatore;
 import Entita.Statistica;
-import Model.InformazioniStatistiche;
+import Model.StatisticaBeans;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,52 +26,52 @@ import javafx.scene.image.ImageView;
  */
 public class StatisticheStagionaliController extends GeneralSchedaGiocatoreController{
     
-    ObservableList<InformazioniStatistiche> values=FXCollections.observableArrayList();
+    ObservableList<StatisticaBeans> values=FXCollections.observableArrayList();
     
     @FXML
     private ImageView imgCalciatore;
     
     @FXML
-    private TableView<InformazioniStatistiche> tabellaStatistiche ;
+    private TableView<StatisticaBeans> tabellaStatistiche;
 
     @FXML
-    private TableColumn<InformazioniStatistiche, String> stagioneColumn;
+    private TableColumn<StatisticaBeans, String> stagioneColumn;
 
     @FXML
-    private TableColumn<InformazioniStatistiche, String> competizioneColumn;
+    private TableColumn<StatisticaBeans, String> competizioneColumn;
 
     @FXML
-    private TableColumn<InformazioniStatistiche, String> squadraColumn;
+    private TableColumn<StatisticaBeans, String> squadraColumn;
 
     @FXML
-    private TableColumn<InformazioniStatistiche, String> presenzeColumn;
+    private TableColumn<StatisticaBeans, String> presenzeColumn;
 
     @FXML
-    private TableColumn<InformazioniStatistiche, String> puntiPartitaColumn;
+    private TableColumn<StatisticaBeans, String> puntiPartitaColumn;
 
     @FXML
-    private TableColumn<InformazioniStatistiche, String> goalColumn;
+    private TableColumn<StatisticaBeans, String> goalColumn;
     
     @FXML
-    private TableColumn<InformazioniStatistiche, String> assistColumn;
+    private TableColumn<StatisticaBeans, String> assistColumn;
     
     @FXML
-    private TableColumn<InformazioniStatistiche, String> ammonizioniColumn;
+    private TableColumn<StatisticaBeans, String> ammonizioniColumn;
     
     @FXML
-    private TableColumn<InformazioniStatistiche, String> doppieAmmonizioniColumn;
+    private TableColumn<StatisticaBeans, String> doppieAmmonizioniColumn;
     
     @FXML
-    private TableColumn<InformazioniStatistiche, String> espulsioniColumn;
+    private TableColumn<StatisticaBeans, String> espulsioniColumn;
     
     @FXML
-    private TableColumn<InformazioniStatistiche, String> minutiGiocatiColumn;
+    private TableColumn<StatisticaBeans, String> minutiGiocatiColumn;
     
     @FXML
-    private TableColumn<InformazioniStatistiche, String> partiteNoGoalColumn;
+    private TableColumn<StatisticaBeans, String> partiteNoGoalColumn;
     
     @FXML
-    private TableColumn<InformazioniStatistiche, String> retiSubiteColumn;
+    private TableColumn<StatisticaBeans, String> retiSubiteColumn;
     
     public StatisticheStagionaliController(Calciatore calciatore) {
         super(calciatore);
@@ -89,8 +89,6 @@ public class StatisticheStagionaliController extends GeneralSchedaGiocatoreContr
         
         nomeCalciatore.setText(calciatore.getNome());
         
-        btnStatisticheStagionali.setStyle(btnStatisticheStagionali.getStyle() + "-fx-border-color: orange;");
-        tabellaStatistiche.getItems().clear();
         stagioneColumn.setCellValueFactory(cellData->cellData.getValue().stagioneProperty());
         competizioneColumn.setCellValueFactory(cellData->cellData.getValue().competizioneProperty());
         squadraColumn.setCellValueFactory(cellData->cellData.getValue().squadraProperty());
@@ -113,19 +111,19 @@ public class StatisticheStagionaliController extends GeneralSchedaGiocatoreContr
     
         tabellaStatistiche.getItems().clear();
         
-        List<InformazioniStatistiche> statistiche = getInfoStatistiche(calciatore.getStatistiche());
-        for(InformazioniStatistiche statistica :statistiche){
+        List<StatisticaBeans> statistiche = getInfoStatistiche(calciatore.getStatistiche());
+        for(StatisticaBeans statistica :statistiche){
             values.add(statistica);
         }
         tabellaStatistiche.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tabellaStatistiche.setItems(values);
     }
 
-    private ArrayList<InformazioniStatistiche> getInfoStatistiche(ArrayList<Statistica> statistiche) {
-        ArrayList<InformazioniStatistiche> ris = new ArrayList<>();
+    private ArrayList<StatisticaBeans> getInfoStatistiche(ArrayList<Statistica> statistiche) {
+        ArrayList<StatisticaBeans> ris = new ArrayList<>();
         
         for(Statistica statistica : statistiche){
-            InformazioniStatistiche aux = new InformazioniStatistiche(statistica, calciatore.getRuoloPrincipale());
+            StatisticaBeans aux = new StatisticaBeans(statistica, calciatore.getRuoloPrincipale());
             ris.add(aux);
         }
         
