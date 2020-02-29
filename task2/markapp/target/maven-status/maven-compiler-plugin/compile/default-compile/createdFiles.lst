@@ -21,14 +21,12 @@ Entita\Infortunio.class
 Controller\RicercaGiocatoriController.class
 Controller\GestioneAmministratoreSquadraController.class
 Controller\GenerallController.class
-<<<<<<< Updated upstream
-=======
-Controller\LoginSignUpController.class
+Controller\StatisticheStagionaliController.class
 Controller\GeneralSchedaGiocatoreController.class
->>>>>>> Stashed changes
 Controller\RisultatoRicercaGiocatoreController.class
 Controller\HomePageAmministratoreDelegatoController.class
 Controller\GestioneUtentiController.class
+Model\InformazioniStatistiche.class
 Entita\Utente.class
 Entita\ProfiloInteresse.class
 Dao\GestioneProfiliMongoDataAccess$1.class

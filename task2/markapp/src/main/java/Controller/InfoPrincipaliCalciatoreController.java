@@ -6,6 +6,7 @@
 package Controller;
 
 import Entita.Calciatore;
+import Entita.Statistica;
 import com.sun.xml.internal.ws.util.StringUtils;
 import java.net.URL;
 import java.text.DateFormat;
@@ -13,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,9 +26,6 @@ import javafx.scene.layout.HBox;
  */
 public class InfoPrincipaliCalciatoreController extends GeneralSchedaGiocatoreController{
     
-    
-    @FXML
-    private ImageView imgCalciatore;
     @FXML
     private Label dataNascita;
 
@@ -44,9 +43,6 @@ public class InfoPrincipaliCalciatoreController extends GeneralSchedaGiocatoreCo
 
     @FXML
     private Label ruolo;
-
-    @FXML
-    private Label nomeCalciatore;
 
     @FXML
     private Label squadraAttuale;
@@ -86,6 +82,8 @@ public class InfoPrincipaliCalciatoreController extends GeneralSchedaGiocatoreCo
 
     @FXML
     private Label contrattoFinoAl;
+    
+    
 
     public InfoPrincipaliCalciatoreController(Calciatore calciatore) {
         super(calciatore);
@@ -93,10 +91,18 @@ public class InfoPrincipaliCalciatoreController extends GeneralSchedaGiocatoreCo
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try{
+            Image image = new Image(calciatore.getImage());
+            System.out.println(calciatore.getImage());
+            imgCalciatore.setImage(image);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
         
-        Image image = new Image(calciatore.getImage());
-        imgCalciatore.setImage(image);
-       
+        nomeCalciatore.setText(calciatore.getNome());
+        
+        btnInfoPrincipali.setStyle(btnInfoPrincipali.getStyle() + "-fx-border-color: orange;");
+        
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
         dataNascita.setText(df.format(calciatore.getDataNascita()));
         
@@ -106,11 +112,9 @@ public class InfoPrincipaliCalciatoreController extends GeneralSchedaGiocatoreCo
         
         procuratore.setText(calciatore.getProcuratore());
         
-        altezza.setText(Integer.toString(calciatore.getAltezza()));
+        altezza.setText(Integer.toString(calciatore.getAltezza()) + "cm");
         
         ruolo.setText(calciatore.getRuoloPrincipale());
-        
-        nomeCalciatore.setText(calciatore.getNome());
         
         squadraAttuale.setText(calciatore.getSquadra());
         
@@ -143,6 +147,9 @@ public class InfoPrincipaliCalciatoreController extends GeneralSchedaGiocatoreCo
             contrattoFinoAl.setText(df.format(calciatore.getContrattoFinoAl()));
             
         }
+        
+        for(Statistica s : calciatore.getStatistiche())
+            System.out.println(s.getSocieta());
     }
 
 }

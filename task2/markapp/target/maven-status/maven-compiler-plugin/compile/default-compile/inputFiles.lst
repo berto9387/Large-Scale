@@ -1,39 +1,3 @@
-<<<<<<< Updated upstream
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Model\InformazioniRicercaCalciatore.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\RisultatoRicercaGiocatoreController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Dao\GestioneReportMongoDataAccess.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\GenerallController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\AdminController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\ProfiloInteresse.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\RicercaGiocatoriController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Dao\RicercaGiocatoriMongoDataAccess.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\GestioneMembriSquadraController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\task2\markapp\MainApp.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\ModificaProfiloUtenteController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\InfoPrincipaliCalciatoreController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\GestioneUtentiController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Dao\ProfiloInteresseMongoDataAccess.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Dao\StatisticheMongoDataAccess.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\task2\markapp\ScreenController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\LoginSignUpController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\Report.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\Calciatore.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\HomePageOsservatoreController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\HomePageAmministratoreDelegatoController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Dao\MongoDataAccess.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Dao\LoginSignUpMongoDataAccess.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\HomePageAmministratoreDiSquadraController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\Statistica.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\InformazioniPrincipali.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\Utente.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Dao\GestioneProfiliMongoDataAccess.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\Societa.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\GestioneAmministratoreSquadraController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\HomePageAllenatoreController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\Infortunio.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\ListaGiocatoriInteresseController.java
-C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\Trasferimento.java
-=======
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\HomePageAmministratoreDelegatoController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Dao\GestioneProfiliMongoDataAccess.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\HomePageAllenatoreController.java
@@ -48,6 +12,7 @@ C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\jav
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\GenerallController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Dao\RicercaGiocatoriMongoDataAccess.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\HomePageAmministratoreDiSquadraController.java
+C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\StatisticheStagionaliController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Dao\ProfiloInteresseMongoDataAccess.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\task2\markapp\ScreenController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Entita\Calciatore.java
@@ -69,4 +34,4 @@ C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\jav
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\AdminController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\LoginSignUpController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Entita\ProfiloInteresse.java
->>>>>>> Stashed changes
+C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Model\InformazioniStatistiche.java
