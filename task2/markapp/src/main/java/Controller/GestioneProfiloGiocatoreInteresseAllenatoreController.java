@@ -28,7 +28,7 @@ import task2.markapp.ScreenController;
 public class GestioneProfiloGiocatoreInteresseAllenatoreController implements Initializable {
     
     @FXML
-    private VBox areaModificaProfili;
+    protected VBox areaModificaProfili;
     @FXML
     protected ChoiceBox sceltaRuolo;
     @FXML
@@ -58,7 +58,7 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
                 AnchorPane scheda=(AnchorPane)loader.load();
                 ModificaProfiloDiInteresse controllerProfilo = loader.getController();
                 controllerProfilo.inizializzaSchedaModifica(idSocieta,profilo.getEtaMinima(),profilo.getEtaMassima()
-                        ,profilo.getId(),profilo.getDescrizioneCaratteristiche(),this);
+                        ,profilo.getId(),profilo.getDescrizioneCaratteristiche(),areaModificaProfili,scheda);
                 areaModificaProfili.getChildren().add(scheda);    
             } catch(Exception e){
              System.err.println("Pagina non trovata");

@@ -10,8 +10,10 @@ import Entita.Utente;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import javafx.fxml.*;
+
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import task2.markapp.ScreenController;
 
@@ -22,16 +24,17 @@ import task2.markapp.ScreenController;
 public class ModificaProfiloDiInteresse extends GestioneProfiloGiocatoreInteresseAllenatoreController{
     @FXML
     private Label idScheda;
-    private GestioneProfiloGiocatoreInteresseAllenatoreController container;
+    private AnchorPane schedaFXML;
     public void inizializzaSchedaModifica(String ruolo,int etaMinima,int etaMassima,
             String idScheda,String descrizioneCaratteristiche,
-            GestioneProfiloGiocatoreInteresseAllenatoreController container)
+            VBox areaModificaProfili,AnchorPane schedaFXML)
     {
         sceltaRuolo.setValue(ruolo);
         etaMinimaTextField.setText(Integer.toString(etaMinima));
         etaMassimaTextField.setText(Integer.toString(etaMassima));
         this.idScheda.setText(idScheda);
-        
+        this.areaModificaProfili=areaModificaProfili;
+        this.schedaFXML=schedaFXML;
     }
     @FXML
     private void aggiornaScheda(ActionEvent event){
@@ -62,6 +65,6 @@ public class ModificaProfiloDiInteresse extends GestioneProfiloGiocatoreInteress
         decrementMin.setId("decrementMin");
         incrementMax.setId("incrementMax");
         decrementMax.setId("decrementMax");
-        
+        areaModificaProfili.getChildren().remove(schedaFXML);
     } 
 }
