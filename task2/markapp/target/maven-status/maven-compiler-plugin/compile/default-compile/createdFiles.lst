@@ -34,12 +34,39 @@ Controller\ModificaProfiloUtenteController.class
 Controller\ListaGiocatoriInteresseController.class
 Dao\RicercaGiocatoriMongoDataAccess.class
 Controller\GestioneAmministratoreSquadraController.class
+<<<<<<< HEAD
 Controller\GenerallController.class
 Controller\StatisticheStagionaliController.class
 Controller\GeneralSchedaGiocatoreController.class
 Controller\RisultatoRicercaGiocatoreController.class
 Controller\GestioneUtentiController.class
+=======
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+Controller\GenerallController.class
+Controller\StatisticheStagionaliController.class
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+Controller\GenerallController.class
+>>>>>>> master
+Controller\GeneralSchedaGiocatoreController.class
+Controller\RisultatoRicercaGiocatoreController.class
+Controller\HomePageAmministratoreDelegatoController.class
+Controller\GestioneUtentiController.class
+Model\InformazioniStatistiche.class
+Entita\Utente.class
+Entita\ProfiloInteresse.class
+>>>>>>> master
 Dao\GestioneProfiliMongoDataAccess$1.class
 Entita\Calciatore.class
 Controller\HomePageOsservatoreController.class
 Dao\GestioneProfiliMongoDataAccess.class
+<<<<<<< HEAD
+=======
+Controller\RicercaGiocatoriController$2.class
+Dao\LoginSignUpMongoDataAccess.class
+=======
+>>>>>>> Stashed changes
+>>>>>>> master

@@ -32,9 +32,9 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="80.0" prefWidth="927.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RICERCA CALCIATORI" textAlignment="CENTER" wrappingWidth="238.73828125">
+                        <Text fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" text="RICERCA CALCIATORI" textAlignment="CENTER">
                            <font>
-                              <Font name="Roboto Bold" size="20.0" />
+                              <Font name="Roboto Bold" size="30.0" />
                            </font>
                         </Text>
                      </children>
@@ -206,7 +206,7 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox fx:id="containerGoal" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <HBox alignment="CENTER">
                            <HBox.margin>
@@ -221,12 +221,12 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                            <children>
-                              <JFXSlider fx:id="inputMediaGoalStagionali" majorTickUnit="10.0" max="60.0" nodeOrientation="LEFT_TO_RIGHT" showTickLabels="true" styleClass="spinnerBox" value="-1.0" HBox.hgrow="ALWAYS" />
+                              <JFXSlider fx:id="inputMediaGoalStagionali" majorTickUnit="5.0" max="50.0" nodeOrientation="LEFT_TO_RIGHT" showTickLabels="true" styleClass="spinnerBox" value="-1.0" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox fx:id="containerAssist" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <HBox alignment="CENTER">
                            <HBox.margin>
@@ -241,27 +241,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                            <children>
-                              <JFXSlider fx:id="inputMediaAssistStagionali" majorTickUnit="10.0" max="60.0" showTickLabels="true" styleClass="spinnerBox" value="-1.0" HBox.hgrow="ALWAYS" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <HBox alignment="CENTER">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="testo" text="Media goal subiti:" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                           <children>
-                              <JFXSlider fx:id="inputMediaGoalSubiti" majorTickUnit="10.0" max="60.0" showTickLabels="true" styleClass="spinnerBox" value="-1.0" HBox.hgrow="ALWAYS" />
+                              <JFXSlider fx:id="inputMediaAssistStagionali" majorTickUnit="5.0" max="30.0" showTickLabels="true" styleClass="spinnerBox" value="-1.0" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                      </children>
@@ -281,7 +261,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                            <children>
-                              <JFXSlider fx:id="inputMediaCartellini" majorTickUnit="10.0" max="60.0" showTickLabels="true" styleClass="spinnerBox" value="-1.0" HBox.hgrow="ALWAYS" />
+                              <JFXSlider fx:id="inputMediaCartellini" majorTickUnit="5.0" max="20.0" showTickLabels="true" snapToTicks="true" styleClass="spinnerBox" value="-1.0" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                      </children>
@@ -362,6 +342,26 @@
                            </HBox.margin>
                            <children>
                               <ChoiceBox fx:id="inputContratto" prefHeight="26.0" prefWidth="195.0" styleClass="choiceBoxField" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="soloPortiere" prefHeight="100.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="testo" text="Media goal subiti:" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                           <children>
+                              <JFXSlider fx:id="inputMediaGoalSubiti" majorTickUnit="10.0" max="60.0" showTickLabels="true" styleClass="spinnerBox" value="-1.0" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                      </children>
