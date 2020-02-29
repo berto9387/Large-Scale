@@ -1,28 +1,46 @@
-<<<<<<< Updated upstream
-Controller\HomePageAllenatoreController.class
 Controller\AdminController.class
-Entita\Statistica.class
-Controller\LoginSignUpController.class
-Dao\ProfiloInteresseMongoDataAccess.class
-task2\markapp\MainApp.class
 Dao\StatisticheMongoDataAccess.class
 Model\ProfiloInteresseBeans.class
 Controller\HomePageAmministratoreDiSquadraController.class
 Model\InformazioniRicercaCalciatore.class
 Entita\Societa.class
 Entita\Trasferimento.class
-Entita\Report.class
 task2\markapp\ScreenController.class
 Entita\InformazioniPrincipali.class
-Controller\RicercaGiocatoriController$1.class
-Controller\ModificaProfiloUtenteController.class
-Controller\ListaGiocatoriInteresseController.class
 Controller\GestioneMembriSquadraController.class
-Dao\RicercaGiocatoriMongoDataAccess.class
 Controller\InfoPrincipaliCalciatoreController.class
 Entita\Infortunio.class
 Controller\RicercaGiocatoriController.class
+Controller\HomePageAmministratoreDelegatoController.class
+Entita\Utente.class
+Entita\ProfiloInteresse.class
+Controller\InfoTrasferimentiController.class
+Dao\MongoDataAccess.class
+Controller\GestioneMembriSquadraController$1.class
+Model\StatisticaBeans.class
+Dao\GestioneReportMongoDataAccess.class
+Controller\RicercaGiocatoriController$2.class
+Dao\LoginSignUpMongoDataAccess.class
+Controller\HomePageAllenatoreController.class
+Entita\Statistica.class
+Controller\GestioneProfiloGiocatoreInteresseAllenatoreController.class
+Controller\LoginSignUpController.class
+Dao\ProfiloInteresseMongoDataAccess.class
+task2\markapp\MainApp.class
+Model\TrasferimentiBeans.class
+Entita\Report.class
+Controller\RicercaGiocatoriController$1.class
+Controller\ModificaProfiloUtenteController.class
+Controller\ListaGiocatoriInteresseController.class
+Dao\RicercaGiocatoriMongoDataAccess.class
 Controller\GestioneAmministratoreSquadraController.class
+<<<<<<< HEAD
+Controller\GenerallController.class
+Controller\StatisticheStagionaliController.class
+Controller\GeneralSchedaGiocatoreController.class
+Controller\RisultatoRicercaGiocatoreController.class
+Controller\GestioneUtentiController.class
+=======
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 Controller\GenerallController.class
@@ -40,14 +58,15 @@ Controller\GestioneUtentiController.class
 Model\InformazioniStatistiche.class
 Entita\Utente.class
 Entita\ProfiloInteresse.class
+>>>>>>> master
 Dao\GestioneProfiliMongoDataAccess$1.class
-Dao\MongoDataAccess.class
 Entita\Calciatore.class
 Controller\HomePageOsservatoreController.class
-Controller\GestioneMembriSquadraController$1.class
-Dao\GestioneReportMongoDataAccess.class
 Dao\GestioneProfiliMongoDataAccess.class
+<<<<<<< HEAD
+=======
 Controller\RicercaGiocatoriController$2.class
 Dao\LoginSignUpMongoDataAccess.class
 =======
 >>>>>>> Stashed changes
+>>>>>>> master

@@ -3,6 +3,7 @@ package task2.markapp;
 
 import Controller.GeneralSchedaGiocatoreController;
 import Controller.InfoPrincipaliCalciatoreController;
+import Controller.InfoTrasferimentiController;
 import Controller.StatisticheStagionaliController;
 import Entita.Calciatore;
 import Entita.Utente;
@@ -115,6 +116,11 @@ public class ScreenController {
                  case "StatisticheStagionali":
                      loader.setControllerFactory(c -> {
                        return new StatisticheStagionaliController(calciatore);
+                    });
+                    break;
+                 case "InfoTrasferimenti":
+                     loader.setControllerFactory(c -> {
+                       return new InfoTrasferimentiController(calciatore);
                     });
                     break;
             }

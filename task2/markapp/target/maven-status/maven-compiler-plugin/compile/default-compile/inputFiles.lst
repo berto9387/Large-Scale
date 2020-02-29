@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 <<<<<<< Updated upstream
 <<<<<<< HEAD
+>>>>>>> master
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\HomePageAmministratoreDelegatoController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Dao\GestioneProfiliMongoDataAccess.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\HomePageAllenatoreController.java
@@ -13,12 +16,15 @@ C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\jav
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\GestioneMembriSquadraController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\GenerallController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Dao\RicercaGiocatoriMongoDataAccess.java
+C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Model\TrasferimentiBeans.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\HomePageAmministratoreDiSquadraController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\StatisticheStagionaliController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Dao\ProfiloInteresseMongoDataAccess.java
+C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Model\ProfiloInteresseBeans.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\task2\markapp\ScreenController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Entita\Calciatore.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Dao\StatisticheMongoDataAccess.java
+C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\GestioneProfiloGiocatoreInteresseAllenatoreController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Entita\Report.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Entita\Infortunio.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Entita\Societa.java
@@ -26,6 +32,7 @@ C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\jav
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Entita\Trasferimento.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Entita\Statistica.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\task2\markapp\MainApp.java
+C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Model\StatisticaBeans.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Model\InformazioniRicercaCalciatore.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\GestioneUtentiController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Dao\MongoDataAccess.java
@@ -34,8 +41,11 @@ C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\jav
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\ModificaProfiloUtenteController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\HomePageOsservatoreController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\AdminController.java
+C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\InfoTrasferimentiController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Controller\LoginSignUpController.java
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Entita\ProfiloInteresse.java
+<<<<<<< HEAD
+=======
 C:\Users\tony_\Documents\NetBeansProjects\Large-Scale\task2\markapp\src\main\java\Model\InformazioniStatistiche.java
 =======
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Controller\ListaGiocatoriInteresseController.java
@@ -114,3 +124,4 @@ C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\
 C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\ListaGiocatoriInteresseController.java
 C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\Trasferimento.java
 >>>>>>> Stashed changes
+>>>>>>> master
