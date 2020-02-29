@@ -21,7 +21,7 @@
       <TextArea fx:id="areaDescrizioneCaratteristiche" layoutX="22.0" layoutY="142.0" prefHeight="200.0" prefWidth="263.0" style="-fx-border-color: GRAY; -fx-background-radius: 10px;" />
       <Button layoutX="115.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#aggiornaScheda" text="Modifica" />
       <Button layoutX="211.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#eliminaScheda" text="Elimina" />
-      <Label layoutX="22.0" layoutY="354.0" text="id" visible="false" />
+      <Label fx:id="idScheda" layoutX="22.0" layoutY="354.0" text="id" visible="false" />
       <TextField fx:id="etaMinimaTextField" editable="false" layoutX="99.0" layoutY="72.0" prefHeight="31.0" prefWidth="42.0" text="15" />
       <TextField fx:id="etaMassimaTextField" editable="false" layoutX="213.0" layoutY="72.0" prefHeight="31.0" prefWidth="42.0" promptText="34" text="34" />
       <Button fx:id="incrementMin" layoutX="146.0" layoutY="66.0" mnemonicParsing="false" onMouseClicked="#incrementaDecrementa" prefHeight="21.0" prefWidth="20.0" text="+">
