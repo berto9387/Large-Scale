@@ -53,12 +53,12 @@ public class GenerallController implements Initializable{
     {
         //Set the right policy
         table.setColumnResizePolicy( TableView.UNCONSTRAINED_RESIZE_POLICY);
-        table.getColumns().stream().skip(1).forEach( (column) ->
+        table.getColumns().stream().skip(1).limit(6).forEach( (column) ->
         {
             
             //Minimal width = columnheader
             Text t = new Text( column.getText() );
-            t.setFont(Font.font("Roboto", 25.0d));
+            t.setFont(Font.font("Roboto", 17.0d));
             t.applyCss();
             double max = t.getLayoutBounds().getWidth();
             for ( int i = 0; i < table.getItems().size(); i++ )
@@ -67,7 +67,7 @@ public class GenerallController implements Initializable{
                 if ( column.getCellData( i ) != null )
                 {
                     t = new Text( column.getCellData( i ).toString() );
-                    t.setFont(Font.font("Roboto", 25.0d));
+                    t.setFont(Font.font("Roboto", 17.0d));
                     t.applyCss();
                     double calcwidth = t.getLayoutBounds().getWidth();
                     //remember new max-width
@@ -79,7 +79,7 @@ public class GenerallController implements Initializable{
             }
             
             //set the new max-widht with some extra space
-            column.setPrefWidth( max +10d );
+            column.setPrefWidth( max +3d );
         } );
     }
 }

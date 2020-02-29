@@ -1,15 +1,161 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
-/**
- *
- * @author berto
- * usa RicercaGiocatoriMongoDataAccess
- */
-public class ListaGiocatoriInteresseController extends GenerallController{
+import Dao.RicercaGiocatoriMongoDataAccess;
+import Entita.Calciatore;
+import Model.InformazioniRicercaCalciatore;
+import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
+import javafx.util.Callback;
+import task2.markapp.MainApp;
+import task2.markapp.ScreenController;
+
+public class ListaGiocatoriInteresseController extends GenerallController {
+
+    @FXML
+    private TableView<InformazioniRicercaCalciatore> listaInteresseTabella;
     
+    @FXML
+    private TableColumn<InformazioniRicercaCalciatore, ImageView> fotoColumn;
+
+    @FXML
+    private TableColumn<InformazioniRicercaCalciatore, String> nomeColumn;
+
+    @FXML
+    private TableColumn<InformazioniRicercaCalciatore, String> posizioneColumn;
+
+    @FXML
+    private TableColumn<InformazioniRicercaCalciatore, String> squadraColumn;
+
+    @FXML
+    private TableColumn<InformazioniRicercaCalciatore, String> etaColumn;
+
+    @FXML
+    private TableColumn<InformazioniRicercaCalciatore, Integer> valoreMercatoColumn;
+
+    @FXML
+    private TableColumn<InformazioniRicercaCalciatore, String> nazionalitaColumn;
+
+    @FXML
+    private TableColumn<InformazioniRicercaCalciatore, Circle> dirigenzaColumn;
+
+    @FXML
+    private TableColumn<InformazioniRicercaCalciatore, Circle> allenatoreColumn;
+
+    @FXML
+    private TableColumn<InformazioniRicercaCalciatore, Void> eliminaColumn;
+    Callback<TableColumn<InformazioniRicercaCalciatore, Void>, TableCell<InformazioniRicercaCalciatore, Void>> cellFactory = (final TableColumn<InformazioniRicercaCalciatore, Void> param) -> {
+        final TableCell<InformazioniRicercaCalciatore, Void> cell = new TableCell<InformazioniRicercaCalciatore, Void>() {
+            
+            Button btn = new Button();
+            
+            
+            {
+                btn.getStyleClass().add("bottoneElimina");
+                Image image = new Image("/img/delete1.png");
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(25);
+                imageView.setFitHeight(25);
+
+                btn.setGraphic(imageView);
+                btn.setOnAction((ActionEvent event) -> {
+                    InformazioniRicercaCalciatore data = getTableView().getItems().get(getIndex());
+                    System.out.println(data.getValoreMercato());
+                    getTableView().getItems().remove(data);
+                });
+            }
+            
+            @Override
+            public void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btn);
+                }
+            }
+        };
+        return cell;
+    };
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        fotoColumn.setPrefWidth(150);
+        fotoColumn.setCellValueFactory(new PropertyValueFactory<>("image"));
+        nomeColumn.setCellValueFactory(cellData->cellData.getValue().nomeProperty());
+        posizioneColumn.setCellValueFactory(cellData->cellData.getValue().ruoloProperty());
+        squadraColumn.setCellValueFactory(cellData->cellData.getValue().squadraProperty());
+        etaColumn.setCellValueFactory(cellData->cellData.getValue().etaProperty());
+        nazionalitaColumn.setCellValueFactory(cellData->cellData.getValue().nazionalitaProperty());
+        valoreMercatoColumn.setCellValueFactory(cellData->cellData.getValue().valoreMercatoProperty().asObject());
+        dirigenzaColumn.setCellValueFactory(cellData->cellData.getValue().giudizioDirigenzaProperty());
+        allenatoreColumn.setCellValueFactory(cellData->cellData.getValue().giudizioAllenatoreProperty());
+        eliminaColumn.setCellFactory(cellFactory);
+        
+        listaInteresseTabella.setRowFactory((TableView<InformazioniRicercaCalciatore> tv) -> { //Funzione per individuare doppio click su un elemento della tabella
+            TableRow<InformazioniRicercaCalciatore> row = new TableRow<>();
+            row.setOnMouseClicked((MouseEvent event) -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    
+                    InformazioniRicercaCalciatore calciatoreTarget = row.getItem();
+                    System.out.println("Giocatore selezionato: "+ calciatoreTarget.getIdCalciatore());
+                    
+                    Calciatore calciatore = new Calciatore();
+                    
+                    calciatore = RicercaGiocatoriMongoDataAccess.ricercaPerId(calciatoreTarget.getIdCalciatore());
+                    if(calciatore != null)
+                        ScreenController.showPageCalciatore("InfoPrincipaliCalciatore", calciatore);
+                }
+            });
+            return row ;
+        });
+        caricaDati();
+    }
+
+    private void caricaDati() {
+        ObservableList<InformazioniRicercaCalciatore> values=FXCollections.observableArrayList();
+        for(int i=0;i<10;i++){
+            InformazioniRicercaCalciatore info=new InformazioniRicercaCalciatore();
+            info.setNome("Alberto jjjjjjjjjjjjjjhbjhbjhb bjhkjhbjhbjkbjbjk bkjhbjbhjbvvhgv jhbkjbkjbb");
+            info.setRuoloPrincipale("Portiere");
+            info.setIdCalciatore("2222");
+            info.setSquadra("JuventusFc");
+            info.setValoreMercato(i);
+            info.setNazionalita("Italia");
+            ImageView item_1 = new ImageView(new Image("https://tmssl.akamaized.net//images/portrait/header/10003-1405438663.jpg?lm=1433143429"));
+            info.setImage(item_1);
+            Date dataNascita=new Date(443491200000l);
+            LocalDateTime ldt=LocalDateTime.ofInstant(dataNascita.toInstant(),ZoneId.systemDefault());
+            info.setEta(ldt);
+            Circle uno=new Circle(25);
+            uno.getStyleClass().add("circle");
+            uno.getStyleClass().add("approvato");
+            Circle due=new Circle(25);
+            due.getStyleClass().add("circle");
+            due.getStyleClass().add("approvato");
+            info.setGiudizioAllenatore(uno);
+            info.setGiudizioDirigenza(due);
+            values.add(info);
+            listaInteresseTabella.setItems(values);
+        }
+        autoResizeColumns(listaInteresseTabella);
+    }
+
 }

@@ -23,7 +23,7 @@
 
 .table-view .column-header .label{
     -fx-text-fill: white;
-    -fx-font-size: 15;
+    -fx-font-size: 14;
 }
 
 .table-row-cell{

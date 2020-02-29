@@ -37,7 +37,7 @@ public class HomePageAmministratoreDelegatoController extends GenerallController
     
     @FXML   
     void handlerVisualizzaListaPreferiti(MouseEvent event){
-        
+        ScreenController.showPage("ListaGiocatoriInteresse");
     } 
     
     

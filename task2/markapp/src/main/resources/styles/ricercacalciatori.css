@@ -85,8 +85,29 @@
     -fx-font-family:Roboto;
     -fx-font-size:30px;
 }
-.tabella .table-cell {
+.table-cell {
     -fx-alignment: center;
-    -fx-text-fill: -fx-text-inner-color;
-    -fx-font-size:25px;
+    -fx-font-family:Roboto;
+    -fx-font-size:15px;
+}
+.circle{
+    -fx-stroke:orange;
+   
+}
+.approvato{
+    -fx-fill:green;
+}
+.noApprovato{
+    -fx-fill:yellow;
+}
+.nessunGiudizio{
+    -fx-fill:red;
+}
+
+.bottoneElimina{
+    -fx-background-color:#2f2f2fa3;
+    -fx-background-radius:100px;
+    -fx-border-color:orange;
+    -fx-border-radius:100px;
+    -fx-border-width:3;
 }

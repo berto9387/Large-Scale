@@ -5,11 +5,13 @@
  */
 package Model;
 
+import Controller.ListaGiocatoriInteresseController;
 import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
@@ -27,11 +29,12 @@ public class InformazioniRicercaCalciatore {
     private StringProperty squadra;
     private StringProperty eta;
     private IntegerProperty valoreMercato;
-    private Circle giudizioAllenatore;
-    private Circle giudizioDirigenza;
-    private Button elimina;
+    private ObjectProperty<Circle> giudizioAllenatore;
+    private ObjectProperty<Circle> giudizioDirigenza;
     private ImageView image;
     private StringProperty nazionalita;
+    
+    
 
     public InformazioniRicercaCalciatore() {
         this(new SimpleStringProperty(),new SimpleStringProperty(),new SimpleStringProperty(),
@@ -160,27 +163,28 @@ public class InformazioniRicercaCalciatore {
     }
 
     public Circle getGiudizioAllenatore() {
+            return giudizioAllenatore.get();
+        }
+
+    public ObjectProperty<Circle> giudizioAllenatoreProperty() {
         return giudizioAllenatore;
     }
-
-    public void setGiudizioAllenatore(Circle giudizioAllenatore) {
-        this.giudizioAllenatore = giudizioAllenatore;
+    public void setGiudizioAllenatore(Circle circle){
+        this.giudizioAllenatore=new SimpleObjectProperty();
+        this.giudizioAllenatore.set(circle);
     }
-
+    
     public Circle getGiudizioDirigenza() {
+            return giudizioDirigenza.get();
+        }
+
+    public ObjectProperty<Circle> giudizioDirigenzaProperty() {
         return giudizioDirigenza;
     }
-
-    public void setGiudizioDirigenza(Circle giudizioDirigenza) {
-        this.giudizioDirigenza = giudizioDirigenza;
+    public void setGiudizioDirigenza(Circle circle){
+        this.giudizioDirigenza=new SimpleObjectProperty();
+        this.giudizioDirigenza.set(circle);
     }
 
-    public Button getElimina() {
-        return elimina;
-    }
-
-    public void setElimina(Button elimina) {
-        this.elimina = elimina;
-    }
     
 }

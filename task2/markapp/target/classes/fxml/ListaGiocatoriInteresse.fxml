@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -10,8 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="707.0" prefWidth="1056.0" stylesheets="@../styles/ricercacalciatori.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="Controller.ListaGiocatoriInteresseController">
+<AnchorPane id="AnchorPane" prefHeight="707.0" prefWidth="1056.0" stylesheets="@../styles/ricercacalciatori.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ListaGiocatoriInteresseController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -36,7 +36,12 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
                            <children>
-                              <Circle fill="GREEN" layoutX="60.0" layoutY="50.0" radius="28.0" stroke="ORANGE" strokeType="INSIDE" />
+                              <Circle layoutX="60.0" layoutY="50.0" radius="28.0" strokeType="INSIDE">
+                                 <styleClass>
+                                    <String fx:value="circle" />
+                                    <String fx:value="approvato" />
+                                 </styleClass>
+                              </Circle>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="115.0" HBox.hgrow="ALWAYS">
@@ -53,7 +58,12 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="105.0">
                            <children>
-                              <Circle fill="RED" radius="28.0" stroke="ORANGE" strokeType="INSIDE" />
+                              <Circle radius="28.0" stroke="ORANGE" strokeType="INSIDE">
+                                 <styleClass>
+                                    <String fx:value="circle" />
+                                    <String fx:value="noApprovato" />
+                                 </styleClass>
+                              </Circle>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -70,7 +80,12 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="102.0">
                            <children>
-                              <Circle fill="YELLOW" radius="28.0" stroke="ORANGE" strokeType="INSIDE" />
+                              <Circle radius="28.0" stroke="ORANGE" strokeType="INSIDE">
+                                 <styleClass>
+                                    <String fx:value="circle" />
+                                    <String fx:value="nessunGiudizio" />
+                                 </styleClass>
+                              </Circle>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="165.0" HBox.hgrow="ALWAYS">
@@ -82,24 +97,31 @@
                   </HBox>
                </children>
             </HBox>
-            <TableView prefHeight="200.0" prefWidth="200.0" styleClass="tabella" VBox.vgrow="ALWAYS">
-              <columns>
-                <TableColumn prefWidth="75.0" />
-                <TableColumn prefWidth="75.0" text="Nome" />
-                  <TableColumn prefWidth="75.0" text="Posizione" />
-                  <TableColumn prefWidth="81.0" text="Squadra" />
-                  <TableColumn prefWidth="50.0" text="Età" />
-                  <TableColumn prefWidth="131.0" text="Valore Mercato" />
-                  <TableColumn prefWidth="107.0" text="Nazionalità" />
-                  <TableColumn prefWidth="163.0" text="Giudizio Dirigenza" />
-                  <TableColumn prefWidth="182.0" text="Giudizio Allenatore" />
-                  <TableColumn minWidth="8.0" prefWidth="96.0" />
-              </columns>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </TableView>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" VBox.vgrow="ALWAYS">
+               <children>
+                  <TableView fx:id="listaInteresseTabella" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/tableview.css" HBox.hgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="fotoColumn" prefWidth="75.0" />
+                      <TableColumn fx:id="nomeColumn" prefWidth="75.0" text="Nome" />
+                        <TableColumn fx:id="posizioneColumn" prefWidth="75.0" text="Posizione" />
+                        <TableColumn fx:id="squadraColumn" prefWidth="81.0" text="Squadra" />
+                        <TableColumn fx:id="etaColumn" prefWidth="50.0" text="Età" />
+                        <TableColumn fx:id="valoreMercatoColumn" prefWidth="131.0" text="Valore Mercato" />
+                        <TableColumn fx:id="nazionalitaColumn" prefWidth="107.0" text="Nazionalità" />
+                        <TableColumn fx:id="dirigenzaColumn" prefWidth="163.0" text="Giudizio Dirigenza" />
+                        <TableColumn fx:id="allenatoreColumn" prefWidth="182.0" text="Giudizio Allenatore" />
+                        <TableColumn fx:id="eliminaColumn" minWidth="8.0" prefWidth="96.0" />
+                    </columns>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </TableView>
+               </children>
+            </HBox>
          </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>
