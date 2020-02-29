@@ -82,7 +82,7 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
             loader.setLocation(MainApp.class.getResource("/fxml/ModificaSchedaProfiloInteresse.fxml"));
             AnchorPane scheda=(AnchorPane)loader.load();
             ModificaProfiloDiInteresse controllerProfilo = loader.getController();
-            controllerProfilo.inizializzaSchedaModifica(idSocieta,etaMinima,etaMassima,idScheda,descrizioneCaratteristiche,this);
+            controllerProfilo.inizializzaSchedaModifica(idSocieta,etaMinima,etaMassima,idScheda,descrizioneCaratteristiche,areaModificaProfili,scheda);
             areaModificaProfili.getChildren().add(scheda);
             
         }catch(Exception e){
