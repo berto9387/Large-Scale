@@ -10,6 +10,10 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.Period;
+import java.util.Date;
 import org.bson.Document;
 
 /**
@@ -66,5 +70,9 @@ public class MongoDataAccess {
        if(trovaUtente!=null)
            return 1;
        return 0;
+    }
+    protected static Date trovaDataDiXAnniFa(int anni){
+        Instant dataXAnniFa=Instant.now().minus(Duration.ofDays(anni*365));
+        return Date.from(dataXAnniFa);
     }
 }

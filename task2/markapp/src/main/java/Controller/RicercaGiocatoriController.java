@@ -13,16 +13,24 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.RangeSlider;
 import task2.markapp.ScreenController;
@@ -32,6 +40,7 @@ import task2.markapp.ScreenController;
  * @author berto
  * usa RicercaGiocatoriMongoDataAccess
  */
+
 public class RicercaGiocatoriController extends GenerallController{
     ObservableList<InformazioniRicercaCalciatore> values=FXCollections.observableArrayList();
     
@@ -73,7 +82,8 @@ public class RicercaGiocatoriController extends GenerallController{
     
     @FXML
     private JFXTextField inputCampionato;
-
+    @FXML
+    private JFXTextField inputStagione;
     @FXML
     private JFXTextField inputSquadra;
 
@@ -105,21 +115,60 @@ public class RicercaGiocatoriController extends GenerallController{
     private RangeSlider inputEta;
 
     @FXML
-    private ChoiceBox<?> inputContratto;
+    private ChoiceBox<String> inputContratto;
+    
+    @FXML
+    private HBox soloPortiere;
+    
+     @FXML
+    private VBox progressIndicatorContainer;
+     
+    @FXML
+    private HBox containerAssist;
+     
+    @FXML
+    private HBox containerGoal;
+
+    @FXML
+    private ProgressIndicator progressIndicator;
 
     @FXML
     void cercaCalciatore(ActionEvent event) {
+        errorCercaCalciatore.setText("");
         tabellaCalciatori.getItems().clear();
         if(nomeInput.getText().isEmpty() && cognomeInput.getText().isEmpty()){
             errorCercaCalciatore.setText("Completa almeno uno dei campi!");
             return;
         }
-        List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriMongoDataAccess.ricerca(nomeInput.getText(),cognomeInput.getText());
-        for(InformazioniRicercaCalciatore info :infos){
-            values.add(info);
-        }
-        tabellaCalciatori.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tabellaCalciatori.setItems(values);
+        Task<List<InformazioniRicercaCalciatore>> task = new Task<List<InformazioniRicercaCalciatore>>() {
+
+            @Override
+            protected List<InformazioniRicercaCalciatore> call() throws Exception {
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriMongoDataAccess.ricerca(nomeInput.getText(),cognomeInput.getText());
+
+                return infos;
+            }
+
+        };
+        task.setOnSucceeded(evt -> {
+            progressIndicatorContainer.setVisible(false);
+            if(task.getValue().isEmpty()){
+                errorCercaCalciatore.setText("Nessun calciatore trovato");
+                return;
+            }
+                
+            for(InformazioniRicercaCalciatore info :task.getValue()){
+                values.add(info);
+            }
+            tabellaCalciatori.setItems(values);
+            
+            autoResizeColumns(tabellaCalciatori);
+        });
+        progressIndicatorContainer.setVisible(true);
+        new Thread(task).start();
+        
+
+        
     }
     void scegliNome(String newValue) {
         if(newValue.isEmpty())
@@ -135,10 +184,61 @@ public class RicercaGiocatoriController extends GenerallController{
             scegliCognomeTesto.setVisible(true);
         }
     }
-    @FXML
+@FXML
     void ricercaAvanzata(ActionEvent event) {
-        System.err.println(inputMediaAssistStagionali.getValue()+" "+inputValoreDiMercato.getHighValue());
+        errorCercaCalciatore.setText("");
+        tabellaCalciatori.getItems().clear();
+        String regex = "^(\\d{2}\\/\\d{2})$";
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(inputStagione.getText());
+        if(!matcher.find()){
+            errorCercaCalciatore.setText("Formato stagione: '18/19'");
+        }
+        progressIndicatorContainer.setVisible(true);
+        Task<List<InformazioniRicercaCalciatore>> task = new Task<List<InformazioniRicercaCalciatore>>() {
+
+            @Override
+            protected List<InformazioniRicercaCalciatore> call() throws Exception {
+                
+                long startTime = System.nanoTime();
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriMongoDataAccess.ricercaAvanzataStat(
+                    inputCampionato.getText(),inputStagione.getText(),inputSquadra.getText(),inputPosizione.getValue(),
+                    (int)inputValoreDiMercato.getLowValue(),(int)inputValoreDiMercato.getHighValue(),
+                    (int)inputAltezza.getLowValue(),(int)inputAltezza.getHighValue(),
+                    (int)inputEta.getLowValue(),(int)inputEta.getHighValue(),null
+                    ,inputMediaGoalStagionali.getValue(),
+                    inputMediaAssistStagionali.getValue(),inputMediaGoalSubiti.getValue(),inputMediaCartellini.getValue()
+                );
+                long elapsedTime = System.nanoTime() - startTime;
+                System.out.println(elapsedTime/1000000);
+                return infos;
+            }
+            
+        };
+        task.setOnSucceeded(evt -> {
+            progressIndicatorContainer.setVisible(false);
+            if(task.getValue()==null){
+                errorCercaCalciatore.setText("Usa dei filtri migliori!");
+                return;
+                
+            }
+            if(task.getValue().isEmpty()){
+                errorCercaCalciatore.setText("Nessun calciatore trovato!");
+                return;
+            }    
+            for(InformazioniRicercaCalciatore info :task.getValue()){
+                values.add(info);
+            }
+            tabellaCalciatori.setItems(values);
+            autoResizeColumns(tabellaCalciatori);
+        });
+        
+        progressIndicatorContainer.setVisible(true);
+        new Thread(task).start();
+            
+        
     }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         nomeInput.textProperty().addListener((Observable, oldValue, newValue) -> {
@@ -148,7 +248,7 @@ public class RicercaGiocatoriController extends GenerallController{
             scegliCognome(newValue);
         });
         
-        fotoColumn.setPrefWidth(80);
+        fotoColumn.setPrefWidth(150);
         fotoColumn.setCellValueFactory(new PropertyValueFactory<InformazioniRicercaCalciatore, ImageView>("image"));
         nomeColumn.setCellValueFactory(cellData->cellData.getValue().nomeProperty());
         posizioneColumn.setCellValueFactory(cellData->cellData.getValue().ruoloProperty());
@@ -175,5 +275,18 @@ public class RicercaGiocatoriController extends GenerallController{
         });
         //ricerca avanzata
         inputPosizione.setItems(ScreenController.getRuoloInCampo());
+        //evento choice box per la selezione del portiere
+        inputPosizione.getSelectionModel().selectedItemProperty()
+        .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) ->{
+            if("Portiere".equals(inputPosizione.getValue())){
+                soloPortiere.setVisible(true);
+                containerAssist.setVisible(false);
+                containerGoal.setVisible(false);
+            } else {
+                soloPortiere.setVisible(false);
+                containerAssist.setVisible(true);
+                containerGoal.setVisible(true);
+            }
+        });
     }
 }
