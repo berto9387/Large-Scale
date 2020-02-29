@@ -42,7 +42,7 @@ public class HomePageAllenatoreController extends GenerallController{
     
     @FXML 
     void handlerAggiungiProfiloDiInteresse(MouseEvent event){
-        
+        ScreenController.showPage("GestioneProfiloGiocatoreInteresseAllenatore");
     }
     
     @FXML

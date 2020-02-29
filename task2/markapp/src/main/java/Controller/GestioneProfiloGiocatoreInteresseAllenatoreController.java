@@ -30,7 +30,7 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
     @FXML
     protected VBox areaModificaProfili;
     @FXML
-    protected ChoiceBox sceltaRuolo;
+    protected ChoiceBox<String> sceltaRuolo;
     @FXML
     protected TextField etaMinimaTextField;
     @FXML
@@ -126,10 +126,6 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
         }
     }
     
-    private void eliminaSchedaDaGrafica(ModificaProfiloDiInteresse scheda){
-    
-        
-    }
     
     
     /**
