@@ -102,7 +102,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         return (maxID+1);
     }
     
-    public static void aggiungiAListaProfiliInteresse(String idSocieta,String idAllenatore,String ruolo,int etaMinima,
+    public static String aggiungiAListaProfiliInteresse(String idSocieta,String idAllenatore,String ruolo,int etaMinima,
             int etaMassima,String descrizioneCaratteristiche){
         
         String _id=Integer.toString(prossimoID);
@@ -116,7 +116,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         UpdateResult updateOne = collectionSocieta.updateOne(eq("_id",idSocieta),
                 Updates.addToSet("listaProfiliDiInteresse",profiloInteresse));
         ++prossimoID;
-        
+        return _id;   
     }
     
     public static void modificaListaProfiliInteresse(String idSocieta,String idProfiloInteresse,String ruolo,int etaMinima,
