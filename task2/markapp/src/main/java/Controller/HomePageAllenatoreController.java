@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import task2.markapp.ScreenController;
@@ -34,6 +35,7 @@ public class HomePageAllenatoreController extends GenerallController{
 
     @FXML
     private Label emailAllenatore;
+    
     
     @FXML   
     void handlerVisualizzaListaPreferiti(MouseEvent event){

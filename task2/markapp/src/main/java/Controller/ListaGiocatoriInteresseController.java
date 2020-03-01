@@ -4,11 +4,7 @@ import Dao.RicercaGiocatoriMongoDataAccess;
 import Entita.Calciatore;
 import Model.InformazioniRicercaCalciatore;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.ResourceBundle;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -77,7 +73,7 @@ public class ListaGiocatoriInteresseController extends GenerallController {
                     btn.setGraphic(imageView);
                     btn.setOnAction((ActionEvent event) -> {
                         InformazioniRicercaCalciatore data = getTableView().getItems().get(getIndex());
-                        //funzione rimozione del giocatore dalla lista interessi
+                        RicercaGiocatoriMongoDataAccess.rimuoviCalciatore(data.getIdCalciatore());
                         getTableView().getItems().remove(data);
                     });
                 
@@ -126,8 +122,11 @@ public class ListaGiocatoriInteresseController extends GenerallController {
                     Calciatore calciatore = new Calciatore();
                     
                     calciatore = RicercaGiocatoriMongoDataAccess.ricercaPerId(calciatoreTarget.getIdCalciatore());
-                    if(calciatore != null)
+                    if(calciatore != null){
+                        calciatore.setReport(calciatoreTarget.getReport());
                         ScreenController.showPageCalciatore("InfoPrincipaliCalciatore", calciatore);
+                    }
+                        
                 }
             });
             return row ;

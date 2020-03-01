@@ -6,6 +6,7 @@
 package Model;
 
 import Controller.ListaGiocatoriInteresseController;
+import Entita.Report;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import javafx.beans.property.IntegerProperty;
@@ -34,7 +35,7 @@ public class InformazioniRicercaCalciatore {
     private ImageView image;
     private StringProperty nazionalita;
     private String propostoDa;
-    
+    private Report report;
     
 
     public InformazioniRicercaCalciatore() {
@@ -193,6 +194,14 @@ public class InformazioniRicercaCalciatore {
 
     public void setPropostoDa(String propostoDa) {
         this.propostoDa = propostoDa;
+    }
+
+    public Report getReport() {
+        return report;
+    }
+
+    public void setReport(Report report) {
+        this.report = report;
     }
     
     

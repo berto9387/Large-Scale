@@ -7,6 +7,7 @@ package Dao;
 
 import Entita.Calciatore;
 import Entita.Infortunio;
+import Entita.Report;
 import Entita.Statistica;
 import Entita.Trasferimento;
 import Entita.Utente;
@@ -17,6 +18,7 @@ import static com.mongodb.client.model.Aggregates.*;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Projections.*;
+import com.mongodb.client.result.UpdateResult;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -838,7 +840,14 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             if(aux.getString("propostaDa")!=null){
                 info.setPropostoDa(aux.getString("propostaDa"));
             }
-                
+            Document reportDoc=(Document)aux.get("reportOsservatore");
+            if(reportDoc!=null){
+                Report report=new Report();
+                report.setCommento(reportDoc.getString("commento"));
+                report.setId(reportDoc.getString("_id"));
+                report.setRating(reportDoc.getInteger("rating"));
+                info.setReport(report);
+            }
             
                 
             return info;
@@ -851,7 +860,13 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
         return infos;
     }
     public static int rimuoviCalciatore(String idCalciatore){
-        
-        return 0;
+        ObjectId societaId=new ObjectId(ScreenController.getUtente().getSocieta().getId());
+        Bson query = new Document().append("_id", societaId);
+        Bson fields = new Document().append("giocatoriPreferiti", new Document().append( "_id", idCalciatore));
+        Bson update = new Document("$pull",fields);
+
+        UpdateResult result=collectionSocieta.updateOne( query, update );
+        int er=(int) result.getModifiedCount();
+        return er;
     }
 }
