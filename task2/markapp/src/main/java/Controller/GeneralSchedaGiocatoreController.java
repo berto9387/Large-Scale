@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Dao.GestioneListaPreferitiMongoDataAccess;
 import Entita.Calciatore;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,6 +46,9 @@ public class GeneralSchedaGiocatoreController implements Initializable{
     
     @FXML
     protected Label nomeCalciatore;
+    
+    @FXML
+    protected Label infoLabel;
 
     public GeneralSchedaGiocatoreController(Calciatore calciatore) {
         this.calciatore = calciatore;
@@ -84,5 +88,29 @@ public class GeneralSchedaGiocatoreController implements Initializable{
     @FXML
     void handlerStatisticheStagionali(ActionEvent event) {
         ScreenController.showPageCalciatore("StatisticheStagionali", calciatore);
+    }
+    
+    @FXML
+    void handlerAggiungiGiocatoreLista(ActionEvent event) {
+        
+        int err = GestioneListaPreferitiMongoDataAccess.aggiungiGiocatoreLista(calciatore, ScreenController.getUtente());
+
+        if(err == 0){
+            System.out.println("Giocatore inserito correttamente");
+            infoLabel.setText("Giocatore inserito correttamente");
+        }
+        if(err == 1){
+            System.out.println("Giocatore già presente in lista");
+            infoLabel.setText("Giocatore già presente in lista");
+        }
+        if(err == 2){
+            System.out.println("Errore durante l'aggiungi, riprovare");
+            infoLabel.setText("Errore durante l'aggiungi, riprovare");
+        }
+    }
+    
+    @FXML
+    void handlerTornaAllaRicerca(ActionEvent event) {
+        ScreenController.showPage("RicercaCalciatori");
     }
 }
