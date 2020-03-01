@@ -60,8 +60,7 @@ public class InfoTrasferimentiController extends GeneralSchedaGiocatoreControlle
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try{
-            Image image = new Image(calciatore.getImage());
-            System.out.println(calciatore.getImage());
+            Image image = new Image(calciatore.getLinkFoto());
             imgCalciatore.setImage(image);
         } catch(Exception e){
             e.printStackTrace();

@@ -42,10 +42,18 @@ public class GestioneListaPreferitiMongoDataAccess extends MongoDataAccess{
             Date timestamp = new Date(); //Mi serve per aggiungere il timestamp d'aggiunta
             
             //Creo il documento da inserire
-            Document nuovoPreferitoDoc = new Document("_id", calciatore.getIdCalciatore()).append("timeStampAggiunto", timestamp)
-                                                    .append("nome", calciatore.getNome()).append("posizione", calciatore.getRuoloPrincipale())
-                                                    .append("valoreMercato", calciatore.getValoreMercato()).append("dataNascita", calciatore.getDataNascita())
-                                                    .append("propostoDa", utente.getRuolo()).append("giudizioAllenatore", 2).append("giudizioDirigenza", 2);
+            Document nuovoPreferitoDoc = new Document("_id", calciatore.getIdCalciatore())
+                                                    .append("timeStampAggiunto", timestamp)
+                                                    .append("linkFoto", calciatore.getLinkFoto())
+                                                    .append("nome", calciatore.getNome())
+                                                    .append("nazionalita", calciatore.getNazionalita())
+                                                    .append("squadra", calciatore.getSquadra())
+                                                    .append("posizione", calciatore.getRuoloPrincipale())
+                                                    .append("valoreMercato", calciatore.getValoreMercato())
+                                                    .append("dataNascita", calciatore.getDataNascita())
+                                                    .append("propostoDa", utente.getRuolo())
+                                                    .append("giudizioAllenatore", 2)
+                                                    .append("giudizioDirigenza", 2);
             
             //Inserisco il documento
             collectionSocieta.updateOne(eq("_id",new ObjectId(utente.getSocieta().getId())), 

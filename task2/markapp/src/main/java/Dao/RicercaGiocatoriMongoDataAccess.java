@@ -601,7 +601,7 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             }
             
             if(calciatoreDoc.getString("linkFoto")!=null){
-                    calciatoreCercato.setImage(calciatoreDoc.getString("linkFoto"));
+                    calciatoreCercato.setLinkFoto(calciatoreDoc.getString("linkFoto"));
             }
             
             if(calciatoreDoc.getString("posizionePrincipale")!=null){
