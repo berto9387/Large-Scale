@@ -75,6 +75,7 @@ public class ListaGiocatoriInteresseController extends GenerallController {
                         InformazioniRicercaCalciatore data = getTableView().getItems().get(getIndex());
                         RicercaGiocatoriMongoDataAccess.rimuoviCalciatore(data.getIdCalciatore());
                         getTableView().getItems().remove(data);
+                        
                     });
                 
                 
