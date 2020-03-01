@@ -101,8 +101,20 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         }
         return (maxID+1);
     }
-    
-    public static void aggiungiAListaProfiliInteresse(String idSocieta,String idAllenatore,String ruolo,int etaMinima,
+    /**
+     * Funzione che aggiunge una nuova scheda profilo d'interesse alla lista 
+     * della società a cui corrisponde l'idSocieta passato a parametro,la scheda profilo
+     * verrà creata e caricata sul database a partire dai parametri passati alla
+     * funzione
+     * @param idSocieta
+     * @param idAllenatore
+     * @param ruolo
+     * @param etaMinima
+     * @param etaMassima
+     * @param descrizioneCaratteristiche
+     * @return l'id corrispondente al nuovo profilo d'interesse caricato nel database.
+     */
+    public static String aggiungiAListaProfiliInteresse(String idSocieta,String idAllenatore,String ruolo,int etaMinima,
             int etaMassima,String descrizioneCaratteristiche){
         
         String _id=Integer.toString(prossimoID);
@@ -116,7 +128,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         UpdateResult updateOne = collectionSocieta.updateOne(eq("_id",idSocieta),
                 Updates.addToSet("listaProfiliDiInteresse",profiloInteresse));
         ++prossimoID;
-        
+        return _id;   
     }
     
     public static void modificaListaProfiliInteresse(String idSocieta,String idProfiloInteresse,String ruolo,int etaMinima,
@@ -131,7 +143,12 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         collectionSocieta.updateOne(filter,profiloInteresseAggiornato);
         
     }
-    
+    /**
+     * Funzione che passato come parametro un id di una societa e l'id di un profilo d'interesse
+     * elimini dalla lista dei profili d'interesse la scheda d'id corrispondente.
+     * @param idSocieta
+     * @param idProfilo 
+     */
     public static void eliminaProfiloInteresse(String idSocieta,String idProfilo){
     
         Bson filter = eq("_id",idSocieta);
