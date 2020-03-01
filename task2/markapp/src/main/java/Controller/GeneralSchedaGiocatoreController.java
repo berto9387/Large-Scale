@@ -68,7 +68,7 @@ public class GeneralSchedaGiocatoreController implements Initializable{
 
     @FXML
     void handlerCronologiaInfortuni(ActionEvent event) {
-
+        ScreenController.showPageCalciatore("InfoInfortuni", calciatore);
     }
 
     @FXML

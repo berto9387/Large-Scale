@@ -699,8 +699,9 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             if(calciatoreDoc.get("infortunio") != null){
                 
                 List<Document> infortuni=(List<Document>)calciatoreDoc.get("infortunio");
-                Infortunio aux = new Infortunio();
+                Infortunio aux = null;
                 for(Document infortunio : infortuni){
+                    aux = new Infortunio();
                     if(infortunio.getString("stagione") != null){
                         aux.setStagione(infortunio.getString("stagione"));
                     }
