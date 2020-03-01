@@ -42,7 +42,7 @@ public class HomePageOsservatoreController extends GenerallController{
     
     @FXML 
     void handlerVisualizzaProfiloDiInteresse(MouseEvent event){
-        
+        ScreenController.showPage("GestioneProfiloInteresseOsservatore");
     }
     
     @FXML
