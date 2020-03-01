@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 =======
 <<<<<<< Updated upstream
@@ -87,6 +88,8 @@ C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\tas
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Entita\Calciatore.java
 >>>>>>> master
 =======
+=======
+>>>>>>> Stashed changes
 C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Model\InformazioniRicercaCalciatore.java
 C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\RisultatoRicercaGiocatoreController.java
 C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Dao\GestioneReportMongoDataAccess.java
@@ -123,5 +126,8 @@ C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\
 C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\Infortunio.java
 C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Controller\ListaGiocatoriInteresseController.java
 C:\Users\berto\Desktop\università\largescale\task\Large-Scale\task2\markapp\src\main\java\Entita\Trasferimento.java
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
