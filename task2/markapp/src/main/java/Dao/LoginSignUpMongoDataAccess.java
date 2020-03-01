@@ -103,33 +103,12 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
         if(societaDoc.getString("nazione")!=null){
             soc.setNazione(societaDoc.getString("nazione"));
         } 
-        if(societaDoc.get("giocatoriPreferiti")!=null){
-            List<Document> list=(List<Document>)societaDoc.get("giocatoriPreferiti");
-            for(Document doc: list){
-                Report report=null;
-                if(doc.get("report")!=null){
-                    System.out.println("Report esistente!!");
-                    Document reportDoc=(Document)doc.get("report");
-                    System.out.println(reportDoc.toString());
-                    report=new Report(reportDoc.getObjectId("_id").toString(), reportDoc.getString("commento"), reportDoc.getInteger("rating"));
-                }
-
-                InformazioniPrincipali aux=new InformazioniPrincipali(doc.getObjectId("_id").toString(), doc.getString("nome"), doc.getString("ruoloPrincipale"), 
-                                                                        doc.getString("squadra"), new Date(doc.getLong("dataNascita")), doc.getInteger("valoreMercato"), 
-                                                                        doc.getString("nazionalita"), doc.getInteger("giudizioDirigenza"), doc.getInteger("giudizioAllenatore"),doc.getString("propostoDa"),report);
-
-                soc.addGiocatorePreferito(aux);
-            }
-        }
-        if(societaDoc.get("listaProfiliDiInteresse")!=null){
-            List<Document> list=(List<Document>)societaDoc.get("listaProfiliDiInteresse");
-            for(Document doc: list){
-                ProfiloInteresse aux=new ProfiloInteresse(doc.getObjectId("_id").toString(),doc.getString("ruolo"),doc.getInteger("etaMinima"),doc.getInteger("etaMassima"),
-                        doc.getString("descrizioneCaratteristiche"),doc.getString("idAllenatore"),new Date(Long.getLong(doc.getString("timeStampAggiunto"))));
-
-               soc.addProfiloInteresse(aux);
-            }
-        }
+        if(societaDoc.getObjectId("amministratore delegato")!=null)
+            soc.setAmmDelegato(societaDoc.getObjectId("amministratore delegato").toString());
+        if(societaDoc.getObjectId("osservatore")!=null)
+            soc.setOsservatore(societaDoc.getObjectId("osservatore").toString());
+        if(societaDoc.getObjectId("allenatore")!=null)
+            soc.setAmmDelegato(societaDoc.getObjectId("allenatore").toString());
         return soc;
     }
     /**

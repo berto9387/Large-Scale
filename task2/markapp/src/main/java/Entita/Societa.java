@@ -16,19 +16,23 @@ public class Societa {
     private String id;
     private String nomeSocieta;
     private String nazione;
-    private ArrayList<ProfiloInteresse> profiliInteresse = new ArrayList<>();
-    private ArrayList<InformazioniPrincipali> giocatoriPreferiti = new ArrayList<>();
+    private String allenatore;
+    private String ammDelegato;
+    private String osservatore;
 
     public Societa() {
     }
-    
-    public Societa(String id, String nomeSocieta, String nazione, ArrayList<ProfiloInteresse> profiliInteresse, ArrayList<InformazioniPrincipali> giocatoriPreferiti) {
+
+    public Societa(String id, String nomeSocieta, String nazione, String allenatore, String ammDelegato, String osservatore) {
         this.id = id;
         this.nomeSocieta = nomeSocieta;
         this.nazione = nazione;
-        this.profiliInteresse = profiliInteresse;
-        this.giocatoriPreferiti = giocatoriPreferiti;
+        this.allenatore = allenatore;
+        this.ammDelegato = ammDelegato;
+        this.osservatore = osservatore;
     }
+    
+    
 
     public String getId() {
         return id;
@@ -54,28 +58,31 @@ public class Societa {
         this.nazione = nazione;
     }
 
-    public ArrayList<ProfiloInteresse> getProfiliInteresse() {
-        return profiliInteresse;
+    public String getAllenatore() {
+        return allenatore;
     }
 
-    public void setProfiliInteresse(ArrayList<ProfiloInteresse> profiliInteresse) {
-        this.profiliInteresse = profiliInteresse;
+    public void setAllenatore(String allenatore) {
+        this.allenatore = allenatore;
     }
 
-    public ArrayList<InformazioniPrincipali> getGiocatoriPreferiti() {
-        return giocatoriPreferiti;
+    public String getAmmDelegato() {
+        return ammDelegato;
     }
 
-    public void setGiocatoriPreferiti(ArrayList<InformazioniPrincipali> giocatoriPreferiti) {
-        this.giocatoriPreferiti = giocatoriPreferiti;
+    public void setAmmDelegato(String ammDelegato) {
+        this.ammDelegato = ammDelegato;
     }
 
-    public void addGiocatorePreferito(InformazioniPrincipali nuovoGiocatorePreferito) {
-        this.giocatoriPreferiti.add(nuovoGiocatorePreferito);
+    public String getOsservatore() {
+        return osservatore;
     }
-    public void addProfiloInteresse(ProfiloInteresse nuovoProfiloInteresse) {
-        this.profiliInteresse.add(nuovoProfiloInteresse);
+
+    public void setOsservatore(String osservatore) {
+        this.osservatore = osservatore;
     }
+
+    
     
     
 }

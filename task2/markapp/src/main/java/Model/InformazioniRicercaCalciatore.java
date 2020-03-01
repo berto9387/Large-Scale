@@ -33,6 +33,7 @@ public class InformazioniRicercaCalciatore {
     private ObjectProperty<Circle> giudizioDirigenza;
     private ImageView image;
     private StringProperty nazionalita;
+    private String propostoDa;
     
     
 
@@ -186,5 +187,13 @@ public class InformazioniRicercaCalciatore {
         this.giudizioDirigenza.set(circle);
     }
 
+    public String getPropostoDa() {
+        return propostoDa;
+    }
+
+    public void setPropostoDa(String propostoDa) {
+        this.propostoDa = propostoDa;
+    }
+    
     
 }

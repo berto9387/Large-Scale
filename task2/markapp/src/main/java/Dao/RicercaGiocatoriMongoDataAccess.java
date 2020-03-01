@@ -9,8 +9,8 @@ import Entita.Calciatore;
 import Entita.Infortunio;
 import Entita.Statistica;
 import Entita.Trasferimento;
+import Entita.Utente;
 import Model.InformazioniRicercaCalciatore;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Accumulators.sum;
 import static com.mongodb.client.model.Aggregates.*;
@@ -26,12 +26,14 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
+import task2.markapp.ScreenController;
 
 /**
  *
@@ -549,6 +551,7 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
         
         return infos;
     }
+    
     public static Calciatore ricercaPerId(String idCalciatore) {
         Document calciatoreDoc = null;
         try{
@@ -773,5 +776,82 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
         }
         
         return stagione;
+    }
+    //// funzioni per la ricerca dei giocatori preferiti
+    /**
+     * La funzione ricerca la lista dei giocatori preferiti
+     * @return restituisce la lista del calciatori se ci sono
+     */
+    public static List<InformazioniRicercaCalciatore> ricercaGiocatoriPreferiti(){
+        ObjectId societaId=new ObjectId(ScreenController.getUtente().getSocieta().getId());
+        Document societaDoc = collectionSocieta.aggregate(Arrays.asList(match(eq("_id", societaId)), project(include("giocatoriPreferiti")))).first();
+        List<InformazioniRicercaCalciatore> infos=new ArrayList<>();
+        List<Document> giocatorePreferito=(List<Document>)societaDoc.get("giocatorePreferiti");
+        if(giocatorePreferito==null){
+            return infos;
+        }
+        giocatorePreferito.stream().map((aux) -> {
+            InformazioniRicercaCalciatore info=new InformazioniRicercaCalciatore();
+            if(aux.getString("_id")!=null)
+                info.setIdCalciatore(aux.getString("_id"));
+            if(aux.getString("nome")!=null)
+                info.setNome(aux.getString("nome"));
+            if(aux.getLong("dataNascita")!=null){
+                Date dataNascita=new Date(aux.getLong("dataNascita"));
+                LocalDateTime ldt=LocalDateTime.ofInstant(dataNascita.toInstant(),
+                        ZoneId.systemDefault());
+                info.setEta(ldt);
+            }
+            if(aux.getString("nazionalita")!=null)
+                info.setNazionalita(aux.getString("nazionalita"));
+            if(aux.getString("linkFoto")!=null){
+                ImageView item_1 = new ImageView(new Image(aux.getString("linkFoto")));
+                info.setImage(item_1);
+            }
+            if(aux.getString("squadra")!=null)
+                info.setSquadra(aux.getString("squadra"));
+            if(aux.getString("posizionePrincipale")!=null)
+                info.setRuoloPrincipale(aux.getString("posizionePrincipale"));
+            if(aux.getInteger("valoreMercato")!=null)
+                info.setValoreMercato(aux.getInteger("valoreMercato"));
+            Circle all=new Circle(25);
+            all.getStyleClass().add("circle");
+            if(aux.getInteger("giudizioAllenatore")==null){
+               all.getStyleClass().add("nessunGiudizio");
+            } else if(aux.getInteger("giudizioAllenatore")==0){
+                all.getStyleClass().add("noApprovato");
+            } else{
+                all.getStyleClass().add("approvato");
+            }
+            info.setGiudizioAllenatore(all);
+            
+            Circle oss=new Circle(25);
+            oss.getStyleClass().add("circle");
+            if(aux.getInteger("giudizioDirigenza")==null){
+               oss.getStyleClass().add("nessunGiudizio");
+            } else if(aux.getInteger("giudizioDirigenza")==0){
+                oss.getStyleClass().add("noApprovato");
+            } else{
+                oss.getStyleClass().add("approvato");
+            }
+            info.setGiudizioAllenatore(oss);
+            if(aux.getString("propostaDa")!=null){
+                info.setPropostoDa(aux.getString("propostaDa"));
+            }
+                
+            
+                
+            return info;
+        }).forEachOrdered((info) -> {
+            infos.add(info);
+        });
+            
+        
+        
+        return infos;
+    }
+    public static int rimuoviCalciatore(String idCalciatore){
+        
+        return 0;
     }
 }
