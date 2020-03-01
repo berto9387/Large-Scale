@@ -68,27 +68,33 @@ public class ListaGiocatoriInteresseController extends GenerallController {
             
             
             {
-                btn.getStyleClass().add("bottoneElimina");
-                Image image = new Image("/img/delete1.png");
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(25);
-                imageView.setFitHeight(25);
+                    btn.getStyleClass().add("bottoneElimina");
+                    Image image = new Image("/img/delete1.png");
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitWidth(25);
+                    imageView.setFitHeight(25);
 
-                btn.setGraphic(imageView);
-                btn.setOnAction((ActionEvent event) -> {
-                    InformazioniRicercaCalciatore data = getTableView().getItems().get(getIndex());
-                    System.out.println(data.getValoreMercato());
-                    getTableView().getItems().remove(data);
-                });
+                    btn.setGraphic(imageView);
+                    btn.setOnAction((ActionEvent event) -> {
+                        InformazioniRicercaCalciatore data = getTableView().getItems().get(getIndex());
+                        //funzione rimozione del giocatore dalla lista interessi
+                        getTableView().getItems().remove(data);
+                    });
+                
+                
             }
             
             @Override
             public void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
+                if (!empty) {
+                    InformazioniRicercaCalciatore data = (InformazioniRicercaCalciatore) getTableRow().getItem();
+                    if(data.getPropostoDa().toLowerCase().equals(ScreenController.getUtente().getRuolo().toLowerCase()))
+                        setGraphic(btn);
+                    else
+                       setGraphic(null); 
                 } else {
-                    setGraphic(btn);
+                    setGraphic(null);
                 }
             }
         };
@@ -131,31 +137,12 @@ public class ListaGiocatoriInteresseController extends GenerallController {
 
     private void caricaDati() {
         ObservableList<InformazioniRicercaCalciatore> values=FXCollections.observableArrayList();
-        for(int i=0;i<10;i++){
-            InformazioniRicercaCalciatore info=new InformazioniRicercaCalciatore();
-            info.setNome("Alberto jjjjjjjjjjjjjjhbjhbjhb bjhkjhbjhbjkbjbjk bkjhbjbhjbvvhgv jhbkjbkjbb");
-            info.setRuoloPrincipale("Portiere");
-            info.setIdCalciatore("2222");
-            info.setSquadra("JuventusFc");
-            info.setValoreMercato(i);
-            info.setNazionalita("Italia");
-            ImageView item_1 = new ImageView(new Image("https://tmssl.akamaized.net//images/portrait/header/10003-1405438663.jpg?lm=1433143429"));
-            info.setImage(item_1);
-            Date dataNascita=new Date(443491200000l);
-            LocalDateTime ldt=LocalDateTime.ofInstant(dataNascita.toInstant(),ZoneId.systemDefault());
-            info.setEta(ldt);
-            Circle uno=new Circle(25);
-            uno.getStyleClass().add("circle");
-            uno.getStyleClass().add("approvato");
-            Circle due=new Circle(25);
-            due.getStyleClass().add("circle");
-            due.getStyleClass().add("approvato");
-            info.setGiudizioAllenatore(uno);
-            info.setGiudizioDirigenza(due);
+        RicercaGiocatoriMongoDataAccess.ricercaGiocatoriPreferiti().forEach((info) -> {
             values.add(info);
-            listaInteresseTabella.setItems(values);
-        }
-        autoResizeColumns(listaInteresseTabella);
+        });
+        
+        listaInteresseTabella.setItems(values);
+        autoResizeColumns(listaInteresseTabella); 
     }
 
 }
