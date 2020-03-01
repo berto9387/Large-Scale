@@ -14,6 +14,10 @@ public class Report {
     private String commento;
     private int rating;//da 0 a 5
 
+    public Report() {
+    }
+
+    
     public Report(String _id, String commento, int rating) {
         this._id = _id;
         this.commento = commento;

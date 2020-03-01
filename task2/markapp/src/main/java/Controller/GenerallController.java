@@ -15,6 +15,7 @@ import javafx.scene.shape.Circle;
 import Dao.*;
 import java.io.IOException;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -28,8 +29,20 @@ public class GenerallController implements Initializable{
     @FXML
     private Circle btnClose;
     
-    //@FXML
-    //protected BorderPane mainPane;
+    @FXML
+    protected HBox bottoneCercaGiocatore;
+
+    @FXML
+    protected HBox bottoneListaPreferiti;
+
+    @FXML
+    protected HBox bottoneProfiloInteresse;
+
+    @FXML
+    protected HBox bottoneProfiloPersonale;
+    
+    @FXML
+    protected HBox bottoneMembriSquadra;
     
     @FXML
     private void handleClose(MouseEvent event) {
