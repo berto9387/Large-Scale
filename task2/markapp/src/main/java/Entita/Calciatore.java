@@ -16,7 +16,6 @@ import javafx.scene.image.ImageView;
  */
 public class Calciatore extends InformazioniPrincipali{
    
-    private String image;
     private int altezza; 
     private String luogoNascita;
     private String piede;
@@ -63,9 +62,8 @@ public class Calciatore extends InformazioniPrincipali{
     }
 
     //Costruttore portiere
-    public Calciatore(String image, int altezza, String luogoNascita, String piede, String procuratore, Date inRosaDa, Date scadenza, int goalStagioneAttuale, int cartelliniGialliStagioneAttuale, int cartelliniRossiStagioneAttuale, int minutiGiocatiStagioneAttuale, int partiteNoGoalStagioneAttuale, int goalSubitiStagioneAttuale, ArrayList<String> altriRuoli, ArrayList<Statistica> statistiche, ArrayList<Trasferimento> trasferimenti, ArrayList<Infortunio> infortuni, String idCalciatore, String nome, String ruoloPrincipale, String squadra, Date dataNascita, String linkFoto, String nazionalita) {
+    public Calciatore(int altezza, String luogoNascita, String piede, String procuratore, Date inRosaDa, Date scadenza, int goalStagioneAttuale, int cartelliniGialliStagioneAttuale, int cartelliniRossiStagioneAttuale, int minutiGiocatiStagioneAttuale, int partiteNoGoalStagioneAttuale, int goalSubitiStagioneAttuale, ArrayList<String> altriRuoli, ArrayList<Statistica> statistiche, ArrayList<Trasferimento> trasferimenti, ArrayList<Infortunio> infortuni, String idCalciatore, String nome, String ruoloPrincipale, String squadra, Date dataNascita, String linkFoto, String nazionalita) {
         super(idCalciatore, nome, ruoloPrincipale, squadra, dataNascita, linkFoto, nazionalita);
-        this.image = image;
         this.altezza = altezza;
         this.luogoNascita = luogoNascita;
         this.piede = piede;
@@ -102,14 +100,6 @@ public class Calciatore extends InformazioniPrincipali{
 
     public void setPiede(String piede) {
         this.piede = piede;
-    }
-    
-     public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public int getAltezza() {
