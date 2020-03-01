@@ -789,18 +789,19 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
         ObjectId societaId=new ObjectId(ScreenController.getUtente().getSocieta().getId());
         Document societaDoc = collectionSocieta.aggregate(Arrays.asList(match(eq("_id", societaId)), project(include("giocatoriPreferiti")))).first();
         List<InformazioniRicercaCalciatore> infos=new ArrayList<>();
-        List<Document> giocatorePreferito=(List<Document>)societaDoc.get("giocatorePreferiti");
+        List<Document> giocatorePreferito=(List<Document>)societaDoc.get("giocatoriPreferiti");
         if(giocatorePreferito==null){
             return infos;
         }
-        giocatorePreferito.stream().map((aux) -> {
+        for(Document aux : giocatorePreferito){
             InformazioniRicercaCalciatore info=new InformazioniRicercaCalciatore();
+            System.out.println(aux.toJson());
             if(aux.getString("_id")!=null)
                 info.setIdCalciatore(aux.getString("_id"));
             if(aux.getString("nome")!=null)
                 info.setNome(aux.getString("nome"));
-            if(aux.getLong("dataNascita")!=null){
-                Date dataNascita=new Date(aux.getLong("dataNascita"));
+            if(aux.getDate("dataNascita")!=null){
+                Date dataNascita=aux.getDate("dataNascita");
                 LocalDateTime ldt=LocalDateTime.ofInstant(dataNascita.toInstant(),
                         ZoneId.systemDefault());
                 info.setEta(ldt);
@@ -813,15 +814,15 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             }
             if(aux.getString("squadra")!=null)
                 info.setSquadra(aux.getString("squadra"));
-            if(aux.getString("posizionePrincipale")!=null)
-                info.setRuoloPrincipale(aux.getString("posizionePrincipale"));
+            if(aux.getString("posizione")!=null)
+                info.setRuoloPrincipale(aux.getString("posizione"));
             if(aux.getInteger("valoreMercato")!=null)
                 info.setValoreMercato(aux.getInteger("valoreMercato"));
             Circle all=new Circle(25);
             all.getStyleClass().add("circle");
-            if(aux.getInteger("giudizioAllenatore")==null){
+            if(aux.getInteger("giudizioAllenatore")==2){
                all.getStyleClass().add("nessunGiudizio");
-            } else if(aux.getInteger("giudizioAllenatore")==0){
+            } else if(aux.getInteger("giudizioAllenatore")==1){
                 all.getStyleClass().add("noApprovato");
             } else{
                 all.getStyleClass().add("approvato");
@@ -830,16 +831,16 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             
             Circle oss=new Circle(25);
             oss.getStyleClass().add("circle");
-            if(aux.getInteger("giudizioDirigenza")==null){
+            if(aux.getInteger("giudizioDirigenza")==2){
                oss.getStyleClass().add("nessunGiudizio");
-            } else if(aux.getInteger("giudizioDirigenza")==0){
+            } else if(aux.getInteger("giudizioDirigenza")==1){
                 oss.getStyleClass().add("noApprovato");
             } else{
                 oss.getStyleClass().add("approvato");
             }
-            info.setGiudizioAllenatore(oss);
-            if(aux.getString("propostaDa")!=null){
-                info.setPropostoDa(aux.getString("propostaDa"));
+            info.setGiudizioDirigenza(oss);
+            if(aux.getString("propostoDa")!=null){
+                info.setPropostoDa(aux.getString("propostoDa"));
             }
             Document reportDoc=(Document)aux.get("reportOsservatore");
             if(reportDoc!=null){
@@ -849,14 +850,8 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                 report.setRating(reportDoc.getInteger("rating"));
                 info.setReport(report);
             }
-            
-                
-            return info;
-        }).forEachOrdered((info) -> {
             infos.add(info);
-        });
-            
-        
+        }       
         
         return infos;
     }
