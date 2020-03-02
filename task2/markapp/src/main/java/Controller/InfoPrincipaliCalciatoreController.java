@@ -100,8 +100,6 @@ public class InfoPrincipaliCalciatoreController extends GeneralSchedaGiocatoreCo
         
         nomeCalciatore.setText(calciatore.getNome());
         
-        btnInfoPrincipali.setStyle(btnInfoPrincipali.getStyle() + "-fx-border-color: orange;");
-        
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
         dataNascita.setText(df.format(calciatore.getDataNascita()));
         

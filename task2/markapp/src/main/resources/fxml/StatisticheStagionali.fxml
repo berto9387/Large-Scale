@@ -211,7 +211,7 @@
                            <children>
                               <Button layoutX="-4.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlerTornaAllaRicerca" prefHeight="49.0" prefWidth="206.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: #00000059; -fx-border-radius: 100; -fx-border-width: 4;" text="Torna alla ricerca" textAlignment="CENTER" textFill="ORANGE" underline="true" wrapText="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="27.0">
                                  <graphic>
-                                    <FontAwesomeIcon fill="ORANGE" glyphName="ANGLE_LEFT" size="1.8em" wrappingWidth="15.028608322143555" />
+                                    <FontAwesomeIcon fill="WHITE" glyphName="ANGLE_LEFT" size="1.8em" wrappingWidth="15.028608322143555" />
                                  </graphic>
                                  <font>
                                     <Font name="Roboto Bold" size="17.0" />

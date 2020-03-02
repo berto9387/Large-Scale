@@ -129,7 +129,7 @@ public class ListaGiocatoriInteresseController extends GenerallController {
                     calciatore = RicercaGiocatoriMongoDataAccess.ricercaPerId(calciatoreTarget.getIdCalciatore());
                     if(calciatore != null){
                         calciatore.setReport(calciatoreTarget.getReport());
-                        ScreenController.showPageCalciatore("InfoPrincipaliCalciatore", calciatore);
+                        ScreenController.showPageCalciatore("InfoPrincipaliCalciatoreInLista", calciatore);
                     }
                         
                 }

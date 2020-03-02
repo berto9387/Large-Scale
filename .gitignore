@@ -1,1 +1,8 @@
 *.class
+task2/markapp/target/markapp-1.0-SNAPSHOT.jar
+
+task2/markapp/target/maven-archiver/pom.properties
+
+task2/markapp/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+
+task2/markapp/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst

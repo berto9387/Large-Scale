@@ -110,21 +110,25 @@ public class ScreenController {
              
              switch(fileName){
                  case "InfoPrincipaliCalciatore":
+                 case "InfoPrincipaliCalciatoreInLista":
                     loader.setControllerFactory(c -> {
                        return new InfoPrincipaliCalciatoreController(calciatore);
                     });
                     break;
                  case "StatisticheStagionali":
+                     case "StatisticheStagionaliInLista":
                      loader.setControllerFactory(c -> {
                        return new StatisticheStagionaliController(calciatore);
                     });
                     break;
                  case "InfoTrasferimenti":
+                 case "InfoTrasferimentiInLista":
                      loader.setControllerFactory(c -> {
                        return new InfoTrasferimentiController(calciatore);
                     });
                     break;
                  case "InfoInfortuni":
+                 case "InfoInfortuniInLista":
                      loader.setControllerFactory(c -> {
                        return new InfoInfortuniController(calciatore);
                     });
