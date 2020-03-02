@@ -98,10 +98,10 @@
     -fx-fill:green;
 }
 .noApprovato{
-    -fx-fill:yellow;
+    -fx-fill:red;
 }
 .nessunGiudizio{
-    -fx-fill:red;
+    -fx-fill:yellow;
 }
 
 .bottoneElimina{

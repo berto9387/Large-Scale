@@ -38,11 +38,16 @@ public class HomePageAmministratoreDiSquadraController extends GenerallControlle
 
     @FXML
     void handleGestioneMembriSquadra(MouseEvent event) {
+        if(ScreenController.getUtente().getSocieta()==null){
+            ScreenController.showPage("nessunaSocieta");
+            return;
+        }
         ScreenController.showPage("GestioneMembriSquadra");
     }
 
     @FXML
     void handleModificaProfilo(MouseEvent event) {
+        
         ScreenController.showPage("ModificaProfiloPersonale");
     }
     @Override
