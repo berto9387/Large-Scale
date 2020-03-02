@@ -10,6 +10,8 @@ import Entita.Utente;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Updates;
+import static com.mongodb.client.model.Updates.set;
+import com.mongodb.client.result.UpdateResult;
 import java.util.Date;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -64,6 +66,34 @@ public class GestioneListaPreferitiMongoDataAccess extends MongoDataAccess{
             return 2; 
         }
         
+        return 0;
+    }
+
+    public static int valutaGiocatore(Calciatore calciatore, Utente utente, int voto) {
+        try{
+            if(utente.getRuolo().equals("allenatore") || utente.getRuolo().equals("Allenatore")){
+                
+                UpdateResult updateResult = collectionSocieta.updateOne(and(eq("_id", new ObjectId(utente.getSocieta().getId())), eq("giocatoriPreferiti._id", calciatore.getIdCalciatore())),
+                                                                        set("giocatoriPreferiti.$.giudizioAllenatore", voto));
+                
+                if(updateResult.getModifiedCount() == 0){
+                    return 1;
+                }
+            }
+            if(utente.getRuolo().equals("amministratore delegato")){
+                
+                UpdateResult updateResult = collectionSocieta.updateOne(and(eq("_id", new ObjectId(utente.getSocieta().getId())),
+                                                                            eq("giocatoriPreferiti._id", calciatore.getIdCalciatore())),
+                                                                        set("giocatoriPreferiti.$.giudizioDirigenza", voto));
+                
+                if(updateResult.getModifiedCount() == 0){
+                    return 1;
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return 2;
+        }
         return 0;
     }
     

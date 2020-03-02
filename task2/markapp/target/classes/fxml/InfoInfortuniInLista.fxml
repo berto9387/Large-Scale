@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="1070.0" prefWidth="1398.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.InfoTrasferimentiController">
+<AnchorPane id="AnchorPane" prefHeight="1070.0" prefWidth="1398.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.InfoInfortuniController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -41,7 +41,7 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
-                        <Button fx:id="btnInfoPrincipali" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerInfoPrincipali" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="INFORMAZIONI PRINCIPALI" textFill="WHITE">
+                        <Button fx:id="btnInfoPrincipaliInLista" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerInfoPrincipali" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="INFORMAZIONI PRINCIPALI" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -56,22 +56,19 @@
                   </VBox>
                   <VBox alignment="CENTER" GridPane.columnIndex="4">
                      <children>
-                        <Button fx:id="btnCronologiaInfortuni" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerCronologiaInfortuni" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="CRONOLOGIA INFORTUNI" textFill="WHITE">
+                        <Button fx:id="btnCronologiaInfortuniInLista" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerCronologiaInfortuni" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: orange; -fx-border-radius: 10; -fx-border-width: 3;" text="CRONOLOGIA INFORTUNI" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <font>
-                              <Font name="Roboto Bold" size="16.0" />
+                              <Font name="Roboto Bold" size="17.0" />
                            </font>
-                           <effect>
-                              <DropShadow radius="15.9575" width="44.83" />
-                           </effect>
                         </Button>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" GridPane.columnIndex="3">
                      <children>
-                        <Button fx:id="btnGraficiStatistiche" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerGraficiStatistiche" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="GRAFICI STATISTICHE" textFill="WHITE">
+                        <Button fx:id="btnGraficiStatisticheInLista" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerGraficiStatistiche" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="GRAFICI STATISTICHE" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -86,19 +83,22 @@
                   </VBox>
                   <VBox alignment="CENTER" GridPane.columnIndex="2">
                      <children>
-                        <Button fx:id="btnCronologiaTrasferimenti" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerCronologiaTrasferimenti" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: orange; -fx-border-radius: 10; -fx-border-width: 3;" text="CRONOLOGIA TRASFERIMENTI" textFill="WHITE">
+                        <Button fx:id="btnCronologiaTrasferimentiInLista" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerCronologiaTrasferimenti" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="CRONOLOGIA TRASFERIMENTI" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <font>
-                              <Font name="Roboto Bold" size="17.0" />
+                              <Font name="Roboto Bold" size="16.0" />
                            </font>
+                           <effect>
+                              <DropShadow radius="15.9575" width="44.83" />
+                           </effect>
                         </Button>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" GridPane.columnIndex="1">
                      <children>
-                        <Button fx:id="btnStatisticheStagionali" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerStatisticheStagionali" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="STATISTICHE STAGIONALI" textFill="WHITE">
+                        <Button fx:id="btnStatisticheStagionaliInLista" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerStatisticheStagionali" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="STATISTICHE STAGIONALI" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -147,17 +147,17 @@
             </GridPane>
             <HBox alignment="CENTER" prefHeight="430.0" prefWidth="1430.0" style="-fx-background-color: #00000059; -fx-background-radius: 10;">
                <children>
-                  <TableView fx:id="tabellaTrasferimenti" maxWidth="-Infinity" prefHeight="410.0" prefWidth="766.0">
+                  <TableView fx:id="tabellaInfortuni" maxWidth="-Infinity" prefHeight="410.0" prefWidth="1226.0">
                      <placeholder>
                         <Label text="" />
                      </placeholder>
                      <columns>
-                        <TableColumn fx:id="stagioneColumn" prefWidth="75.0" styleClass="column_header_bg" text="Stagione" />
-                        <TableColumn fx:id="dataTrasferimentoColumn" prefWidth="137.60003662109375" styleClass="column_header_bg" text="Data trasferimento" />
-                        <TableColumn fx:id="venditoreColumn" prefWidth="99.20001220703125" styleClass="column_header_bg" text="Venditore" />
-                        <TableColumn fx:id="acquirenteColumn" prefWidth="125.5999755859375" styleClass="column_header_bg" text="Acquirente" />
-                        <TableColumn fx:id="valoreMercatoColumn" prefWidth="188.00006103515625" styleClass="column_header_bg" text="Valore di mercato" />
-                        <TableColumn fx:id="riscattoColumn" minWidth="9.5999755859375" prefWidth="95.2000732421875" styleClass="column_header_bg" text="Riscatto" />
+                        <TableColumn fx:id="stagioneColumn" prefWidth="87.20001220703125" styleClass="column_header_bg" text="Stagione" />
+                        <TableColumn fx:id="tipoInfortunioColumn" prefWidth="583.2000579833984" styleClass="column_header_bg" text="Tipo Infortunio" />
+                        <TableColumn fx:id="inizioColumn" prefWidth="159.199951171875" styleClass="column_header_bg" text="Data inizio Infortunio" />
+                        <TableColumn fx:id="fineColumn" prefWidth="145.5999755859375" styleClass="column_header_bg" text="Data fine infortunio" />
+                        <TableColumn fx:id="durataColumn" prefWidth="129.5999755859375" styleClass="column_header_bg" text="Durata (in giorni)" />
+                        <TableColumn fx:id="partitePerseColumn" minWidth="9.5999755859375" prefWidth="116.800048828125" styleClass="column_header_bg" text="Partite perse" />
                      </columns>
                   </TableView>
                </children>
@@ -175,35 +175,11 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <HBox prefHeight="100.0" prefWidth="309.0" />
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                     <children>
-                        <Button layoutX="116.0" layoutY="-1.0" mnemonicParsing="false" onAction="#handlerAggiungiGiocatoreLista" prefHeight="98.0" prefWidth="223.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: white; -fx-border-radius: 100; -fx-border-width: 4;" text="AGGIUNGI ALLA LISTA DEI GIOCATORI DI INTERESSE" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="-1.0">
-                           <graphic>
-                              <FontAwesomeIcon fill="ORANGE" glyphName="PLUS" size="1.5em" wrappingWidth="15.028608322143555" />
-                           </graphic>
-                           <font>
-                              <Font name="Roboto Bold" size="17.0" />
-                           </font>
-                           <effect>
-                              <DropShadow height="66.28" radius="30.8525" width="59.13" />
-                           </effect>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-                  <Label fx:id="infoLabel" textFill="ORANGE" GridPane.columnIndex="2">
-                     <font>
-                        <Font name="Roboto Bold" size="20.0" />
-                     </font>
-                  </Label>
                   <HBox prefHeight="100.0" prefWidth="309.0">
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button layoutX="-4.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlerTornaAllaRicerca" prefHeight="49.0" prefWidth="206.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: #00000059; -fx-border-radius: 100; -fx-border-width: 4;" text="Torna alla ricerca" textAlignment="CENTER" textFill="ORANGE" underline="true" wrapText="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="27.0">
+                              <Button layoutX="-4.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlerTornaAllaListaPreferiti" prefHeight="51.0" prefWidth="250.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: #00000059; -fx-border-radius: 100; -fx-border-width: 4;" text="Torna alla lista preferiti" textAlignment="CENTER" textFill="ORANGE" underline="true" wrapText="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-46.0" AnchorPane.topAnchor="27.0">
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="ANGLE_LEFT" size="1.8em" wrappingWidth="15.028608322143555" />
                                  </graphic>
@@ -221,6 +197,57 @@
                         </AnchorPane>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="98.0" prefWidth="558.0" spacing="10.0" GridPane.columnIndex="1">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handlerApprovaGiocatore" prefHeight="98.0" prefWidth="223.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: #009c00; -fx-border-radius: 100; -fx-border-width: 4;" text="    APPROVA" textAlignment="CENTER" wrapText="true">
+                           <graphic>
+                              <FontAwesomeIcon fill="ORANGE" glyphName="PLUS" size="1.5em" wrappingWidth="15.028608322143555" />
+                           </graphic>
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                           <effect>
+                              <DropShadow height="66.28" radius="30.8525" width="59.13" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#handlerNessunGiudizio" prefHeight="98.0" prefWidth="223.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: yellow; -fx-border-radius: 100; -fx-border-width: 4;" text="NESSUN GIUDIZIO" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                           <effect>
+                              <DropShadow height="66.28" radius="30.8525" width="59.13" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <FontAwesomeIcon fill="ORANGE" glyphName="CIRCLE_ALT" size="1.5em" />
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#handlerRifiutaGiocatore" prefHeight="98.0" prefWidth="223.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: #e20000; -fx-border-radius: 100; -fx-border-width: 4;" text="    RIFIUTA" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                           <effect>
+                              <DropShadow height="66.28" radius="30.8525" width="59.13" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <FontAwesomeIcon fill="ORANGE" glyphName="MINUS" size="1.5em" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label fx:id="infoLabel" textFill="ORANGE" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="Roboto Bold" size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
          </children>

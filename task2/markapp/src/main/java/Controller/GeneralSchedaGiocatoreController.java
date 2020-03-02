@@ -67,12 +67,18 @@ public class GeneralSchedaGiocatoreController implements Initializable{
     
     @FXML
     void handlerCronologiaTrasferimenti(ActionEvent event) {
-        ScreenController.showPageCalciatore("InfoTrasferimenti", calciatore);
+        if(((Button)event.getSource()).getId().equals("btnCronologiaTrasferimenti"))
+            ScreenController.showPageCalciatore("InfoTrasferimenti", calciatore);
+        else
+            ScreenController.showPageCalciatore("InfoTrasferimentiInLista", calciatore);
     }
 
     @FXML
     void handlerCronologiaInfortuni(ActionEvent event) {
-        ScreenController.showPageCalciatore("InfoInfortuni", calciatore);
+        if(((Button)event.getSource()).getId().equals("btnCronologiaInfortuni"))
+            ScreenController.showPageCalciatore("InfoInfortuni", calciatore);
+        else
+            ScreenController.showPageCalciatore("InfoInfortuniInLista", calciatore);
     }
 
     @FXML
@@ -82,12 +88,18 @@ public class GeneralSchedaGiocatoreController implements Initializable{
 
     @FXML
     void handlerInfoPrincipali(ActionEvent event) {
-        ScreenController.showPageCalciatore("InfoPrincipaliCalciatore", calciatore);
+        if(((Button)event.getSource()).getId().equals("btnInfoPrincipali"))
+            ScreenController.showPageCalciatore("InfoPrincipaliCalciatore", calciatore);
+        else
+        ScreenController.showPageCalciatore("InfoPrincipaliCalciatoreInLista", calciatore);
     }
 
     @FXML
     void handlerStatisticheStagionali(ActionEvent event) {
-        ScreenController.showPageCalciatore("StatisticheStagionali", calciatore);
+        if(((Button)event.getSource()).getId().equals("btnStatisticheStagionali"))
+            ScreenController.showPageCalciatore("StatisticheStagionali", calciatore);
+        else
+            ScreenController.showPageCalciatore("StatisticheStagionaliInLista", calciatore);
     }
     
     @FXML
@@ -112,5 +124,64 @@ public class GeneralSchedaGiocatoreController implements Initializable{
     @FXML
     void handlerTornaAllaRicerca(ActionEvent event) {
         ScreenController.showPage("RicercaCalciatori");
+    }
+    
+    @FXML
+    void handlerTornaAllaListaPreferiti(ActionEvent event) {
+        ScreenController.showPage("ListaGiocatoriInteresse");
+    }
+    
+    @FXML
+    void handlerApprovaGiocatore(ActionEvent event) {
+        //Codice giocatore approvato 0
+        int err = GestioneListaPreferitiMongoDataAccess.valutaGiocatore(calciatore, ScreenController.getUtente(), 0);
+        infoLabel.setStyle("-fx-padding: 10px; -fx-border-insets: 10px; -fx-background-insets: 10px;");
+        if(err == 0){
+            
+            infoLabel.setText("Il giocatore è stato approvato");
+           
+        }
+        if(err ==1){
+            infoLabel.setText("Il giocatore è già stato approvato");
+        }
+        if(err == 0){
+            infoLabel.setText("Errore durante l'operazione");
+        }
+    }
+    
+    @FXML
+    void handlerRifiutaGiocatore(ActionEvent event) {
+        //Codice giocatore rifiutato 1
+        int err = GestioneListaPreferitiMongoDataAccess.valutaGiocatore(calciatore, ScreenController.getUtente(), 1);
+        infoLabel.setStyle("-fx-padding: 10px; -fx-border-insets: 10px; -fx-background-insets: 10px;");
+        if(err == 0){
+            
+            infoLabel.setText("Il giocatore è stato rifiutato");
+           
+        }
+        if(err ==1){
+            infoLabel.setText("Il giocatore è già stato rifiutato");
+        }
+        if(err == 2){
+            infoLabel.setText("Errore durante l'operazione");
+        }
+    }
+    
+    @FXML
+    void handlerNessunGiudizio(ActionEvent event) {
+        //Codice nessun giudizio 2
+        int err = GestioneListaPreferitiMongoDataAccess.valutaGiocatore(calciatore, ScreenController.getUtente(), 2);
+        infoLabel.setStyle("-fx-padding: 10px; -fx-border-insets: 10px; -fx-background-insets: 10px;");
+        if(err == 0){
+            
+            infoLabel.setText("Il giocatore non ha un giudizio");
+           
+        }
+        if(err ==1){
+            infoLabel.setText("Il giocatore è già senza giudizio");
+        }
+        if(err == 2){
+            infoLabel.setText("Errore durante l'operazione");
+        }
     }
 }
