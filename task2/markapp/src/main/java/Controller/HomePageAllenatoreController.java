@@ -39,16 +39,28 @@ public class HomePageAllenatoreController extends GenerallController{
     
     @FXML   
     void handlerVisualizzaListaPreferiti(MouseEvent event){
+        if(ScreenController.getUtente().getSocieta()==null){
+            ScreenController.showPage("nessunaSocieta");
+            return;
+        }
         ScreenController.showPage("ListaGiocatoriInteresse");
     } 
     
     @FXML 
     void handlerAggiungiProfiloDiInteresse(MouseEvent event){
+        if(ScreenController.getUtente().getSocieta()==null){
+            ScreenController.showPage("nessunaSocieta");
+            return;
+        }
         ScreenController.showPage("GestioneProfiloGiocatoreInteresseAllenatore");
     }
     
     @FXML
     void handlerRicercaGiocatori(MouseEvent event) {
+        if(ScreenController.getUtente().getSocieta()==null){
+            ScreenController.showPage("nessunaSocieta");
+            return;
+        }
         ScreenController.showPage("RicercaCalciatori");
     }
     @FXML

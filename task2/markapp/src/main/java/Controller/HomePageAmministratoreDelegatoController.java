@@ -37,6 +37,10 @@ public class HomePageAmministratoreDelegatoController extends GenerallController
     
     @FXML   
     void handlerVisualizzaListaPreferiti(MouseEvent event){
+        if(ScreenController.getUtente().getSocieta()==null){
+            ScreenController.showPage("nessunaSocieta");
+            return;
+        }
         ScreenController.showPage("ListaGiocatoriInteresse");
     } 
     
@@ -45,6 +49,7 @@ public class HomePageAmministratoreDelegatoController extends GenerallController
     
     @FXML
     void handleModificaProfiloPersonale(MouseEvent event) {
+        
         ScreenController.showPage("ModificaProfiloPersonale");
     }
     @Override
