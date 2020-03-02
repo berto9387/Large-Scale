@@ -28,7 +28,7 @@ import task2.markapp.ScreenController;
  */
 public class GestioneMembriSquadraController implements Initializable {
     ObservableList<String> ruoli=FXCollections.observableArrayList("Allenatore","Osservatore","Amministratore delegato");
-    Utente utente=new Utente();
+    Utente utente=null;
     @FXML
     private Text nomeSquadra;
     
@@ -90,11 +90,11 @@ public class GestioneMembriSquadraController implements Initializable {
     @FXML
     void modificaTeamSquadra(MouseEvent event) {
         if(emailInput.getText().isEmpty()){
-            errorCambia.setText("Inserisci l'email del nuovo amministratore di squadra!");
+            errorCambia.setText("Inserisci un email");
             return;
         }
         if(utente==null){
-            errorCambia.setText("Seleziona il ruolo che vuoi aggiornare!");
+            errorCambia.setText("Fai la ricerca prima!");
             return;
         }
         int er=GestioneProfiliMongoDataAccess.aggiornaTeamSocieta(utente, emailInput.getText(),scegliTeamSquadra.getValue().toLowerCase());

@@ -20,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.util.Callback;
-import task2.markapp.MainApp;
 import task2.markapp.ScreenController;
 
 public class ListaGiocatoriInteresseController extends GenerallController {
@@ -73,8 +72,14 @@ public class ListaGiocatoriInteresseController extends GenerallController {
                     btn.setGraphic(imageView);
                     btn.setOnAction((ActionEvent event) -> {
                         InformazioniRicercaCalciatore data = getTableView().getItems().get(getIndex());
-                        RicercaGiocatoriMongoDataAccess.rimuoviCalciatore(data.getIdCalciatore());
-                        getTableView().getItems().remove(data);
+                        int er=RicercaGiocatoriMongoDataAccess.rimuoviCalciatore(data.getIdCalciatore());
+                        if(er>0){
+                            getTableView().getItems().remove(getIndex());
+                            getTableView().refresh();
+                        }
+                        
+                            
+                        
                     });
                 
                 
@@ -85,7 +90,7 @@ public class ListaGiocatoriInteresseController extends GenerallController {
                 super.updateItem(item, empty);
                 if (!empty) {
                     InformazioniRicercaCalciatore data = (InformazioniRicercaCalciatore) getTableRow().getItem();
-                    if(data.getPropostoDa().toLowerCase().equals(ScreenController.getUtente().getRuolo().toLowerCase()))
+                    if(data!=null && data.getPropostoDa().toLowerCase().equals(ScreenController.getUtente().getRuolo().toLowerCase()))
                         setGraphic(btn);
                     else
                        setGraphic(null); 
