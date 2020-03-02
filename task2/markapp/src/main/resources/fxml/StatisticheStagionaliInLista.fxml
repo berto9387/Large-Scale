@@ -184,7 +184,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="98.0" prefWidth="558.0" spacing="10.0" GridPane.columnIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handlerApprovaGiocatore" prefHeight="98.0" prefWidth="223.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: #009c00; -fx-border-radius: 100; -fx-border-width: 4;" text="    APPROVA" textAlignment="CENTER" wrapText="true">
+                        <Button id="btnApprova" mnemonicParsing="false" onAction="#handlerApprovaGiocatore" prefHeight="98.0" prefWidth="223.0" text="    APPROVA" textAlignment="CENTER" wrapText="true">
                            <graphic>
                               <FontAwesomeIcon fill="ORANGE" glyphName="PLUS" size="1.5em" wrappingWidth="15.028608322143555" />
                            </graphic>
@@ -198,7 +198,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#handlerNessunGiudizio" prefHeight="98.0" prefWidth="223.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: yellow; -fx-border-radius: 100; -fx-border-width: 4;" text="NESSUN GIUDIZIO" textAlignment="CENTER" wrapText="true">
+                        <Button id="btnNessunGiudizio" mnemonicParsing="false" onAction="#handlerNessunGiudizio" prefHeight="98.0" prefWidth="223.0" text="NESSUN GIUDIZIO" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font name="Roboto Bold" size="17.0" />
                            </font>
@@ -212,7 +212,7 @@
                               <FontAwesomeIcon fill="ORANGE" glyphName="CIRCLE_ALT" size="1.5em" />
                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#handlerRifiutaGiocatore" prefHeight="98.0" prefWidth="223.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: #e20000; -fx-border-radius: 100; -fx-border-width: 4;" text="    RIFIUTA" textAlignment="CENTER" wrapText="true">
+                        <Button id="btnRifiuta" mnemonicParsing="false" onAction="#handlerRifiutaGiocatore" prefHeight="98.0" prefWidth="223.0" text="    RIFIUTA" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font name="Roboto Bold" size="17.0" />
                            </font>
@@ -265,5 +265,6 @@
    </padding>
    <stylesheets>
       <URL value="@../styles/tableview.css" />
+      <URL value="@../styles/buttons.css" />
    </stylesheets>
 </AnchorPane>
