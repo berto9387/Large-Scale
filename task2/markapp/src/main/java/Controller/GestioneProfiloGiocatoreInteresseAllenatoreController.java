@@ -13,10 +13,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+import javafx.event.*;
 import javafx.fxml.*;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import task2.markapp.*;
 import task2.markapp.ScreenController;
@@ -66,7 +67,7 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
         }
     }
     @FXML
-    private void aggiungiProfiloALista(ActionEvent event){
+    private void aggiungiProfiloALista(MouseEvent event){
         Utente utente =ScreenController.getUtente();
         String idAllenatore = utente.getId();
         String idSocieta=utente.getSocieta().getId();
@@ -86,13 +87,14 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
             areaModificaProfili.getChildren().add(scheda);
             
         }catch(Exception e){
+             System.err.println(e);
              System.err.println("Pagina non trovata");
          }
         
     
     }
     @FXML
-    protected void incrementaDecrementa(ActionEvent event){
+    protected void incrementaDecrementa(MouseEvent event){
         String id= ((Control)event.getSource()).getId();
         int etaMin=Integer.parseInt(etaMinimaTextField.getText());
         int etaMax =Integer.parseInt(etaMassimaTextField.getText());
@@ -119,7 +121,7 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
             case "decrementMax":
                 if(etaMax>(etaMin+1)){
                     --etaMax;
-                    etaMassimaTextField.setText(Integer.toString(etaMin));
+                    etaMassimaTextField.setText(Integer.toString(etaMax));
                 }
             break;
             default:System.err.println("errore nella incrementa");

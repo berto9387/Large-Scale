@@ -9,10 +9,10 @@ import Dao.*;
 import Entita.Utente;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import task2.markapp.ScreenController;
@@ -37,7 +37,8 @@ public class ModificaProfiloDiInteresse extends GestioneProfiloGiocatoreInteress
         this.schedaFXML=schedaFXML;
     }
     @FXML
-    private void aggiornaScheda(ActionEvent event){
+    private void aggiornaScheda(MouseEvent event){
+        
           
         Utente utente= ScreenController.getUtente();
         String idSocieta=utente.getSocieta().getId();
@@ -50,7 +51,7 @@ public class ModificaProfiloDiInteresse extends GestioneProfiloGiocatoreInteress
                 ruolo,etaMinima,etaMassima,descrizioneCaratteristiche); 
     }
     @FXML
-    private ModificaProfiloDiInteresse eliminaScheda(ActionEvent event){
+    private ModificaProfiloDiInteresse eliminaScheda(MouseEvent event){
         Utente utente= ScreenController.getUtente();
         String idSocieta=utente.getSocieta().getId();
         String idProfiloInteresse=idScheda.getText();

@@ -37,8 +37,8 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         ArrayList<ProfiloInteresse>listaProfiloInteresse=new ArrayList<>();
         Document societaDoc;
         String idAllenatoreSocieta;
-        societaDoc=(Document)collectionSocieta.find(eq("_id",idSocieta)).first();
-        if(societaDoc.get("listaProfiliDiInteresse")==null)
+        societaDoc=(Document)collectionSocieta.find(eq("_id",new ObjectId(idSocieta))).first();
+        if(!societaDoc.containsKey("listaProfiliDiInteresse"))
             return new ArrayList<>();
         
         listaProfiliInteresseDocument=(ArrayList<Document>)societaDoc.get("listaProfiliDiInteresse");
