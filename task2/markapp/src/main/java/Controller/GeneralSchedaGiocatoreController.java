@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import task2.markapp.ScreenController;
 
 /**
@@ -49,6 +50,9 @@ public class GeneralSchedaGiocatoreController implements Initializable{
     
     @FXML
     protected Label infoLabel;
+    
+    @FXML
+    protected HBox hBoxGiudizio;
 
     public GeneralSchedaGiocatoreController(Calciatore calciatore) {
         this.calciatore = calciatore;
@@ -59,6 +63,20 @@ public class GeneralSchedaGiocatoreController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
+        if(ScreenController.existObject(hBoxGiudizio)){
+            if(ScreenController.getUtente().getRuolo().equals("osservatore") || ScreenController.getUtente().getRuolo().equals("Osservatore")){
+                hBoxGiudizio.setVisible(false);
+            }
+        }
+        
+        try{
+            Image image = new Image(calciatore.getLinkFoto());
+            imgCalciatore.setImage(image);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        nomeCalciatore.setText(calciatore.getNome());
     }
     
     public void setCalciatore(Calciatore calciatore){

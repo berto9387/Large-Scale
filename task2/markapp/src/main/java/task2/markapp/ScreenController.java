@@ -15,9 +15,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -144,5 +146,15 @@ public class ScreenController {
              e.printStackTrace();
          }
      }
+
+    /**
+     * Funzione di utilità per controllare se un elemento è presente sulla scena attuale
+     * @param node
+     * @return true se node è presente sulla scena, false altrimenti
+     */
+    public static boolean existObject(Node node) {
+        BorderPane root = mainApp.getRootLayout();
+        return root.getChildren().contains(node);
+    }
      
 }

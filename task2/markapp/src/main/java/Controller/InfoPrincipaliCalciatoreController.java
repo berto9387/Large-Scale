@@ -91,14 +91,8 @@ public class InfoPrincipaliCalciatoreController extends GeneralSchedaGiocatoreCo
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try{
-            Image image = new Image(calciatore.getLinkFoto());
-            imgCalciatore.setImage(image);
-        } catch(Exception e){
-            e.printStackTrace();
-        }
         
-        nomeCalciatore.setText(calciatore.getNome());
+        super.initialize(location, resources);
         
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
         dataNascita.setText(df.format(calciatore.getDataNascita()));

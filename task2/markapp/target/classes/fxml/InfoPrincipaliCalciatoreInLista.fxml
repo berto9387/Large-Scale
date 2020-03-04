@@ -309,7 +309,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <HBox alignment="CENTER" prefHeight="98.0" prefWidth="558.0" spacing="10.0" GridPane.columnIndex="1">
+                  <HBox fx:id="hBoxGiudizio" alignment="CENTER" prefHeight="98.0" prefWidth="558.0" spacing="10.0" GridPane.columnIndex="1">
                      <children>
                         <Button id="btnApprova" mnemonicParsing="false" onAction="#handlerApprovaGiocatore" prefHeight="98.0" prefWidth="223.0" text="    APPROVA" textAlignment="CENTER" wrapText="true">
                            <graphic>
@@ -364,7 +364,7 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button id="btnTornaListaPreferiti" layoutX="-4.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlerTornaAllaListaPreferiti" prefHeight="51.0" prefWidth="250.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: #00000059; -fx-border-radius: 100; -fx-border-width: 4;" text="Torna alla lista preferiti" textAlignment="CENTER" textFill="ORANGE" underline="true" wrapText="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-46.0" AnchorPane.topAnchor="27.0">
+                              <Button id="btnTornaListaPreferiti" layoutX="-4.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlerTornaAllaListaPreferiti" prefHeight="51.0" prefWidth="250.0" text="Torna alla lista preferiti" textAlignment="CENTER" textFill="ORANGE" underline="true" wrapText="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-46.0" AnchorPane.topAnchor="27.0">
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="ANGLE_LEFT" size="1.8em" wrappingWidth="15.028608322143555" />
                                  </graphic>

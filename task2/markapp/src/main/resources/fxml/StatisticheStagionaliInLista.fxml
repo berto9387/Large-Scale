@@ -182,7 +182,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <HBox alignment="CENTER" prefHeight="98.0" prefWidth="558.0" spacing="10.0" GridPane.columnIndex="1">
+                  <HBox fx:id="hBoxGiudizio" alignment="CENTER" prefHeight="98.0" prefWidth="558.0" spacing="10.0" GridPane.columnIndex="1">
                      <children>
                         <Button id="btnApprova" mnemonicParsing="false" onAction="#handlerApprovaGiocatore" prefHeight="98.0" prefWidth="223.0" text="    APPROVA" textAlignment="CENTER" wrapText="true">
                            <graphic>
