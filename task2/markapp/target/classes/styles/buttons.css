@@ -1,0 +1,78 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 04-Mar-2020, 16:03:12
+    Author     : tony_
+*/
+
+#btnApprova{
+    -fx-background-color: #009c00;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-width: 4;
+    -fx-border-color: orange;
+}
+
+#btnApprova:pressed{
+    -fx-background-color: #007100;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-width: 4;
+    -fx-border-color: orange;
+    -fx-translate-y: 4;
+}
+
+#btnRifiuta{
+    -fx-background-color: #e20000;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-width: 4;
+    -fx-border-color: orange;
+}
+
+#btnRifiuta:pressed{
+    -fx-background-color: #c40000;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-width: 4;
+    -fx-border-color: orange;
+    -fx-translate-y: 4;
+}
+
+#btnNessunGiudizio{
+    -fx-background-color: yellow;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-width: 4;
+    -fx-border-color: orange;
+}
+
+#btnNessunGiudizio:pressed{
+    -fx-background-color: #c9c901;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-width: 4;
+    -fx-border-color: orange;
+    -fx-translate-y: 4;
+}
+
+#btnTornaListaPreferiti{
+    -fx-background-color:  #00000059;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-width: 4;
+    -fx-border-color: orange;
+}
+
+#btnTornaListaPreferiti:pressed{
+    -fx-background-color:  #00000059;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-width: 4;
+    -fx-border-color: orange;
+    -fx-translate-y: 4;
+}
+
