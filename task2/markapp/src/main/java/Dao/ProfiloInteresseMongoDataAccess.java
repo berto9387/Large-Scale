@@ -37,8 +37,8 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         ArrayList<ProfiloInteresse>listaProfiloInteresse=new ArrayList<>();
         Document societaDoc;
         String idAllenatoreSocieta;
-        societaDoc=(Document)collectionSocieta.find(eq("_id",idSocieta)).first();
-        if(societaDoc.get("listaProfiliDiInteresse")==null)
+        societaDoc=(Document)collectionSocieta.find(eq("_id",new ObjectId(idSocieta))).first();
+        if(!societaDoc.containsKey("listaProfiliDiInteresse"))
             return new ArrayList<>();
         
         listaProfiliInteresseDocument=(ArrayList<Document>)societaDoc.get("listaProfiliDiInteresse");
@@ -134,7 +134,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
     public static void modificaListaProfiliInteresse(String idSocieta,String idProfiloInteresse,String ruolo,int etaMinima,
             int etaMassima,String descrizioneCaratteristiche){
       
-        Bson filter =and(eq("_id",idSocieta),eq("listaProfiliInteresse._id")); 
+        Bson filter =and(eq("_id",new ObjectId(idSocieta)),eq("listaProfiliInteresse._id")); 
         Document profiloInteresseAggiornato=new Document("listaProfiliInteresse.$.ruolo",ruolo)
               .append("listaProfiliInteresse.$.etaMinima",etaMinima)
               .append("listaProfiliInteresse.$.etaMassima",etaMassima)
