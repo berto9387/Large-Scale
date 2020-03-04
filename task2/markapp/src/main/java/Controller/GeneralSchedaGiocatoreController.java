@@ -144,7 +144,7 @@ public class GeneralSchedaGiocatoreController implements Initializable{
         if(err ==1){
             infoLabel.setText("Il giocatore è già stato approvato");
         }
-        if(err == 0){
+        if(err == 2){
             infoLabel.setText("Errore durante l'operazione");
         }
     }

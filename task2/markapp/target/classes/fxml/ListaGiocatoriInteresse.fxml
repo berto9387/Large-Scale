@@ -27,6 +27,27 @@
                   </Text>
                </children>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" VBox.vgrow="ALWAYS">
+               <children>
+                  <TableView fx:id="listaInteresseTabella" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/tableview.css" HBox.hgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="fotoColumn" prefWidth="75.0" />
+                      <TableColumn fx:id="nomeColumn" prefWidth="75.0" text="Nome" />
+                        <TableColumn fx:id="posizioneColumn" prefWidth="75.0" text="Posizione" />
+                        <TableColumn fx:id="squadraColumn" prefWidth="81.0" text="Squadra" />
+                        <TableColumn fx:id="etaColumn" prefWidth="50.0" text="Età" />
+                        <TableColumn fx:id="valoreMercatoColumn" prefWidth="131.0" text="Valore Mercato" />
+                        <TableColumn fx:id="nazionalitaColumn" prefWidth="107.0" text="Nazionalità" />
+                        <TableColumn fx:id="dirigenzaColumn" prefWidth="163.0" text="Giudizio Dirigenza" />
+                        <TableColumn fx:id="allenatoreColumn" prefWidth="182.0" text="Giudizio Allenatore" />
+                        <TableColumn fx:id="eliminaColumn" minWidth="8.0" prefWidth="96.0" />
+                    </columns>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </TableView>
+               </children>
+            </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" HBox.hgrow="ALWAYS">
@@ -95,27 +116,6 @@
                         </HBox>
                      </children>
                   </HBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" VBox.vgrow="ALWAYS">
-               <children>
-                  <TableView fx:id="listaInteresseTabella" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/tableview.css" HBox.hgrow="ALWAYS">
-                    <columns>
-                      <TableColumn fx:id="fotoColumn" prefWidth="75.0" />
-                      <TableColumn fx:id="nomeColumn" prefWidth="75.0" text="Nome" />
-                        <TableColumn fx:id="posizioneColumn" prefWidth="75.0" text="Posizione" />
-                        <TableColumn fx:id="squadraColumn" prefWidth="81.0" text="Squadra" />
-                        <TableColumn fx:id="etaColumn" prefWidth="50.0" text="Età" />
-                        <TableColumn fx:id="valoreMercatoColumn" prefWidth="131.0" text="Valore Mercato" />
-                        <TableColumn fx:id="nazionalitaColumn" prefWidth="107.0" text="Nazionalità" />
-                        <TableColumn fx:id="dirigenzaColumn" prefWidth="163.0" text="Giudizio Dirigenza" />
-                        <TableColumn fx:id="allenatoreColumn" prefWidth="182.0" text="Giudizio Allenatore" />
-                        <TableColumn fx:id="eliminaColumn" minWidth="8.0" prefWidth="96.0" />
-                    </columns>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </TableView>
                </children>
             </HBox>
          </children>
