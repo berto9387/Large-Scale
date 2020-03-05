@@ -135,6 +135,12 @@ public class ScreenController {
                        return new InfoInfortuniController(calciatore);
                     });
                     break;
+                case "GraficiStatistiche":
+                case "GraficiStatisticheInLista":
+                    loader.setControllerFactory(c -> {
+                       return new InfoPrincipaliCalciatoreController(calciatore);
+                    });
+                    break;
             }
              view = loader.load();
              

@@ -101,7 +101,10 @@ public class GeneralSchedaGiocatoreController implements Initializable{
 
     @FXML
     void handlerGraficiStatistiche(ActionEvent event) {
-
+        if(((Button)event.getSource()).getId().equals("btnGraficiStatistiche"))
+            ScreenController.showPageCalciatore("GraficiStatistiche", calciatore);
+        else
+            ScreenController.showPageCalciatore("GraficiStatisticheInLista", calciatore);
     }
 
     @FXML
