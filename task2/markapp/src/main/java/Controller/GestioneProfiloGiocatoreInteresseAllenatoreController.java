@@ -72,17 +72,7 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
          } catch(IOException e){
              e.printStackTrace();
          }
-         /*   try{
-                FXMLLoader loader =new FXMLLoader();
-                loader.setLocation(MainApp.class.getResource("/fxml/ModificaSchedaProfiloInteresse.fxml"));
-                AnchorPane scheda=(AnchorPane)loader.load();
-                ModificaProfiloDiInteresse controllerProfilo = loader.getController();
-                controllerProfilo.inizializzaSchedaModifica(idSocieta,profilo.getEtaMinima(),profilo.getEtaMassima()
-                        ,profilo.getId(),profilo.getDescrizioneCaratteristiche(),areaModificaProfili,scheda);
-                areaModificaProfili.getChildren().add(scheda);    
-            } catch(Exception e){
-             System.err.println("Pagina non trovata");
-         }*/
+
         }
     }
     @FXML
@@ -108,26 +98,18 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
              
              scheda = loader.load();
             ModificaProfiloDiInteresse controllerProfilo = loader.getController();
-            controllerProfilo.inizializzaSchedaModifica(idSocieta,etaMinima,etaMassima,idScheda,descrizioneCaratteristiche,areaModificaProfili,scheda);
+            controllerProfilo.inizializzaSchedaModifica(ruolo,etaMinima,etaMassima,idScheda,descrizioneCaratteristiche,areaModificaProfili,scheda);
             areaModificaProfili.getChildren().add(scheda);
+            
+            sceltaRuolo.setValue("NA");
+            etaMinimaTextField.setText("15");
+            etaMassimaTextField.setText("34");
+            areaDescrizioneCaratteristiche.setText("");
              
          } catch(IOException e){
              e.printStackTrace();
          }
-       /* try{
-            String idScheda= ProfiloInteresseMongoDataAccess.aggiungiAListaProfiliInteresse(idSocieta, idAllenatore, ruolo,
-                    etaMinima, etaMassima, descrizioneCaratteristiche);
-            FXMLLoader loader =new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/fxml/ModificaSchedaProfiloInteresse.fxml"));
-            AnchorPane scheda=(AnchorPane)loader.load();
-            ModificaProfiloDiInteresse controllerProfilo = loader.getController();
-            controllerProfilo.inizializzaSchedaModifica(idSocieta,etaMinima,etaMassima,idScheda,descrizioneCaratteristiche,areaModificaProfili,scheda);
-            areaModificaProfili.getChildren().add(scheda);
-            
-        }catch(Exception e){
-             System.err.println(e);
-             System.err.println("Pagina non trovata");
-         }*/
+
         
     
     }
@@ -176,7 +158,7 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sceltaRuolo.setItems(ScreenController.getRuoloInCampo());
-        sceltaRuolo.setValue("Portiere");
+        sceltaRuolo.setValue("NA");
         incrementMin.setId("incrementMin");
         decrementMin.setId("decrementMin");
         incrementMax.setId("incrementMax");
