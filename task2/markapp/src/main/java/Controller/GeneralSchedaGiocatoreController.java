@@ -75,8 +75,12 @@ public class GeneralSchedaGiocatoreController implements Initializable{
         } catch(Exception e){
             e.printStackTrace();
         }
+        try {
+          nomeCalciatore.setText(calciatore.getNome());  
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
-        nomeCalciatore.setText(calciatore.getNome());
     }
     
     public void setCalciatore(Calciatore calciatore){
