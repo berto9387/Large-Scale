@@ -43,7 +43,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
         
         listaProfiliInteresseDocument=(ArrayList<Document>)societaDoc.get("listaProfiliDiInteresse");
         prossimoID=calcoloProssimoId(listaProfiliInteresseDocument);
-        idAllenatoreSocieta=societaDoc.getString("allenatore");
+        idAllenatoreSocieta=societaDoc.getObjectId("allenatore").toHexString();
         for(Document doc:listaProfiliInteresseDocument){
             String idAllenatoreProfiloInteresse=doc.getString("idAllenatore");
             if(idAllenatoreProfiloInteresse.equals(idAllenatoreSocieta)){
@@ -52,7 +52,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
                 int etaMinima=doc.getInteger("etaMinima");
                 int etaMassima=doc.getInteger("etaMassima");
                 String descrizioneCaratteristiche=doc.getString("descrizioneCaratteristiche");
-                Date timeStampAggiunto=new Date(Long.getLong(doc.getString("timeStampAggiunto")));
+                Date timeStampAggiunto=new Date(doc.getLong("timeStampAggiunto"));
                 ProfiloInteresse profiloAusilio=new ProfiloInteresse(id,ruolo,etaMinima,etaMassima,descrizioneCaratteristiche,
                         idAllenatoreProfiloInteresse,timeStampAggiunto);
                 listaProfiloInteresse.add(profiloAusilio);
@@ -118,14 +118,15 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
             int etaMassima,String descrizioneCaratteristiche){
         
         String _id=Integer.toString(prossimoID);
-        Document profiloInteresse=new Document("_id",new ObjectId(_id))
+        
+        Document profiloInteresse=new Document("_id",_id)
                 .append("idAllenatore",idAllenatore)
                 .append("ruolo",ruolo)
                 .append("etaMinima",etaMinima)
                 .append("etaMassima",etaMassima)
                 .append("descrizioneCaratteristiche",descrizioneCaratteristiche)
                 .append("timeStampAggiunto",System.currentTimeMillis());
-        UpdateResult updateOne = collectionSocieta.updateOne(eq("_id",idSocieta),
+        UpdateResult updateOne = collectionSocieta.updateOne(eq("_id",new ObjectId(idSocieta)),
                 Updates.addToSet("listaProfiliDiInteresse",profiloInteresse));
         ++prossimoID;
         return _id;   
@@ -134,7 +135,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
     public static void modificaListaProfiliInteresse(String idSocieta,String idProfiloInteresse,String ruolo,int etaMinima,
             int etaMassima,String descrizioneCaratteristiche){
       
-        Bson filter =and(eq("_id",new ObjectId(idSocieta)),eq("listaProfiliInteresse._id")); 
+        Bson filter =and(eq("_id",new ObjectId(idSocieta)),eq("listaProfiliInteresse._id",idProfiloInteresse)); 
         Document profiloInteresseAggiornato=new Document("listaProfiliInteresse.$.ruolo",ruolo)
               .append("listaProfiliInteresse.$.etaMinima",etaMinima)
               .append("listaProfiliInteresse.$.etaMassima",etaMassima)
@@ -151,7 +152,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
      */
     public static void eliminaProfiloInteresse(String idSocieta,String idProfilo){
     
-        Bson filter = eq("_id",idSocieta);
+        Bson filter = eq("_id",new ObjectId(idSocieta));
         Document idProfiloInteresseDaEliminare = new Document("_id",idProfilo); 
         Document fieldDelete = new Document("listaProfiliDiInteresse",idProfiloInteresseDaEliminare);
         Document update = new Document("$pull",fieldDelete);

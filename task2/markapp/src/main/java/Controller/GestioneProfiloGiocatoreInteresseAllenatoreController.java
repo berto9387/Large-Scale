@@ -53,7 +53,26 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
         String idSocieta=utente.getSocieta().getId();
         ArrayList<ProfiloInteresseBeans> listaProfiliInteressi=ProfiloInteresseMongoDataAccess.ottieniListaProfiliInteresseBeans(idSocieta);
         for(ProfiloInteresseBeans profilo:listaProfiliInteressi){
-            try{
+            try{   
+             AnchorPane scheda;
+             URL fileUrl = MainApp.class.getResource("/fxml/ModificaSchedaProfiloInteresse.fxml");
+             FXMLLoader loader = new FXMLLoader(fileUrl);
+             
+             if(fileUrl == null){ //Qui dentro ci entra anche se ci sono errori nel FXML da caricare
+                 System.err.println("Pagina non trovata URL");
+             }
+             
+             scheda = loader.load();
+             ModificaProfiloDiInteresse controllerProfilo = loader.getController();
+             System.out.println("------>"+profilo.getRuolo()+"<-----");
+             controllerProfilo.inizializzaSchedaModifica(idSocieta,profilo.getEtaMinima(),profilo.getEtaMassima()
+                        ,profilo.getId(),profilo.getDescrizioneCaratteristiche(),areaModificaProfili,scheda);
+                areaModificaProfili.getChildren().add(scheda); 
+             
+         } catch(IOException e){
+             e.printStackTrace();
+         }
+         /*   try{
                 FXMLLoader loader =new FXMLLoader();
                 loader.setLocation(MainApp.class.getResource("/fxml/ModificaSchedaProfiloInteresse.fxml"));
                 AnchorPane scheda=(AnchorPane)loader.load();
@@ -63,7 +82,7 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
                 areaModificaProfili.getChildren().add(scheda);    
             } catch(Exception e){
              System.err.println("Pagina non trovata");
-         }
+         }*/
         }
     }
     @FXML
@@ -76,7 +95,26 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
         int etaMassima = Integer.parseInt(etaMassimaTextField.getText());
         String descrizioneCaratteristiche=areaDescrizioneCaratteristiche.getText();
         
-        try{
+        try{   
+             String idScheda= ProfiloInteresseMongoDataAccess.aggiungiAListaProfiliInteresse(idSocieta, idAllenatore, ruolo,
+                etaMinima, etaMassima, descrizioneCaratteristiche);
+             AnchorPane scheda;
+             URL fileUrl = MainApp.class.getResource("/fxml/ModificaSchedaProfiloInteresse.fxml");
+             FXMLLoader loader = new FXMLLoader(fileUrl);
+             
+             if(fileUrl == null){ //Qui dentro ci entra anche se ci sono errori nel FXML da caricare
+                 System.err.println("Pagina non trovata URL");
+             }
+             
+             scheda = loader.load();
+            ModificaProfiloDiInteresse controllerProfilo = loader.getController();
+            controllerProfilo.inizializzaSchedaModifica(idSocieta,etaMinima,etaMassima,idScheda,descrizioneCaratteristiche,areaModificaProfili,scheda);
+            areaModificaProfili.getChildren().add(scheda);
+             
+         } catch(IOException e){
+             e.printStackTrace();
+         }
+       /* try{
             String idScheda= ProfiloInteresseMongoDataAccess.aggiungiAListaProfiliInteresse(idSocieta, idAllenatore, ruolo,
                     etaMinima, etaMassima, descrizioneCaratteristiche);
             FXMLLoader loader =new FXMLLoader();
@@ -89,7 +127,7 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
         }catch(Exception e){
              System.err.println(e);
              System.err.println("Pagina non trovata");
-         }
+         }*/
         
     
     }
