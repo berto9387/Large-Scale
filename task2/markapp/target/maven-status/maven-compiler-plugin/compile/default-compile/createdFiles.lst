@@ -1,7 +1,9 @@
-task2\markapp\MainApp.class
-Model\TrasferimentiBeans.class
+Controller\SchedaOsservatoreController$1.class
 Model\ProfiloInteresseBeans.class
 Model\InformazioniRicercaCalciatore.class
 task2\markapp\ScreenController.class
-Model\InfortunioBeans.class
 Model\StatisticaBeans.class
+task2\markapp\MainApp.class
+Model\TrasferimentiBeans.class
+Controller\SchedaOsservatoreController.class
+Model\InfortunioBeans.class
