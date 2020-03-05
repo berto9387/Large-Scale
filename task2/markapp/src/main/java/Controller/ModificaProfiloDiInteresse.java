@@ -25,16 +25,19 @@ public class ModificaProfiloDiInteresse extends GestioneProfiloGiocatoreInteress
     @FXML
     private Label idScheda;
     private AnchorPane schedaFXML;
+    private String valoreRuolo;
     public void inizializzaSchedaModifica(String ruolo,int etaMinima,int etaMassima,
             String idScheda,String descrizioneCaratteristiche,
             VBox areaModificaProfili,AnchorPane schedaFXML)
     {
-        sceltaRuolo.setValue(ruolo);
+        valoreRuolo=ruolo;
+        sceltaRuolo.setValue(valoreRuolo);
         etaMinimaTextField.setText(Integer.toString(etaMinima));
         etaMassimaTextField.setText(Integer.toString(etaMassima));
         this.idScheda.setText(idScheda);
         this.areaModificaProfili=areaModificaProfili;
         this.schedaFXML=schedaFXML;
+        this.areaDescrizioneCaratteristiche.setText(descrizioneCaratteristiche);
     }
     @FXML
     private void aggiornaScheda(MouseEvent event){
@@ -56,16 +59,19 @@ public class ModificaProfiloDiInteresse extends GestioneProfiloGiocatoreInteress
         String idSocieta=utente.getSocieta().getId();
         String idProfiloInteresse=idScheda.getText();
         ProfiloInteresseMongoDataAccess.eliminaProfiloInteresse(idSocieta, idProfiloInteresse);
+        areaModificaProfili.getChildren().remove(schedaFXML);
         return this;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         sceltaRuolo.setItems(ScreenController.getRuoloInCampo());
+        sceltaRuolo.setValue(valoreRuolo);
         incrementMin.setId("incrementMin");
         decrementMin.setId("decrementMin");
         incrementMax.setId("incrementMax");
         decrementMax.setId("decrementMax");
-        areaModificaProfili.getChildren().remove(schedaFXML);
+        
     } 
 }
