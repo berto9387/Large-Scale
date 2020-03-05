@@ -9,12 +9,15 @@ import Controller.ModificaProfiloDiInteresse;
 import Dao.ProfiloInteresseMongoDataAccess;
 import Entita.Utente;
 import Model.ProfiloInteresseBeans;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.*;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import task2.markapp.MainApp;
 import task2.markapp.ScreenController;
@@ -43,7 +46,28 @@ public class GestioneProfiloInteresseOsservatoreController implements Initializa
         String idSocieta=utente.getSocieta().getId();
         ArrayList<ProfiloInteresseBeans> listaProfiliInteressi=ProfiloInteresseMongoDataAccess.ottieniListaProfiliInteresseBeans(idSocieta);
         for(ProfiloInteresseBeans profilo:listaProfiliInteressi){
+            
             try{
+                 
+             AnchorPane scheda;
+             URL fileUrl = MainApp.class.getResource("/fxml/ModificaSchedaProfiloInteresse.fxml");
+             FXMLLoader loader = new FXMLLoader(fileUrl);
+             
+             if(fileUrl == null){ //Qui dentro ci entra anche se ci sono errori nel FXML da caricare
+                 System.err.println("Pagina non trovata URL");
+             }
+             
+             scheda = loader.load();
+             ModificaProfiloDiInteresse controllerProfilo = loader.getController();
+             controllerProfilo.inizializzaSchedaModifica(idSocieta,profilo.getEtaMinima(),profilo.getEtaMassima()
+                    ,profilo.getId(),profilo.getDescrizioneCaratteristiche(),areaVisualizzaProfili,scheda);
+             areaVisualizzaProfili.getChildren().add(scheda); 
+             
+         } catch(IOException e){
+             e.printStackTrace();
+         }
+     
+       /*     try{
                 FXMLLoader loader =new FXMLLoader();
                 loader.setLocation(MainApp.class.getResource("/fxml/ModificaSchedaProfiloInteresse.fxml"));
                 AnchorPane scheda=(AnchorPane)loader.load();
@@ -52,8 +76,9 @@ public class GestioneProfiloInteresseOsservatoreController implements Initializa
                         ,profilo.getId(),profilo.getDescrizioneCaratteristiche(),areaVisualizzaProfili,scheda);
                 areaVisualizzaProfili.getChildren().add(scheda);    
             } catch(Exception e){
-             System.err.println("Pagina non trovata");
-         }
+             System.err.println(e);
+             e.printStackTrace();
+         }*/
         }    
     }
     /**
