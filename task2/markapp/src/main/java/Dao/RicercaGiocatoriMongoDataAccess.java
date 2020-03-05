@@ -846,7 +846,7 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
             if(reportDoc!=null){
                 Report report=new Report();
                 report.setCommento(reportDoc.getString("commento"));
-                report.setId(reportDoc.getString("_id"));
+                report.setId(reportDoc.getObjectId("_id").toString());
                 report.setRating(reportDoc.getInteger("rating"));
                 info.setReport(report);
             }

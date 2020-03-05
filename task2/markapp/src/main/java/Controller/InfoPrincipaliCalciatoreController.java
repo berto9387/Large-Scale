@@ -139,8 +139,6 @@ public class InfoPrincipaliCalciatoreController extends GeneralSchedaGiocatoreCo
             
         }
         
-        for(Statistica s : calciatore.getStatistiche())
-            System.out.println(s.getSocieta());
     }
 
 }

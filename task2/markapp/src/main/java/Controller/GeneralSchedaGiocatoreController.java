@@ -63,11 +63,10 @@ public class GeneralSchedaGiocatoreController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        if(ScreenController.existObject(hBoxGiudizio)){
             if(ScreenController.getUtente().getRuolo().equals("osservatore") || ScreenController.getUtente().getRuolo().equals("Osservatore")){
-                hBoxGiudizio.setVisible(false);
+                if(hBoxGiudizio != null)
+                    hBoxGiudizio.setVisible(false);
             }
-        }
         
         try{
             Image image = new Image(calciatore.getLinkFoto());
@@ -121,6 +120,11 @@ public class GeneralSchedaGiocatoreController implements Initializable{
             ScreenController.showPageCalciatore("StatisticheStagionali", calciatore);
         else
             ScreenController.showPageCalciatore("StatisticheStagionaliInLista", calciatore);
+    }
+    
+     @FXML
+    void handlerSchedaOsservatore(ActionEvent event) {
+        ScreenController.showPageCalciatore("SchedaOsservatore", calciatore);
     }
     
     @FXML

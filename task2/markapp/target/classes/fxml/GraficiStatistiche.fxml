@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="992.0" prefWidth="1265.0" style="-fx-background-color: transparent;" stylesheets="@../styles/utility.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GraficiStatisticheController">
+   <children>
+      <VBox alignment="TOP_CENTER" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label style="-fx-font-family: Roboto; -fx-font-size: 34; -fx-font-weight: bold;" text="Scheda giocatore" textFill="ORANGE">
+               <effect>
+                  <DropShadow spread="0.33" />
+               </effect>
+            </Label>
+            <GridPane prefHeight="38.0" prefWidth="1246.0" style="-fx-background-radius: 10;">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Button fx:id="btnInfoPrincipali" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerInfoPrincipali" style="-fx-background-radius: 10; -fx-border-color: orange; -fx-border-radius: 10; -fx-border-width: 3; -fx-background-color: #00000059;" text="INFORMAZIONI PRINCIPALI" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" GridPane.columnIndex="4">
+                     <children>
+                        <Button fx:id="btnCronologiaInfortuni" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerCronologiaInfortuni" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="CRONOLOGIA INFORTUNI" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Roboto Bold" size="16.0" />
+                           </font>
+                           <effect>
+                              <DropShadow radius="15.9575" width="44.83" />
+                           </effect>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" GridPane.columnIndex="3">
+                     <children>
+                        <Button fx:id="btnGraficiStatistiche" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerGraficiStatistiche" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="GRAFICI STATISTICHE" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Roboto Bold" size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" GridPane.columnIndex="2">
+                     <children>
+                        <Button fx:id="btnCronologiaTrasferimenti" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerCronologiaTrasferimenti" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="CRONOLOGIA TRASFERIMENTI" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Roboto Bold" size="16.0" />
+                           </font>
+                           <effect>
+                              <DropShadow radius="15.9575" width="44.83" />
+                           </effect>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" GridPane.columnIndex="1">
+                     <children>
+                        <Button fx:id="btnStatisticheStagionali" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerStatisticheStagionali" style="-fx-background-color: #00000059; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 3;" text="STATISTICHE STAGIONALI" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                           <effect>
+                              <DropShadow height="32.92" radius="18.9375" width="44.83" />
+                           </effect>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </GridPane>
+            <GridPane alignment="CENTER" hgap="5.0" prefHeight="649.0" prefWidth="1246.0" vgap="5.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="388.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="388.0" minHeight="10.0" prefHeight="214.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="517.7999938964842" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="517.7999938964842" minHeight="10.0" prefHeight="296.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </GridPane.margin>
+                     <children>
+                        <PieChart fx:id="tortaCartellini" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </GridPane.margin>
+                     <children>
+                        <PieChart fx:id="tortaAssist" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </GridPane.margin>
+                     <children>
+                        <PieChart fx:id="tortaGoal" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </GridPane.margin>
+                     <children>
+                        <BarChart fx:id="istogrammaCartellini">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </GridPane.margin>
+                     <children>
+                        <BarChart fx:id="istogrammaAssist">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </GridPane.margin>
+                     <children>
+                        <BarChart fx:id="istogrammaGoal">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#creaDiagrammaTorta" prefHeight="49.0" prefWidth="206.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: #00000059; -fx-border-radius: 100; -fx-border-width: 4;" text="Cerca" textAlignment="CENTER" textFill="ORANGE" underline="true" wrapText="true">
+                           <graphic>
+                              <FontAwesomeIcon fill="ORANGE" glyphName="ANGLE_LEFT" size="1.8em" wrappingWidth="15.028608322143555" />
+                           </graphic>
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                           <effect>
+                              <DropShadow height="66.28" radius="30.8525" width="59.13" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </GridPane.margin>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 20px;" text="Stagione:" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ChoiceBox fx:id="stagioneTorta" prefWidth="150.0" styleClass="choiceBoxField" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="13.0" layoutY="13.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.rowIndex="2">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 20px;" text="Stagione:" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ChoiceBox fx:id="stagioneIstogramma" prefWidth="150.0" styleClass="choiceBoxField" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="13.0" layoutY="13.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 20px;" text="Competizione:" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ChoiceBox fx:id="competizioneIstogramma" prefWidth="150.0" styleClass="choiceBoxField" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="420.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#creaDiagrammaInstogramma" prefHeight="49.0" prefWidth="206.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: #00000059; -fx-border-radius: 100; -fx-border-width: 4;" text="Cerca" textAlignment="CENTER" textFill="ORANGE" underline="true" wrapText="true">
+                           <graphic>
+                              <FontAwesomeIcon fill="ORANGE" glyphName="ANGLE_LEFT" size="1.8em" wrappingWidth="15.028608322143555" />
+                           </graphic>
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                           <effect>
+                              <DropShadow height="66.28" radius="30.8525" width="59.13" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+            <GridPane alignment="CENTER" prefHeight="98.0" prefWidth="1378.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="309.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <Button layoutX="116.0" layoutY="-1.0" mnemonicParsing="false" onAction="#handlerAggiungiGiocatoreLista" prefHeight="98.0" prefWidth="223.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: white; -fx-border-radius: 100; -fx-border-width: 4;" text="AGGIUNGI ALLA LISTA DEI GIOCATORI DI INTERESSE" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="-1.0">
+                           <graphic>
+                              <FontAwesomeIcon fill="ORANGE" glyphName="PLUS" size="1.5em" wrappingWidth="15.028608322143555" />
+                           </graphic>
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                           <effect>
+                              <DropShadow height="66.28" radius="30.8525" width="59.13" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="infoLabel" textFill="ORANGE" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="Roboto Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="309.0">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="-4.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlerTornaAllaRicerca" prefHeight="49.0" prefWidth="206.0" style="-fx-background-radius: 100; -fx-border-color: orange; -fx-background-color: #00000059; -fx-border-radius: 100; -fx-border-width: 4;" text="Torna alla ricerca" textAlignment="CENTER" textFill="ORANGE" underline="true" wrapText="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="27.0">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="ORANGE" glyphName="ANGLE_LEFT" size="1.8em" wrappingWidth="15.028608322143555" />
+                                 </graphic>
+                                 <font>
+                                    <Font name="Roboto Bold" size="17.0" />
+                                 </font>
+                                 <effect>
+                                    <DropShadow height="66.28" radius="30.8525" width="59.13" />
+                                 </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>

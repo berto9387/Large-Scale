@@ -76,3 +76,23 @@ and open the template in the editor.
     -fx-translate-y: 4;
 }
 
+#btnInviaReport{
+    -fx-background-color:  #00000059;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-width: 4;
+    -fx-border-color: orange;
+    -fx-text-fill: white;
+}
+
+#btnInviaReport:pressed{
+    -fx-background-color:  #00000059;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-width: 4;
+    -fx-border-color: orange;
+    -fx-translate-y: 4;
+    -fx-text-fill: white;
+}
+
+

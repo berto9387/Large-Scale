@@ -2,9 +2,11 @@
 package task2.markapp;
 
 import Controller.GeneralSchedaGiocatoreController;
+import Controller.GraficiStatisticheController;
 import Controller.InfoInfortuniController;
 import Controller.InfoPrincipaliCalciatoreController;
 import Controller.InfoTrasferimentiController;
+import Controller.SchedaOsservatoreController;
 import Controller.StatisticheStagionaliController;
 import Entita.Calciatore;
 import Entita.Utente;
@@ -138,7 +140,12 @@ public class ScreenController {
                 case "GraficiStatistiche":
                 case "GraficiStatisticheInLista":
                     loader.setControllerFactory(c -> {
-                       return new InfoPrincipaliCalciatoreController(calciatore);
+                       return new GraficiStatisticheController(calciatore);
+                    });
+                    break;
+                case "SchedaOsservatore":
+                     loader.setControllerFactory(c -> {
+                       return new SchedaOsservatoreController(calciatore);
                     });
                     break;
             }
@@ -159,8 +166,18 @@ public class ScreenController {
      * @return true se node è presente sulla scena, false altrimenti
      */
     public static boolean existObject(Node node) {
-        BorderPane root = mainApp.getRootLayout();
-        return root.getChildren().contains(node);
+        Parent root = (Parent) mainApp.getRootLayout().getCenter();
+        for(Node ciao : root.getChildrenUnmodifiable()){
+            System.out.println(ciao.getId());
+        }
+//        System.out.println("LO CONTIENEEE ??? " + root.getChildren().contains(node));
+//        return root.getChildren().contains(node);
+        Node rootOfNode = node;
+        while (rootOfNode.getParent() != null) {
+            rootOfNode = rootOfNode.getParent();
+        }
+        System.out.println(root == rootOfNode);
+        return root == rootOfNode;
     }
      
 }
