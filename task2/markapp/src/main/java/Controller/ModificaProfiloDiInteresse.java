@@ -9,6 +9,7 @@ import Dao.*;
 import Entita.Utente;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.*;
 import javafx.fxml.*;
 
 import javafx.scene.control.*;
@@ -30,7 +31,9 @@ public class ModificaProfiloDiInteresse extends GestioneProfiloGiocatoreInteress
             String idScheda,String descrizioneCaratteristiche,
             VBox areaModificaProfili,AnchorPane schedaFXML)
     {
+        sceltaRuolo.setItems(ScreenController.getRuoloInCampo());
         valoreRuolo=ruolo;
+        
         sceltaRuolo.setValue(valoreRuolo);
         etaMinimaTextField.setText(Integer.toString(etaMinima));
         etaMassimaTextField.setText(Integer.toString(etaMassima));
@@ -46,6 +49,7 @@ public class ModificaProfiloDiInteresse extends GestioneProfiloGiocatoreInteress
         Utente utente= ScreenController.getUtente();
         String idSocieta=utente.getSocieta().getId();
         String idProfiloInteresse=idScheda.getText();
+        
         String ruolo = (String)sceltaRuolo.getValue();
         int etaMinima= Integer.parseInt(etaMinimaTextField.getText());
         int etaMassima = Integer.parseInt(etaMassimaTextField.getText());
@@ -66,8 +70,7 @@ public class ModificaProfiloDiInteresse extends GestioneProfiloGiocatoreInteress
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        sceltaRuolo.setItems(ScreenController.getRuoloInCampo());
-        sceltaRuolo.setValue(valoreRuolo);
+        
         incrementMin.setId("incrementMin");
         decrementMin.setId("decrementMin");
         incrementMax.setId("incrementMax");

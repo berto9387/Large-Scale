@@ -18,6 +18,7 @@ C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\tas
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Controller\LoginSignUpController.java
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Model\InfortunioBeans.java
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Controller\HomePageAmministratoreDiSquadraController.java
+C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Controller\VisualizzaSchedaProfiloController.java
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Controller\GestioneProfiloGiocatoreInteresseAllenatoreController.java
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Model\InformazioniRicercaCalciatore.java
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Controller\HomePageAllenatoreController.java
@@ -42,5 +43,6 @@ C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\tas
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Entita\Report.java
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Controller\RicercaGiocatoriController.java
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Dao\ProfiloInteresseMongoDataAccess.java
+C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Controller\GraficiStatisticheController.java
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Controller\RisultatoRicercaGiocatoreController.java
 C:\Users\Gianluca\Desktop\ProgettiLargeScaleDatabase\Large-Scale\Large-Scale\task2\markapp\src\main\java\Entita\Calciatore.java

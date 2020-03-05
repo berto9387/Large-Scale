@@ -30,15 +30,7 @@ import task2.markapp.ScreenController;
 public class GestioneProfiloInteresseOsservatoreController implements Initializable {
 
     @FXML
-    private TextField ruoloTextField;
-    @FXML
     private VBox areaVisualizzaProfili;
-    @FXML
-    private TextField etaMinimaTextField;
-    @FXML
-    private TextField etaMassimaTextField;
-    @FXML
-    private TextArea areaDescrizioneCaratteristiche; 
     
     private void caricaProfiliDiInteresse()
     {
@@ -50,7 +42,7 @@ public class GestioneProfiloInteresseOsservatoreController implements Initializa
             try{
                  
              AnchorPane scheda;
-             URL fileUrl = MainApp.class.getResource("/fxml/ModificaSchedaProfiloInteresse.fxml");
+             URL fileUrl = MainApp.class.getResource("/fxml/VisualeSchedaProfiloInteresse.fxml");
              FXMLLoader loader = new FXMLLoader(fileUrl);
              
              if(fileUrl == null){ //Qui dentro ci entra anche se ci sono errori nel FXML da caricare
@@ -58,9 +50,9 @@ public class GestioneProfiloInteresseOsservatoreController implements Initializa
              }
              
              scheda = loader.load();
-             ModificaProfiloDiInteresse controllerProfilo = loader.getController();
-             controllerProfilo.inizializzaSchedaModifica(idSocieta,profilo.getEtaMinima(),profilo.getEtaMassima()
-                    ,profilo.getId(),profilo.getDescrizioneCaratteristiche(),areaVisualizzaProfili,scheda);
+             VisualizzaSchedaProfiloController schedaProfilo = loader.getController();
+             schedaProfilo.inizializzaSchedaProfilo(profilo.getRuolo(),profilo.getEtaMinima(),profilo.getEtaMassima()
+                     ,profilo.getDescrizioneCaratteristiche());
              areaVisualizzaProfili.getChildren().add(scheda); 
              
          } catch(IOException e){

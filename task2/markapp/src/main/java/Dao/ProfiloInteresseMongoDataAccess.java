@@ -135,13 +135,14 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
     public static void modificaListaProfiliInteresse(String idSocieta,String idProfiloInteresse,String ruolo,int etaMinima,
             int etaMassima,String descrizioneCaratteristiche){
       
-        Bson filter =and(eq("_id",new ObjectId(idSocieta)),eq("listaProfiliInteresse._id",idProfiloInteresse)); 
-        Document profiloInteresseAggiornato=new Document("listaProfiliInteresse.$.ruolo",ruolo)
-              .append("listaProfiliInteresse.$.etaMinima",etaMinima)
-              .append("listaProfiliInteresse.$.etaMassima",etaMassima)
-              .append("listaProfiliInteresse.$.descrizioneCaratteristiche", descrizioneCaratteristiche)
-              .append("listaProfiliInteresse.$.timeStamp", System.currentTimeMillis());
-        collectionSocieta.updateOne(filter,profiloInteresseAggiornato);
+        Bson filter =and(eq("_id",new ObjectId(idSocieta)),eq("listaProfiliDiInteresse._id",idProfiloInteresse)); 
+        Document profiloInteresseAggiornato=new Document("listaProfiliDiInteresse.$.ruolo",ruolo)
+              .append("listaProfiliDiInteresse.$.etaMinima",etaMinima)
+              .append("listaProfiliDiInteresse.$.etaMassima",etaMassima)
+              .append("listaProfiliDiInteresse.$.descrizioneCaratteristiche", descrizioneCaratteristiche)
+              .append("listaProfiliDiInteresse.$.timeStamp", System.currentTimeMillis());
+        Document setDocument=new Document("$set",profiloInteresseAggiornato);
+        collectionSocieta.updateOne(filter,setDocument);
         
     }
     /**

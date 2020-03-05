@@ -64,8 +64,8 @@ public class GestioneProfiloGiocatoreInteresseAllenatoreController implements In
              
              scheda = loader.load();
              ModificaProfiloDiInteresse controllerProfilo = loader.getController();
-             System.out.println("------>"+profilo.getRuolo()+"<-----");
-             controllerProfilo.inizializzaSchedaModifica(idSocieta,profilo.getEtaMinima(),profilo.getEtaMassima()
+             
+             controllerProfilo.inizializzaSchedaModifica(profilo.getRuolo(),profilo.getEtaMinima(),profilo.getEtaMassima()
                         ,profilo.getId(),profilo.getDescrizioneCaratteristiche(),areaModificaProfili,scheda);
                 areaModificaProfili.getChildren().add(scheda); 
              
