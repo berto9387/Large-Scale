@@ -20,9 +20,13 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+
 import javafx.stage.Stage;
 
 /**
@@ -33,6 +37,7 @@ public class ScreenController {
     private static MainApp mainApp;
     private static Utente utente;
     private static Pane view;
+    private static Alert popUpAvviso;
     private static ObservableList<String> ruoloInCampo=FXCollections.observableArrayList
         ("Punta centrale","Terzino destro","Mediano","Ala sinistra","NA","Seconda punta",
                 "Centrocampista di destra","Terzino sinistro","Centrale","Ala destra","Trequartista",
@@ -159,7 +164,19 @@ public class ScreenController {
              e.printStackTrace();
          }
      }
-
+     
+     /**
+      * Funzione che permette di mostrare un popUp d'avviso
+      * @param testoPopUp 
+      */
+     public static void mostraPopUp(String testoPopUp)
+     {
+         popUpAvviso= new Alert(AlertType.INFORMATION);
+         popUpAvviso.setHeaderText(null);
+         popUpAvviso.setContentText(testoPopUp);
+         popUpAvviso.showAndWait();
+         
+     }
     /**
      * Funzione di utilità per controllare se un elemento è presente sulla scena attuale
      * @param node
