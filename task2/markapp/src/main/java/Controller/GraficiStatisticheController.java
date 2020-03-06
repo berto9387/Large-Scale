@@ -9,10 +9,8 @@ import Entita.Calciatore;
 import Entita.Statistica;
 import java.net.URL;
 import java.util.HashSet;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +18,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.VBox;
-
 /**
  * FXML Controller class
  *
@@ -33,25 +30,23 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
     ObservableList<String> competizioni=null;
     
     
-    
     @FXML
-    private PieChart tortaCartellini;
+    private VBox torta1;
 
     @FXML
-    private PieChart tortaAssist;
-    
+    private VBox torta2;
 
     @FXML
-    private PieChart tortaGoal;
+    private VBox torta3;
 
     @FXML
-    private BarChart<?, ?> istogrammaCartellini;
+    private VBox istogramma1;
 
     @FXML
-    private BarChart<?, ?> istogrammaAssist;
+    private VBox istogramma2;
 
     @FXML
-    private BarChart<?, ?> istogrammaGoal;
+    private VBox istogramma3;
 
     @FXML
     private ChoiceBox<String> stagioneTorta;
@@ -66,11 +61,22 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
         super(calciatore);
     }
 
-    
+    private void aggiungiTorta(VBox torta, String title){
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                new PieChart.Data("Grapefruit", 13),
+                new PieChart.Data("Oranges", 25),
+                new PieChart.Data("Pears", 22),
+                new PieChart.Data("Apples", 30));
+        final PieChart chart = new PieChart(pieChartData);
+        chart.setTitle(title);
+        torta.getChildren().add(chart);
+    }
 
     @FXML
     void creaDiagrammaInstogramma(ActionEvent event) {
-        infoLabel.setText("CIAO");
+        aggiungiTorta(torta1, "va caca");
+        aggiungiTorta(torta2, "vacaca");
         return;
     }
 
