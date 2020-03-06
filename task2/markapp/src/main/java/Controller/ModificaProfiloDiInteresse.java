@@ -9,13 +9,14 @@ import Dao.*;
 import Entita.Utente;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.property.*;
+
 import javafx.fxml.*;
 
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import task2.markapp.ScreenController;
 
 /**
@@ -27,6 +28,7 @@ public class ModificaProfiloDiInteresse extends GestioneProfiloGiocatoreInteress
     private Label idScheda;
     private AnchorPane schedaFXML;
     private String valoreRuolo;
+    
     public void inizializzaSchedaModifica(String ruolo,int etaMinima,int etaMassima,
             String idScheda,String descrizioneCaratteristiche,
             VBox areaModificaProfili,AnchorPane schedaFXML)
@@ -55,7 +57,8 @@ public class ModificaProfiloDiInteresse extends GestioneProfiloGiocatoreInteress
         int etaMassima = Integer.parseInt(etaMassimaTextField.getText());
         String descrizioneCaratteristiche= areaDescrizioneCaratteristiche.getText();
         ProfiloInteresseMongoDataAccess.modificaListaProfiliInteresse(idSocieta,idProfiloInteresse,
-                ruolo,etaMinima,etaMassima,descrizioneCaratteristiche); 
+                ruolo,etaMinima,etaMassima,descrizioneCaratteristiche);
+        ScreenController.mostraPopUp("Profilo aggiornato con successo");
     }
     @FXML
     private ModificaProfiloDiInteresse eliminaScheda(MouseEvent event){
