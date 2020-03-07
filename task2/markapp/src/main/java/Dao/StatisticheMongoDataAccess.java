@@ -61,13 +61,15 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
               Filters.ne("calciatore",idCalciatore))),
           Aggregates.group("$societa", Accumulators.sum("numeroReti","$reti"),
                   Accumulators.sum("numeroAssist", "$assist"),
-                  Accumulators.sum("numeroCartellini", addDoc)))
+                  Accumulators.sum("numeroCartellini", addDoc)),
+                  Accumulators.sum("numeroGoalSubiti", "$retiSubite"))
         
         ).first();
         int numeroReti = statsDoc.getInteger("numeroReti");
         int numeroAssist =statsDoc.getInteger("numeroAssist");
         int numeroCartellini = statsDoc.getInteger("numeroCartellini");
-        return new ValoriStatisticheDiagrammaTorta(numeroReti,numeroAssist,numeroCartellini);
+        int numeroGoalSubiti = statsDoc.getInteger("numeroGoalSubiti");
+        return new ValoriStatisticheDiagrammaTorta(numeroReti,numeroAssist,numeroCartellini,numeroGoalSubiti);
         
     } 
      
@@ -87,7 +89,8 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
         int numeroReti = statsDoc.getInteger("numeroReti");
         int numeroAssist =statsDoc.getInteger("numeroAssist");
         int numeroCartellini = statsDoc.getInteger("numeroCartellini");
-        return new ValoriStatisticheDiagrammaTorta(numeroReti,numeroAssist,numeroCartellini);
+        int numeroGoalSubiti = statsDoc.getInteger("numeroGoalSubiti");
+        return new ValoriStatisticheDiagrammaTorta(numeroReti,numeroAssist,numeroCartellini,numeroGoalSubiti);
         
     }     
 }

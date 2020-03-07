@@ -16,11 +16,13 @@ public class ValoriStatisticheDiagrammaTorta {
     private IntegerProperty numeroReti;
     private IntegerProperty numeroAssist;
     private IntegerProperty numeroCartellini;
+    private IntegerProperty numeroGoalSubiti;
     
-    public ValoriStatisticheDiagrammaTorta(int numeroReti,int numeroAssist,int numeroCartellini){
+    public ValoriStatisticheDiagrammaTorta(int numeroReti,int numeroAssist,int numeroCartellini,int numeroGoalSubiti){
        this.numeroReti = new SimpleIntegerProperty(numeroReti);
        this.numeroAssist= new SimpleIntegerProperty(numeroAssist);
-       this.numeroCartellini = new SimpleIntegerProperty(numeroCartellini);    
+       this.numeroCartellini = new SimpleIntegerProperty(numeroCartellini);
+       this.numeroGoalSubiti = new SimpleIntegerProperty(numeroGoalSubiti);
     }
     
     public int getNumeroReti(){
@@ -31,5 +33,8 @@ public class ValoriStatisticheDiagrammaTorta {
     }
     public int getNumeroCartellini(){
         return numeroCartellini.get();
+    }
+    public int getNumeroGoalSubiti(){
+        return numeroGoalSubiti.get();
     }
 }
