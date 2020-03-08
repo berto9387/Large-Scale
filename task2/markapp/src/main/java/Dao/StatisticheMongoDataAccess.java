@@ -61,8 +61,8 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
               Filters.ne("calciatore",idCalciatore))),
           Aggregates.group("$societa", Accumulators.sum("numeroReti","$reti"),
                   Accumulators.sum("numeroAssist", "$assist"),
-                  Accumulators.sum("numeroCartellini", addDoc)),
-                  Accumulators.sum("numeroGoalSubiti", "$retiSubite"))
+                  Accumulators.sum("numeroCartellini", addDoc),
+                  Accumulators.sum("numeroGoalSubiti", "$retiSubite")))
         
         ).first();
         int numeroReti = statsDoc.getInteger("numeroReti");
@@ -83,7 +83,8 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
               Filters.eq("calciatore",idCalciatore))),
           Aggregates.group("$calciatore", Accumulators.sum("numeroReti","$reti"),
                   Accumulators.sum("numeroAssist", "$assist"),
-                  Accumulators.sum("numeroCartellini", addDoc)))
+                  Accumulators.sum("numeroCartellini", addDoc),
+                  Accumulators.sum("numeroGoalSubiti", "$retiSubite")))
         
         ).first();
         int numeroReti = statsDoc.getInteger("numeroReti");
