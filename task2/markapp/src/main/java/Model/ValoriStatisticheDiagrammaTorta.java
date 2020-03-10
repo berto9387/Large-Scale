@@ -5,7 +5,9 @@
  */
 package Model;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -13,28 +15,28 @@ import javafx.beans.property.SimpleIntegerProperty;
  * @author Gianluca
  */
 public class ValoriStatisticheDiagrammaTorta {
-    private IntegerProperty numeroReti;
-    private IntegerProperty numeroAssist;
-    private IntegerProperty numeroCartellini;
-    private IntegerProperty numeroGoalSubiti;
+    private DoubleProperty numeroReti;
+    private DoubleProperty numeroAssist;
+    private DoubleProperty numeroCartellini;
+    private DoubleProperty numeroGoalSubiti;
     
-    public ValoriStatisticheDiagrammaTorta(int numeroReti,int numeroAssist,int numeroCartellini,int numeroGoalSubiti){
-       this.numeroReti = new SimpleIntegerProperty(numeroReti);
-       this.numeroAssist= new SimpleIntegerProperty(numeroAssist);
-       this.numeroCartellini = new SimpleIntegerProperty(numeroCartellini);
-       this.numeroGoalSubiti = new SimpleIntegerProperty(numeroGoalSubiti);
+    public ValoriStatisticheDiagrammaTorta(double numeroReti,double numeroAssist,double numeroCartellini,double numeroGoalSubiti){
+       this.numeroReti = new SimpleDoubleProperty(numeroReti);
+       this.numeroAssist= new SimpleDoubleProperty(numeroAssist);
+       this.numeroCartellini = new SimpleDoubleProperty(numeroCartellini);
+       this.numeroGoalSubiti = new SimpleDoubleProperty(numeroGoalSubiti);
     }
     
-    public int getNumeroReti(){
+    public double getNumeroReti(){
         return numeroReti.get();
     }
-    public int getNumeroAssist(){
+    public double getNumeroAssist(){
         return numeroAssist.get();
     }
-    public int getNumeroCartellini(){
+    public double getNumeroCartellini(){
         return numeroCartellini.get();
     }
-    public int getNumeroGoalSubiti(){
+    public double getNumeroGoalSubiti(){
         return numeroGoalSubiti.get();
     }
 }

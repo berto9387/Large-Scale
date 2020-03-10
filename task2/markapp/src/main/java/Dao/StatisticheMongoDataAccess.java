@@ -32,15 +32,16 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
                        Filters.eq("posizionePrincipale",posizionePrincipale),
                        Filters.eq("stagione",stagione),
                        Filters.eq("competizione",competizione))),
-                Aggregates.group(campoStatistica, Accumulators.sum("numeroGiocatori",1)))
+                Aggregates.group("$reti", Accumulators.sum("numeroGiocatori",1)))
                         
                 ).iterator();
      try{
         while(cursore.hasNext()){
             Document aux = cursore.next();
+            System.out.println(aux.toJson());
             int numeroGiocatori= aux.getInteger("numeroGiocatori");
-            int valoreStatistica= aux.getInteger("_id");
-            listaStatistiche.add(new ValoriStatisticheIstogramma(numeroGiocatori,valoreStatistica));
+            double valoreStatistica= aux.getDouble("_id");
+            listaStatistiche.add(new ValoriStatisticheIstogramma(numeroGiocatori,(int)valoreStatistica));
         
         }
      }
@@ -50,7 +51,7 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
      return listaStatistiche;
     }
     
-    public static ValoriStatisticheDiagrammaTorta statisticaAgregataSocieta(String societa,String stagione,String idCalciatore){
+    public static ValoriStatisticheDiagrammaTorta statisticaAgregataSocieta(String societa,String stagione,String idCalciatore) throws Exception{
         
         Document addDoc= new Document("$add", Arrays.asList("$ammonizione", "$espulsioni"));
         Document statsDoc = collectionStatistiche.aggregate(Arrays.asList(
@@ -65,15 +66,15 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
                   Accumulators.sum("numeroGoalSubiti", "$retiSubite")))
         
         ).first();
-        int numeroReti = statsDoc.getInteger("numeroReti");
-        int numeroAssist =statsDoc.getInteger("numeroAssist");
-        int numeroCartellini = statsDoc.getInteger("numeroCartellini");
-        int numeroGoalSubiti = statsDoc.getInteger("numeroGoalSubiti");
+        double numeroReti = statsDoc.getDouble("numeroReti");
+        double numeroAssist =statsDoc.getDouble("numeroAssist");
+        double numeroCartellini = statsDoc.getDouble("numeroCartellini");
+        double numeroGoalSubiti = statsDoc.getDouble("numeroGoalSubiti");
+        System.out.println(numeroReti+"-->");
         return new ValoriStatisticheDiagrammaTorta(numeroReti,numeroAssist,numeroCartellini,numeroGoalSubiti);
-        
     } 
      
-    public static ValoriStatisticheDiagrammaTorta statisticaAgregataGiocatoreSocieta(String societa,String stagione,String idCalciatore){
+    public static ValoriStatisticheDiagrammaTorta statisticaAgregataGiocatoreSocieta(String societa,String stagione,String idCalciatore) throws Exception{
         Document addDoc= new Document("$add", Arrays.asList("$ammonizione", "$espulsioni"));
         Document statsDoc = collectionStatistiche.aggregate(Arrays.asList(
           Aggregates.match(
@@ -87,10 +88,11 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
                   Accumulators.sum("numeroGoalSubiti", "$retiSubite")))
         
         ).first();
-        int numeroReti = statsDoc.getInteger("numeroReti");
-        int numeroAssist =statsDoc.getInteger("numeroAssist");
-        int numeroCartellini = statsDoc.getInteger("numeroCartellini");
-        int numeroGoalSubiti = statsDoc.getInteger("numeroGoalSubiti");
+        double numeroReti = statsDoc.getDouble("numeroReti");
+        double numeroAssist =statsDoc.getDouble("numeroAssist");
+        double numeroCartellini = statsDoc.getDouble("numeroCartellini");
+        double numeroGoalSubiti = (double)statsDoc.getInteger("numeroGoalSubiti");
+        System.out.println(numeroReti+"-->");
         return new ValoriStatisticheDiagrammaTorta(numeroReti,numeroAssist,numeroCartellini,numeroGoalSubiti);
         
     }     
