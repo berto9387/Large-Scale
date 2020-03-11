@@ -11,6 +11,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,9 +33,10 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
                        Filters.eq("posizionePrincipale",posizionePrincipale),
                        Filters.eq("stagione",stagione),
                        Filters.eq("competizione",competizione))),
-                Aggregates.group(campoStatistica, Accumulators.sum("numeroGiocatori",1)))
-                        
-                ).iterator();
+                Aggregates.group(campoStatistica, Accumulators.sum("numeroGiocatori",1)),
+                Aggregates.sort(Sorts.ascending("_id"))
+                
+     )).iterator();
      try{
          
         while(cursore.hasNext()){
@@ -47,10 +49,7 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
               listaStatistiche.add(new ValoriStatisticheIstogramma(numeroGiocatori,(int)valoreStatistica));
             } catch (Exception e) {
                 //continue;
-            }
-            
-            
-            
+            }  
         }
      }
     catch(Exception e){
@@ -60,8 +59,7 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
     return listaStatistiche;
     }
     
-    public static ValoriStatisticheDiagrammaTorta statisticaAgregataSocieta(String societa,String stagione,String idCalciatore) throws Exception{
-        
+    public static ValoriStatisticheDiagrammaTorta statisticaAgregataSocieta(String societa,String stagione,String idCalciatore) throws Exception{       
         Document addDoc= new Document("$add", Arrays.asList("$ammonizione", "$espulsioni"));
         Document statsDoc = collectionStatistiche.aggregate(Arrays.asList(
           Aggregates.match(
@@ -72,8 +70,7 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
           Aggregates.group("$societa", Accumulators.sum("numeroReti","$reti"),
                   Accumulators.sum("numeroAssist", "$assist"),
                   Accumulators.sum("numeroCartellini", addDoc),
-                  Accumulators.sum("numeroGoalSubiti", "$retiSubite")))
-        
+                  Accumulators.sum("numeroGoalSubiti", "$retiSubite")))       
         ).first();
         double numeroReti;
         double numeroAssist;
@@ -103,8 +100,7 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
         } catch (Exception e) {
             aux=statsDoc.getInteger("numeroGoalSubiti");
             numeroGoalSubiti=(double)aux;
-        }
-        
+        }      
         return new ValoriStatisticheDiagrammaTorta(numeroReti,numeroAssist,numeroCartellini,numeroGoalSubiti);
     } 
      
