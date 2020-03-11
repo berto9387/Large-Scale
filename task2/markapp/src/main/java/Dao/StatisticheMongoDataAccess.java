@@ -32,7 +32,7 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
                        Filters.eq("posizionePrincipale",posizionePrincipale),
                        Filters.eq("stagione",stagione),
                        Filters.eq("competizione",competizione))),
-                Aggregates.group("$reti", Accumulators.sum("numeroGiocatori",1)))
+                Aggregates.group(campoStatistica, Accumulators.sum("numeroGiocatori",1)))
                         
                 ).iterator();
      try{
@@ -57,7 +57,6 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
         Document statsDoc = collectionStatistiche.aggregate(Arrays.asList(
           Aggregates.match(
             Filters.and(
-              Filters.eq("societa", societa),
               Filters.eq("stagione", stagione),
               Filters.ne("calciatore",idCalciatore))),
           Aggregates.group("$societa", Accumulators.sum("numeroReti","$reti"),
@@ -70,7 +69,6 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
         double numeroAssist =statsDoc.getDouble("numeroAssist");
         double numeroCartellini = statsDoc.getDouble("numeroCartellini");
         double numeroGoalSubiti = statsDoc.getDouble("numeroGoalSubiti");
-        System.out.println(numeroReti+"-->");
         return new ValoriStatisticheDiagrammaTorta(numeroReti,numeroAssist,numeroCartellini,numeroGoalSubiti);
     } 
      
@@ -79,7 +77,6 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
         Document statsDoc = collectionStatistiche.aggregate(Arrays.asList(
           Aggregates.match(
             Filters.and(
-              Filters.eq("societa", societa),
               Filters.eq("stagione", stagione),
               Filters.eq("calciatore",idCalciatore))),
           Aggregates.group("$calciatore", Accumulators.sum("numeroReti","$reti"),
@@ -92,7 +89,6 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
         double numeroAssist =statsDoc.getDouble("numeroAssist");
         double numeroCartellini = statsDoc.getDouble("numeroCartellini");
         double numeroGoalSubiti = (double)statsDoc.getInteger("numeroGoalSubiti");
-        System.out.println(numeroReti+"-->");
         return new ValoriStatisticheDiagrammaTorta(numeroReti,numeroAssist,numeroCartellini,numeroGoalSubiti);
         
     }     

@@ -9,10 +9,12 @@ import static Dao.StatisticheMongoDataAccess.getStatistichePerIstogramma;
 import static Dao.StatisticheMongoDataAccess.statisticaAgregataGiocatoreSocieta;
 import static Dao.StatisticheMongoDataAccess.statisticaAgregataSocieta;
 import Entita.Calciatore;
+import Entita.Societa;
 import Entita.Statistica;
 import Model.ValoriStatisticheDiagrammaTorta;
 import Model.ValoriStatisticheIstogramma;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -72,7 +74,14 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
 
     private void aggiungiTorta(VBox torta, double datiCalciatore, double datiSocieta, String title){
         String nome=calciatore.getNome();
-        String societa=calciatore.getSquadra();
+        ArrayList<Statistica> societaList=calciatore.getStatistiche();
+        String societa="altri";
+        for(Statistica aux :societaList){
+            if(aux.getStagione().equals(stagioneTorta.getValue())){
+                societa=aux.getSocieta();
+                break;
+            }
+        }
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
                 new PieChart.Data(nome, datiCalciatore),
@@ -99,6 +108,7 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
         for(ValoriStatisticheIstogramma aux : dati){
             ds.getData().add(new XYChart.Data(Integer.toString(aux.getvaloreStatistica()), aux.getnumeroGiocatoriPerStatistica()));
         }
+        istogramma.getChildren().clear();
         bc.getData().add(ds);
         istogramma.getChildren().add(bc);
     }
@@ -126,6 +136,8 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
             return;
         }
         aggiungiIstogramma(istogramma1, reti, "Reti", "numero goal", "numero calciatori");
+        aggiungiIstogramma(istogramma2, reti, "Assit", "numero assist", "numero calciatori");
+        aggiungiIstogramma(istogramma3, reti, "Ammonizioni", "numero ammonizioni", "numero calciatori");
                     
     }
 
