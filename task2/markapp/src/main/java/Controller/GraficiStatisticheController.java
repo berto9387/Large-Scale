@@ -72,16 +72,9 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
         super(calciatore);
     }
 
-    private void aggiungiTorta(VBox torta, double datiCalciatore, double datiSocieta, String title){
+    private void aggiungiTorta(VBox torta,String societa, double datiCalciatore, double datiSocieta, String title){
         String nome=calciatore.getNome();
-        ArrayList<Statistica> societaList=calciatore.getStatistiche();
-        String societa="altri";
-        for(Statistica aux :societaList){
-            if(aux.getStagione().equals(stagioneTorta.getValue())){
-                societa=aux.getSocieta();
-                break;
-            }
-        }
+        
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
                 new PieChart.Data(nome, datiCalciatore),
@@ -114,6 +107,7 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
     }
     @FXML
     void creaDiagrammaInstogramma(ActionEvent event) {
+        String calciatoreId=calciatore.getIdCalciatore();
         String posizionePrincipale=calciatore.getRuoloPrincipale();
         String stagione=stagioneIstogramma.getValue();
         String competizione=competizioneIstogramma.getValue();
@@ -123,13 +117,13 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
         List<ValoriStatisticheIstogramma> retiSubiti=null;
         try {
             ammonizioni=getStatistichePerIstogramma(posizionePrincipale,
-                stagione,competizione,"ammonizione");
+                stagione,competizione,calciatoreId,"ammonizione");
             espulsioni=getStatistichePerIstogramma(posizionePrincipale,
-                stagione,competizione,"espulsioni");
+                stagione,competizione,calciatoreId,"espulsioni");
             reti=getStatistichePerIstogramma(posizionePrincipale,
-                stagione,competizione,"reti");
+                stagione,competizione,calciatoreId,"reti");
             retiSubiti=getStatistichePerIstogramma(posizionePrincipale,
-                stagione,competizione,"retiSubite");
+                stagione,competizione,calciatoreId,"retiSubite");
         } catch (Exception e) {
             infoLabel.setText("Non è stato possibile recuperare i dati!");
             e.printStackTrace();
@@ -144,7 +138,14 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
     @FXML
     void creaDiagrammaTorta(ActionEvent event) {
         String calciatoreId=calciatore.getIdCalciatore();
-        String societa=calciatore.getSquadra();
+        ArrayList<Statistica> societaList=calciatore.getStatistiche();
+        String societa="altri";
+        for(Statistica aux :societaList){
+            if(aux.getStagione().equals(stagioneTorta.getValue())){
+                societa=aux.getSocieta();
+                break;
+            }
+        }
         String stagione=stagioneTorta.getValue();
         ValoriStatisticheDiagrammaTorta datiCalciatore=null;
         ValoriStatisticheDiagrammaTorta datiSocieta=null;
@@ -156,9 +157,9 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
             ex.printStackTrace();
             return;
         }
-        aggiungiTorta(torta1,datiCalciatore.getNumeroReti(),datiSocieta.getNumeroReti(), "Goal fatti");
-        aggiungiTorta(torta2, datiCalciatore.getNumeroAssist(),datiSocieta.getNumeroAssist(), "Assist fatti");
-        aggiungiTorta(torta3, datiCalciatore.getNumeroCartellini(),datiSocieta.getNumeroCartellini(), "Cartellini fatti");
+        aggiungiTorta(torta1,societa,datiCalciatore.getNumeroReti(),datiSocieta.getNumeroReti(), "Goal fatti");
+        aggiungiTorta(torta2,societa, datiCalciatore.getNumeroAssist(),datiSocieta.getNumeroAssist(), "Assist fatti");
+        aggiungiTorta(torta3,societa, datiCalciatore.getNumeroCartellini(),datiSocieta.getNumeroCartellini(), "Cartellini fatti");
         
         
     }

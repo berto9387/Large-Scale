@@ -23,12 +23,12 @@ import org.bson.Document;
  */
 public class StatisticheMongoDataAccess extends MongoDataAccess{
      public static List<ValoriStatisticheIstogramma> getStatistichePerIstogramma(String posizionePrincipale,
-            String stagione,String competizione,String tipoStatistica){
+            String stagione,String competizione,String idCalciatore,String tipoStatistica){
         ArrayList<ValoriStatisticheIstogramma> listaStatistiche = new ArrayList();
         String campoStatistica= "$" + tipoStatistica;
      MongoCursor <Document> cursore = collectionStatistiche.aggregate(Arrays.asList(
             Aggregates.match(
-                    Filters.and(
+                    Filters.and(     
                        Filters.eq("posizionePrincipale",posizionePrincipale),
                        Filters.eq("stagione",stagione),
                        Filters.eq("competizione",competizione))),
@@ -36,19 +36,28 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
                         
                 ).iterator();
      try{
+         
         while(cursore.hasNext()){
             Document aux = cursore.next();
             System.out.println(aux.toJson());
             int numeroGiocatori= aux.getInteger("numeroGiocatori");
-            double valoreStatistica= aux.getDouble("_id");
-            listaStatistiche.add(new ValoriStatisticheIstogramma(numeroGiocatori,(int)valoreStatistica));
-        
+            double valoreStatistica = 0;
+            try {
+              valoreStatistica= aux.getDouble("_id");  
+              listaStatistiche.add(new ValoriStatisticheIstogramma(numeroGiocatori,(int)valoreStatistica));
+            } catch (Exception e) {
+                //continue;
+            }
+            
+            
+            
         }
      }
-     catch(Exception e){
-            e.printStackTrace();
-            }  
-     return listaStatistiche;
+    catch(Exception e){
+        e.printStackTrace();
+    }  
+    System.out.println(listaStatistiche.size());
+    return listaStatistiche;
     }
     
     public static ValoriStatisticheDiagrammaTorta statisticaAgregataSocieta(String societa,String stagione,String idCalciatore) throws Exception{
@@ -57,6 +66,7 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
         Document statsDoc = collectionStatistiche.aggregate(Arrays.asList(
           Aggregates.match(
             Filters.and(
+              Filters.eq("societa", societa),
               Filters.eq("stagione", stagione),
               Filters.ne("calciatore",idCalciatore))),
           Aggregates.group("$societa", Accumulators.sum("numeroReti","$reti"),
@@ -65,10 +75,36 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
                   Accumulators.sum("numeroGoalSubiti", "$retiSubite")))
         
         ).first();
-        double numeroReti = statsDoc.getDouble("numeroReti");
-        double numeroAssist =statsDoc.getDouble("numeroAssist");
-        double numeroCartellini = statsDoc.getDouble("numeroCartellini");
-        double numeroGoalSubiti = statsDoc.getDouble("numeroGoalSubiti");
+        double numeroReti;
+        double numeroAssist;
+        double numeroCartellini;
+        double numeroGoalSubiti;
+        int aux;
+        try {
+            numeroReti = statsDoc.getDouble("numeroReti");
+        } catch (Exception e) {
+            aux=statsDoc.getInteger("numeroReti");
+            numeroReti=(double)aux;
+        }
+        try {
+            numeroAssist =statsDoc.getDouble("numeroAssist");
+        } catch (Exception e) {
+            aux=statsDoc.getInteger("numeroAssist");
+            numeroAssist=(double)aux;
+        }
+        try {
+            numeroCartellini = statsDoc.getDouble("numeroCartellini");
+        } catch (Exception e) {
+            aux=statsDoc.getInteger("numeroCartellini");
+            numeroCartellini=(double)aux;
+        }
+        try {
+            numeroGoalSubiti = statsDoc.getDouble("numeroGoalSubiti");
+        } catch (Exception e) {
+            aux=statsDoc.getInteger("numeroGoalSubiti");
+            numeroGoalSubiti=(double)aux;
+        }
+        
         return new ValoriStatisticheDiagrammaTorta(numeroReti,numeroAssist,numeroCartellini,numeroGoalSubiti);
     } 
      
@@ -77,6 +113,7 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
         Document statsDoc = collectionStatistiche.aggregate(Arrays.asList(
           Aggregates.match(
             Filters.and(
+              Filters.eq("societa", societa),      
               Filters.eq("stagione", stagione),
               Filters.eq("calciatore",idCalciatore))),
           Aggregates.group("$calciatore", Accumulators.sum("numeroReti","$reti"),
@@ -85,10 +122,35 @@ public class StatisticheMongoDataAccess extends MongoDataAccess{
                   Accumulators.sum("numeroGoalSubiti", "$retiSubite")))
         
         ).first();
-        double numeroReti = statsDoc.getDouble("numeroReti");
-        double numeroAssist =statsDoc.getDouble("numeroAssist");
-        double numeroCartellini = statsDoc.getDouble("numeroCartellini");
-        double numeroGoalSubiti = (double)statsDoc.getInteger("numeroGoalSubiti");
+        double numeroReti;
+        double numeroAssist;
+        double numeroCartellini;
+        double numeroGoalSubiti;
+        int aux;
+        try {
+            numeroReti = statsDoc.getDouble("numeroReti");
+        } catch (Exception e) {
+            aux=statsDoc.getInteger("numeroReti");
+            numeroReti=(double)aux;
+        }
+        try {
+            numeroAssist =statsDoc.getDouble("numeroAssist");
+        } catch (Exception e) {
+            aux=statsDoc.getInteger("numeroAssist");
+            numeroAssist=(double)aux;
+        }
+        try {
+            numeroCartellini = statsDoc.getDouble("numeroCartellini");
+        } catch (Exception e) {
+            aux=statsDoc.getInteger("numeroCartellini");
+            numeroCartellini=(double)aux;
+        }
+        try {
+            numeroGoalSubiti = statsDoc.getDouble("numeroGoalSubiti");
+        } catch (Exception e) {
+            aux=statsDoc.getInteger("numeroGoalSubiti");
+            numeroGoalSubiti=(double)aux;
+        }
         return new ValoriStatisticheDiagrammaTorta(numeroReti,numeroAssist,numeroCartellini,numeroGoalSubiti);
         
     }     
