@@ -115,6 +115,7 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
         List<ValoriStatisticheIstogramma> espulsioni=null;
         List<ValoriStatisticheIstogramma> reti=null;
         List<ValoriStatisticheIstogramma> retiSubiti=null;
+        List<ValoriStatisticheIstogramma> assist=null;
         try {
             ammonizioni=getStatistichePerIstogramma(posizionePrincipale,
                 stagione,competizione,calciatoreId,"ammonizione");
@@ -124,14 +125,16 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
                 stagione,competizione,calciatoreId,"reti");
             retiSubiti=getStatistichePerIstogramma(posizionePrincipale,
                 stagione,competizione,calciatoreId,"retiSubite");
+            assist=getStatistichePerIstogramma(posizionePrincipale,
+                stagione,competizione,calciatoreId,"assist");
         } catch (Exception e) {
             infoLabel.setText("Non è stato possibile recuperare i dati!");
             e.printStackTrace();
             return;
         }
         aggiungiIstogramma(istogramma1, reti, "Reti", "numero goal", "numero calciatori");
-        aggiungiIstogramma(istogramma2, reti, "Assit", "numero assist", "numero calciatori");
-        aggiungiIstogramma(istogramma3, reti, "Ammonizioni", "numero ammonizioni", "numero calciatori");
+        aggiungiIstogramma(istogramma2, assist, "Assit", "numero assist", "numero calciatori");
+        aggiungiIstogramma(istogramma3, ammonizioni, "Ammonizioni", "numero ammonizioni", "numero calciatori");
                     
     }
 
@@ -159,7 +162,7 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
         }
         aggiungiTorta(torta1,societa,datiCalciatore.getNumeroReti(),datiSocieta.getNumeroReti(), "Goal fatti");
         aggiungiTorta(torta2,societa, datiCalciatore.getNumeroAssist(),datiSocieta.getNumeroAssist(), "Assist fatti");
-        aggiungiTorta(torta3,societa, datiCalciatore.getNumeroCartellini(),datiSocieta.getNumeroCartellini(), "Cartellini fatti");
+        aggiungiTorta(torta3,societa, datiCalciatore.getNumeroCartellini(),datiSocieta.getNumeroCartellini(), "Cartellini presi");
         
         
     }
