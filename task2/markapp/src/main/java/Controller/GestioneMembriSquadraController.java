@@ -62,8 +62,8 @@ public class GestioneMembriSquadraController implements Initializable {
         
         
         utente=new Utente();
-        int er=GestioneProfiliMongoDataAccess.trovaUtenteInBaseAlRuolo(utente, ScreenController.getUtente().getSocieta().getNomeSocieta().toLowerCase(), 
-                ScreenController.getUtente().getSocieta().getNazione(),scegliTeamSquadra.getValue().toLowerCase());
+        int er=GestioneProfiliMongoDataAccess.trovaUtenteInBaseAlRuolo(utente, ScreenController.getUtente().getSocieta().getNomeSocieta(), 
+                ScreenController.getUtente().getSocieta().getNazione(),scegliTeamSquadra.getValue());//nomeSocieta.toLowerCase
         if(er==0){
             if(utente.getId()==null){
                 errorScegliSquadra.setText("La società non ha un "+scegliTeamSquadra.getValue()+"!");
@@ -97,7 +97,7 @@ public class GestioneMembriSquadraController implements Initializable {
             errorCambia.setText("Fai la ricerca prima!");
             return;
         }
-        int er=GestioneProfiliMongoDataAccess.aggiornaTeamSocieta(utente, emailInput.getText(),scegliTeamSquadra.getValue().toLowerCase());
+        int er=GestioneProfiliMongoDataAccess.aggiornaTeamSocieta(utente, emailInput.getText(),scegliTeamSquadra.getValue());//toLowerCase
         if(er==0){
             errorCambia.setText("Aggiornamento riuscito!");
             ruoloTeamSquadra.setText(scegliTeamSquadra.getValue());

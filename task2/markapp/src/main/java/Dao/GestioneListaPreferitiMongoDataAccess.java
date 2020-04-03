@@ -33,7 +33,7 @@ public class GestioneListaPreferitiMongoDataAccess extends MongoDataAccess{
         //lista preferiti della squadra
         try{
             
-            Document doc = collectionSocieta.find(and(eq("_id", new ObjectId(utente.getSocieta().getId())),
+            Document doc = collectionSocieta.find(and(eq("_id", utente.getSocieta().getId()),//ObjectId
                                                         eq("giocatoriPreferiti._id", calciatore.getIdCalciatore()))).first();
             if(doc != null){
                 //Caso in cui esiste già il giocatore nella lista
@@ -58,7 +58,7 @@ public class GestioneListaPreferitiMongoDataAccess extends MongoDataAccess{
                                                     .append("giudizioDirigenza", 2);
             
             //Inserisco il documento
-            collectionSocieta.updateOne(eq("_id",new ObjectId(utente.getSocieta().getId())), 
+            collectionSocieta.updateOne(eq("_id",utente.getSocieta().getId()), //ObjectId
                                         Updates.addToSet("giocatoriPreferiti", nuovoPreferitoDoc));
             
         } catch (Exception e ){
@@ -73,7 +73,7 @@ public class GestioneListaPreferitiMongoDataAccess extends MongoDataAccess{
         try{
             if(utente.getRuolo().equals("allenatore") || utente.getRuolo().equals("Allenatore")){
                 
-                UpdateResult updateResult = collectionSocieta.updateOne(and(eq("_id", new ObjectId(utente.getSocieta().getId())), eq("giocatoriPreferiti._id", calciatore.getIdCalciatore())),
+                UpdateResult updateResult = collectionSocieta.updateOne(and(eq("_id",utente.getSocieta().getId()), eq("giocatoriPreferiti._id", calciatore.getIdCalciatore())),
                                                                         set("giocatoriPreferiti.$.giudizioAllenatore", voto));
                 
                 if(updateResult.getModifiedCount() == 0){
@@ -82,7 +82,7 @@ public class GestioneListaPreferitiMongoDataAccess extends MongoDataAccess{
             }
             if(utente.getRuolo().equals("amministratore delegato")){
                 
-                UpdateResult updateResult = collectionSocieta.updateOne(and(eq("_id", new ObjectId(utente.getSocieta().getId())),
+                UpdateResult updateResult = collectionSocieta.updateOne(and(eq("_id",utente.getSocieta().getId()),//objectid
                                                                             eq("giocatoriPreferiti._id", calciatore.getIdCalciatore())),
                                                                         set("giocatoriPreferiti.$.giudizioDirigenza", voto));
                 

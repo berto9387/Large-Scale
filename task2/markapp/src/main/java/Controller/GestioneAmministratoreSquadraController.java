@@ -69,7 +69,7 @@ public class GestioneAmministratoreSquadraController implements Initializable{
         }
         utente=new Utente();
         
-        int er=GestioneProfiliMongoDataAccess.trovaUtenteInBaseAlRuolo(utente, squadraInput.getText().toLowerCase(), nazioneInput.getText().toLowerCase(),ruolo);
+        int er=GestioneProfiliMongoDataAccess.trovaUtenteInBaseAlRuolo(utente, squadraInput.getText(), nazioneInput.getText(),ruolo);//toLowerCase
         if(er==0){
             if(utente.getId()==null){
                 errorScegliSquadra.setText("La società non ha un amministratore di squadra!");

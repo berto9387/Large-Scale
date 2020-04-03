@@ -786,7 +786,7 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
      * @return restituisce la lista del calciatori se ci sono
      */
     public static List<InformazioniRicercaCalciatore> ricercaGiocatoriPreferiti(){
-        ObjectId societaId=new ObjectId(ScreenController.getUtente().getSocieta().getId());
+        String societaId=ScreenController.getUtente().getSocieta().getId();//ObjectId
         Document societaDoc = collectionSocieta.aggregate(Arrays.asList(match(eq("_id", societaId)), project(include("giocatoriPreferiti")))).first();
         List<InformazioniRicercaCalciatore> infos=new ArrayList<>();
         List<Document> giocatorePreferito=(List<Document>)societaDoc.get("giocatoriPreferiti");
@@ -856,7 +856,7 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
         return infos;
     }
     public static int rimuoviCalciatore(String idCalciatore){
-        ObjectId societaId=new ObjectId(ScreenController.getUtente().getSocieta().getId());
+        String societaId=(ScreenController.getUtente().getSocieta().getId());//ObjectId
         Bson query = new Document().append("_id", societaId);
         Bson fields = new Document().append("giocatoriPreferiti", new Document().append( "_id", idCalciatore));
         Bson update = new Document("$pull",fields);

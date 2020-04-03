@@ -38,8 +38,8 @@ public class GestioneReportMongoDataAccess extends MongoDataAccess{
                                                 .append("commento", report.getCommento())
                                                 .append("rating", report.getRating());
 
-            UpdateResult updateResult = collectionSocieta.updateOne(and(eq("_id", new ObjectId(utente.getSocieta().getId())), eq("giocatoriPreferiti._id", calciatore.getIdCalciatore())),
-                                                                            set("giocatoriPreferiti.$.reportOsservatore", reportDoc));
+            UpdateResult updateResult = collectionSocieta.updateOne(and(eq("_id", utente.getSocieta().getId()), eq("giocatoriPreferiti._id", calciatore.getIdCalciatore())),
+                                                                            set("giocatoriPreferiti.$.reportOsservatore", reportDoc));//ObjectId societa
 
             if(updateResult.getModifiedCount() != 1){
                 return 1;
@@ -67,7 +67,7 @@ public class GestioneReportMongoDataAccess extends MongoDataAccess{
         
         Report report = null;
         try{
-            Document doc = collectionSocieta.aggregate(Arrays.asList(match(eq("_id", new ObjectId(utente.getSocieta().getId()))),
+            Document doc = collectionSocieta.aggregate(Arrays.asList(match(eq("_id",utente.getSocieta().getId())),//ObjectIdSocieta
                                                         unwind("$giocatoriPreferiti"), match(eq("giocatoriPreferiti._id", calciatore.getIdCalciatore())))).first();
 
             Document giocatoreDoc = (Document) doc.get("giocatoriPreferiti");
@@ -99,8 +99,8 @@ public class GestioneReportMongoDataAccess extends MongoDataAccess{
     public static int eliminaReport(Report report, Utente utente, Calciatore calciatore) {
         
         try{
-            UpdateResult updateResult = collectionSocieta.updateOne(and(eq("_id", new ObjectId(utente.getSocieta().getId())), eq("giocatoriPreferiti._id", calciatore.getIdCalciatore())),
-                                                                                unset("giocatoriPreferiti.$.reportOsservatore"));
+            UpdateResult updateResult = collectionSocieta.updateOne(and(eq("_id", utente.getSocieta().getId()), eq("giocatoriPreferiti._id", calciatore.getIdCalciatore())),
+                                                                                unset("giocatoriPreferiti.$.reportOsservatore"));//ObjectIdSocieta
             if(updateResult.getModifiedCount() != 1){
                 return 1;
             }

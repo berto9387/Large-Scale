@@ -106,10 +106,10 @@ public class LoginSignUpController implements Initializable{
     
     @FXML
     void registrazione(ActionEvent event) {
-        String nome=nomeRegistazione.getText().toLowerCase();
-        String cognome=cognomeRegistrazione.getText().toLowerCase();
+        String nome=nomeRegistazione.getText();//toLowerCase
+        String cognome=cognomeRegistrazione.getText();//toLowerCase
         String email=emailRegistrazione.getText().toLowerCase();
-        String password=passwordRegistrazione.getText().toLowerCase();
+        String password=passwordRegistrazione.getText();//toLowerCase
         String ruolo=scegliRuoloRegistrazione.getValue().toLowerCase();
         int creazioneUtente=LoginSignUpMongoDataAccess.registraUtente(nome,cognome,email,password,ruolo);
         if(creazioneUtente == 1){
@@ -130,7 +130,7 @@ public class LoginSignUpController implements Initializable{
     @FXML
     private void login(ActionEvent event) throws IOException {
         String email=emailField.getText().toLowerCase();
-        String password=passwordField.getText().toLowerCase();
+        String password=passwordField.getText();//toLowerCase
         int login = LoginSignUpMongoDataAccess.login(email, password);
         if ( login == 1){
             err_log_label.setText("Email o password errate !");

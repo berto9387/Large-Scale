@@ -76,7 +76,7 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
             return 1;
         }    
         Societa soc=new Societa();
-        soc.setId(doc.getObjectId("_id").toString());
+        soc.setId(doc.getString("_id").toString());
         soc.setNazione(doc.getString("nazione"));
         soc.setNomeSocieta(doc.getString("nomeSocieta"));        
         utente.setSocieta(soc);
@@ -129,13 +129,14 @@ public class GestioneProfiliMongoDataAccess extends MongoDataAccess{
         
         ClientSession clientSession=mongoClient.startSession();
         TransactionBody txnBody = (TransactionBody<String>) () -> {
-            collectionSocieta.updateOne(eq("_id",new ObjectId(idSocieta) ), set(ruolo,new ObjectId(idNuovoMembro))  );
-            collectionUtenti.updateOne(eq("_id",new ObjectId(idNuovoMembro) ), set("societa",new ObjectId(idSocieta))  );
+            collectionSocieta.updateOne(eq("_id",idSocieta), set(ruolo,new ObjectId(idNuovoMembro))  );
+            collectionUtenti.updateOne(eq("_id",new ObjectId(idNuovoMembro) ), set("societa",idSocieta)  );
             return "aggiorna societa";
         };
         try {
             clientSession.withTransaction(txnBody);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             return 4;
         } finally {
             clientSession.close();

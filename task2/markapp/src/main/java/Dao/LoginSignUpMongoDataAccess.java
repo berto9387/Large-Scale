@@ -79,7 +79,7 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
      * @param idSocieta
      * @return null se ci sono stati errori
      */
-    private static Document ricercaSocietaDoc(ObjectId idSocieta){
+    private static Document ricercaSocietaDoc(String idSocieta){//ObjectId
         Document societaDoc=null;
         try{
             societaDoc = collectionSocieta.find(eq("_id", idSocieta)).first();
@@ -92,8 +92,8 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
     }
     private static Societa creaSocieta(Document societaDoc) {
         Societa soc=new Societa();
-        if(societaDoc.getObjectId("_id")!=null){
-            soc.setId(societaDoc.getObjectId("_id").toString());
+        if(societaDoc.getString("_id")!=null){//getObjectId
+            soc.setId(societaDoc.getString("_id").toString());//getObjectId
         }else{
             return null;
         } 
@@ -130,7 +130,7 @@ public class LoginSignUpMongoDataAccess extends MongoDataAccess{
             ScreenController.setUtente(utente);
             return 0;
         } else {
-            Document societaDoc=ricercaSocietaDoc(utenteDoc.getObjectId("societa"));
+            Document societaDoc=ricercaSocietaDoc(utenteDoc.getString("societa"));//getObjectId();
             
             Societa soc=null;
        
