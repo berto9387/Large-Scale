@@ -22,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -85,7 +86,7 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
         torta.getChildren().add(chart);
     }
     private void aggiungiIstogramma(VBox istogramma,List<ValoriStatisticheIstogramma> dati,String title,
-                                    String xAsse,String yAsse){
+                                    String xAsse,String yAsse,int valoreIndividuale){
               
               
         CategoryAxis x    = new CategoryAxis();
@@ -98,11 +99,18 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
         
         XYChart.Series ds = new XYChart.Series();
         ds.setName(title);
+        int cont=0;
+        int trovato=0;
         for(ValoriStatisticheIstogramma aux : dati){
+            if(valoreIndividuale==aux.getvaloreStatistica())
+                trovato=cont;
             ds.getData().add(new XYChart.Data(Integer.toString(aux.getvaloreStatistica()), aux.getnumeroGiocatoriPerStatistica()));
+            cont++;
         }
         istogramma.getChildren().clear();
         bc.getData().add(ds);
+        Node n = bc.lookup(".data"+trovato+".chart-bar");
+        n.setStyle("-fx-bar-fill: yellow");
         istogramma.getChildren().add(bc);
     }
     @FXML
@@ -132,9 +140,39 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
             e.printStackTrace();
             return;
         }
-        aggiungiIstogramma(istogramma1, reti, "Reti", "numero goal", "numero calciatori");
-        aggiungiIstogramma(istogramma2, assist, "Assit", "numero assist", "numero calciatori");
-        aggiungiIstogramma(istogramma3, ammonizioni, "Ammonizioni", "numero ammonizioni", "numero calciatori");
+        int numeroAmmonizioni=0;
+        int numeroEspolsioni=0;
+        int numeroReti=0;
+        int numeroRetiSubite=0;
+        int numeroAssit=0;
+        List<Statistica> stat=calciatore.getStatistiche();
+        
+        for(Statistica aux : stat){
+            if(aux.getCompetizione().equals(competizione) && aux.getStagione().equals(stagione)){
+                if(posizionePrincipale.equals("portiere")){
+                    numeroAmmonizioni=aux.getAmmonizioni();
+                    numeroEspolsioni=aux.getEspulsioni();
+                    numeroRetiSubite=aux.getRetiSubite();
+                }else{
+                    numeroAmmonizioni=aux.getAmmonizioni();
+                    numeroAssit=aux.getAssit();
+                    numeroReti=aux.getGoal();
+                }
+            }
+        }
+        
+        
+        if(calciatore.getRuoloPrincipale().equals("portiere") || calciatore.getRuoloPrincipale().equals("Portiere")){
+            aggiungiIstogramma(istogramma1, ammonizioni, "Ammonizioni", "numero ammonizioni", "numero calciatori",numeroAmmonizioni);
+            aggiungiIstogramma(istogramma2, espulsioni, "Espulsioni", "numero espulsioni", "numero calciatori",numeroEspolsioni);
+            aggiungiIstogramma(istogramma3, retiSubiti, "Reti subite", "numeri reti subite", "numero calciatori",numeroRetiSubite);
+        }
+        else{
+            aggiungiIstogramma(istogramma1, reti, "Reti", "numero goal", "numero calciatori",numeroReti);
+            aggiungiIstogramma(istogramma2, assist, "Assit", "numero assist", "numero calciatori",numeroAssit);
+            aggiungiIstogramma(istogramma3, ammonizioni, "Ammonizioni", "numero ammonizioni", "numero calciatori",numeroAmmonizioni);
+        }
+        
                     
     }
 
@@ -160,9 +198,15 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
             ex.printStackTrace();
             return;
         }
-        aggiungiTorta(torta1,societa,datiCalciatore.getNumeroReti(),datiSocieta.getNumeroReti(), "Goal fatti");
-        aggiungiTorta(torta2,societa, datiCalciatore.getNumeroAssist(),datiSocieta.getNumeroAssist(), "Assist fatti");
-        aggiungiTorta(torta3,societa, datiCalciatore.getNumeroCartellini(),datiSocieta.getNumeroCartellini(), "Cartellini presi");
+        if(calciatore.getRuoloPrincipale().equals("portiere") || calciatore.getRuoloPrincipale().equals("Portiere")){
+           aggiungiTorta(torta1,societa, datiCalciatore.getNumeroCartellini(),datiSocieta.getNumeroCartellini(), "Cartellini presi");
+           aggiungiTorta(torta2,societa, datiCalciatore.getNumeroGoalSubiti(),datiSocieta.getNumeroGoalSubiti(), "Goal subiti");
+        } else{
+            aggiungiTorta(torta1,societa,datiCalciatore.getNumeroReti(),datiSocieta.getNumeroReti(), "Goal fatti");
+            aggiungiTorta(torta2,societa, datiCalciatore.getNumeroAssist(),datiSocieta.getNumeroAssist(), "Assist fatti");
+            aggiungiTorta(torta3,societa, datiCalciatore.getNumeroCartellini(),datiSocieta.getNumeroCartellini(), "Cartellini presi");
+        }
+        
         
         
     }
