@@ -381,16 +381,25 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
 //primo match importante per sfoltire i risultati, usato solo se si utilizza collection calciatore
         Document filtroMatch=new Document();
         //filtro squadra
-        if(!squadra.isEmpty() || contratto!=null)
+        if((!squadra.isEmpty() &&  competizione.isEmpty()) || contratto!=null)
             if(contratto!=null && "svincolato".equals(contratto.toLowerCase()))
                 filtroMatch.append("squadra","svincolato");
-            else if(!squadra.isEmpty())
+            else if(!squadra.isEmpty() &&  competizione.isEmpty())
                 filtroMatch.append("squadra",squadra);
         //filtro competizione attuale
-        if(!stagione.isEmpty() && !competizione.isEmpty())
-            filtroMatch.append("statistiche",new Document("$elemMatch",
+        if(!stagione.isEmpty() && !competizione.isEmpty()){
+            if(!squadra.isEmpty()){
+                filtroMatch.append("statistiche",new Document("$elemMatch",
                 new Document("stagione",stagione)
-                        .append("competizione", competizione)));
+                        .append("competizione", competizione)
+                        .append("societa",squadra)));
+            }else{
+               filtroMatch.append("statistiche",new Document("$elemMatch",
+                new Document("stagione",stagione)
+                        .append("competizione", competizione))); 
+            }
+        }
+            
         //filtro per la ricerca del ruolo
         if(posizionePrincipale!=null)
             filtroMatch.append("$or", Arrays.asList(new Document("posizionePrincipale", posizionePrincipale), new Document("altriRuoli", new Document("$eq", posizionePrincipale))));
@@ -496,6 +505,10 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                             new Document("$match",filtroMatch2),
                             lookupDoc)
                     ).allowDiskUse(Boolean.TRUE).iterator();
+                    System.out.println(statisticheGroupSum.toJson());
+                    System.out.println(statisticheGroupAvg.toJson());
+                    System.out.println((new Document("$match",filtroMatch2).toJson()));
+                    System.out.println(lookupDoc.toJson());
             } else{
                 cur=collectionStatistiche.aggregate(
                         Arrays.asList(
