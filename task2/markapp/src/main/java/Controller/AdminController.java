@@ -55,6 +55,11 @@ public class AdminController extends GenerallController{
         ScreenController.showPage("ModificaProfiloPersonale");
     }
     
+    @FXML
+    void handleAggiornaDb(MouseEvent event) {
+        ScreenController.showPage("AggiornaDb");
+    }
+    
     
 
 }
