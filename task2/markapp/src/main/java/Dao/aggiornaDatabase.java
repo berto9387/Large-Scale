@@ -15,9 +15,11 @@ import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.model.UpdateOptions;
 import static com.mongodb.client.model.Updates.unset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -67,7 +69,7 @@ public class aggiornaDatabase extends MongoDataAccess{
                 }
                 collectionStatistiche.insertMany(clientSession, auxs);
             }
-            
+            aggiornaGiocatorePreferito(clientSession,calciatoreDoc);
             
             return "aggiorna campi!";
         };
@@ -80,5 +82,14 @@ public class aggiornaDatabase extends MongoDataAccess{
         clientSession.close();
     }
         return 0;    
+    }
+    
+    private static void aggiornaGiocatorePreferito(ClientSession clientSession,Document calciatoreDoc)
+    {
+        Document elementoSet = new Document().append("giocatoriPreferiti.$[elem].valoreMercato", calciatoreDoc.getInteger("valoreAttuale"));
+        Document documentSet = new Document().append("$set",elementoSet);
+        UpdateOptions opzioni = new UpdateOptions().arrayFilters(
+           Collections.singletonList(Filters.eq("elem._id",calciatoreDoc.getString("_id"))));
+        collectionSocieta.updateMany(clientSession, new Document(), documentSet,opzioni);
     }
 }
