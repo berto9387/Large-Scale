@@ -94,8 +94,9 @@ public class aggiornaDatabase extends MongoDataAccess{
 
         }
         Document documentSet = new Document().append("$set",elementoSet);
+        Document filtroRicerca = new Document("giocatoriPreferiti",new Document().append("$exixts", "true"));
         UpdateOptions opzioni = new UpdateOptions().arrayFilters(
            Collections.singletonList(Filters.eq("elem._id",calciatoreDoc.getString("_id"))));
-        collectionSocieta.updateMany(clientSession, new Document(), documentSet,opzioni);
+        collectionSocieta.updateMany(clientSession, filtroRicerca, documentSet,opzioni);
     }
 }
