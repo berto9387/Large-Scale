@@ -50,21 +50,27 @@ public class aggiornaDatabase extends MongoDataAccess{
                     aux.append("stagione", statistiche.get(i).getString("stagione"));
                     aux.append("competizione", statistiche.get(i).getString("competizione"));
                     aux.append("societa", statistiche.get(i).getString("societa"));
-                    aux.append("presenze", statistiche.get(i).getInteger("presenze"));
+                    aux.append("presenze", statistiche.get(i).getInteger("presenze").doubleValue());
                     try {
-                        aux.append("puntiPartita", statistiche.get(i).getInteger("puntiPartita"));
+                        aux.append("puntiPartita", statistiche.get(i).getInteger("puntiPartita").doubleValue());
                     } catch (Exception e) {
                         aux.append("puntiPartita", statistiche.get(i).getDouble("puntiPartita"));
                     }
                     
-                    aux.append("reti", statistiche.get(i).getInteger("reti"));
-                    aux.append("assist", statistiche.get(i).getInteger("assist"));
-                    aux.append("doppieAmmonizioni", statistiche.get(i).getInteger("doppieAmmonizioni"));
-                    aux.append("ammonizione", statistiche.get(i).getInteger("ammonizioni"));
-                    aux.append("espulsioni", statistiche.get(i).getInteger("espulsioni"));
-                    aux.append("minutiGiocati", statistiche.get(i).getInteger("minutiGiocati"));
-                    aux.append("partiteNoGoal", statistiche.get(i).getInteger("partiteNoGoal"));
-                    aux.append("retiSubite", statistiche.get(i).getInteger("retiSubite"));  
+                    
+                    if(!calciatoreDoc.getString("posizionePrincipale").equals("Portiere")){
+                        aux.append("assist", statistiche.get(i).getInteger("assist").doubleValue());
+                        aux.append("reti", statistiche.get(i).getInteger("reti").doubleValue());
+                    } else{
+                        aux.append("partiteNoGoal", statistiche.get(i).getInteger("partiteNoGol").doubleValue());
+                        aux.append("retiSubite", statistiche.get(i).getInteger("retiSubite").doubleValue()); 
+                    }
+                    
+                    aux.append("doppieAmmonizioni", statistiche.get(i).getInteger("doppieAmmonizioni").doubleValue());
+                    aux.append("ammonizione", statistiche.get(i).getInteger("ammonizioni").doubleValue());
+                    aux.append("espulsioni", statistiche.get(i).getInteger("espulsioni").doubleValue());
+                    aux.append("minutiGiocati", statistiche.get(i).getInteger("minutiGiocati").doubleValue());
+                     
                     auxs.add(aux);
                 }
                 collectionStatistiche.insertMany(clientSession, auxs);

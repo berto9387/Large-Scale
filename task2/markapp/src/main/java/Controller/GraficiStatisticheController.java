@@ -149,7 +149,7 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
         
         for(Statistica aux : stat){
             if(aux.getCompetizione().equals(competizione) && aux.getStagione().equals(stagione)){
-                if(posizionePrincipale.equals("portiere")){
+                if(posizionePrincipale.equals("portiere") || posizionePrincipale.equals("Portiere")){
                     numeroAmmonizioni=aux.getAmmonizioni();
                     numeroEspolsioni=aux.getEspulsioni();
                     numeroRetiSubite=aux.getRetiSubite();
@@ -161,7 +161,9 @@ public class GraficiStatisticheController extends GeneralSchedaGiocatoreControll
             }
         }
         
-        
+        for(ValoriStatisticheIstogramma aux : espulsioni){
+            System.out.println(aux.getvaloreStatistica()+"__"+aux.getnumeroGiocatoriPerStatistica());
+        }
         if(calciatore.getRuoloPrincipale().equals("portiere") || calciatore.getRuoloPrincipale().equals("Portiere")){
             aggiungiIstogramma(istogramma1, ammonizioni, "Ammonizioni", "numero ammonizioni", "numero calciatori",numeroAmmonizioni);
             aggiungiIstogramma(istogramma2, espulsioni, "Espulsioni", "numero espulsioni", "numero calciatori",numeroEspolsioni);
