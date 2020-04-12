@@ -46,15 +46,15 @@ public class aggiornaDatabase extends MongoDataAccess{
                 for(int i=0;i<statistiche.size();i++){
                     Document aux=new Document();
                     aux.append("calciatore", calciatoreDoc.getString("_id"));
-                    aux.append("posizionePrincilae", calciatoreDoc.getString("posizionePrincipale"));
+                    aux.append("posizionePrincipale", calciatoreDoc.getString("posizionePrincipale"));
                     aux.append("stagione", statistiche.get(i).getString("stagione"));
                     aux.append("competizione", statistiche.get(i).getString("competizione"));
                     aux.append("societa", statistiche.get(i).getString("societa"));
                     aux.append("presenze", statistiche.get(i).getInteger("presenze"));
                     try {
-                        aux.append("puntiPartira", statistiche.get(i).getInteger("puntiPartita"));
+                        aux.append("puntiPartita", statistiche.get(i).getInteger("puntiPartita"));
                     } catch (Exception e) {
-                        aux.append("puntiPartira", statistiche.get(i).getDouble("puntiPartita"));
+                        aux.append("puntiPartita", statistiche.get(i).getDouble("puntiPartita"));
                     }
                     
                     aux.append("reti", statistiche.get(i).getInteger("reti"));
@@ -69,7 +69,7 @@ public class aggiornaDatabase extends MongoDataAccess{
                 }
                 collectionStatistiche.insertMany(clientSession, auxs);
             }
-            aggiornaGiocatorePreferito(clientSession,calciatoreDoc);
+            //aggiornaGiocatorePreferito(clientSession,calciatoreDoc);
             
             return "aggiorna campi!";
         };
@@ -86,7 +86,13 @@ public class aggiornaDatabase extends MongoDataAccess{
     
     private static void aggiornaGiocatorePreferito(ClientSession clientSession,Document calciatoreDoc)
     {
-        Document elementoSet = new Document().append("giocatoriPreferiti.$[elem].valoreMercato", calciatoreDoc.getInteger("valoreAttuale"));
+        Document elementoSet=null;
+        try {
+            elementoSet = new Document().append("giocatoriPreferiti.$[elem].valoreMercato", calciatoreDoc.getInteger("valoreAttuale"));
+        } catch (Exception e) {
+            elementoSet = new Document().append("giocatoriPreferiti.$[elem].valoreMercato", calciatoreDoc.getDouble("valoreAttuale").intValue());
+
+        }
         Document documentSet = new Document().append("$set",elementoSet);
         UpdateOptions opzioni = new UpdateOptions().arrayFilters(
            Collections.singletonList(Filters.eq("elem._id",calciatoreDoc.getString("_id"))));

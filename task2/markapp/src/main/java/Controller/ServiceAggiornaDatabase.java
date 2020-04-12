@@ -35,7 +35,7 @@ public class ServiceAggiornaDatabase extends Service<String> {
                         int er=aggiornaDatabase.aggiorna(data);
                         System.out.println(er);
                     }
-                    Thread.sleep(1000);
+                    Thread.sleep(300);
                 }
                 
                 return "Ciao";

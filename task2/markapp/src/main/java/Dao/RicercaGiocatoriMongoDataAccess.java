@@ -629,8 +629,14 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                 calciatoreCercato.setScadenza(new Date(calciatoreDoc.getLong("scadenza")));
             }
             
-            if(calciatoreDoc.getInteger("valoreAttuale") != null){
-                calciatoreCercato.setValoreMercato(calciatoreDoc.getInteger("valoreAttuale"));
+            if(calciatoreDoc.get("valoreAttuale") != null){
+                try {
+                    calciatoreCercato.setValoreMercato(calciatoreDoc.getInteger("valoreAttuale"));
+                } catch (Exception e) {
+                    Double aux=calciatoreDoc.getDouble("valoreAttuale");
+                    int valore=aux.intValue();
+                    calciatoreCercato.setValoreMercato(valore);
+                }
             }
             //Solo per giocatori IN PRESTITO
             if(calciatoreDoc.getString("inPrestitoDa") != null){
@@ -648,8 +654,14 @@ public class RicercaGiocatoriMongoDataAccess extends MongoDataAccess{
                 List<Document> trasferimenti=(List<Document>)calciatoreDoc.get("trasferimento");
                 Trasferimento aux = null;
                 for(Document trasferimento : trasferimenti){
+                    int valoreMercato=0;
+                    try {
+                        valoreMercato=trasferimento.getDouble("valoreDiMercato").intValue();
+                    } catch (Exception e) {
+                        valoreMercato=trasferimento.getInteger("valoreDiMercato");
+                    }
                     aux= new Trasferimento(trasferimento.getString("stagione"), new Date(trasferimento.getLong("data")), trasferimento.getString("venditore"), 
-                                            trasferimento.getString("acquirente"), trasferimento.getInteger("valoreDiMercato"), trasferimento.getString("riscatto"));
+                                            trasferimento.getString("acquirente"), valoreMercato, trasferimento.getString("riscatto"));
                 
                     calciatoreCercato.addTrasferimento(aux);
                 }
