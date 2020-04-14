@@ -75,7 +75,7 @@ public class aggiornaDatabase extends MongoDataAccess{
                 }
                 collectionStatistiche.insertMany(clientSession, auxs);
             }
-            //aggiornaGiocatorePreferito(clientSession,calciatoreDoc);
+            aggiornaGiocatorePreferito(clientSession,calciatoreDoc);
             
             return "aggiorna campi!";
         };
@@ -100,7 +100,7 @@ public class aggiornaDatabase extends MongoDataAccess{
 
         }
         Document documentSet = new Document().append("$set",elementoSet);
-        Document filtroRicerca = new Document("giocatoriPreferiti",new Document().append("$exixts", "true"));
+        Document filtroRicerca = new Document("giocatoriPreferiti",new Document().append("$exists", "true"));
         UpdateOptions opzioni = new UpdateOptions().arrayFilters(
            Collections.singletonList(Filters.eq("elem._id",calciatoreDoc.getString("_id"))));
         collectionSocieta.updateMany(clientSession, filtroRicerca, documentSet,opzioni);
