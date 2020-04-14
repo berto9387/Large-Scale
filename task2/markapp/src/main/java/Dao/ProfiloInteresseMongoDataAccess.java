@@ -57,7 +57,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
                 int etaMinima=doc.getInteger("etaMinima");
                 int etaMassima=doc.getInteger("etaMassima");
                 String descrizioneCaratteristiche=doc.getString("descrizioneCaratteristiche");
-                Date timeStampAggiunto=new Date(doc.getLong("timeStampAggiunto"));
+                Date timeStampAggiunto=doc.getDate("timeStampAggiunto");
                 ProfiloInteresse profiloAusilio=new ProfiloInteresse(id,ruolo,etaMinima,etaMassima,descrizioneCaratteristiche,
                         idAllenatoreProfiloInteresse,timeStampAggiunto);
                 listaProfiloInteresse.add(profiloAusilio);
@@ -130,7 +130,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
                 .append("etaMinima",etaMinima)
                 .append("etaMassima",etaMassima)
                 .append("descrizioneCaratteristiche",descrizioneCaratteristiche)
-                .append("timeStampAggiunto",System.currentTimeMillis());
+                .append("timeStampAggiunto",new Date());
         UpdateResult updateOne = collectionSocieta.updateOne(eq("_id",idSocieta),//ObjectId
                 Updates.addToSet("listaProfiliDiInteresse",profiloInteresse));
         ++prossimoID;
@@ -145,7 +145,7 @@ public class ProfiloInteresseMongoDataAccess extends MongoDataAccess{
               .append("listaProfiliDiInteresse.$.etaMinima",etaMinima)
               .append("listaProfiliDiInteresse.$.etaMassima",etaMassima)
               .append("listaProfiliDiInteresse.$.descrizioneCaratteristiche", descrizioneCaratteristiche)
-              .append("listaProfiliDiInteresse.$.timeStamp", System.currentTimeMillis());
+              .append("listaProfiliDiInteresse.$.timeStampAggiunto", new Date());
         Document setDocument=new Document("$set",profiloInteresseAggiornato);
         collectionSocieta.updateOne(filter,setDocument);
         
