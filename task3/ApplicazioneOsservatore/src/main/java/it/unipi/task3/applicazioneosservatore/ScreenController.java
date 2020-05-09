@@ -19,10 +19,10 @@ public class ScreenController implements Initializable {
         System.out.println("You clicked me!");
         label.setText("Hello World!");
     }
-    private static void setUtente(Utente user){
+    public static void setUtente(Utente user){
         utente=user;
     }
-    private static Utente getUtente(){
+    public static Utente getUtente(){
         return utente;
     }
     @Override
