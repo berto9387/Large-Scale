@@ -111,6 +111,14 @@ public class LoginSignUpController implements Initializable{
         String email=emailRegistrazione.getText().toLowerCase();
         String password=passwordRegistrazione.getText();//toLowerCase
         String ruolo=scegliRuoloRegistrazione.getValue().toLowerCase();
+        //controllo campi
+        if(nome.equals("")||cognome.equals("")||email.equals("")||password.equals("")||ruolo.equals(""))
+        {
+            err_log_label.setText("Alcuni campi non compilati!");
+            err_log_label.setVisible(true);
+            return;
+        }
+        //fine controllo
         int creazioneUtente=LoginSignUpMongoDataAccess.registraUtente(nome,cognome,email,password,ruolo);
         if(creazioneUtente == 1){
             err_reg_label.setText("Email già presente !");
@@ -131,6 +139,14 @@ public class LoginSignUpController implements Initializable{
     private void login(ActionEvent event) throws IOException {
         String email=emailField.getText().toLowerCase();
         String password=passwordField.getText();//toLowerCase
+        //inizia controllo
+        if(email.equals("")||password.equals(""))
+        {
+            err_log_label.setText("Alcuni campi non compilati!");
+            err_log_label.setVisible(true);
+            return;
+        }
+        //fine controllo
         int login = LoginSignUpMongoDataAccess.login(email, password);
         if ( login == 1){
             err_log_label.setText("Email o password errate !");
