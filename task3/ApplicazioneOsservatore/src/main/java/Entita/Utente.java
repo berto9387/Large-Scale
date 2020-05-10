@@ -70,8 +70,15 @@ public class Utente {
         this.email = email;
     }
 
-
-
+    public String getRuolo()
+    {
+        return ruolo;
+    }
+    public void setRuolo(String ruolo)
+    {
+        this.ruolo=ruolo;
+    
+    }
     public Societa getSocieta() {
         return societa;
     }

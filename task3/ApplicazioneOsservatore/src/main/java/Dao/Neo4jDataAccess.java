@@ -16,7 +16,7 @@ import org.neo4j.driver.v1.GraphDatabase;
 public class Neo4jDataAccess {
     protected static Driver driver;
     protected static String uri="bolt://localhost:7687";
-    protected static String user="Neo4j";
+    protected static String user="neo4j";
     protected static String password="mercato";
     public static void InizializzaDriver()
     {

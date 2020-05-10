@@ -1,27 +1,54 @@
 package it.unipi.task3.applicazioneosservatore;
 
+import Dao.Neo4jDataAccess;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class MainApp extends Application {
+    Stage primaryStage;
+    private Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+    private BorderPane rootLayout;
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        
-        stage.setTitle("JavaFX and Maven");
-        stage.setScene(scene);
-        stage.show();
+    public Rectangle2D getScreenSize() {
+        return screenSize;
     }
 
+    public void setScreenSize(Rectangle2D screenSize) {
+        this.screenSize = screenSize;
+    }
+    
+    public BorderPane getRootLayout() {
+        return rootLayout;
+    }
+
+    public void setRootLayout(BorderPane rootLayout) {
+        this.rootLayout = rootLayout;
+    }
+    
+    @Override
+    public void start(Stage stage) throws Exception {
+        Neo4jDataAccess.InizializzaDriver();
+        primaryStage=stage;
+        primaryStage.setTitle("ApplicazioneOsservatore");
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        ScreenController.setMain(this);        
+        ScreenController.showLogin();
+        
+    }
+
+    public Stage getStage()
+    {
+        return primaryStage;
+    }
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be
