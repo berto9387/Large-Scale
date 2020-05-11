@@ -145,28 +145,19 @@ public class LoginSignUpController {
             
             String homePage = null;
             Utente utente = ScreenController.getUtente();
+            System.out.println("--------------->"+utente.getRuolo() +"<---------------");
+            System.out.println("---->"+utente.getNome()+"<----------");
             switch(utente.getRuolo().toLowerCase()){
                 case "admin": 
                     homePage = "AmministratoreSistema";
                     break;
-                case "amministratore di squadra":
-                    homePage="AmministratoreSquadra";
-                    break;
-                case "allenatore":
-                    homePage = "Allenatore";
-                    break;
+
                 case "osservatore":
                     homePage="Osservatore";
                     break;
-                case "amministratore delegato":
-                    homePage="AmministratoreDelegato";
-                    break;
-                        
-
-                    
+                   
                   
             }
-            
             ScreenController.showHomePage(homePage);
         }
     }

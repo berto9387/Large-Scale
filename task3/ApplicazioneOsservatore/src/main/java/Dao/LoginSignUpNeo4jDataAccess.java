@@ -9,6 +9,7 @@ import Entita.Societa;
 import Entita.Utente;
 import it.unipi.task3.applicazioneosservatore.ScreenController;
 import java.util.HashMap;
+import java.util.List;
 import javax.naming.spi.DirStateFactory.Result;
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
@@ -17,6 +18,7 @@ import org.neo4j.driver.v1.Transaction;
 import org.neo4j.driver.v1.TransactionWork;
 import org.neo4j.driver.v1.Value;
 import static org.neo4j.driver.v1.Values.parameters;
+import org.neo4j.driver.v1.util.Pair;
 
 /**
  *
@@ -129,17 +131,27 @@ public class LoginSignUpNeo4jDataAccess extends Neo4jDataAccess{
     {
         Utente utente;
         HashMap<String,Object> parameters =new HashMap<>();
+        String nome="NA";
+        String cognome="NA";
+        String id ="NA";
+        String ruolo="NA" ;
         parameters.put("email",email);
         parameters.put("password",password);       
         StatementResult result=tx.run("MATCH(a:Utente) WHERE a.email=$email AND a.password = $password RETURN a",parameters);
         if(!result.hasNext())
-            return 1;
-        
+            return 1;  
         Record record=result.single();
-        String nome = record.get("nome", "NA");
-        String cognome= record.get("cognome","NA");
-        String id = record.get("<id>","NA");
-        String ruolo = record.get("ruolo","NA");
+        List<Pair<String,Value>> values = record.fields();
+        for (Pair<String,Value> nameValue: values) {
+            if ("a".equals(nameValue.key())) { 
+                Value value = nameValue.value();
+                nome = value.get("nome",nome);
+                cognome= value.get("cognome",cognome);
+                id = value.get("<id>",id);
+                ruolo = value.get("ruolo",ruolo);
+            }
+        }
+        
         Societa societa=SocietaUtente(tx,email,id);
         utente = new Utente(id, nome, cognome, email, ruolo,societa);
         ScreenController.setUtente(utente);
@@ -157,16 +169,26 @@ public class LoginSignUpNeo4jDataAccess extends Neo4jDataAccess{
     private static Societa SocietaUtente(Transaction tx,String email,String idUtente)
     {
         HashMap<String,Object> parameters =new HashMap<>();
+        String nomeSocieta="NA";
+        String nazione="NA";
+        String id="NA";
         parameters.put("email",email);
-        StatementResult result=tx.run("MATCH(a:Utente) WHERE a.email=$email AND password = $password"+
+        StatementResult result=tx.run("MATCH(a:Utente) WHERE a.email=$email"+
                  " OPTIONAL MATCH (a)-[r:Tesserato_per]->(s:Societa) OPTIONAL MATCH (so:Societa) WHERE (so)<-[r]-(a)"+
                   "RETURN so",parameters);
         if(!result.hasNext())
             return null;
         Record record=result.single();
-        String nomeSocieta=record.get("nomeSocieta", "NA");
-        String nazione=record.get("nazione", "NA");
-        String id=record.get("id","NA");
+        List<Pair<String,Value>> values = record.fields();
+        for (Pair<String,Value> nameValue: values) {
+            if ("so".equals(nameValue.key())) { 
+                Value value = nameValue.value();
+                nomeSocieta=record.get("nomeSocieta",nomeSocieta);
+                nazione=record.get("nazione",nazione);
+                id=record.get("id",id);
+            }
+        }
+
         Societa societaRisultato=new Societa(id,nomeSocieta,nazione,idUtente);
         return societaRisultato;
     }
