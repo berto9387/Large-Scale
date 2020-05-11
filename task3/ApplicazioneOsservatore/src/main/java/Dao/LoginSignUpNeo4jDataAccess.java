@@ -32,7 +32,7 @@ public class LoginSignUpNeo4jDataAccess extends Neo4jDataAccess{
      * @param password
      * @param ruolo 
      */
-    public static int registraUtente(final String nome,final String cognome,final String email,final String password,final String ruolo)
+    public static int registraUtente(final String nome,final String cognome,final String email,final String password)
     {
         
         try(Session session=driver.session())
@@ -42,7 +42,7 @@ public class LoginSignUpNeo4jDataAccess extends Neo4jDataAccess{
                 @Override
                 public Integer execute(Transaction tx)
                 {
-                    return createUtenteNode(tx,nome,cognome,email,password,ruolo);
+                    return createUtenteNode(tx,nome,cognome,email,password,"Osservatore");
                 }
             }
             );
@@ -159,7 +159,7 @@ public class LoginSignUpNeo4jDataAccess extends Neo4jDataAccess{
         HashMap<String,Object> parameters =new HashMap<>();
         parameters.put("email",email);
         StatementResult result=tx.run("MATCH(a:Utente) WHERE a.email=$email AND password = $password"+
-                 "OPTIONAL MATCH (a)-[r:Tesserato_per]->(s:Societa) OPTIONAL MATCH (so:Societa) WHERE (so)<-[r]-(a)"+
+                 " OPTIONAL MATCH (a)-[r:Tesserato_per]->(s:Societa) OPTIONAL MATCH (so:Societa) WHERE (so)<-[r]-(a)"+
                   "RETURN so",parameters);
         if(!result.hasNext())
             return null;

@@ -32,7 +32,7 @@ import javafx.scene.shape.Circle;
  * @author Gianluca
  */
 public class LoginSignUpController {
-       ObservableList<String> ruoli=FXCollections.observableArrayList("Osservatore","Admin");
+       
     
     @FXML
     private Button pageRegistrati;
@@ -67,8 +67,7 @@ public class LoginSignUpController {
     @FXML
     private PasswordField passwordRegistrazione;
 
-    @FXML
-    private  ChoiceBox<String> scegliRuoloRegistrazione;
+    
     
     @FXML
     private Label err_reg_label;
@@ -104,15 +103,14 @@ public class LoginSignUpController {
         String nome=nomeRegistazione.getText();//toLowerCase
         String cognome=cognomeRegistrazione.getText();//toLowerCase
         String email=emailRegistrazione.getText().toLowerCase();
-        String password=passwordRegistrazione.getText();//toLowerCase
-        String ruolo=scegliRuoloRegistrazione.getValue().toLowerCase();        
-        if(nome.equals("")||cognome.equals("")||email.equals("")||password.equals("")||ruolo.equals(""))
+        String password=passwordRegistrazione.getText();//toLowerCase       
+        if(nome.equals("")||cognome.equals("")||email.equals("")||password.equals(""))
         {
             err_log_label.setText("Alcuni campi non compilati!");
             err_log_label.setVisible(true);
             return;
         }
-        int creazioneUtente=LoginSignUpNeo4jDataAccess.registraUtente(nome,cognome,email,password,ruolo);
+        int creazioneUtente=LoginSignUpNeo4jDataAccess.registraUtente(nome,cognome,email,password);
 
         if(creazioneUtente == 1){
             err_reg_label.setText("Email già presente !");
@@ -124,7 +122,6 @@ public class LoginSignUpController {
             cognomeRegistrazione.clear();
             emailRegistrazione.clear();
             passwordRegistrazione.clear();
-            scegliRuoloRegistrazione.setValue("Osservatore");
         }
         System.err.println(creazioneUtente);
     }
@@ -175,8 +172,6 @@ public class LoginSignUpController {
     }
     
     public void initialize(URL url, ResourceBundle rb) {
-        scegliRuoloRegistrazione.setItems(ruoli);
-        scegliRuoloRegistrazione.setValue("Osservatore");
         err_reg_label.setVisible(false);
         err_log_label.setVisible(false);
     }    
