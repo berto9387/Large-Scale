@@ -21,6 +21,10 @@ public class ScreenController implements Initializable {
     private static Utente utente;
     private static Pane view;
     private static Alert popUpAvviso;
+
+    public static void showPage(String nessunaSocieta) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     @FXML
     private Label label;
     
