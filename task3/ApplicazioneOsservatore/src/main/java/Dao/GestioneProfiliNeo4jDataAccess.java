@@ -33,7 +33,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
         try(Session session=driver.session())
         {
             
-            return session.readTransaction(new TransactionWork<Integer>()
+            return session.writeTransaction(new TransactionWork<Integer>()
             {
                 @Override
                 public Integer execute(Transaction tx)
@@ -183,7 +183,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
         try(Session session=driver.session())
         {
             
-            return session.readTransaction(new TransactionWork<Boolean>()
+            return session.writeTransaction(new TransactionWork<Boolean>()
             {
                 @Override
                 public Boolean execute(Transaction tx)
@@ -194,10 +194,12 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
         } 
     }
     /**
-     * 
+     * Cerca un profilo osservatore all'interno di una societa passata come
+     * parametro
      * @param nomeSquadra
      * @param nazioneSquadra
-     * @return 
+     * @return utente se è presente un osservatore nella societa
+     * null se non è presente nessun osservatore nella societa
      */
     public static Utente cercaProfiloUtenteDaSocieta(final String nomeSquadra,final String nazioneSquadra)
     {
@@ -222,8 +224,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
      * @return 
      */
     private static Utente transactionCercaProfiloUtenteDaSocieta(Transaction tx,String nomeSquadra,String nazioneSquadra)
-    {
-                
+    {        
         Utente utente=null;
         Societa societa = null;
         HashMap<String,Object> parameters =new HashMap<>();
@@ -267,4 +268,6 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
         utente= new Utente(idUtente,nome,cognome,email,ruolo,societa);
         return utente;
     }
+    
+    
 }
