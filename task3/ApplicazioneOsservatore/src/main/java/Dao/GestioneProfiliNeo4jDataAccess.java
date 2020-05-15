@@ -97,7 +97,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
     private static Utente transactionCercaUtenteDaEmail(Transaction tx,String email)
     {   
         
-        Utente utente=null;
+        Utente utente;
         Societa societa = null;
         HashMap<String,Object> parameters =new HashMap<>();
         parameters.put("email",email);
@@ -130,7 +130,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                 idSocieta=record.get("id",idSocieta);
             }         
         }
-        if(idSocieta!="NA")
+        if(!idSocieta.equals("NA"))
         {
             societa= new Societa(idSocieta, nomeSocieta,nazione, idUtente);
         }   
@@ -148,8 +148,8 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
     private static boolean transactionModificaProfilo(Transaction tx,String vecchiaEmail,String nuovaEmail,String nuovaPassword)
     {   
         
-        Utente user=cercaUtenteDaEmail(vecchiaEmail); 
-        if ((user==null)||(nuovaEmail.equals("")&&nuovaPassword.equals(""))){
+        Utente utente=cercaUtenteDaEmail(vecchiaEmail); 
+        if ((utente==null)||(nuovaEmail.equals("")&&nuovaPassword.equals(""))){
             return false;
         } 
         String query="MATCH(utente:Utente) WHERE utente.email=$email SET";       
@@ -225,7 +225,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
      */
     private static Utente transactionCercaProfiloUtenteDaSocieta(Transaction tx,String nomeSquadra,String nazioneSquadra)
     {        
-        Utente utente=null;
+        Utente utente;
         Societa societa = null;
         HashMap<String,Object> parameters =new HashMap<>();
         parameters.put("nomeSocieta",nomeSquadra);
@@ -261,7 +261,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                 idSocieta=record.get("id",idSocieta);
             }         
         }
-        if(idSocieta!="NA")
+        if(!idSocieta.equals("NA"))
         {
             societa= new Societa(idSocieta, nomeSocieta,nazione, idUtente);
         }   
@@ -269,5 +269,61 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
         return utente;
     }
     
+//----------------Da migliorare in giù-----------------------------
     
+    /**
+     * 
+     * @param vecchioMembro
+     * @param nuovoMembroEmail
+     * @return 
+     */
+     public  static int aggiornaTeamSocieta(final Utente vecchioMembro,final String nuovoMembroEmail,final String nomeSocieta,final String nazione)
+     {
+        
+        try(Session session=driver.session())
+        {
+            
+            return session.writeTransaction(new TransactionWork<Integer>()
+            {
+                @Override
+                public Integer execute(Transaction tx)
+                {
+                   return transactionAggiornaTeamSocieta(tx,vecchioMembro,nuovoMembroEmail,nomeSocieta,nazione);
+                }
+            });
+        } 
+    
+     }
+     /**
+      * 
+      * @param tx
+      * @param vecchioMembro se non vi è un vecchio utente deve essere inserito null.
+      * @param nuovoMembroEmail
+     * @param nomeSocieta
+     * @param nazione
+      * @return 
+      */
+     private  static int transactionAggiornaTeamSocieta(Transaction tx,Utente vecchioMembro, String nuovoMembroEmail,String nomeSocieta,String nazione)
+     {
+         HashMap<String,Object> parameters =new HashMap<>();
+         if(vecchioMembro!=null)
+         {
+             //elimina la relazione con il vecchio osservatore se esiste
+             parameters.put("emailUtenteVecchio",vecchioMembro.getEmail());
+                     StatementResult result=tx.run("MATCH((user:Utente)-[r:Tesserato_per]->(soc:Societa)) WHERE user.email=$emailUtenteVecchio"+
+                  " DELETE r",parameters);
+
+         }
+         
+         parameters.clear();
+         parameters.put("email", nuovoMembroEmail);
+         parameters.put("nomeSocieta", nomeSocieta);
+         parameters.put("nazione", nazione);
+            StatementResult result=tx.run("MATCH((user:Utente)) WHERE user.email=$email"+
+                  " AND NOT (user-[:Tesserato_per]->())"+
+                    "MATCH(soc:Societa) WHERE soc.nomeSocieta=$nomeSocieta AND soc.nazione=$nazione"
+                    + "CREATE (user)-[:Tesserato_per]->(soc)",parameters);
+    
+        return 0;
+     }
 }
