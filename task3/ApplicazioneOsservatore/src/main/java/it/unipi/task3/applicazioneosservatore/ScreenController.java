@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,9 +23,28 @@ public class ScreenController implements Initializable {
     private static Pane view;
     private static Alert popUpAvviso;
 
-    public static void showPage(String nessunaSocieta) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     public static void showPage(String fileName){
+         
+         try{
+             System.out.println("sono nella showPage, la stringa passatami è: " + fileName);
+             URL fileUrl = MainApp.class.getResource("/fxml/"+ fileName +".fxml");
+             
+             if(fileUrl == null){ //Qui dentro ci entra anche se ci sono errori nel FXML da caricare
+                 System.err.println("URL null: Pagina non trovata");
+             }
+             
+             view = FXMLLoader.load(fileUrl);
+             
+             BorderPane root = mainApp.getRootLayout();
+             BorderPane.setMargin(view, new Insets(10, 10, 10, 10));
+             root.setCenter(view);
+             
+         } catch(Exception e){
+             System.err.println("Pagina non trovata");
+             e.printStackTrace();
+         }
+         
+     }
     @FXML
     private Label label;
     
