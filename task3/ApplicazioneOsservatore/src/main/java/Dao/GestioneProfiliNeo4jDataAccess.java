@@ -322,6 +322,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
       * @param nazione
       * @return 0 operazione riuscita
       * @return 1 utente non presente nel database
+      * @return 2 utente già connesso ad un'altra societa
       */
      private  static int transactionAggiornaTeamSocieta(Transaction tx,Utente vecchioMembro, String nuovoMembroEmail,String nomeSocieta,String nazione)
      {
