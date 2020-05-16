@@ -286,9 +286,23 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
         
         try(Session session=driver.session())
         {
-            
+           boolean risultato= session.readTransaction(new TransactionWork<Boolean>()
+            {
+                
+                @Override
+                public Boolean execute(Transaction tx)
+                {
+                    return UtentePresente(tx,nuovoMembroEmail);
+                    
+                }
+            });
+            if(!risultato)//
+            {
+                return 1;
+            }
             return session.writeTransaction(new TransactionWork<Integer>()
             {
+                
                 @Override
                 public Integer execute(Transaction tx)
                 {
@@ -307,6 +321,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
       * @param nomeSocieta
       * @param nazione
       * @return 0 operazione riuscita
+      * @return 1 utente non presente nel database
       */
      private  static int transactionAggiornaTeamSocieta(Transaction tx,Utente vecchioMembro, String nuovoMembroEmail,String nomeSocieta,String nazione)
      {
@@ -319,7 +334,6 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                   " DELETE r",parameters);
 
          }
-         
          parameters.clear();
          parameters.put("email", nuovoMembroEmail);
          parameters.put("nomeSocieta", nomeSocieta);
@@ -327,8 +341,11 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
             StatementResult result=tx.run("MATCH((user:Utente)) WHERE user.email=$email"+
                   " AND NOT (user-[:Tesserato_per]->())"+
                     "MATCH(soc:Societa) WHERE soc.nomeSocieta=$nomeSocieta AND soc.nazione=$nazione"
-                    + "CREATE (user)-[:Tesserato_per]->(soc)",parameters);
-    
+                    + "CREATE (user)-[:Tesserato_per]->(soc) RETURN user",parameters);
+        if(!result.hasNext())
+        {  
+            return 2;
+        }
         return 0;
      }
 }
