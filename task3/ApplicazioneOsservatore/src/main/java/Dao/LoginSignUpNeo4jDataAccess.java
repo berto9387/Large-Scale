@@ -90,15 +90,7 @@ public class LoginSignUpNeo4jDataAccess extends Neo4jDataAccess{
      * @return false se non vi e' un utente registrato con l'email passata
      * come parametro
      */
-    private static boolean UtentePresente(Transaction tx,String email)
-    {
-        HashMap<String,Object> parameters =new HashMap<>();
-        parameters.put("email",email);
-        StatementResult result=tx.run("MATCH(a:Utente) WHERE a.email=$email RETURN a",parameters);
-        if(result.hasNext())
-            return true;
-        return false;
-    }
+
     public static int loginUtente(final String email,final String password)
     {
         

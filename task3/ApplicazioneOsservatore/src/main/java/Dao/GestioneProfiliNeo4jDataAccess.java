@@ -113,22 +113,24 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                   "RETURN a,so",parameters);
         if(!result.hasNext())
             return null;
-        Record record=result.single();
-        List<Pair<String,Value>> values = record.fields();
-        for (Pair<String,Value> nameValue: values) {
-            if ("a".equals(nameValue.key())) { 
-                Value value = nameValue.value();
-                nome = value.get("nome",nome);
-                cognome= value.get("cognome",cognome);
-                idUtente = value.get("<id>",idUtente);
-                ruolo = value.get("ruolo",ruolo);
+        while(result.hasNext()){
+            Record record=result.next();
+            List<Pair<String,Value>> values = record.fields();
+            for (Pair<String,Value> nameValue: values) {
+                if ("a".equals(nameValue.key())) { 
+                    Value value = nameValue.value();
+                    nome = value.get("nome",nome);
+                    cognome= value.get("cognome",cognome);
+                    idUtente = value.get("<id>",idUtente);
+                    ruolo = value.get("ruolo",ruolo);
+                }
+                if ("so".equals(nameValue.key())) { 
+                    Value value = nameValue.value();
+                    nomeSocieta=record.get("nomeSocieta",nomeSocieta);
+                    nazione=record.get("nazione",nazione);
+                    idSocieta=record.get("id",idSocieta);
+                }         
             }
-            if ("so".equals(nameValue.key())) { 
-                Value value = nameValue.value();
-                nomeSocieta=record.get("nomeSocieta",nomeSocieta);
-                nazione=record.get("nazione",nazione);
-                idSocieta=record.get("id",idSocieta);
-            }         
         }
         if(!idSocieta.equals("NA"))
         {
@@ -243,23 +245,25 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                 + "AND soc.nazione=$nazioneSocieta  RETURN user,soc",parameters);
         if(!result.hasNext())
             return null;
-        Record record=result.single();
-        List<Pair<String,Value>> values = record.fields();
-        for (Pair<String,Value> nameValue: values) {
-            if ("user".equals(nameValue.key())) { 
-                Value value = nameValue.value();
-                nome = value.get("nome",nome);
-                cognome= value.get("cognome",cognome);
-                idUtente = value.get("<id>",idUtente);
-                ruolo = value.get("ruolo",ruolo);
-                email=value.get("email", email);
+        while(result.hasNext()){
+            Record record=result.next();
+            List<Pair<String,Value>> values = record.fields();
+            for (Pair<String,Value> nameValue: values) {
+                if ("user".equals(nameValue.key())) { 
+                    Value value = nameValue.value();
+                    nome = value.get("nome",nome);
+                    cognome= value.get("cognome",cognome);
+                    idUtente = value.get("<id>",idUtente);
+                    ruolo = value.get("ruolo",ruolo);
+                    email=value.get("email", email);
+                }
+                if ("soc".equals(nameValue.key())) { 
+                    Value value = nameValue.value();
+                    nomeSocieta=record.get("nomeSocieta",nomeSocieta);
+                    nazione=record.get("nazione",nazione);
+                    idSocieta=record.get("id",idSocieta);
+                }         
             }
-            if ("soc".equals(nameValue.key())) { 
-                Value value = nameValue.value();
-                nomeSocieta=record.get("nomeSocieta",nomeSocieta);
-                nazione=record.get("nazione",nazione);
-                idSocieta=record.get("id",idSocieta);
-            }         
         }
         if(!idSocieta.equals("NA"))
         {
@@ -288,7 +292,8 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                 @Override
                 public Integer execute(Transaction tx)
                 {
-                   return transactionAggiornaTeamSocieta(tx,vecchioMembro,nuovoMembroEmail,nomeSocieta,nazione);
+                    return transactionAggiornaTeamSocieta(tx,vecchioMembro,nuovoMembroEmail,nomeSocieta,nazione);
+                    
                 }
             });
         } 
@@ -299,9 +304,9 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
       * @param tx
       * @param vecchioMembro se non vi è un vecchio utente deve essere inserito null.
       * @param nuovoMembroEmail
-     * @param nomeSocieta
-     * @param nazione
-      * @return 
+      * @param nomeSocieta
+      * @param nazione
+      * @return 0 operazione riuscita
       */
      private  static int transactionAggiornaTeamSocieta(Transaction tx,Utente vecchioMembro, String nuovoMembroEmail,String nomeSocieta,String nazione)
      {

@@ -5,9 +5,12 @@
  */
 package Dao;
 
+import java.util.HashMap;
 import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
+import org.neo4j.driver.v1.StatementResult;
+import org.neo4j.driver.v1.Transaction;
 
 /**
  *
@@ -26,6 +29,14 @@ public class Neo4jDataAccess {
     {
         driver.close();
     }
-    
+    protected static boolean UtentePresente(Transaction tx,String email)
+    {
+        HashMap<String,Object> parameters =new HashMap<>();
+        parameters.put("email",email);
+        StatementResult result=tx.run("MATCH(a:Utente) WHERE a.email=$email RETURN a",parameters);
+        if(result.hasNext())
+            return true;
+        return false;
+    }
     
 }
