@@ -53,8 +53,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
     private static int transactionEliminaAccount(Transaction tx,String email, String id){
         HashMap<String,Object> parameters =new HashMap<>();
         parameters.put("email",email);
-        parameters.put("<id>", id);
-        StatementResult result=tx.run("MATCH(a:Utente) WHERE a.email=$email AND a.<id>=$<id>"+
+        StatementResult result=tx.run("MATCH(a:Utente) WHERE a.email=$email"+
                  " OPTIONAL MATCH (a)-[r]->()"+
                   "DELETE a,r",parameters);
 
