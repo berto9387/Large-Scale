@@ -120,7 +120,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                     Value value = nameValue.value();
                     nome = value.get("nome",nome);
                     cognome= value.get("cognome",cognome);
-                    idUtente = value.get("<id>",idUtente);
+                    idUtente = Long.toString(value.asNode().id());//ottengo l'id del nodo sotto esame
                     ruolo = value.get("ruolo",ruolo);
                 }
                 if ("so".equals(nameValue.key())) { 
@@ -262,7 +262,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                     Value value = nameValue.value();
                     nome = value.get("nome",nome);
                     cognome= value.get("cognome",cognome);
-                    idUtente = value.get("<id>",idUtente);
+                    idUtente =Long.toString(value.asNode().id());//ottengo l'id del nodo sotto esame
                     ruolo = value.get("ruolo",ruolo);
                     email=value.get("email", email);
                 }
@@ -438,7 +438,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                     }
                     nome = value.get("nome",nome);
                     cognome= value.get("cognome",cognome);
-                    idUtente = value.get("<id>",idUtente);
+                    idUtente =Long.toString(value.asNode().id());//ottengo l'id del nodo sotto esame
                     ruolo = value.get("ruolo",ruolo);
                     email=value.get("email", email);
                 }

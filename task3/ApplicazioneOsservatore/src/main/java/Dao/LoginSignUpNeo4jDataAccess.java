@@ -137,9 +137,10 @@ public class LoginSignUpNeo4jDataAccess extends Neo4jDataAccess{
         for (Pair<String,Value> nameValue: values) {
             if ("a".equals(nameValue.key())) { 
                 Value value = nameValue.value();
+                
                 nome = value.get("nome",nome);
                 cognome= value.get("cognome",cognome);
-                id = value.get("<id>",id);
+                id = Long.toString(value.asNode().id());
                 ruolo = value.get("ruolo",ruolo);
             }
         }
