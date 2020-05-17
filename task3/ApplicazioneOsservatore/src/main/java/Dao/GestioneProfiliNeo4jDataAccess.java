@@ -126,9 +126,13 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                 }
                 if ("so".equals(nameValue.key())) { 
                     Value value = nameValue.value();
-                    nomeSocieta=record.get("nomeSocieta",nomeSocieta);
-                    nazione=record.get("nazione",nazione);
-                    idSocieta=record.get("id",idSocieta);
+                    if(value.isNull())
+                    {
+                        return null;
+                    }        
+                    nomeSocieta=value.get("nomeSocieta",nomeSocieta);
+                    nazione=value.get("nazione",nazione);
+                    idSocieta=value.get("id",idSocieta);
                 }         
             }
         }
@@ -244,7 +248,13 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                 + " WHERE soc.nomeSocieta=$nomeSocieta "
                 + "AND soc.nazione=$nazioneSocieta  RETURN user,soc",parameters);
         if(!result.hasNext())
-            return null;
+        {
+            
+            societa=trovaSocieta(tx,nomeSquadra,nazioneSquadra);
+            utente=new Utente();
+            utente.setSocieta(societa);
+            return utente;
+        }
         while(result.hasNext()){
             Record record=result.next();
             List<Pair<String,Value>> values = record.fields();
@@ -259,27 +269,70 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                 }
                 if ("soc".equals(nameValue.key())) { 
                     Value value = nameValue.value();
-                    nomeSocieta=record.get("nomeSocieta",nomeSocieta);
-                    nazione=record.get("nazione",nazione);
-                    idSocieta=record.get("id",idSocieta);
+                    if(value.isNull())
+                    {
+                        return null;
+                    }
+                    nomeSocieta=value.get("nomeSocieta",nomeSocieta);
+                    nazione=value.get("nazione",nazione);
+                    idSocieta=value.get("id",idSocieta);
                 }         
             }
         }
         if(!idSocieta.equals("NA"))
         {
             societa= new Societa(idSocieta, nomeSocieta,nazione, idUtente);
+            System.out.println(societa.getId());
         }   
         utente= new Utente(idUtente,nome,cognome,email,ruolo,societa);
         return utente;
     }
-    
+    private static Societa trovaSocieta(Transaction tx,String nomeSquadra,String nazioneSquadra)
+    {
+        Societa societa = null;
+        HashMap<String,Object> parameters =new HashMap<>();
+        parameters.put("nomeSocieta",nomeSquadra);
+        parameters.put("nazioneSocieta",nazioneSquadra);
+        String nomeSocieta="NA";
+        String nazione="NA";
+        String idSocieta="NA";
+        StatementResult result=tx.run("MATCH (soc:Societa)"
+                + " WHERE soc.nomeSocieta=$nomeSocieta "
+                + "AND soc.nazione=$nazioneSocieta  RETURN soc",parameters);
+        if(!result.hasNext())
+            return null;
+        while(result.hasNext()){
+            Record record=result.next();
+            List<Pair<String,Value>> values = record.fields();
+            for (Pair<String,Value> nameValue: values) {
+                if ("soc".equals(nameValue.key())) { 
+
+                    Value value = nameValue.value();
+                    if(value.isNull())
+                    {
+                        return null;
+                    }
+                    nomeSocieta=value.get("nomeSocieta",nomeSocieta);
+                    nazione=value.get("nazione",nazione);
+                    idSocieta=value.get("id",idSocieta);
+                }         
+            }
+         
+        }
+           societa= new Societa(idSocieta, nomeSocieta,nazione,"");
+           return societa;
+    }
 //----------------Da migliorare in giù-----------------------------
     
     /**
-     * 
+     * La funzione aggiorna l'osservatore che lavora per una certa società
      * @param vecchioMembro
      * @param nuovoMembroEmail
-     * @return 
+     * @param nomeSocieta
+     * @param nazione
+     * @return 0 operazione riuscita
+     * @return 1 utente non presente nel database
+     * @return 2 utente già connesso ad un'altra societa 
      */
      public  static int aggiornaTeamSocieta(final Utente vecchioMembro,final String nuovoMembroEmail,final String nomeSocieta,final String nazione)
      {
@@ -296,6 +349,16 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                     
                 }
             });
+            Societa societa= session.readTransaction(new TransactionWork<Societa>()
+            {
+                
+                @Override
+                public Societa execute(Transaction tx)
+                {
+                    return trovaSocieta(tx,nomeSocieta,nazione);
+                    
+                }
+            });
             if(!risultato)//
             {
                 return 1;
@@ -306,7 +369,9 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                 @Override
                 public Integer execute(Transaction tx)
                 {
-                    return transactionAggiornaTeamSocieta(tx,vecchioMembro,nuovoMembroEmail,nomeSocieta,nazione);
+                    int ris= transactionAggiornaTeamSocieta(tx,vecchioMembro,nuovoMembroEmail,nomeSocieta,nazione);
+                    vecchioMembro.setSocieta(societa);
+                    return ris;
                     
                 }
             });
@@ -326,6 +391,11 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
       */
      private  static int transactionAggiornaTeamSocieta(Transaction tx,Utente vecchioMembro, String nuovoMembroEmail,String nomeSocieta,String nazione)
      {
+        String nome="NA";
+        String cognome="NA";
+        String idUtente ="NA";
+        String ruolo="NA";
+        String email = "NA";
          HashMap<String,Object> parameters =new HashMap<>();
          if(vecchioMembro!=null)
          {
@@ -340,13 +410,39 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
          parameters.put("nomeSocieta", nomeSocieta);
          parameters.put("nazione", nazione);
             StatementResult result=tx.run("MATCH((user:Utente)) WHERE user.email=$email"+
-                  " AND NOT (user-[:Tesserato_per]->())"+
+                  " AND NOT (user)-[:Tesserato_per]->()"+
                     "MATCH(soc:Societa) WHERE soc.nomeSocieta=$nomeSocieta AND soc.nazione=$nazione"
-                    + "CREATE (user)-[:Tesserato_per]->(soc) RETURN user",parameters);
+                    + " CREATE (user)-[:Tesserato_per]->(soc) RETURN user",parameters);
+            
         if(!result.hasNext())
         {  
             return 2;
         }
+        while(result.hasNext()){
+            Record record=result.next();
+            List<Pair<String,Value>> values = record.fields();
+            for (Pair<String,Value> nameValue: values) {
+                if ("user".equals(nameValue.key())) { 
+                    Value value = nameValue.value();
+                    if(value.isNull())
+                    {
+                        return 2;
+                    }
+                    nome = value.get("nome",nome);
+                    cognome= value.get("cognome",cognome);
+                    idUtente = value.get("<id>",idUtente);
+                    ruolo = value.get("ruolo",ruolo);
+                    email=value.get("email", email);
+                }
+         
+            }
+        }
+        vecchioMembro.setId(idUtente);
+        vecchioMembro.setNome(nome);
+        vecchioMembro.setCognome(cognome);
+        vecchioMembro.setRuolo(ruolo);
+        vecchioMembro.setEmail(email);
+        
         return 0;
      }
 }

@@ -170,17 +170,22 @@ public class LoginSignUpNeo4jDataAccess extends Neo4jDataAccess{
                   "RETURN so",parameters);
         if(!result.hasNext())
             return null;
-        Record record=result.single();
+        while(result.hasNext()){
+        Record record=result.next();
         List<Pair<String,Value>> values = record.fields();
         for (Pair<String,Value> nameValue: values) {
             if ("so".equals(nameValue.key())) { 
                 Value value = nameValue.value();
-                nomeSocieta=record.get("nomeSocieta",nomeSocieta);
-                nazione=record.get("nazione",nazione);
-                id=record.get("id",id);
+                if(value.isNull())
+                {
+                    return null;
+                }
+                nomeSocieta=value.get("nomeSocieta",nomeSocieta);
+                nazione=value.get("nazione",nazione);
+                id=value.get("id",id);
             }
         }
-
+        }
         Societa societaRisultato=new Societa(id,nomeSocieta,nazione,idUtente);
         return societaRisultato;
     }

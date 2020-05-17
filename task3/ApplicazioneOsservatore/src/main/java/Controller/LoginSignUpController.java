@@ -147,6 +147,8 @@ public class LoginSignUpController {
             Utente utente = ScreenController.getUtente();
             System.out.println("--------------->"+utente.getRuolo() +"<---------------");
             System.out.println("---->"+utente.getNome()+"<----------");
+            if(utente.getSocieta()!=null)
+                System.out.println(utente.getSocieta().getNomeSocieta());
             switch(utente.getRuolo().toLowerCase()){
                 case "admin": 
                     homePage = "AmministratoreSistema";
