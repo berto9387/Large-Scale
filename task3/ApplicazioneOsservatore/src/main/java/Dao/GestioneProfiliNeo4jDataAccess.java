@@ -126,9 +126,9 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                 }
                 if ("so".equals(nameValue.key())) { 
                     Value value = nameValue.value();
-                    if(value.isNull())
+                    if(value.isNull())//controllo che value non sia un valore nullo
                     {
-                        return null;
+                        continue;
                     }        
                     nomeSocieta=value.get("nomeSocieta",nomeSocieta);
                     nazione=value.get("nazione",nazione);
@@ -247,7 +247,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
         StatementResult result=tx.run("MATCH ((user:Utente)-[r:Tesserato_per]->(soc:Societa))"+""
                 + " WHERE soc.nomeSocieta=$nomeSocieta "
                 + "AND soc.nazione=$nazioneSocieta  RETURN user,soc",parameters);
-        if(!result.hasNext())
+        if(!result.hasNext())//se non ho risultati
         {
             
             societa=trovaSocieta(tx,nomeSquadra,nazioneSquadra);
@@ -269,9 +269,9 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                 }
                 if ("soc".equals(nameValue.key())) { 
                     Value value = nameValue.value();
-                    if(value.isNull())
+                    if(value.isNull())//controllo che value non sia un valore nullo
                     {
-                        return null;
+                        continue;
                     }
                     nomeSocieta=value.get("nomeSocieta",nomeSocieta);
                     nazione=value.get("nazione",nazione);
@@ -287,6 +287,15 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
         utente= new Utente(idUtente,nome,cognome,email,ruolo,societa);
         return utente;
     }
+    /**
+     * 
+     * @param tx
+     * @param nomeSquadra
+     * @param nazioneSquadra
+     * @return restituisce un oggetto societa con proprieta nomeSocieta e nazione uguali
+     * a quellli passati per parametro
+     */
+    
     private static Societa trovaSocieta(Transaction tx,String nomeSquadra,String nazioneSquadra)
     {
         Societa societa = null;
@@ -308,7 +317,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
                 if ("soc".equals(nameValue.key())) { 
 
                     Value value = nameValue.value();
-                    if(value.isNull())
+                    if(value.isNull())//controllo che value non sia un valore nullo
                     {
                         return null;
                     }
@@ -424,7 +433,7 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
             for (Pair<String,Value> nameValue: values) {
                 if ("user".equals(nameValue.key())) { 
                     Value value = nameValue.value();
-                    if(value.isNull())
+                    if(value.isNull())//controllo che value non sia un valore nullo
                     {
                         return 2;
                     }
