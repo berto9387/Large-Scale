@@ -141,5 +141,11 @@
             <version>1.7.5</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-core</artifactId>
+            <version>3.12.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>

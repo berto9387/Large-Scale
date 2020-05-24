@@ -5,10 +5,43 @@
  */
 package Controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.text.Text;
+
 /**
  *
  * @author Gianluca
  */
-public class AggiornaDbController {
+public class AggiornaDbController implements Initializable {
+
+    /**
+     * Initializes the controller class.
+     */
+    @FXML
+    private ProgressIndicator progressIndicator;
+    @FXML
+    private Text testoErrore;
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+        final ServiceAggiornaDataBase aggiorna = new ServiceAggiornaDataBase();
+
+        //Here you tell your progress indicator is visible only when the service is runing
+        progressIndicator.progressProperty().bind(aggiorna.progressProperty());
+        aggiorna.setOnSucceeded((WorkerStateEvent workerStateEvent) -> {
+            testoErrore.setText("Aggiornamento riuscito");
+        });
+
+        aggiorna.setOnFailed((WorkerStateEvent workerStateEvent) -> {
+            testoErrore.setText("Aggiornamento non riuscito, riprova...");
+        });
+        aggiorna.restart();
+    }
+     
     
 }
