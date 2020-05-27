@@ -5,10 +5,46 @@
  */
 package Controller;
 
+import Dao.AggiornaDataBaseNeo4jDataAccess;
+import java.io.File;
+import java.util.Scanner;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+
 /**
  *
  * @author Gianluca
  */
-public class ServiceAggiornaDataBase {
-    
+public class ServiceAggiornaDataBase extends Service<String> {
+    @Override
+    protected Task<String> createTask() {
+        return new Task<String>() {
+            @Override
+            protected String call() throws Exception {
+                int numeroCalciatori=0;
+                File folder = new File("./calciatori");
+                File[] listOfFiles = folder.listFiles();
+                numeroCalciatori=listOfFiles.length;
+                int cont=1;
+                for (File file : listOfFiles) {
+                    updateProgress(++cont, numeroCalciatori);
+                    if (file.isFile()) {
+                        Scanner myReader = new Scanner(file);
+                        String data="";
+                        while (myReader.hasNextLine()) {
+                          data += myReader.nextLine();
+                          
+                        }                        
+                        myReader.close();
+                        int er=0;
+                        er=AggiornaDataBaseNeo4jDataAccess.aggiornaCalciatore(data);
+                        System.out.println(er);
+                    }
+                    Thread.sleep(300);
+                }
+                
+                return "Ciao";
+            }
+        };
+    }
 }
