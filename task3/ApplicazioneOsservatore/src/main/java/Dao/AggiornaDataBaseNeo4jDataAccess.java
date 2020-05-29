@@ -45,6 +45,31 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
            
         
         }}
+    public static int aggiornaSocieta(final String societa)
+    {        
+        try(Session session=driver.session())
+        {
+            boolean risultato;
+            risultato=session.readTransaction(new TransactionWork<Boolean>()
+            {
+                @Override
+                public Boolean execute(Transaction tx)
+                {
+                    return transizioneEsisteSocieta(tx,Document.parse(societa).getString("_id"));
+                }
+            });
+                                
+        return session.readTransaction(new TransactionWork<Integer>()
+        {
+            @Override
+            public Integer execute(Transaction tx)
+            {
+                return transizioneCreaAggiornaSocieta(tx,societa,risultato);
+            }
+        });
+           
+        
+        }}
     private static boolean transizioneEsisteCalciatore(Transaction tx,String idGiocatore)
     {
         HashMap<String,Object> parameters =new HashMap<>();
@@ -73,6 +98,25 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
         List<String> appoggio=(List<String>)calciatoreDoc.get("altriRuoli");
         creaCollegamentiRuolo(tx,calciatoreDoc.getString("posizionePrincipale"),appoggio,calciatoreDoc.getString("_id"));
         aggiornaRelazioneGioca(tx,calciatoreDoc.getString("_id"),(List<Document>)calciatoreDoc.get("statistiche"));
+        return 0;
+    
+    }
+    private static int transizioneCreaAggiornaSocieta(Transaction tx,String societa,boolean nodoEsiste)
+    {
+        Document societaDoc = Document.parse(societa);
+        HashMap<String,Object> parameters= new HashMap<>();
+        if(nodoEsiste){
+            creaNodoSocieta(tx,societaDoc);
+        }
+        else
+        {
+            int res=aggiornaNodoSocieta(tx,societaDoc);
+            if(res==0)
+            {
+                return 1;
+            }
+        }
+       
         return 0;
     
     }
@@ -138,7 +182,7 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
         parameters.put("linkFoto",calciatoreDoc.getString("linkFoto"));
         parameters.put("inRosa",calciatoreDoc.getLong("inRosa"));
         parameters.put("scadenza",calciatoreDoc.getLong("scadenza"));
-        StatementResult result=tx.run("MATCH(giocatore:Calciatore) WHERE giocatore.id=$id RETURN giocatore"
+        StatementResult result=tx.run("MATCH(giocatore:Calciatore) WHERE giocatore.id=$id"
                 + " SET giocatore.altezza=$altezza"
                 + " SET giocatore.procuratore=$procuratore"
                 + " SET giocatore.squadra=$squadra"
@@ -166,5 +210,44 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
                     + "MERGE (calciatore)-[:GIOCA{competizione:$competizione"+i+",stagione:$stagione"+i+"}]->(s"+i+"))";
         }
     }
-    
+    private static boolean transizioneEsisteSocieta(Transaction tx,String idGiocatore)
+    {
+        HashMap<String,Object> parameters =new HashMap<>();
+        parameters.put("id",idGiocatore);
+        StatementResult result=tx.run("MATCH(societa:Societa) WHERE societa.id=$id RETURN societa",parameters);
+        return result.hasNext();
+    } 
+    private static void creaNodoSocieta(Transaction tx, Document societaDoc)
+    {
+        HashMap<String,Object> parameters= new HashMap<>();
+        parameters.put("id",societaDoc.getString("_id"));
+        parameters.put("nomeSocieta", societaDoc.getString("nomeSocieta"));
+        parameters.put("lega",societaDoc.getString("lega"));
+        parameters.put("nazione",societaDoc.getString("nazione"));
+        parameters.put("linkLogo",societaDoc.getString("linkLogo"));
+       
+       StatementResult result=tx.run("CREATE(Societa{id:$id,nomeSocieta:$nomeSocieta,lega:$lega,"
+               + "nazione:$nazione,linkLogo:$linkLogo})",parameters);
+        
+    }
+    private static int aggiornaNodoSocieta(Transaction tx,Document societaDoc)
+    {
+        HashMap<String,Object> parameters= new HashMap<>();
+        parameters.put("id",societaDoc.getString("_id"));
+        parameters.put("nomeSocieta", societaDoc.getString("nomeSocieta"));
+        parameters.put("lega",societaDoc.getString("lega"));
+        parameters.put("nazione",societaDoc.getString("nazione"));
+        parameters.put("linkLogo",societaDoc.getString("linkLogo"));
+        StatementResult result=tx.run("MATCH(societa:Societa) WHERE societa.id=$id"
+                + " SET societa.nomeSocieta=$nomeSocieta"
+                + " SET societa.lega=$lega"
+                + " SET societa.nazione=$nazione"
+                + " SET giocatore.linkLogo=$linkLogo"
+                + " RETURN societa",parameters);
+        if(!result.hasNext())
+        {
+           return 1; 
+        }
+        return 0;
+    }
 }

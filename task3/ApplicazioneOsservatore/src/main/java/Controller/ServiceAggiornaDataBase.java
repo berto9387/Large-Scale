@@ -24,7 +24,9 @@ public class ServiceAggiornaDataBase extends Service<String> {
                 int numeroCalciatori=0;
                 File folder = new File("./calciatori");
                 File[] listOfFiles = folder.listFiles();
-                numeroCalciatori=listOfFiles.length;
+                File folderSocieta = new File("./societa");
+                File[] listOfFilesSocieta = folderSocieta.listFiles();
+                numeroCalciatori=listOfFiles.length + listOfFilesSocieta.length;
                 int cont=1;
                 for (File file : listOfFiles) {
                     updateProgress(++cont, numeroCalciatori);
@@ -42,7 +44,22 @@ public class ServiceAggiornaDataBase extends Service<String> {
                     }
                     Thread.sleep(300);
                 }
-                
+                for (File file : listOfFilesSocieta) {
+                    updateProgress(++cont, numeroCalciatori);
+                    if (file.isFile()) {
+                        Scanner myReader = new Scanner(file);
+                        String data="";
+                        while (myReader.hasNextLine()) {
+                          data += myReader.nextLine();
+                          
+                        }                        
+                        myReader.close();
+                        int er=0;
+                        er=AggiornaDataBaseNeo4jDataAccess.aggiornaSocieta(data);
+                        System.out.println(er);
+                    }
+                    Thread.sleep(300);
+                }                
                 return "Ciao";
             }
         };
