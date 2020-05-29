@@ -34,7 +34,7 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
                 }
             });
                                 
-        return session.readTransaction(new TransactionWork<Integer>()
+        return session.writeTransaction(new TransactionWork<Integer>()
         {
             @Override
             public Integer execute(Transaction tx)
@@ -59,7 +59,7 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
                 }
             });
                                 
-        return session.readTransaction(new TransactionWork<Integer>()
+        return session.writeTransaction(new TransactionWork<Integer>()
         {
             @Override
             public Integer execute(Transaction tx)
