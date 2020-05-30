@@ -83,13 +83,13 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
     {
         Document calciatoreDoc = Document.parse(calciatore);
         HashMap<String,Object> parameters= new HashMap<>();
-        if(nodoEsiste){
+        if(!nodoEsiste){
             creaNodoCalciatore(tx,calciatoreDoc);
         }
         else
         {
             int res=aggiornaNodoCalciatore(tx,calciatoreDoc);
-            if(res==0)
+            if(res==1)
             {
                 return 1;
             }
@@ -105,13 +105,13 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
     {
         Document societaDoc = Document.parse(societa);
         HashMap<String,Object> parameters= new HashMap<>();
-        if(nodoEsiste){
+        if(!nodoEsiste){
             creaNodoSocieta(tx,societaDoc);
         }
         else
         {
             int res=aggiornaNodoSocieta(tx,societaDoc);
-            if(res==0)
+            if(res==1)
             {
                 return 1;
             }
@@ -127,14 +127,29 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
         parameters.put("nome", calciatoreDoc.getString("nome"));
         parameters.put("dataNascita",calciatoreDoc.getLong("dataNascita"));
         parameters.put("luogoNascita",calciatoreDoc.getString("luogoNascita"));
-        parameters.put("altezza",calciatoreDoc.getInteger("altezza"));
+        try{
+            parameters.put("altezza",calciatoreDoc.getInteger("altezza"));
+        }
+        catch(Exception e)
+        {
+            parameters.put("altezza",calciatoreDoc.getLong("altezza"));
+        }
         parameters.put("nazionalita",calciatoreDoc.getString("nazionalita"));
         parameters.put("piede",calciatoreDoc.getString("piede"));
         parameters.put("procuratore",calciatoreDoc.getString("procuratore"));
         parameters.put("squadra",calciatoreDoc.getString("squadra"));
         parameters.put("linkFoto",calciatoreDoc.getString("linkFoto"));
-        parameters.put("inRosa",calciatoreDoc.getLong("inRosa"));
+        try{
+            parameters.put("inRosa",calciatoreDoc.getLong("inRosa"));
+        }
+        catch(Exception e){
+            parameters.put("inRosa",calciatoreDoc.getInteger("inRosa"));
+        }
+        try{
         parameters.put("scadenza",calciatoreDoc.getLong("scadenza"));
+        }
+        catch(Exception e){
+            parameters.put("scadenza",calciatoreDoc.getInteger("scadenza"));}
         try{
         parameters.put("valoreAttuale",calciatoreDoc.getInteger("valoreAttuale"));
         }
@@ -155,15 +170,17 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
         String query="MATCH((giocatore:Calciatore{id:$idCalciatore})-[pos:POsizione]->())"
                 + " DELETE pos";//prima di aggiornare le posizioni elimino i collegamenti e poi riaggiungo tutti i collegamenti con posizione
         parameters.put("ruolo" + counter,ruoloPrincipale);
-        query=query + " CREATE (giocatore)-[:POsizione{preferito:true}]->(:Ruolo{ruolo:$ruolo" + counter +"})";
+        query=query + " MERGE (giocatore)-[:POsizione{preferito:true}]->(:Ruolo{ruolo:$ruolo" + counter +"})";
         counter++;
-        for(int i=0;i<Altriruoli.size();i++)
-        {
-            parameters.put("ruolo"+counter, Altriruoli.get(i));
-            query= query + " CREATE(giocatore)-[:POsizione{preferito:false}]->(:Ruolo{ruolo:$ruolo" + counter +"})";
-            counter++;
+        if(Altriruoli!=null){
+            for(int i=0;i<Altriruoli.size();i++)
+            {
+                parameters.put("ruolo"+counter, Altriruoli.get(i));
+                query= query + " MERGE(giocatore)-[:POsizione{preferito:false}]->(:Ruolo{ruolo:$ruolo" + counter +"})";
+                counter++;
+            }
+            tx.run(query,parameters);
         }
-        tx.run(query,parameters);
     }
     /**
      * 
@@ -176,26 +193,43 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
     {
         HashMap<String,Object> parameters= new HashMap<>();
         parameters.put("id",calciatoreDoc.getString("_id"));
-        parameters.put("altezza",calciatoreDoc.getInteger("altezza"));
+        try{
+            parameters.put("altezza",calciatoreDoc.getInteger("altezza"));
+        }
+        catch(Exception e)
+        {
+            parameters.put("altezza",calciatoreDoc.getLong("altezza"));
+        }
         parameters.put("procuratore",calciatoreDoc.getString("procuratore"));
         parameters.put("squadra",calciatoreDoc.getString("squadra"));
         parameters.put("linkFoto",calciatoreDoc.getString("linkFoto"));
-        parameters.put("inRosa",calciatoreDoc.getLong("inRosa"));
+        try{
+            parameters.put("inRosa",calciatoreDoc.getLong("inRosa"));
+        }
+        catch(Exception e){
+            parameters.put("inRosa",calciatoreDoc.getInteger("inRosa"));
+        }
+        try{
         parameters.put("scadenza",calciatoreDoc.getLong("scadenza"));
+        }
+        catch(Exception e){
+            parameters.put("scadenza",calciatoreDoc.getInteger("scadenza"));}
+        
+        
         try{
             parameters.put("valoreAttuale",calciatoreDoc.getInteger("valoreAttuale"));
         }
         catch(Exception e)
         {
-            parameters.put("valoreAttuale",calciatoreDoc.getInteger("valoreAttuale"));
+            parameters.put("valoreAttuale",calciatoreDoc.getLong("valoreAttuale"));
         }
         StatementResult result=tx.run("MATCH(giocatore:Calciatore) WHERE giocatore.id=$id"
                 + " SET giocatore.altezza=$altezza"
                 + " SET giocatore.procuratore=$procuratore"
                 + " SET giocatore.squadra=$squadra"
                 + " SET giocatore.linkFoto=$linkFoto"
-                + " SET giocatore.inRosa=$scadenza RETURN giocatore"
-                + " SET giocatore.valoreAttuale=$valoreAttuale",parameters);
+                + " SET giocatore.inRosa=$scadenza"
+                + " SET giocatore.valoreAttuale=$valoreAttuale RETURN giocatore",parameters);
         if(!result.hasNext())
         {
            return 1; 
@@ -218,10 +252,10 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
                     + "MERGE (calciatore)-[:GIOCA{competizione:$competizione"+i+",stagione:$stagione"+i+"}]->(s"+i+"))";
         }
     }
-    private static boolean transizioneEsisteSocieta(Transaction tx,String idGiocatore)
+    private static boolean transizioneEsisteSocieta(Transaction tx,String idSocieta)
     {
         HashMap<String,Object> parameters =new HashMap<>();
-        parameters.put("id",idGiocatore);
+        parameters.put("id",idSocieta);
         StatementResult result=tx.run("MATCH(societa:Societa) WHERE societa.id=$id RETURN societa",parameters);
         return result.hasNext();
     } 
@@ -241,8 +275,8 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
     private static int aggiornaNodoSocieta(Transaction tx,Document societaDoc)
     {
         HashMap<String,Object> parameters= new HashMap<>();
-        parameters.put("id",societaDoc.getString("_id"));
-        parameters.put("nomeSocieta", societaDoc.getString("nomeSocieta"));
+        parameters.put("id",societaDoc.getString("_id"));      
+        parameters.put("nomeSocieta", societaDoc.getString("nomeSocieta")); 
         parameters.put("lega",societaDoc.getString("lega"));
         parameters.put("nazione",societaDoc.getString("nazione"));
         parameters.put("linkLogo",societaDoc.getString("linkLogo"));
@@ -250,7 +284,7 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
                 + " SET societa.nomeSocieta=$nomeSocieta"
                 + " SET societa.lega=$lega"
                 + " SET societa.nazione=$nazione"
-                + " SET giocatore.linkLogo=$linkLogo"
+                + " SET societa.linkLogo=$linkLogo"
                 + " RETURN societa",parameters);
         if(!result.hasNext())
         {

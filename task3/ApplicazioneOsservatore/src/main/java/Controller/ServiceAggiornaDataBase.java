@@ -21,15 +21,15 @@ public class ServiceAggiornaDataBase extends Service<String> {
         return new Task<String>() {
             @Override
             protected String call() throws Exception {
-                int numeroCalciatori=0;
+                int numeroFile=0;
                 File folder = new File("./calciatori");
                 File[] listOfFiles = folder.listFiles();
                 File folderSocieta = new File("./societa");
                 File[] listOfFilesSocieta = folderSocieta.listFiles();
-                numeroCalciatori=listOfFiles.length + listOfFilesSocieta.length;
+                numeroFile=listOfFiles.length + listOfFilesSocieta.length;
                 int cont=1;
                 for (File file : listOfFiles) {
-                    updateProgress(++cont, numeroCalciatori);
+                    updateProgress(++cont, numeroFile);
                     if (file.isFile()) {
                         Scanner myReader = new Scanner(file);
                         String data="";
@@ -45,7 +45,7 @@ public class ServiceAggiornaDataBase extends Service<String> {
                     Thread.sleep(300);
                 }
                 for (File file : listOfFilesSocieta) {
-                    updateProgress(++cont, numeroCalciatori);
+                    updateProgress(++cont, numeroFile);
                     if (file.isFile()) {
                         Scanner myReader = new Scanner(file);
                         String data="";
