@@ -182,12 +182,20 @@ public class AggiornaDataBaseNeo4jDataAccess extends Neo4jDataAccess{
         parameters.put("linkFoto",calciatoreDoc.getString("linkFoto"));
         parameters.put("inRosa",calciatoreDoc.getLong("inRosa"));
         parameters.put("scadenza",calciatoreDoc.getLong("scadenza"));
+        try{
+            parameters.put("valoreAttuale",calciatoreDoc.getInteger("valoreAttuale"));
+        }
+        catch(Exception e)
+        {
+            parameters.put("valoreAttuale",calciatoreDoc.getInteger("valoreAttuale"));
+        }
         StatementResult result=tx.run("MATCH(giocatore:Calciatore) WHERE giocatore.id=$id"
                 + " SET giocatore.altezza=$altezza"
                 + " SET giocatore.procuratore=$procuratore"
                 + " SET giocatore.squadra=$squadra"
                 + " SET giocatore.linkFoto=$linkFoto"
-                + " SET giocatore.inRosa=$scadenza RETURN giocatore",parameters);
+                + " SET giocatore.inRosa=$scadenza RETURN giocatore"
+                + " SET giocatore.valoreAttuale=$valoreAttuale",parameters);
         if(!result.hasNext())
         {
            return 1; 
