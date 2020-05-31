@@ -4,6 +4,8 @@ import Entita.Utente;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,10 @@ public class ScreenController implements Initializable {
     private static Utente utente;
     private static Pane view;
     private static Alert popUpAvviso;
+    private static ObservableList<String> ruoloInCampo=FXCollections.observableArrayList
+        ("Punta centrale","Terzino destro","Mediano","Ala sinistra","NA","Seconda punta",
+                "Centrocampista di destra","Terzino sinistro","Centrale","Ala destra","Trequartista",
+                "Portiere","Difensore centrale","Centrocampista di sinistra");
 
      public static void showPage(String fileName){
          

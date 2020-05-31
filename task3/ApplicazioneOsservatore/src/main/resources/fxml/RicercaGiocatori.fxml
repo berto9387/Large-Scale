@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="838.0" prefWidth="1159.0" styleClass="mainFxmlClass" stylesheets="@../styles/ricercacalciatori.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RicercaGiocatoriController">
+   <children>
+      <BorderPane layoutX="364.0" layoutY="221.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/ricercacalciatori.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox prefHeight="92.0" prefWidth="927.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="80.0" prefWidth="927.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Text fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" text="RICERCA CALCIATORI" textAlignment="CENTER">
+                           <font>
+                              <Font name="Roboto Bold" size="30.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <VBox prefHeight="746.0" prefWidth="887.0" BorderPane.alignment="CENTER">
+               <children>
+                  <GridPane hgap="20.0" prefHeight="111.0" prefWidth="952.0" vgap="30.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <VBox alignment="CENTER" style="-fx-background-color: #00000059; -fx-background-radius: 10px;">
+                           <children>
+                              <Text fx:id="scegliNomeTesto" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white; -fx-font-family: Roboto; -fx-font-size: 16px;" text="Nome" textAlignment="CENTER" visible="false" />
+                              <JFXTextField fx:id="nomeInput" alignment="CENTER" focusColor="ORANGE" promptText="Nome" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" text="Nome" unFocusColor="WHITE">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="223.0" prefWidth="355.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="1">
+                           <children>
+                              <Text fx:id="scegliSquadraTesto" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white; -fx-font-family: Roboto; -fx-font-size: 16px;" text="Squadra" visible="false" />
+                              <JFXTextField fx:id="squadraInput" alignment="CENTER" focusColor="ORANGE" promptText="Squadra" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" text="Squadra" unFocusColor="WHITE">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="2">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10px;">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#cercaCalciatore" prefHeight="33.0" prefWidth="151.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-text-fill: white; -fx-font-family: Roboto; -fx-font-weight: bold; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 2px;" text="Cerca" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="3">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10px;">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#cercaConsigliati" prefHeight="33.0" prefWidth="151.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-text-fill: white; -fx-font-family: Roboto; -fx-font-weight: bold; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 2px;" text="Consigliati" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </GridPane>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" VBox.vgrow="ALWAYS">
+                     <children>
+                        <TableView fx:id="tabellaCalciatori" prefHeight="588.0" prefWidth="1119.0" stylesheets="@../styles/tableview.css" HBox.hgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="fotoColumn" prefWidth="75.0" />
+                              <TableColumn fx:id="nomeColumn" prefWidth="75.0" text="Nome" />
+                              <TableColumn fx:id="posizioneColumn" prefWidth="117.0" text="Posizione" />
+                              <TableColumn fx:id="squadraColumn" prefWidth="126.0" text="Squadra" />
+                              <TableColumn fx:id="etaColumn" minWidth="9.0" prefWidth="75.0" text="Età" />
+                              <TableColumn fx:id="valoreMercatoColumn" prefWidth="121.0" text="Valore Mercato" />
+                              <TableColumn fx:id="nazionalitaColumn" prefWidth="107.0" text="Nazionalità" />
+                              <TableColumn fx:id="seguitoDaColumn" prefWidth="74.0" text="Seguito da" />
+                              <TableColumn fx:id="seguiColumn" minWidth="0.0" prefWidth="17.0" />
+                           </columns>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </TableView>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+      <VBox fx:id="progressIndicatorContainer" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ProgressIndicator fx:id="progressIndicator" prefHeight="174.0" prefWidth="1159.0" style="-fx-progress-color: orange;" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
