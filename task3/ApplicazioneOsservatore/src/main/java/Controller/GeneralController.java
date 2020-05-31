@@ -34,16 +34,13 @@ public class GeneralController implements Initializable {
     protected HBox bottoneCercaGiocatore;
 
     @FXML
-    protected HBox bottoneListaPreferiti;
+    protected HBox bottoneCalciatoriSeguiti;
 
     @FXML
-    protected HBox bottoneProfiloInteresse;
+    protected HBox bottoneOsservatoriSeguiti;
 
     @FXML
     protected HBox bottoneProfiloPersonale;
-    
-    @FXML
-    protected HBox bottoneMembriSquadra;
     
     @FXML
     private void handleClose(MouseEvent event) {

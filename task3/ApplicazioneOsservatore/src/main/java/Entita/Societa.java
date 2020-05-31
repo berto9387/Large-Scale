@@ -11,10 +11,9 @@ package Entita;
  */
 public class Societa {
         private String id;
-    private String nomeSocieta;
-    private String nazione;
-
-    private String osservatore;
+        private String nomeSocieta;
+        private String nazione;
+        private String osservatore;
 
     public Societa() {
     }

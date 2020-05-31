@@ -31,27 +31,27 @@ public class HomePageOsservatoreController extends GeneralController{
     private ImageView imgAdmin;
 
     @FXML
-    private Label nomeAllenatore;
+    private Label nome;
 
     @FXML
-    private Label emailAllenatore;
+    private Label email;
     
     @FXML   
-    void handlerVisualizzaListaPreferiti(MouseEvent event){
+    void handlerCalciatoriSeguiti(MouseEvent event){
         if(ScreenController.getUtente().getSocieta()==null){
             ScreenController.showPage("nessunaSocieta");
             return;
         }
-        ScreenController.showPage("ListaGiocatoriInteresse");
+        ScreenController.showPage("calciatori_seguiti");
     } 
     
     @FXML 
-    void handlerVisualizzaProfiloDiInteresse(MouseEvent event){
+    void handlerOsservatoriSeguiti(MouseEvent event){
         if(ScreenController.getUtente().getSocieta()==null){
             ScreenController.showPage("nessunaSocieta");
             return;
         }
-        ScreenController.showPage("GestioneProfiloInteresseOsservatore");
+        ScreenController.showPage("OsservatoriSeguiti");
     }
     
     @FXML
@@ -70,7 +70,7 @@ public class HomePageOsservatoreController extends GeneralController{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Utente utente = ScreenController.getUtente();
-        nomeAllenatore.setText(utente.getNome() + " " + utente.getCognome());
-        emailAllenatore.setText(utente.getEmail());
+        nome.setText(utente.getNome() + " " + utente.getCognome());
+        email.setText(utente.getEmail());
     }
 }
