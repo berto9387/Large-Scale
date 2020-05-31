@@ -55,7 +55,8 @@ public class GestioneProfiliNeo4jDataAccess extends Neo4jDataAccess {
         parameters.put("email",email);
         StatementResult result=tx.run("MATCH(a:Utente) WHERE a.email=$email"+
                  " OPTIONAL MATCH (a)-[r]->()"+
-                  "DELETE a,r",parameters);
+                 " OPTIONAL MATCH ()-[r1]->(a)"+
+                 " DELETE a,r,r1",parameters);
 
         return 0;
     }
