@@ -1,19 +1,15 @@
 package Controller;
 
-import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import org.controlsfx.control.RangeSlider;
 
-public class OsservatoriSeguitiController {
+public class OsservatoriSeguitiController extends GeneralController{
 
     @FXML
     private Text scegliNomeTesto;
@@ -22,79 +18,34 @@ public class OsservatoriSeguitiController {
     private JFXTextField nomeInput;
 
     @FXML
-    private Text scegliCognomeTesto;
+    private Text scegliSquadraTesto;
 
     @FXML
-    private JFXTextField cognomeInput;
+    private JFXTextField SquadraInput;
 
     @FXML
-    private Text errorCercaCalciatore;
+    private Text errorCercaOsservatore;
 
     @FXML
     private TableView<?> tabellaCalciatori;
 
     @FXML
-    private TableColumn<?, ?> fotoColumn;
-
-    @FXML
     private TableColumn<?, ?> nomeColumn;
 
     @FXML
-    private TableColumn<?, ?> posizioneColumn;
+    private TableColumn<?, ?> cognomeColumn;
 
     @FXML
     private TableColumn<?, ?> squadraColumn;
 
     @FXML
-    private TableColumn<?, ?> etaColumn;
+    private TableColumn<?, ?> calciatoriColumn;
 
     @FXML
-    private TableColumn<?, ?> nazionalitaColumn;
+    private TableColumn<?, ?> eliminaColumn;
 
     @FXML
-    private JFXTextField inputCampionato;
-
-    @FXML
-    private JFXTextField inputStagione;
-
-    @FXML
-    private JFXTextField inputSquadra;
-
-    @FXML
-    private ChoiceBox<?> inputPosizione;
-
-    @FXML
-    private HBox containerGoal;
-
-    @FXML
-    private JFXSlider inputMediaGoalStagionali;
-
-    @FXML
-    private HBox containerAssist;
-
-    @FXML
-    private JFXSlider inputMediaAssistStagionali;
-
-    @FXML
-    private JFXSlider inputMediaCartellini;
-
-    @FXML
-    private RangeSlider inputValoreDiMercato;
-
-    @FXML
-    private RangeSlider inputAltezza;
-
-    @FXML
-    private RangeSlider inputEta;
-
-    @FXML
-    private ChoiceBox<?> inputContratto;
-
-    @FXML
-    private HBox soloPortiere;
-
-    @FXML
-    private JFXSlider inputMediaGoalSubiti;
+    private Text errorCercaOsservatoreSeguiti;
 
     @FXML
     private VBox progressIndicatorContainer;
@@ -103,13 +54,12 @@ public class OsservatoriSeguitiController {
     private ProgressIndicator progressIndicator;
 
     @FXML
-    void cercaCalciatore(ActionEvent event) {
+    void cercaOsservatore(ActionEvent event) {
 
     }
-
+    
     @FXML
-    void ricercaAvanzata(ActionEvent event) {
+    void cercaOsservatoreSeguito(ActionEvent event) {
 
     }
-
 }
