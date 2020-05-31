@@ -159,7 +159,7 @@ public class LoginSignUpNeo4jDataAccess extends Neo4jDataAccess{
      * @return null se l'utente passato come parameto non lavora per nessuna
      * societa'
      */
-    private static Societa SocietaUtente(Transaction tx,String email,String idUtente)
+    public static Societa SocietaUtente(Transaction tx,String email,String idUtente)
     {
         HashMap<String,Object> parameters =new HashMap<>();
         String nomeSocieta="NA";

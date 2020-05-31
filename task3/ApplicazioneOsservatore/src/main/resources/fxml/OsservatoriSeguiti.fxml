@@ -24,7 +24,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="80.0" prefWidth="927.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Text fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" text="RICERCA CALCIATORI" textAlignment="CENTER">
+                        <Text fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" text="RICERCA OSSERVATORI" textAlignment="CENTER">
                            <font>
                               <Font name="Roboto Bold" size="30.0" />
                            </font>
