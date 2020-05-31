@@ -5,10 +5,13 @@ import Model.InformazioniOsservatore;
 import com.jfoenix.controls.JFXTextField;
 import it.unipi.task3.applicazioneosservatore.ScreenController;
 import java.net.URL;
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,7 +28,7 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 public class OsservatoriSeguitiController extends GeneralController{
-
+    ObservableList<InformazioniOsservatore> values=FXCollections.observableArrayList();
     @FXML
     private Text scegliNomeTesto;
 
@@ -56,6 +59,7 @@ public class OsservatoriSeguitiController extends GeneralController{
     @FXML
     private TableColumn<InformazioniOsservatore, String> calciatoriColumn;
 
+    
     @FXML
     private TableColumn<InformazioniOsservatore, Void> eliminaColumn;
     Callback<TableColumn<InformazioniOsservatore, Void>, TableCell<InformazioniOsservatore, Void>> cellFactory = (final TableColumn<InformazioniOsservatore, Void> param) -> {
@@ -67,17 +71,21 @@ public class OsservatoriSeguitiController extends GeneralController{
                     btn.getStyleClass().add("bottoneElimina");
                     Image image = new Image("/img/user.png");
                     ImageView imageView = new ImageView(image);
-                    imageView.setFitWidth(25);
-                    imageView.setFitHeight(25);
-
+                    imageView.setFitWidth(50);
+                    imageView.setFitHeight(50);
+                    
                     btn.setGraphic(imageView);
-                    btn.setOnAction((ActionEvent event) -> {
-//                        InformazioniOsservatore data = getTableView().getItems().get(getIndex());
-//                        int er=RicercaGiocatoriMongoDataAccess.rimuoviCalciatore(data.getIdCalciatore());
-//                        if(er>0){
-//                            getTableView().getItems().remove(getIndex());
-//                            getTableView().refresh();
-//                        }
+                    btn.setOnAction((ActionEvent event) -> {   
+                        InformazioniOsservatore data = getTableView().getItems().get(getIndex());
+                        int er;
+                        if(Objects.equals(data.getSeguito(), Boolean.TRUE))
+                            er=RicercaOsservatoriNeo4jDataAccess.noFollow(ScreenController.getUtente().getEmail(),data.getIdOsservatore());
+                        else
+                            er=RicercaOsservatoriNeo4jDataAccess.follow(ScreenController.getUtente().getEmail(),data.getIdOsservatore());
+                        if(er==0){
+                            getTableView().getItems().remove(getIndex());
+                            getTableView().refresh();
+                        }
                         
                             
                         
@@ -89,6 +97,7 @@ public class OsservatoriSeguitiController extends GeneralController{
             public void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
                 if (!empty) {
+                    
                     setGraphic(btn);                    
                 } else {
                     setGraphic(null);
@@ -108,19 +117,50 @@ public class OsservatoriSeguitiController extends GeneralController{
 
     @FXML
     void cercaOsservatore(ActionEvent event) {
+        errorCercaOsservatore.setText("");
+        tabellaCalciatori.getItems().clear();
+        if(nomeInput.getText().isEmpty() && SquadraInput.getText().isEmpty()){
+            errorCercaOsservatore.setText("Completa almeno uno dei campi!");
+            return;
+        }
+        Task<List<InformazioniOsservatore>> task = new Task<List<InformazioniOsservatore>>() {
 
+            @Override
+            protected List<InformazioniOsservatore> call() throws Exception {
+                List<InformazioniOsservatore> infos=RicercaOsservatoriNeo4jDataAccess.cercaOsservatori(nomeInput.getText(),SquadraInput.getText());
+
+                return infos;
+            }
+
+        };
+        task.setOnSucceeded(evt -> {
+            progressIndicatorContainer.setVisible(false);
+            if(task.getValue().isEmpty()){
+                errorCercaOsservatore.setText("Nessun osservatore trovato");
+                return;
+            }
+                
+            for(InformazioniOsservatore info :task.getValue()){
+                values.add(info);
+            }
+            tabellaCalciatori.setItems(values);
+            
+            //autoResizeColumns(tabellaCalciatori);
+        });
+        progressIndicatorContainer.setVisible(true);
+        new Thread(task).start();
     }
     
     @FXML
     void cercaOsservatoreSeguito(ActionEvent event) {
+        errorCercaOsservatoreSeguiti.setText("");
+        tabellaCalciatori.getItems().clear();
         
-        ObservableList<InformazioniOsservatore> values=FXCollections.observableArrayList();
         RicercaOsservatoriNeo4jDataAccess.cercaOsservatoriSeguiti(ScreenController.getUtente().getEmail()).forEach((info) -> {
             values.add(info);
         });
-        
         tabellaCalciatori.setItems(values);
-        autoResizeColumns(tabellaCalciatori); 
+        //autoResizeColumns(tabellaCalciatori); 
         
     }
     void scegliNome(String newValue) {

@@ -13,7 +13,7 @@ import javafx.beans.property.StringProperty;
  * @author berto
  */
 public class InformazioniOsservatore {
-    private StringProperty idOsservatore;
+    private Long idOsservatore;
     private StringProperty nome;
     private StringProperty cognome;
     private StringProperty squadra;
@@ -21,12 +21,12 @@ public class InformazioniOsservatore {
     private Boolean seguito;
     
     public InformazioniOsservatore() {
-        this(new SimpleStringProperty(),new SimpleStringProperty(),new SimpleStringProperty(),
+        this(new SimpleStringProperty(),new SimpleStringProperty(),
                 new SimpleStringProperty(),new SimpleStringProperty());
     }
 
-    public InformazioniOsservatore(StringProperty idOsservatore, StringProperty nome, StringProperty cognome, StringProperty squadra, StringProperty calciatori) {
-        this.idOsservatore = idOsservatore;
+    public InformazioniOsservatore(StringProperty nome, StringProperty cognome, StringProperty squadra, StringProperty calciatori) {
+        
         this.nome = nome;
         this.cognome = cognome;
         this.squadra = squadra;
@@ -35,16 +35,12 @@ public class InformazioniOsservatore {
     
     
 
-    public String getIdOsservatore() {
-        return idOsservatore.get();
+    public Long getIdOsservatore() {
+        return idOsservatore;
     }
 
-    public void setIdOsservatore(String idOsservatore) {
-        this.idOsservatore.set(idOsservatore);
-    }
-    
-    public StringProperty idOsservatoreProperty(){
-        return idOsservatore;
+    public void setIdOsservatore(Long idOsservatore) {
+        this.idOsservatore=idOsservatore;
     }
 
     public String getNome() {
