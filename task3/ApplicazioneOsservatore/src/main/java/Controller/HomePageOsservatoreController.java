@@ -42,7 +42,7 @@ public class HomePageOsservatoreController extends GeneralController{
             ScreenController.showPage("nessunaSocieta");
             return;
         }
-        ScreenController.showPage("calciatori_seguiti");
+        ScreenController.showPage("CalciatoriSeguiti");
     } 
     
     @FXML 
