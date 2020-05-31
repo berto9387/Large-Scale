@@ -112,8 +112,47 @@ public class RicercaGiocatoriNeo4jDataAccess {
          return calciatoriSeguiti;
      }
 
-    public static List<InformazioniRicercaCalciatore> ricercaCalciatori() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static List<InformazioniRicercaCalciatore> ricercaCalciatori(String nomeCalciatore, String squadraCalciatore) {
+        
+        try(Session session=driver.session())
+        {
+            
+            return session.writeTransaction(new TransactionWork<List>()
+            {
+                @Override
+                public List<InformazioniRicercaCalciatore> execute(Transaction tx)
+                {
+                   return transactionRicercaCalciatori(tx, nomeCalciatore, squadraCalciatore);
+                }
+            }); 
+        }
+        
+    }
+    
+    private static List<InformazioniRicercaCalciatore> transactionRicercaCalciatori(Transaction tx, String nomeCalciatore, String squadraCalciatore)
+    {
+        List<InformazioniRicercaCalciatore> calciatoriCercati = new ArrayList<>();
+        
+        HashMap<String,Object> parameters =new HashMap<>();
+        parameters.put("nome", nomeCalciatore);
+        parameters.put("squadra", nomeCalciatore);
+        
+        StatementResult result=tx.run("MATCH (c:Calciatore) WHERE c.nome=$nome AND c.squadra=$squadra"
+                 + " RETURN c", parameters);
+        while(result.hasNext())
+        {
+            Record record=result.next();
+            List<Pair<String,Value>> values = record.fields();
+            
+            InformazioniRicercaCalciatore calciatoreRicercato=new InformazioniRicercaCalciatore();
+            for (Pair<String,Value> nameValue: values)
+            {
+                
+            }
+            
+        }
+        
+        return calciatoriCercati;
     }
     
 }

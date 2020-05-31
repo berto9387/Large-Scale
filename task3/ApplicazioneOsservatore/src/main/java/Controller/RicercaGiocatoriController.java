@@ -10,9 +10,12 @@ import Model.InformazioniRicercaCalciatore;
 import Model.InformazioniRicercaCalciatoreSeguito;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -27,7 +30,8 @@ import javafx.util.Callback;
  * @author Gianluca
  */
 public class RicercaGiocatoriController extends GeneralController{
-     @FXML
+    
+    @FXML
     private Text scegliNomeTesto;
 
     @FXML
@@ -38,6 +42,15 @@ public class RicercaGiocatoriController extends GeneralController{
 
     @FXML
     private JFXTextField squadraInput;
+
+    @FXML
+    private Text scegliPosizioneTesto;
+
+    @FXML
+    private JFXTextField posizioneInput;
+    
+    @FXML
+    private Text errorCercaCalciatore;
 
     @FXML
     private TableView<InformazioniRicercaCalciatore> tabellaCalciatori;
@@ -70,11 +83,45 @@ public class RicercaGiocatoriController extends GeneralController{
     private TableColumn<InformazioniRicercaCalciatoreSeguito, Void> seguiColumn;
     Callback<TableColumn<InformazioniRicercaCalciatoreSeguito, Void>, TableCell<InformazioniRicercaCalciatoreSeguito, Void>> cellFactory;
 
+    
+    void scegliNome(String newValue) {
+        if(newValue.isEmpty())
+            scegliNomeTesto.setVisible(false);
+        else{
+            scegliNomeTesto.setVisible(true);
+        }
+    }
+    
+    void scegliSquadra(String newValue) {
+        if(newValue.isEmpty())
+            scegliSquadraTesto.setVisible(false);
+        else{
+            scegliSquadraTesto.setVisible(true);
+        }
+    }
+    
+    void scegliPosizione(String newValue) {
+        if(newValue.isEmpty())
+            scegliPosizioneTesto.setVisible(false);
+        else{
+            scegliPosizioneTesto.setVisible(true);
+        }
+    }
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        nomeInput.textProperty().addListener((Observable, oldValue, newValue) -> {
+            scegliNome(newValue);
+        });
+        squadraInput.textProperty().addListener((Observable, oldValue, newValue) -> {
+            scegliSquadra(newValue);
+        });
+        posizioneInput.textProperty().addListener((Observable, oldValue, newValue) -> {
+            scegliPosizione(newValue);
+        });
+        
         fotoColumn.setPrefWidth(150);
         fotoColumn.setCellValueFactory(new PropertyValueFactory<>("image"));
         nomeColumn.setCellValueFactory(cellData->cellData.getValue().nomeProperty());
@@ -87,13 +134,55 @@ public class RicercaGiocatoriController extends GeneralController{
         
     }
     
-    private void caricaDati() {
-        ObservableList<InformazioniRicercaCalciatore> values=FXCollections.observableArrayList();
-        RicercaGiocatoriNeo4jDataAccess.ricercaCalciatori().forEach((info) -> {
-            values.add(info);
-        });
+    @FXML
+    void cercaBandiere(ActionEvent event) {
         
-        tabellaCalciatori.setItems(values);
-        autoResizeColumns(tabellaCalciatori); 
-    }    
+    }
+    
+    @FXML
+    void cercaCalciatore(ActionEvent event)
+    {
+        errorCercaCalciatore.setText("");
+        tabellaCalciatori.getItems().clear();
+        if(nomeInput.getText().isEmpty() && squadraInput.getText().isEmpty()){
+            errorCercaCalciatore.setText("Completa almeno uno dei campi!");
+            return;
+        }
+        
+        Task<List<InformazioniRicercaCalciatore>> task = new Task<List<InformazioniRicercaCalciatore>>() {
+
+            @Override
+            protected List<InformazioniRicercaCalciatore> call() throws Exception {
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaCalciatori(nomeInput.getText(),squadraInput.getText());
+
+                return infos;
+            }
+
+        };
+    }
+
+    @FXML
+    void cercaConsigliati(ActionEvent event) {
+
+    }
+
+    @FXML
+    void cercaPerPosizione(ActionEvent event) {
+
+    }
+
+    @FXML
+    void cercaTop(ActionEvent event) {
+
+    }
+    
+//    private void caricaDati() {
+//        ObservableList<InformazioniRicercaCalciatore> values=FXCollections.observableArrayList();
+//        RicercaGiocatoriNeo4jDataAccess.ricercaCalciatori().forEach((info) -> {
+//            values.add(info);
+//        });
+//        
+//        tabellaCalciatori.setItems(values);
+//        autoResizeColumns(tabellaCalciatori); 
+//    }    
 }
