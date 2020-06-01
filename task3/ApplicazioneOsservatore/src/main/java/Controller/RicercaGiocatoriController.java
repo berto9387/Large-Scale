@@ -9,6 +9,7 @@ import Dao.RicercaGiocatoriNeo4jDataAccess;
 import Model.InformazioniRicercaCalciatore;
 import Model.InformazioniRicercaCalciatoreSeguito;
 import com.jfoenix.controls.JFXTextField;
+import it.unipi.task3.applicazioneosservatore.ScreenController;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -215,17 +216,97 @@ public class RicercaGiocatoriController extends GeneralController{
 
     @FXML
     void cercaConsigliati(ActionEvent event) {
+        tabellaCalciatori.getItems().clear();
+        
+        Task<List<InformazioniRicercaCalciatore>> task = new Task<List<InformazioniRicercaCalciatore>>() {
 
+            @Override
+            protected List<InformazioniRicercaCalciatore> call() throws Exception {
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaConsigliati(ScreenController.getUtente().getEmail());
+
+                return infos;
+            }
+
+        };
+        task.setOnSucceeded(evt -> {
+            progressIndicatorContainer.setVisible(false);
+            if(task.getValue().isEmpty()){
+                return;
+            }
+                
+            for(InformazioniRicercaCalciatore info : task.getValue()){
+                values.add(info);
+            }
+            tabellaCalciatori.setItems(values);
+            
+            //autoResizeColumns(tabellaCalciatori);
+        });
+        progressIndicatorContainer.setVisible(true);
+        new Thread(task).start();
     }
 
     @FXML
     void cercaPerPosizione(ActionEvent event) {
+        tabellaCalciatori.getItems().clear();
+        if(posizioneInput.getText().isEmpty()){
+            return;
+        }
+        Task<List<InformazioniRicercaCalciatore>> task = new Task<List<InformazioniRicercaCalciatore>>() {
 
+            @Override
+            protected List<InformazioniRicercaCalciatore> call() throws Exception {
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaPosizione(posizioneInput.getText());
+
+                return infos;
+            }
+
+        };
+        task.setOnSucceeded(evt -> {
+            progressIndicatorContainer.setVisible(false);
+            if(task.getValue().isEmpty()){
+                return;
+            }
+                
+            for(InformazioniRicercaCalciatore info : task.getValue()){
+                values.add(info);
+            }
+            tabellaCalciatori.setItems(values);
+            
+            //autoResizeColumns(tabellaCalciatori);
+        });
+        progressIndicatorContainer.setVisible(true);
+        new Thread(task).start();
     }
 
     @FXML
     void cercaTop(ActionEvent event) {
+        tabellaCalciatori.getItems().clear();
+        
+        Task<List<InformazioniRicercaCalciatore>> task = new Task<List<InformazioniRicercaCalciatore>>() {
 
+            @Override
+            protected List<InformazioniRicercaCalciatore> call() throws Exception {
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaTop();
+
+                return infos;
+            }
+
+        };
+        task.setOnSucceeded(evt -> {
+            progressIndicatorContainer.setVisible(false);
+            if(task.getValue().isEmpty()){
+                return;
+            }
+                
+            for(InformazioniRicercaCalciatore info : task.getValue()){
+                values.add(info);
+            }
+            tabellaCalciatori.setItems(values);
+            
+            //autoResizeColumns(tabellaCalciatori);
+        });
+        progressIndicatorContainer.setVisible(true);
+        new Thread(task).start();
     }
     
 //    private void caricaDati() {

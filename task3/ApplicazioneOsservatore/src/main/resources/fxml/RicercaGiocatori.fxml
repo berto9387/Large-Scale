@@ -152,7 +152,7 @@
                                     <VBox prefHeight="200.0" prefWidth="100.0">
                                        <children>
                                           <Text fx:id="scegliPosizioneTesto" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white; -fx-font-family: Roboto; -fx-font-size: 16px;" text="Posizione" visible="false" wrappingWidth="117.2421875" />
-                                          <JFXTextField fx:id="posizioneInput" alignment="CENTER" focusColor="ORANGE" prefHeight="48.0" prefWidth="97.0" promptText="Posizione" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" text="Posizione" unFocusColor="WHITE">
+                                          <JFXTextField fx:id="posizioneInput" alignment="CENTER" focusColor="ORANGE" prefHeight="48.0" prefWidth="97.0" promptText="Posizione" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" unFocusColor="WHITE">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>

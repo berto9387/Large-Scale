@@ -236,8 +236,9 @@ public class RicercaGiocatoriNeo4jDataAccess {
          HashMap<String,Object> parameters =new HashMap<>();
          parameters.put("targetDate", targetDate);
          StatementResult result=tx.run("match (e:Ruolo)<-[:POsizione]-(c:Calciatore)-[r:GIOCA]->(s:Societa)"
-                 + " where toInt(c.dataNascita)<=$targetDate"
                  + " OPTIONAL MATCH (c:Calciatore)<-[i:INTERESSATO]-() "
+                 + " with e,c,s,i,count(r) as cnt"
+                 + " where toInt(c.dataNascita)<=$targetDate and cnt>10"
                  + " return c, count(distinct s.nomeSocieta) as numeroSquadre,collect(e)[..1] as ruoloPrincipale,"
                  + " COUNT(DISTINCT i) AS seguitoDa"
                  + " order by numeroSquadre ASC limit 10 ",parameters);
@@ -275,6 +276,192 @@ public class RicercaGiocatoriNeo4jDataAccess {
                     calciatoreRicercato.setRuoloPrincipale(value.get(0).get("ruolo").asString());
                 }
             }
+            calciatoriCercati.add(calciatoreRicercato);
+        }
+        
+        return calciatoriCercati;
+     }
+
+    public static List<InformazioniRicercaCalciatore> ricercaTop() {
+        try(Session session=driver.session())
+        {
+            
+            return session.writeTransaction(new TransactionWork<List>()
+            {
+                @Override
+                public List<InformazioniRicercaCalciatore> execute(Transaction tx)
+                {
+                   return transactionRicercaTop(tx);
+                }
+            }); 
+        }
+    }
+    private static List<InformazioniRicercaCalciatore> transactionRicercaTop(Transaction tx)
+     {
+         List<InformazioniRicercaCalciatore> calciatoriCercati = new ArrayList<>();
+         StatementResult result=tx.run("match (e:Ruolo)<-[:POsizione]-(c:Calciatore)"
+                 + " OPTIONAL MATCH (c:Calciatore)<-[i:INTERESSATO]-() "
+                 + " return c,collect(e)[..1] as ruoloPrincipale,COUNT(DISTINCT i) AS seguitoDa"
+                 + " order by seguitoDa DESC limit 20 ");
+         while(result.hasNext())
+         {
+             Record record=result.next();
+            List<Pair<String,Value>> values = record.fields();
+            
+            InformazioniRicercaCalciatore calciatoreRicercato=new InformazioniRicercaCalciatore();
+            for (Pair<String,Value> nameValue: values)
+            {
+                if("c".equals(nameValue.key()))
+                {
+                    Value value = nameValue.value();
+                    calciatoreRicercato.setIdCalciatore(value.get("id").asString());
+                    Date dataNascita =  new Date(Long.valueOf(value.get("dataNascita").asString()));
+                    LocalDateTime ldt=LocalDateTime.ofInstant(dataNascita.toInstant(),
+                      ZoneId.systemDefault());
+                    calciatoreRicercato.setEta(ldt);
+                    calciatoreRicercato.setNome(value.get("nome").asString());
+                    calciatoreRicercato.setSquadra(value.get("squadra").asString());
+                    calciatoreRicercato.setNazionalita(value.get("nazionalita").asString());
+                    calciatoreRicercato.setValoreMercato(Integer.parseInt(value.get("valoreAttuale").asString()));
+                    ImageView fotoCalciatore = new ImageView(new Image(value.get("linkFoto").asString()));
+                    calciatoreRicercato.setImage(fotoCalciatore);
+                }
+                if("seguitoDa".equals(nameValue.key()))
+                {
+                    Value value = nameValue.value();
+                    calciatoreRicercato.setSeguitoDa(Integer.parseInt(value.toString()));
+                }
+                if("ruoloPrincipale".equals(nameValue.key()))
+                {
+                    Value value = nameValue.value(); 
+                    calciatoreRicercato.setRuoloPrincipale(value.get(0).get("ruolo").asString());
+                }
+            }
+            calciatoriCercati.add(calciatoreRicercato);
+        }
+        
+        return calciatoriCercati;
+     }
+
+    public static List<InformazioniRicercaCalciatore> ricercaConsigliati(String email) {
+        try(Session session=driver.session())
+        {
+            
+            return session.writeTransaction(new TransactionWork<List>()
+            {
+                @Override
+                public List<InformazioniRicercaCalciatore> execute(Transaction tx)
+                {
+                   return transactionRicercaConsigliati(tx,email);
+                }
+            }); 
+        }
+    }
+    private static List<InformazioniRicercaCalciatore> transactionRicercaConsigliati(Transaction tx,String email)
+     {
+         List<InformazioniRicercaCalciatore> calciatoriCercati = new ArrayList<>();
+         HashMap<String,Object> parameters =new HashMap<>();
+         parameters.put("email", email);
+         StatementResult result=tx.run("match (e:Ruolo)<-[:POsizione]-(c:Calciatore)<-[i:INTERESSATO]-(:Utente)<-[:SEGUE]-(os:Utente)"
+                 + " where os.email=$email "
+                 + " return c,collect(e)[..1] as ruoloPrincipale,COUNT(DISTINCT i) AS seguitoDa"
+                 + " order by seguitoDa DESC limit 20 ",parameters);
+         while(result.hasNext())
+         {
+             Record record=result.next();
+            List<Pair<String,Value>> values = record.fields();
+            
+            InformazioniRicercaCalciatore calciatoreRicercato=new InformazioniRicercaCalciatore();
+            for (Pair<String,Value> nameValue: values)
+            {
+                if("c".equals(nameValue.key()))
+                {
+                    Value value = nameValue.value();
+                    calciatoreRicercato.setIdCalciatore(value.get("id").asString());
+                    Date dataNascita =  new Date(Long.valueOf(value.get("dataNascita").asString()));
+                    LocalDateTime ldt=LocalDateTime.ofInstant(dataNascita.toInstant(),
+                      ZoneId.systemDefault());
+                    calciatoreRicercato.setEta(ldt);
+                    calciatoreRicercato.setNome(value.get("nome").asString());
+                    calciatoreRicercato.setSquadra(value.get("squadra").asString());
+                    calciatoreRicercato.setNazionalita(value.get("nazionalita").asString());
+                    calciatoreRicercato.setValoreMercato(Integer.parseInt(value.get("valoreAttuale").asString()));
+                    ImageView fotoCalciatore = new ImageView(new Image(value.get("linkFoto").asString()));
+                    calciatoreRicercato.setImage(fotoCalciatore);
+                }
+                if("seguitoDa".equals(nameValue.key()))
+                {
+                    Value value = nameValue.value();
+                    calciatoreRicercato.setSeguitoDa(Integer.parseInt(value.toString()));
+                }
+                if("ruoloPrincipale".equals(nameValue.key()))
+                {
+                    Value value = nameValue.value(); 
+                    calciatoreRicercato.setRuoloPrincipale(value.get(0).get("ruolo").asString());
+                }
+            }
+            calciatoriCercati.add(calciatoreRicercato);
+        }
+        
+        return calciatoriCercati;
+     }
+
+    public static List<InformazioniRicercaCalciatore> ricercaPosizione(String posizione) {
+        try(Session session=driver.session())
+        {
+            
+            return session.writeTransaction(new TransactionWork<List>()
+            {
+                @Override
+                public List<InformazioniRicercaCalciatore> execute(Transaction tx)
+                {
+                   return transactionRicercaPosizione(tx,posizione);
+                }
+            }); 
+        }
+    }
+    private static List<InformazioniRicercaCalciatore> transactionRicercaPosizione(Transaction tx,String posizione)
+     {
+         List<InformazioniRicercaCalciatore> calciatoriCercati = new ArrayList<>();
+         HashMap<String,Object> parameters =new HashMap<>();
+         parameters.put("posizione", posizione);
+         StatementResult result=tx.run("match (e:Ruolo)<-[:POsizione]-(c:Calciatore)"
+                 + " OPTIONAL MATCH (c:Calciatore)<-[i:INTERESSATO]-() "
+                 + " where e.ruolo=$posizione"
+                 + " return c,COUNT(DISTINCT i) AS seguitoDa"
+                 + " order by seguitoDa DESC limit 20 ",parameters);
+         while(result.hasNext())
+         {
+             Record record=result.next();
+            List<Pair<String,Value>> values = record.fields();
+            
+            InformazioniRicercaCalciatore calciatoreRicercato=new InformazioniRicercaCalciatore();
+            for (Pair<String,Value> nameValue: values)
+            {
+                if("c".equals(nameValue.key()))
+                {
+                    Value value = nameValue.value();
+                    calciatoreRicercato.setIdCalciatore(value.get("id").asString());
+                    Date dataNascita =  new Date(Long.valueOf(value.get("dataNascita").asString()));
+                    LocalDateTime ldt=LocalDateTime.ofInstant(dataNascita.toInstant(),
+                      ZoneId.systemDefault());
+                    calciatoreRicercato.setEta(ldt);
+                    calciatoreRicercato.setNome(value.get("nome").asString());
+                    calciatoreRicercato.setSquadra(value.get("squadra").asString());
+                    calciatoreRicercato.setNazionalita(value.get("nazionalita").asString());
+                    calciatoreRicercato.setValoreMercato(Integer.parseInt(value.get("valoreAttuale").asString()));
+                    ImageView fotoCalciatore = new ImageView(new Image(value.get("linkFoto").asString()));
+                    calciatoreRicercato.setImage(fotoCalciatore);
+                    calciatoreRicercato.setRuoloPrincipale(posizione);
+                }
+                if("seguitoDa".equals(nameValue.key()))
+                {
+                    Value value = nameValue.value();
+                    calciatoreRicercato.setSeguitoDa(Integer.parseInt(value.toString()));
+                }
+                
+            }
+            
             calciatoriCercati.add(calciatoreRicercato);
         }
         
