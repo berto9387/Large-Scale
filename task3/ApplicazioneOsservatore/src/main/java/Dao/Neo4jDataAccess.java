@@ -20,7 +20,7 @@ public class Neo4jDataAccess {
     protected static Driver driver;
     protected static String uri="bolt://localhost:7687";
     protected static String user="neo4j";
-    protected static String password="admin";
+    protected static String password="mercato";
     public static void InizializzaDriver()
     {
         driver=GraphDatabase.driver(uri, AuthTokens.basic(user,password));
