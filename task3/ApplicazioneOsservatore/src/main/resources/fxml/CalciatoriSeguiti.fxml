@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="707.0" prefWidth="1056.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CalciatoriSeguitiController">
+<AnchorPane id="AnchorPane" prefHeight="707.0" prefWidth="1056.0" styleClass="mainFxmlClass" stylesheets="@../styles/ricercacalciatori.css;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CalciatoriSeguitiController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -27,7 +27,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" VBox.vgrow="ALWAYS">
                <children>
-                  <TableView fx:id="listaInteresseTabella" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../../../../../../../../../../../Documents/NetBeansProjects/Large-Scale/task2/markapp/src/main/resources/styles/tableview.css" HBox.hgrow="ALWAYS">
+                  <TableView fx:id="listaInteresseTabella" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/tableview.css" HBox.hgrow="ALWAYS">
                      <columns>
                         <TableColumn fx:id="fotoColumn" prefWidth="75.0" />
                         <TableColumn fx:id="nomeColumn" prefWidth="75.0" text="Nome" />

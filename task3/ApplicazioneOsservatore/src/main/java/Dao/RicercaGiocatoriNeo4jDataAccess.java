@@ -50,7 +50,6 @@ public class RicercaGiocatoriNeo4jDataAccess {
     private static int transactionRimuoviCalciatoreSeguito(Transaction tx,String idCalciatore){
         HashMap<String,Object> parameters =new HashMap<>();
         parameters.put("idCalciatore", idCalciatore);
-        System.out.println("<<<<<<<<<<<<<<>>>>>>>>>idCalciatore= " + idCalciatore);
         parameters.put("email", ScreenController.getUtente().getEmail());
         StatementResult result=tx.run("MATCH(a:Utente)-[i:INTERESSATO]->(c:Calciatore) WHERE a.email=$email and c.id=$idCalciatore"+
                  " DELETE i",parameters);
@@ -114,7 +113,7 @@ public class RicercaGiocatoriNeo4jDataAccess {
          return calciatoriSeguiti;
      }
 
-    public static List<InformazioniRicercaCalciatore> ricercaCalciatori(final String nomeCalciatore,final String squadraCalciatore) {
+    public static List<InformazioniRicercaCalciatore> ricercaCalciatori(final String nomeCalciatore,final String squadraCalciatore, final String email) {
         
         try(Session session=driver.session())
         {
@@ -124,18 +123,20 @@ public class RicercaGiocatoriNeo4jDataAccess {
                 @Override
                 public List<InformazioniRicercaCalciatore> execute(Transaction tx)
                 {
-                   return transactionRicercaCalciatori(tx, nomeCalciatore, squadraCalciatore);
+                   return transactionRicercaCalciatori(tx, nomeCalciatore, squadraCalciatore, email);
                 }
             }); 
         }
         
     }
     
-    private static List<InformazioniRicercaCalciatore> transactionRicercaCalciatori(Transaction tx, String nomeCalciatore, String squadraCalciatore)
+    private static List<InformazioniRicercaCalciatore> transactionRicercaCalciatori(Transaction tx, String nomeCalciatore, String squadraCalciatore, String email)
     {
         List<InformazioniRicercaCalciatore> calciatoriCercati = new ArrayList<>();
         
         HashMap<String,Object> parameters =new HashMap<>();
+        
+        parameters.put("email", email);
         if(!nomeCalciatore.equals(""))
             parameters.put("nome", nomeCalciatore);
         if(!squadraCalciatore.equals(""))
@@ -148,7 +149,7 @@ public class RicercaGiocatoriNeo4jDataAccess {
         {
             System.out.println("<<<>>nome = '' ");
             result=tx.run("MATCH (c:Calciatore)-[:POsizione]->(r:Ruolo) "
-                    + " WHERE c.squadra=$squadra"
+                    + " WHERE c.squadra=$squadra AND NOT ((c:Calciatore)<-[:INTERESSATO]-(:Utente{email:$email}))"
                     + " OPTIONAL MATCH (c:Calciatore)<-[i:INTERESSATO]-() "
                     + " RETURN c, COUNT(DISTINCT i) AS seguitoDa,collect(r)[..1] as ruoloPrincipale"
                     + " ORDER BY seguitoDa DESC ", parameters);
@@ -157,7 +158,7 @@ public class RicercaGiocatoriNeo4jDataAccess {
         {
             System.out.println("<<<>>SQUADRA = '' ");
             result=tx.run("MATCH (c:Calciatore)-[:POsizione]->(r:Ruolo) "
-                    + " WHERE c.nome=$nome"
+                    + " WHERE c.nome=$nome AND NOT ((c:Calciatore)<-[:INTERESSATO]-(:Utente{email:$email}))"
                     + " OPTIONAL MATCH (c:Calciatore)<-[i:INTERESSATO]-() "
                     + " RETURN c, COUNT(DISTINCT i) AS seguitoDa,collect(r)[..1] as ruoloPrincipale"
                     + " ORDER BY seguitoDa DESC ", parameters);
@@ -167,6 +168,7 @@ public class RicercaGiocatoriNeo4jDataAccess {
             System.out.println("<<<>> nome SQUADRA = '', nome calciatore = '' " + squadraCalciatore);
             result=tx.run("MATCH (c:Calciatore)-[:POsizione]->(r:Ruolo) "
                     + " WHERE c.nome=$nome AND c.squadra=$squadra"
+                    + " AND NOT ((c:Calciatore)<-[:INTERESSATO]-(:Utente{email:$email}))"
                     + " OPTIONAL MATCH (c:Calciatore)<-[i:INTERESSATO]-() "
                     + " RETURN c, COUNT(DISTINCT i) AS seguitoDa,collect(r)[..1] as ruoloPrincipale"
                     + " ORDER BY seguitoDa DESC ", parameters);
@@ -212,7 +214,7 @@ public class RicercaGiocatoriNeo4jDataAccess {
         return calciatoriCercati;
     }
 
-    public static List<InformazioniRicercaCalciatore> ricercaBandiere() {
+    public static List<InformazioniRicercaCalciatore> ricercaBandiere(String email) {
         try(Session session=driver.session())
         {
             
@@ -221,12 +223,12 @@ public class RicercaGiocatoriNeo4jDataAccess {
                 @Override
                 public List<InformazioniRicercaCalciatore> execute(Transaction tx)
                 {
-                   return transactionRicercaBandiere(tx);
+                   return transactionRicercaBandiere(tx, email);
                 }
             }); 
         }
     }
-    private static List<InformazioniRicercaCalciatore> transactionRicercaBandiere(Transaction tx)
+    private static List<InformazioniRicercaCalciatore> transactionRicercaBandiere(Transaction tx, String email)
      {
          List<InformazioniRicercaCalciatore> calciatoriCercati = new ArrayList<>();
          Calendar calendar  = Calendar.getInstance();
@@ -234,11 +236,13 @@ public class RicercaGiocatoriNeo4jDataAccess {
          Long targetDate = calendar.getTime().getTime();
         
          HashMap<String,Object> parameters =new HashMap<>();
+         parameters.put("email", email);
          parameters.put("targetDate", targetDate);
          StatementResult result=tx.run("match (e:Ruolo)<-[:POsizione]-(c:Calciatore)-[r:GIOCA]->(s:Societa)"
                  + " OPTIONAL MATCH (c:Calciatore)<-[i:INTERESSATO]-() "
                  + " with e,c,s,i,count(r) as cnt"
                  + " where toInt(c.dataNascita)<=$targetDate and cnt>10"
+                 + " AND NOT ((c:Calciatore)<-[:INTERESSATO]-(:Utente{email:$email}))"
                  + " return c, count(distinct s.nomeSocieta) as numeroSquadre,collect(e)[..1] as ruoloPrincipale,"
                  + " COUNT(DISTINCT i) AS seguitoDa"
                  + " order by numeroSquadre ASC limit 10 ",parameters);
@@ -282,7 +286,7 @@ public class RicercaGiocatoriNeo4jDataAccess {
         return calciatoriCercati;
      }
 
-    public static List<InformazioniRicercaCalciatore> ricercaTop() {
+    public static List<InformazioniRicercaCalciatore> ricercaTop(String email) {
         try(Session session=driver.session())
         {
             
@@ -291,18 +295,21 @@ public class RicercaGiocatoriNeo4jDataAccess {
                 @Override
                 public List<InformazioniRicercaCalciatore> execute(Transaction tx)
                 {
-                   return transactionRicercaTop(tx);
+                   return transactionRicercaTop(tx, email);
                 }
             }); 
         }
     }
-    private static List<InformazioniRicercaCalciatore> transactionRicercaTop(Transaction tx)
+    private static List<InformazioniRicercaCalciatore> transactionRicercaTop(Transaction tx, String email)
      {
          List<InformazioniRicercaCalciatore> calciatoriCercati = new ArrayList<>();
-         StatementResult result=tx.run("match (e:Ruolo)<-[:POsizione]-(c:Calciatore)"
-                 + " OPTIONAL MATCH (c:Calciatore)<-[i:INTERESSATO]-() "
+         
+         HashMap<String,Object> parameters =new HashMap<>();
+         parameters.put("email", email);
+         StatementResult result=tx.run("match (e:Ruolo)<-[:POsizione]-(c:Calciatore)<-[i:INTERESSATO]-(o:Utente)"
+                 + " WHERE NOT ((c:Calciatore)<-[:INTERESSATO]-(:Utente{email:$email}))"
                  + " return c,collect(e)[..1] as ruoloPrincipale,COUNT(DISTINCT i) AS seguitoDa"
-                 + " order by seguitoDa DESC limit 20 ");
+                 + " order by seguitoDa DESC limit 20 ", parameters);
          while(result.hasNext())
          {
              Record record=result.next();
@@ -363,7 +370,7 @@ public class RicercaGiocatoriNeo4jDataAccess {
          HashMap<String,Object> parameters =new HashMap<>();
          parameters.put("email", email);
          StatementResult result=tx.run("match (e:Ruolo)<-[:POsizione]-(c:Calciatore)<-[i:INTERESSATO]-(:Utente)<-[:SEGUE]-(os:Utente)"
-                 + " where os.email=$email "
+                 + " where os.email=$email AND NOT ((c:Calciatore)<-[:INTERESSATO]-(:Utente{email:$email}))"
                  + " return c,collect(e)[..1] as ruoloPrincipale,COUNT(DISTINCT i) AS seguitoDa"
                  + " order by seguitoDa DESC limit 20 ",parameters);
          while(result.hasNext())
@@ -467,5 +474,33 @@ public class RicercaGiocatoriNeo4jDataAccess {
         
         return calciatoriCercati;
      }
+
+    public static int follow(String email, String idCalciatore) {
+        try(Session session=driver.session())
+        {
+            
+            return session.writeTransaction(new TransactionWork<Integer>()
+            {
+                @Override
+                public Integer execute(Transaction tx)
+                {
+                   return transactionFollowCalciatore(tx,email, idCalciatore);
+                }
+            }); 
+        }
+    }
     
+    private static int transactionFollowCalciatore(Transaction tx,String email,  String idCalciatore)
+    {
+        HashMap<String,Object> parameters =new HashMap<>();
+        parameters.put("idCalciatore", idCalciatore);
+        parameters.put("email", ScreenController.getUtente().getEmail());
+        
+            StatementResult result=tx.run("MATCH(o:Utente),(c:Calciatore) "
+                                        + " WHERE o.email=$email and c.id=$idCalciatore"
+                                        + " MERGE (o)-[i:INTERESSATO]->(c)", parameters);
+        
+
+        return 0;
+    }
 }

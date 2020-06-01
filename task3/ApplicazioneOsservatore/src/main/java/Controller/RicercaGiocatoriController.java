@@ -6,23 +6,22 @@
 package Controller;
 
 import Dao.RicercaGiocatoriNeo4jDataAccess;
+import Dao.RicercaOsservatoriNeo4jDataAccess;
 import Model.InformazioniRicercaCalciatore;
-import Model.InformazioniRicercaCalciatoreSeguito;
 import com.jfoenix.controls.JFXTextField;
 import it.unipi.task3.applicazioneosservatore.ScreenController;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -91,8 +90,45 @@ public class RicercaGiocatoriController extends GeneralController{
     private TableColumn<InformazioniRicercaCalciatore, Integer> seguitoDaColumn;
 
     @FXML
-    private TableColumn<InformazioniRicercaCalciatoreSeguito, Void> seguiColumn;
-    //Callback<TableColumn<InformazioniRicercaCalciatoreSeguito, Void>, TableCell<InformazioniRicercaCalciatoreSeguito, Void>> cellFactory;
+    private TableColumn<InformazioniRicercaCalciatore, Void> seguiColumn;
+    Callback<TableColumn<InformazioniRicercaCalciatore, Void>, TableCell<InformazioniRicercaCalciatore, Void>> cellFactory = (final TableColumn<InformazioniRicercaCalciatore, Void> param) -> {
+        final TableCell<InformazioniRicercaCalciatore, Void> cell = new TableCell<InformazioniRicercaCalciatore, Void>() {
+            
+            Button btn = new Button();          
+            
+            {
+                    btn.getStyleClass().add("bottoneElimina");
+                    Image image = new Image("/img/follow.png");
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitWidth(50);
+                    imageView.setFitHeight(50);
+                    
+                    btn.setGraphic(imageView);
+                    btn.setOnAction((ActionEvent event) -> {   
+                        InformazioniRicercaCalciatore data = getTableView().getItems().get(getIndex());
+                        int er;
+                        er=RicercaGiocatoriNeo4jDataAccess.follow(ScreenController.getUtente().getEmail(),data.getIdCalciatore());
+                        if(er==0){
+                            getTableView().getItems().remove(getIndex());
+                            getTableView().refresh();
+                        }
+                    });
+                
+                
+            }            
+            @Override
+            public void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (!empty) {
+                    
+                    setGraphic(btn);                    
+                } else {
+                    setGraphic(null);
+                }
+            }
+        };
+        return cell;
+        };
 
     void scegliNome(String newValue) {
         if(newValue.isEmpty())
@@ -141,7 +177,7 @@ public class RicercaGiocatoriController extends GeneralController{
         seguitoDaColumn.setCellValueFactory(cellData->cellData.getValue().seguitoDaProperty().asObject());
         nazionalitaColumn.setCellValueFactory(cellData->cellData.getValue().nazionalitaProperty());
         valoreMercatoColumn.setCellValueFactory(cellData->cellData.getValue().valoreMercatoProperty().asObject());
-        //seguiColumn.setCellFactory(cellFactory);
+        seguiColumn.setCellFactory(cellFactory);
         
     }
     
@@ -153,7 +189,7 @@ public class RicercaGiocatoriController extends GeneralController{
 
             @Override
             protected List<InformazioniRicercaCalciatore> call() throws Exception {
-                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaBandiere();
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaBandiere(ScreenController.getUtente().getEmail());
 
                 return infos;
             }
@@ -190,7 +226,7 @@ public class RicercaGiocatoriController extends GeneralController{
 
             @Override
             protected List<InformazioniRicercaCalciatore> call() throws Exception {
-                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaCalciatori(nomeInput.getText(),squadraInput.getText());
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaCalciatori(nomeInput.getText(),squadraInput.getText(), ScreenController.getUtente().getEmail());
 
                 return infos;
             }
@@ -286,7 +322,7 @@ public class RicercaGiocatoriController extends GeneralController{
 
             @Override
             protected List<InformazioniRicercaCalciatore> call() throws Exception {
-                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaTop();
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaTop(ScreenController.getUtente().getEmail());
 
                 return infos;
             }

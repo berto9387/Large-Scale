@@ -182,14 +182,14 @@
                         <TableView fx:id="tabellaCalciatori" prefHeight="473.0" prefWidth="1119.0" stylesheets="@../styles/tableview.css" HBox.hgrow="ALWAYS">
                            <columns>
                               <TableColumn fx:id="fotoColumn" prefWidth="75.0" />
-                              <TableColumn fx:id="nomeColumn" prefWidth="75.0" text="Nome" />
+                              <TableColumn fx:id="nomeColumn" minWidth="200.0" prefWidth="75.0" text="Nome" />
                               <TableColumn fx:id="posizioneColumn" prefWidth="117.0" text="Posizione" />
-                              <TableColumn fx:id="squadraColumn" prefWidth="126.0" text="Squadra" />
+                              <TableColumn fx:id="squadraColumn" minWidth="200.0" prefWidth="126.0" text="Squadra" />
                               <TableColumn fx:id="etaColumn" minWidth="9.0" prefWidth="75.0" text="Età" />
                               <TableColumn fx:id="valoreMercatoColumn" prefWidth="121.0" text="Valore Mercato" />
                               <TableColumn fx:id="nazionalitaColumn" prefWidth="107.0" text="Nazionalità" />
                               <TableColumn fx:id="seguitoDaColumn" prefWidth="91.0" text="Seguito da" />
-                              <TableColumn fx:id="seguiColumn" minWidth="0.0" prefWidth="0.0" />
+                              <TableColumn fx:id="seguiColumn" minWidth="100.0" prefWidth="110.0" />
                            </columns>
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
