@@ -127,6 +127,29 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10px;">
                            <children>
+                              <Button mnemonicParsing="false" onAction="#consigliami" prefHeight="33.0" prefWidth="151.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-text-fill: white; -fx-font-family: Roboto; -fx-font-weight: bold; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 2px;" text="Consigliami" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Text fx:id="errorConsigliami" fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="err_label" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox layoutX="490.0" layoutY="10.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10px;">
+                           <children>
                               <Button mnemonicParsing="false" onAction="#cercaOsservatoreSeguito" prefHeight="33.0" prefWidth="151.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-text-fill: white; -fx-font-family: Roboto; -fx-font-weight: bold; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 2px;" text="Osservatori seguiti" />
                            </children>
                            <padding>
@@ -135,10 +158,16 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Text fx:id="errorCercaOsservatoreSeguiti" fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="err_label" />
+                              <Text fx:id="errorCercaOsservatoreSeguiti1" fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="err_label" />
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
                         </HBox>
                      </children>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
                   </VBox>
                </children>
             </HBox>

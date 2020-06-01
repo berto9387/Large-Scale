@@ -59,6 +59,8 @@ public class OsservatoriSeguitiController extends GeneralController{
     @FXML
     private TableColumn<InformazioniOsservatore, String> calciatoriColumn;
 
+    @FXML
+    private Text errorConsigliami;
     
     @FXML
     private TableColumn<InformazioniOsservatore, Void> eliminaColumn;
@@ -150,10 +152,40 @@ public class OsservatoriSeguitiController extends GeneralController{
         progressIndicatorContainer.setVisible(true);
         new Thread(task).start();
     }
-    
+     @FXML
+    void consigliami(ActionEvent event) {
+        errorConsigliami.setText("");
+        tabellaCalciatori.getItems().clear();
+        Task<List<InformazioniOsservatore>> task = new Task<List<InformazioniOsservatore>>() {
+
+            @Override
+            protected List<InformazioniOsservatore> call() throws Exception {
+                List<InformazioniOsservatore> infos=RicercaOsservatoriNeo4jDataAccess.cercaConsigli(ScreenController.getUtente().getEmail());
+
+                return infos;
+            }
+
+        };
+        task.setOnSucceeded(evt -> {
+            progressIndicatorContainer.setVisible(false);
+            if(task.getValue().isEmpty()){
+                errorConsigliami.setText("Nessun osservatore trovato");
+                return;
+            }
+                
+            for(InformazioniOsservatore info :task.getValue()){
+                values.add(info);
+            }
+            tabellaCalciatori.setItems(values);
+            
+            //autoResizeColumns(tabellaCalciatori);
+        });
+        progressIndicatorContainer.setVisible(true);
+        new Thread(task).start();
+    }
     @FXML
     void cercaOsservatoreSeguito(ActionEvent event) {
-        errorCercaOsservatoreSeguiti.setText("");
+        //errorCercaOsservatoreSeguiti.setText("");
         tabellaCalciatori.getItems().clear();
         
         RicercaOsservatoriNeo4jDataAccess.cercaOsservatoriSeguiti(ScreenController.getUtente().getEmail()).forEach((info) -> {

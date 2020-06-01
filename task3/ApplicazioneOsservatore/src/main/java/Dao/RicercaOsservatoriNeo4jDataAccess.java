@@ -195,4 +195,41 @@ public class RicercaOsservatoriNeo4jDataAccess {
         }
         return elems;
     }
+
+    public static List<InformazioniOsservatore> cercaConsigli(final String email) {
+        try(Session session=driver.session())
+        {
+            return session.writeTransaction((Transaction tx) -> consigliaOsservatore(tx,email));
+        }
+    }
+
+    private static List<InformazioniOsservatore> consigliaOsservatore(Transaction tx, String email) {
+        List<InformazioniOsservatore> elems=new ArrayList<>();
+        HashMap<String,Object> parameters =new HashMap<>();
+        parameters.put("email",email);      
+        StatementResult result=tx.run("match (os1:Utente)-[:SEGUE]->(os2)-[r:SEGUE]->(os3)-[e:INTERESSATO]->() where os1.email=$email return os3,count(DISTINCT r) as oss, count(DISTINCT e) as cont order by oss DESC",parameters);
+        while(result.hasNext()){
+            Record record=result.next();
+            List<Pair<String,Value>> values = record.fields();
+            InformazioniOsservatore info=new InformazioniOsservatore();
+            for (Pair<String,Value> nameValue: values) {
+                if ("os3".equals(nameValue.key())) { 
+                    Value value = nameValue.value();
+                    info.setIdOsservatore(value.asNode().id());
+                    info.setCognome(value.get("cognome").asString());
+                    info.setNome(value.get("nome").asString());
+                    info.setSeguito(Boolean.TRUE);
+                    Societa societa=SocietaUtente(tx,value.get("email").asString(),Long.toString(info.getIdOsservatore()));
+                    if(societa!=null)
+                        info.setSquadra(societa.getNomeSocieta());                    
+                }
+                if("cont".equals(nameValue.key())){
+                   Value value = nameValue.value(); 
+                   info.setCalciatoriSeguiti(value.toString());
+                }
+            }
+            elems.add(info);
+        }
+        return elems;
+    }
 }
