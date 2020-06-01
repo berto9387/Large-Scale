@@ -91,7 +91,7 @@ public class RicercaGiocatoriController extends GeneralController{
 
     @FXML
     private TableColumn<InformazioniRicercaCalciatoreSeguito, Void> seguiColumn;
-    Callback<TableColumn<InformazioniRicercaCalciatoreSeguito, Void>, TableCell<InformazioniRicercaCalciatoreSeguito, Void>> cellFactory;
+    //Callback<TableColumn<InformazioniRicercaCalciatoreSeguito, Void>, TableCell<InformazioniRicercaCalciatoreSeguito, Void>> cellFactory;
 
     void scegliNome(String newValue) {
         if(newValue.isEmpty())
@@ -137,15 +137,42 @@ public class RicercaGiocatoriController extends GeneralController{
         posizioneColumn.setCellValueFactory(cellData->cellData.getValue().ruoloProperty());
         squadraColumn.setCellValueFactory(cellData->cellData.getValue().squadraProperty());
         etaColumn.setCellValueFactory(cellData->cellData.getValue().etaProperty());
+        seguitoDaColumn.setCellValueFactory(cellData->cellData.getValue().seguitoDaProperty().asObject());
         nazionalitaColumn.setCellValueFactory(cellData->cellData.getValue().nazionalitaProperty());
         valoreMercatoColumn.setCellValueFactory(cellData->cellData.getValue().valoreMercatoProperty().asObject());
-        seguiColumn.setCellFactory(cellFactory);
+        //seguiColumn.setCellFactory(cellFactory);
         
     }
     
     @FXML
     void cercaBandiere(ActionEvent event) {
+        tabellaCalciatori.getItems().clear();
         
+        Task<List<InformazioniRicercaCalciatore>> task = new Task<List<InformazioniRicercaCalciatore>>() {
+
+            @Override
+            protected List<InformazioniRicercaCalciatore> call() throws Exception {
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaBandiere();
+
+                return infos;
+            }
+
+        };
+        task.setOnSucceeded(evt -> {
+            progressIndicatorContainer.setVisible(false);
+            if(task.getValue().isEmpty()){
+                return;
+            }
+                
+            for(InformazioniRicercaCalciatore info : task.getValue()){
+                values.add(info);
+            }
+            tabellaCalciatori.setItems(values);
+            
+            //autoResizeColumns(tabellaCalciatori);
+        });
+        progressIndicatorContainer.setVisible(true);
+        new Thread(task).start();
     }
     
     @FXML
