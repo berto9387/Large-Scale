@@ -60,7 +60,7 @@ public class HomePageOsservatoreController extends GeneralController{
             ScreenController.showPage("nessunaSocieta");
             return;
         }
-        ScreenController.showPage("RicercaCalciatori");
+        ScreenController.showPage("RicercaGiocatori");
     }
     @FXML
     void handleModificaProfiloPersonale(MouseEvent event) {

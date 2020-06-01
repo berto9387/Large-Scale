@@ -50,7 +50,7 @@
                         <VBox alignment="CENTER" style="-fx-background-color: #00000059; -fx-background-radius: 10px;">
                            <children>
                               <Text fx:id="scegliNomeTesto" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white; -fx-font-family: Roboto; -fx-font-size: 16px;" text="Nome" textAlignment="CENTER" visible="false" />
-                              <JFXTextField fx:id="nomeInput" alignment="CENTER" focusColor="ORANGE" promptText="Nome" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" text="Nome" unFocusColor="WHITE">
+                              <JFXTextField fx:id="nomeInput" alignment="CENTER" focusColor="ORANGE" promptText="Nome" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" unFocusColor="WHITE">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -63,7 +63,7 @@
                         <VBox alignment="CENTER" prefHeight="0.0" prefWidth="360.0" style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="1">
                            <children>
                               <Text fx:id="scegliSquadraTesto" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white; -fx-font-family: Roboto; -fx-font-size: 16px;" text="Squadra" visible="false" />
-                              <JFXTextField fx:id="squadraInput" alignment="CENTER" focusColor="ORANGE" promptText="Squadra" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" text="Squadra" unFocusColor="WHITE">
+                              <JFXTextField fx:id="squadraInput" alignment="CENTER" focusColor="ORANGE" promptText="Squadra" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" unFocusColor="WHITE">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -152,7 +152,7 @@
                                     <VBox prefHeight="200.0" prefWidth="100.0">
                                        <children>
                                           <Text fx:id="scegliPosizioneTesto" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white; -fx-font-family: Roboto; -fx-font-size: 16px;" text="Posizione" visible="false" wrappingWidth="117.2421875" />
-                                          <JFXTextField fx:id="posizioneInput" alignment="CENTER" focusColor="ORANGE" prefHeight="48.0" prefWidth="97.0" promptText="Nome" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" text="Posizione" unFocusColor="WHITE">
+                                          <JFXTextField fx:id="posizioneInput" alignment="CENTER" focusColor="ORANGE" prefHeight="48.0" prefWidth="97.0" promptText="Posizione" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" text="Posizione" unFocusColor="WHITE">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>

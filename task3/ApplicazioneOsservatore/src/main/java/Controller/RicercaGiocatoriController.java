@@ -17,11 +17,13 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -30,6 +32,8 @@ import javafx.util.Callback;
  * @author Gianluca
  */
 public class RicercaGiocatoriController extends GeneralController{
+    
+    ObservableList<InformazioniRicercaCalciatore> values=FXCollections.observableArrayList();
     
     @FXML
     private Text scegliNomeTesto;
@@ -51,6 +55,12 @@ public class RicercaGiocatoriController extends GeneralController{
     
     @FXML
     private Text errorCercaCalciatore;
+    
+    @FXML
+    private VBox progressIndicatorContainer;
+
+    @FXML
+    private ProgressIndicator progressIndicator;
 
     @FXML
     private TableView<InformazioniRicercaCalciatore> tabellaCalciatori;
@@ -83,7 +93,6 @@ public class RicercaGiocatoriController extends GeneralController{
     private TableColumn<InformazioniRicercaCalciatoreSeguito, Void> seguiColumn;
     Callback<TableColumn<InformazioniRicercaCalciatoreSeguito, Void>, TableCell<InformazioniRicercaCalciatoreSeguito, Void>> cellFactory;
 
-    
     void scegliNome(String newValue) {
         if(newValue.isEmpty())
             scegliNomeTesto.setVisible(false);
@@ -159,6 +168,22 @@ public class RicercaGiocatoriController extends GeneralController{
             }
 
         };
+        task.setOnSucceeded(evt -> {
+            progressIndicatorContainer.setVisible(false);
+            if(task.getValue().isEmpty()){
+                errorCercaCalciatore.setText("Nessun calciatore trovato");
+                return;
+            }
+                
+            for(InformazioniRicercaCalciatore info : task.getValue()){
+                values.add(info);
+            }
+            tabellaCalciatori.setItems(values);
+            
+            //autoResizeColumns(tabellaCalciatori);
+        });
+        progressIndicatorContainer.setVisible(true);
+        new Thread(task).start();
     }
 
     @FXML
