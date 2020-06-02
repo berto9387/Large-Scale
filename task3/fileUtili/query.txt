@@ -1,0 +1,1 @@
+CALL apoc.import.graphml('file:/<D:/seriea.graphml>', {batchSize: 10000, storeNodeIds: false,readLabels: true})
