@@ -1,9 +1,6 @@
-<<<<<<< Updated upstream
-Controller\SchedaOsservatoreController$1.class
-=======
 Controller\AdminController.class
+Controller\SchedaOsservatoreController$1.class
 Dao\StatisticheMongoDataAccess.class
->>>>>>> Stashed changes
 Model\ProfiloInteresseBeans.class
 Controller\HomePageAmministratoreDiSquadraController.class
 Model\InformazioniRicercaCalciatore.class
@@ -11,13 +8,6 @@ Entita\Societa.class
 Dao\GestioneListaPreferitiMongoDataAccess.class
 Entita\Trasferimento.class
 task2\markapp\ScreenController.class
-<<<<<<< Updated upstream
-Model\StatisticaBeans.class
-task2\markapp\MainApp.class
-Model\TrasferimentiBeans.class
-Controller\SchedaOsservatoreController.class
-Model\InfortunioBeans.class
-=======
 Entita\InformazioniPrincipali.class
 Controller\GraficiStatisticheController.class
 Controller\GestioneMembriSquadraController.class
@@ -44,6 +34,7 @@ task2\markapp\MainApp.class
 Controller\InfoInfortuniController.class
 Model\TrasferimentiBeans.class
 Entita\Report.class
+Controller\SchedaOsservatoreController.class
 Controller\RicercaGiocatoriController$1.class
 Controller\ModificaProfiloUtenteController.class
 Controller\ListaGiocatoriInteresseController.class
@@ -62,4 +53,3 @@ Entita\Calciatore.class
 Controller\HomePageOsservatoreController.class
 Controller\ModificaProfiloDiInteresse.class
 Dao\GestioneProfiliMongoDataAccess.class
->>>>>>> Stashed changes
