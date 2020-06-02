@@ -413,7 +413,7 @@ public class RicercaGiocatoriNeo4jDataAccess {
         return calciatoriCercati;
      }
 
-    public static List<InformazioniRicercaCalciatore> ricercaPosizione(String posizione) {
+    public static List<InformazioniRicercaCalciatore> ricercaPosizione(String posizione, String email) {
         try(Session session=driver.session())
         {
             
@@ -422,19 +422,19 @@ public class RicercaGiocatoriNeo4jDataAccess {
                 @Override
                 public List<InformazioniRicercaCalciatore> execute(Transaction tx)
                 {
-                   return transactionRicercaPosizione(tx,posizione);
+                   return transactionRicercaPosizione(tx,posizione, email);
                 }
             }); 
         }
     }
-    private static List<InformazioniRicercaCalciatore> transactionRicercaPosizione(Transaction tx,String posizione)
+    private static List<InformazioniRicercaCalciatore> transactionRicercaPosizione(Transaction tx,String posizione, String email)
      {
          List<InformazioniRicercaCalciatore> calciatoriCercati = new ArrayList<>();
          HashMap<String,Object> parameters =new HashMap<>();
          parameters.put("posizione", posizione);
-         StatementResult result=tx.run("match (e:Ruolo)<-[:POsizione]-(c:Calciatore)"
-                 + " OPTIONAL MATCH (c:Calciatore)<-[i:INTERESSATO]-() "
-                 + " where e.ruolo=$posizione"
+         parameters.put("email", email);
+         StatementResult result=tx.run("match (e:Ruolo)<-[:POsizione]-(c:Calciatore)<-[i:INTERESSATO]-()"
+                 + " where e.ruolo=$posizione AND NOT ((c:Calciatore)<-[:INTERESSATO]-(:Utente{email:$email}))"
                  + " return c,COUNT(DISTINCT i) AS seguitoDa"
                  + " order by seguitoDa DESC limit 20 ",parameters);
          while(result.hasNext())

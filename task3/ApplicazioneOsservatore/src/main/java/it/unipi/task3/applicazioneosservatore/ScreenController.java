@@ -93,6 +93,11 @@ public class ScreenController implements Initializable {
         stage.centerOnScreen();
         stage.show();
     }
+     
+     public static ObservableList<String> getRuoloInCampo(){
+        return ruoloInCampo;
+    }
+     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

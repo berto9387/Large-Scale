@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -78,7 +80,7 @@
                         </VBox>
                         <VBox style="-fx-background-color: #00000059; -fx-background-radius: 10px;" GridPane.columnIndex="2">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10px;">
+                              <HBox alignment="CENTER" prefHeight="26.0" prefWidth="359.0" style="-fx-background-radius: 10px;">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#cercaCalciatore" prefHeight="33.0" prefWidth="151.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-text-fill: white; -fx-font-family: Roboto; -fx-font-weight: bold; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 2px;" text="Cerca" />
                                  </children>
@@ -149,20 +151,20 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10px;">
                                  <children>
-                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                    <VBox minHeight="-Infinity" prefHeight="33.0" prefWidth="800.0">
                                        <children>
-                                          <Text fx:id="scegliPosizioneTesto" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white; -fx-font-family: Roboto; -fx-font-size: 16px;" text="Posizione" visible="false" wrappingWidth="117.2421875" />
-                                          <JFXTextField fx:id="posizioneInput" alignment="CENTER" focusColor="ORANGE" prefHeight="48.0" prefWidth="97.0" promptText="Posizione" style="-fx-prompt-text-fill: white; -fx-text-fill: white; -fx-font-family: Roboto;" unFocusColor="WHITE">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </JFXTextField>
+                                          <ChoiceBox fx:id="posizioneInput" prefHeight="33.0" prefWidth="600.0" styleClass="choiceBoxField" />
                                        </children>
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="20.0" top="5.0" />
+                                       </HBox.margin>
                                     </VBox>
                                     <VBox prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" />
-                                          <Button mnemonicParsing="false" onAction="#cercaPerPosizione" prefHeight="33.0" prefWidth="151.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-text-fill: white; -fx-font-family: Roboto; -fx-font-weight: bold; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 2px;" text="Cerca" />
+                                          <Button mnemonicParsing="false" onAction="#cercaPerPosizione" prefHeight="35.0" prefWidth="82.0" style="-fx-background-color: #2f2f2fa3; -fx-background-radius: 100px; -fx-text-fill: white; -fx-font-family: Roboto; -fx-font-weight: bold; -fx-border-color: orange; -fx-border-radius: 100px; -fx-border-width: 2px;">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" />
+                                             </graphic></Button>
                                        </children>
                                     </VBox>
                                  </children>

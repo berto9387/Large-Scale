@@ -48,10 +48,9 @@ public class RicercaGiocatoriController extends GeneralController{
     private JFXTextField squadraInput;
 
     @FXML
-    private Text scegliPosizioneTesto;
-
-    @FXML
-    private JFXTextField posizioneInput;
+    private ChoiceBox<String> posizioneInput;
+    
+    private boolean numClick = false;
     
     @FXML
     private Text errorCercaCalciatore;
@@ -145,14 +144,6 @@ public class RicercaGiocatoriController extends GeneralController{
             scegliSquadraTesto.setVisible(true);
         }
     }
-    
-    void scegliPosizione(String newValue) {
-        if(newValue.isEmpty())
-            scegliPosizioneTesto.setVisible(false);
-        else{
-            scegliPosizioneTesto.setVisible(true);
-        }
-    }
     /**
      * Initializes the controller class.
      */
@@ -163,9 +154,6 @@ public class RicercaGiocatoriController extends GeneralController{
         });
         squadraInput.textProperty().addListener((Observable, oldValue, newValue) -> {
             scegliSquadra(newValue);
-        });
-        posizioneInput.textProperty().addListener((Observable, oldValue, newValue) -> {
-            scegliPosizione(newValue);
         });
         
         fotoColumn.setPrefWidth(150);
@@ -178,6 +166,28 @@ public class RicercaGiocatoriController extends GeneralController{
         nazionalitaColumn.setCellValueFactory(cellData->cellData.getValue().nazionalitaProperty());
         valoreMercatoColumn.setCellValueFactory(cellData->cellData.getValue().valoreMercatoProperty().asObject());
         seguiColumn.setCellFactory(cellFactory);
+        
+        //posizioneInput.setItems(ScreenController.getRuoloInCampo());
+        posizioneInput.getItems().add("Cerca per posizione");
+        posizioneInput.setValue("Cerca per posizione");
+        posizioneInput.setOnMouseClicked(ev ->{
+            
+            if(numClick == false)
+            {
+                posizioneInput.getItems().remove(0);
+                posizioneInput.getItems().addAll(ScreenController.getRuoloInCampo());
+                numClick = !numClick;
+            } else
+            {
+                if(posizioneInput.getValue() == null){
+                    posizioneInput.getItems().removeAll(ScreenController.getRuoloInCampo());
+                    posizioneInput.getItems().add("Cerca per posizione");
+                    posizioneInput.setValue("Cerca per posizione");
+                    numClick = !numClick;
+                }
+            }
+            
+        });
         
     }
     
@@ -284,19 +294,22 @@ public class RicercaGiocatoriController extends GeneralController{
     @FXML
     void cercaPerPosizione(ActionEvent event) {
         tabellaCalciatori.getItems().clear();
-        if(posizioneInput.getText().isEmpty()){
+        
+        
+        if(posizioneInput.getValue().isEmpty()){
             return;
         }
         Task<List<InformazioniRicercaCalciatore>> task = new Task<List<InformazioniRicercaCalciatore>>() {
 
             @Override
             protected List<InformazioniRicercaCalciatore> call() throws Exception {
-                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaPosizione(posizioneInput.getText());
+                List<InformazioniRicercaCalciatore> infos=RicercaGiocatoriNeo4jDataAccess.ricercaPosizione(posizioneInput.getValue(), ScreenController.getUtente().getEmail());
 
                 return infos;
             }
 
         };
+        
         task.setOnSucceeded(evt -> {
             progressIndicatorContainer.setVisible(false);
             if(task.getValue().isEmpty()){
@@ -308,10 +321,18 @@ public class RicercaGiocatoriController extends GeneralController{
             }
             tabellaCalciatori.setItems(values);
             
+            posizioneInput.getItems().removeAll(ScreenController.getRuoloInCampo());
+            posizioneInput.getItems().add("Cerca per posizione");
+            posizioneInput.setValue("Cerca per posizione");
+        
+            numClick = !numClick;
+
             //autoResizeColumns(tabellaCalciatori);
         });
         progressIndicatorContainer.setVisible(true);
         new Thread(task).start();
+        
+        
     }
 
     @FXML
