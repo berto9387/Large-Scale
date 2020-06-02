@@ -207,7 +207,9 @@ public class RicercaOsservatoriNeo4jDataAccess {
         List<InformazioniOsservatore> elems=new ArrayList<>();
         HashMap<String,Object> parameters =new HashMap<>();
         parameters.put("email",email);      
-        StatementResult result=tx.run("match (os1:Utente)-[:SEGUE]->(os2)-[r:SEGUE]->(os3)-[e:INTERESSATO]->() where os1.email=$email return os3,count(DISTINCT r) as oss, count(DISTINCT e) as cont order by oss DESC",parameters);
+        StatementResult result=tx.run("match (os1:Utente)-[:SEGUE]->(os2)-[r:SEGUE]->(os3)-[e:INTERESSATO]->() "
+                + "where os1.email=$email return os3,count(DISTINCT r) as oss, count(DISTINCT e) as cont "
+                + "order by oss DESC",parameters);
         while(result.hasNext()){
             Record record=result.next();
             List<Pair<String,Value>> values = record.fields();
